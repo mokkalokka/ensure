@@ -8,7 +8,10 @@ public class Customer {
     private Date customerSince;
     private String invoiceAdress;
     private int insuranceNr;
-    private static int nextInsuranceNr;
+    private static int nextInsuranceNr; // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
+    // private ArrayList<Insurance> insuranceList;
+    // private String accidentStatement; // skademelding TODO: finn en måte å strukturere denne dataen på
+    private String pendingCompensation; // TODO: finn en måte å strukturere data på.
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -16,7 +19,6 @@ public class Customer {
         this.customerSince = new Date();
         this.insuranceNr = 10000 + nextInsuranceNr++;
     }
-
     public Date getCustomerSince() {
         return customerSince;
     }
