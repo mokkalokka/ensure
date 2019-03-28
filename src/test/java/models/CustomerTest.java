@@ -23,7 +23,11 @@ public class CustomerTest {
 
     @Test
     public void getNextInsuranceNr() {
-        Customer customer = new Customer("Joe", "Biden");
-        assertEquals(customer.getInsuranceNr() + 1, customer.getNextInsuranceNr());
+        Customer customer1 = new Customer("Joe", "Biden");
+        Customer customer2 = new Customer("Hei", "sann");
+        Customer customer3 = new Customer(", ", "fasdf");
+        assertEquals(customer1.getInsuranceNr() + 1, customer2.getInsuranceNr());
+        assertEquals(customer1.getInsuranceNr() + 2, customer3.getInsuranceNr());
+        assertEquals(10000, customer1.getInsuranceNr());
     }
 }
