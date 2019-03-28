@@ -1,8 +1,9 @@
 package models.insurance;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AccidentStatement {
+public class AccidentStatement implements Serializable {
     private Date dateOfAccident;
     private int accidentNr; // skal inkrementeres.
     private String accidentType; // type skade, kanskje annet datafelt
