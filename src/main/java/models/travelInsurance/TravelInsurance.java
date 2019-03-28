@@ -1,4 +1,6 @@
-package models.Insurance;
+package models.travelInsurance;
+
+import models.insurance.Insurance;
 
 public class TravelInsurance extends Insurance {
     private String coverageArea; // TODO: Det her må nok være et annet datafelt. HashMap? tvunget til å velge 1?

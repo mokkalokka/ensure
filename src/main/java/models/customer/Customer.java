@@ -1,4 +1,4 @@
-package models;
+package models.customer;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ public class Customer {
     private String invoiceAdress;
     private int insuranceNr;
     private static int nextInsuranceNr; // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
-    // private ArrayList<Insurance> insuranceList;
+    // private ArrayList<insurance> insuranceList;
     // private String accidentStatement; // skademelding TODO: finn en måte å strukturere denne dataen på
     private String pendingCompensation; // TODO: finn en måte å strukturere data på.
 

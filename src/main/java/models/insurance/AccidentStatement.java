@@ -1,4 +1,4 @@
-package models.Insurance;
+package models.insurance;
 
 import java.util.Date;
 

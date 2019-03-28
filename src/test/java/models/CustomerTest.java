@@ -1,5 +1,6 @@
 package models;
 
+import models.customer.Customer;
 import org.junit.Test;
 
 import java.util.Date;
