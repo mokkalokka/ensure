@@ -7,6 +7,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.customer.Customer;
@@ -46,7 +47,21 @@ public class customersController {
         customerData.add(new Customer("Per", "Sørensen", "Gokstadveien 5"));
     }
     public void initialize() {
-        // TODO
+        //Dobbel klikking på kunder
+        //-----------------------------------------------------------------------------
+        tblCustomer.setRowFactory(tableView -> {
+            TableRow<Customer> aRow = new TableRow<>();
+            aRow.setOnMouseClicked(mouseEvent -> {
+                if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
+                    Customer rowData = aRow.getItem();
+                    System.out.println("Double click on: " + rowData.getFirstName());
+                }
+            });
+            return aRow;
+        });
+
+        //Søk og visning av kunder
+        //-----------------------------------------------------------------------------
 
         //ValueFactory på alle kolonnene
         clmnInsuranceNr.setCellValueFactory(new PropertyValueFactory<>("insuranceNr"));
