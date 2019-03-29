@@ -14,6 +14,7 @@
       <Label layoutX="25.0" layoutY="87.0" text="Fornavn" />
       <Label layoutX="25.0" layoutY="132.0" text="Etternavn" />
       <Label layoutX="25.0" layoutY="175.0" text="Fakturaadresse" />
-      <JFXButton fx:id="btnAddCustomer" buttonType="RAISED" layoutX="131.0" layoutY="253.0" onAction="#addCustomer" ripplerFill="#0a0a0a" text="Legg til " />
+      <JFXButton fx:id="btnAddCustomer" buttonType="RAISED" layoutX="126.0" layoutY="348.0" onAction="#btnAddCustomerClicked" ripplerFill="#0a0a0a" text="Legg til " />
+      <Label fx:id="lblStatus" layoutX="25.0" layoutY="228.0" prefHeight="99.0" prefWidth="285.0" />
     </children>
 </AnchorPane>

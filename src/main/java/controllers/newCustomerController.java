@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
+import models.customer.Customer;
+import models.customer.CustomerHandling;
+import models.customer.ListOfCustomers;
 
 public class newCustomerController {
 
@@ -20,17 +23,15 @@ public class newCustomerController {
     private JFXTextField txtInvoiceAddress;
 
     @FXML
-    private JFXButton btnAddCustomer;
-
+    private Label lblStatus;
 
 
 
     @FXML
-    private void addCustomer(ActionEvent event) {
-
-        System.out.println("Velkommen: " + txtFirstName.getText() );
+    private void btnAddCustomerClicked(ActionEvent event) {
+        CustomerHandling customerHandling = new CustomerHandling();
+        customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),txtInvoiceAddress.getText());
     }
-
 
     public void initialize() {
         // TODO
