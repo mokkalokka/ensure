@@ -35,4 +35,21 @@ public class Customer implements Serializable {
         return insuranceNr;
     }
 
+
+    //Disse blir brukt for å oppdatere tablet
+    public String getInvoiceAddress() {
+        return invoiceAddress;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String searchData() {
+        return (insuranceNr + firstName + lastName + invoiceAddress).toLowerCase();
+    }
+
 }
