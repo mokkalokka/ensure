@@ -5,13 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.newCustomerController">
     <children>
-      <Label layoutX="101.0" layoutY="33.0" text="Registrer ny bruker" />
+      <Label layoutX="101.0" layoutY="33.0" text="Registrer ny kunde" />
       <JFXTextField fx:id="txtFirstName" layoutX="144.0" layoutY="82.0" />
+      <JFXTextField fx:id="txtLastName" layoutX="144.0" layoutY="119.0" />
+      <JFXTextField fx:id="txtInvoiceAddress" layoutX="144.0" layoutY="162.0" />
       <Label layoutX="25.0" layoutY="87.0" text="Fornavn" />
       <Label layoutX="25.0" layoutY="132.0" text="Etternavn" />
-      <JFXTextField fx:id="txtLastName" layoutX="144.0" layoutY="127.0" />
-      <JFXButton fx:id="btnAddCustomer" buttonType="RAISED" layoutX="131.0" layoutY="253.0" ripplerFill="#0a0a0a" text="Legg til " />
+      <Label layoutX="25.0" layoutY="175.0" text="Fakturaadresse" />
+      <JFXButton fx:id="btnAddCustomer" buttonType="RAISED" layoutX="131.0" layoutY="253.0" onAction="#addCustomer" ripplerFill="#0a0a0a" text="Legg til " />
     </children>
 </AnchorPane>
