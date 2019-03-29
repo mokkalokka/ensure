@@ -63,7 +63,6 @@ public class newCustomerController {
         }
     }
 
-
     @FXML
     private void updateStatus(String message){
         int customerCount = ListOfCustomers.getCustomerCount();
