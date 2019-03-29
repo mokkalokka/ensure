@@ -4,10 +4,14 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.newCustomerController">
     <children>
-      <Label layoutX="101.0" layoutY="33.0" text="Registrer ny kunde" />
+      <Label layoutX="92.0" layoutY="30.0" text="Registrer ny kunde">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
       <JFXTextField fx:id="txtFirstName" layoutX="144.0" layoutY="82.0" />
       <JFXTextField fx:id="txtLastName" layoutX="144.0" layoutY="119.0" />
       <JFXTextField fx:id="txtInvoiceAddress" layoutX="144.0" layoutY="162.0" />
