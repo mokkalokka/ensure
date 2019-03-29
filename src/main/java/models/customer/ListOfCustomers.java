@@ -8,4 +8,8 @@ public class ListOfCustomers {
     public static void addCustomer(Customer customer) {
         ListOfCustomers.customerArrayList.add(customer);
     }
+
+    public static int getCustomerCount(){
+        return customerArrayList.size();
+    }
 }

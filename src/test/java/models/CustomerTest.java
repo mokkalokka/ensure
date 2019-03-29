@@ -11,7 +11,7 @@ public class CustomerTest {
 
     @Test
     public void getCustomerSince() {
-        Customer customer = new Customer("Joe", "Biden", invoiceAdress);
+        Customer customer = new Customer("Joe", "Biden", "invoiceAdress");
         Date now = new Date();
         assertEquals(now, customer.getCustomerSince());
     }
@@ -23,9 +23,9 @@ public class CustomerTest {
 
     @Test
     public void getNextInsuranceNr() {
-        Customer customer1 = new Customer("Joe", "Biden", invoiceAdress);
-        Customer customer2 = new Customer("Hei", "sann", invoiceAdress);
-        Customer customer3 = new Customer(", ", "fasdf", invoiceAdress);
+        Customer customer1 = new Customer("Joe", "Biden", "invoiceAdress");
+        Customer customer2 = new Customer("Hei", "sann", "invoiceAdress");
+        Customer customer3 = new Customer(", ", "fasdf", "invoiceAdress");
         assertEquals(customer1.getInsuranceNr() + 1, customer2.getInsuranceNr());
         assertEquals(customer1.getInsuranceNr() + 2, customer3.getInsuranceNr());
         assertEquals(10000, customer1.getInsuranceNr());
