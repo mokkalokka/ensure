@@ -8,9 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
-public class SerializedCustomerWriterTest {
+public class SerializedObjectWriterTest {
     ArrayList<Customer> customers = new ArrayList<>();
 
     @Before
@@ -30,7 +28,7 @@ public class SerializedCustomerWriterTest {
     public void writeCustomers() {
         String path = "./src/test/resources/writeCustomersTest";
 
-        SerializedCustomerWriter writer = new SerializedCustomerWriter();
+        SerializedObjectWriter writer = new SerializedObjectWriter();
         try {
             writer.writeCustomers(customers, path);
         } catch (IOException e) {
