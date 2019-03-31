@@ -20,7 +20,7 @@ public class SerializedCustomerReaderTest {
 
         try {
             customers = customerReader.readCustomers(path);
-            System.out.println(customers);
+            assertNotNull(customers);
         } catch (Exception e) {
             System.err.println(e.getClass() + ", Error reading from file: " + e.getMessage());
         }

@@ -14,16 +14,17 @@ public class Customer implements Serializable {
     private String firstName;
     private String lastName;
     private Date customerSince;
-    private String invoiceAdress;
+    private String invoiceAddress;
     private int insuranceNr;
     private ArrayList<Insurance> listOfInsurances;
     private ArrayList<AccidentStatement> accidentStatements; // skademelding
     private String pendingCompensation; // TODO: finn en måte å strukturere data på.
 
-    public Customer(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, String invoiceAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.customerSince = new Date();
+        this.invoiceAddress = invoiceAddress;
         this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
     }
     public Date getCustomerSince() {

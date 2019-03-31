@@ -15,8 +15,8 @@ public class SerializedCustomerWriterTest {
 
     @Before
     public void setUp() throws Exception {
-        Customer customer1 = new Customer("Bolle", "Marsvinsen");
-        Customer customer2 = new Customer("Tore D.", "Hurt");
+        Customer customer1 = new Customer("Bolle", "Marsvinsen", "Trondheimsveien 7");
+        Customer customer2 = new Customer("Tore D.", "Hurt", "Ullevålsveien 2a");
         customers.add(customer1);
         customers.add(customer2);
     }
