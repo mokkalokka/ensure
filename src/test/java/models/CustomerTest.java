@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 public class CustomerTest {
 
+
     @Test
     public void getCustomerSince() {
         Customer customer = new Customer("Joe", "Biden");
