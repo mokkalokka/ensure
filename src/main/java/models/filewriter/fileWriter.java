@@ -7,5 +7,5 @@ import java.util.List;
 
 interface fileWriter {
 
-    void writeCustomers(List<Customer> customers, String path) throws IOException;
+    void writeObject(Object object, String path) throws IOException;
 }

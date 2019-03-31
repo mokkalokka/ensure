@@ -10,11 +10,11 @@ import java.util.List;
 public class SerializedObjectWriter implements fileWriter {
 
     @Override
-    public void writeCustomers(List<Customer> customers, String path) throws IOException {
+    public void writeObject(Object object, String path) throws IOException {
         String filepath = path + ".jobj"; // kanskje .jobj skal være direkte i input
 
         FileOutputStream fos = new FileOutputStream(filepath);
         ObjectOutputStream out = new ObjectOutputStream(fos);
-        out.writeObject(customers);
+        out.writeObject(object);
     }
 }
