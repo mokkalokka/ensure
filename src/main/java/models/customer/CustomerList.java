@@ -2,11 +2,11 @@ package models.customer;
 
 import java.util.ArrayList;
 
-public class ListOfCustomers {
+public class CustomerList {
     private static ArrayList<Customer> customerArrayList = new ArrayList<>();
 
     public static void addCustomer(Customer customer) {
-        ListOfCustomers.customerArrayList.add(customer);
+        CustomerList.customerArrayList.add(customer);
     }
 
     public static int getCustomerCount(){
@@ -18,4 +18,5 @@ public class ListOfCustomers {
         return customerArrayList;
     }
 }
+
 

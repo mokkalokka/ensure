@@ -15,7 +15,7 @@
           <TableColumn fx:id="clmnSurname" minWidth="2.6666259765625" prefWidth="184.0" text="Etternavn" />
           <TableColumn fx:id="clmnFirstName" minWidth="7.999969482421875" prefWidth="166.0" text="Fornavn" />
           <TableColumn fx:id="clmnCustomerSince" minWidth="0.0" prefWidth="214.0" text="Opprettet" />
-          <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaadresse" />
+          <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaaddresse" />
         </columns>
       </TableView>
       <JFXButton layoutX="751.0" layoutY="27.0" onAction="#btnRegister" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
