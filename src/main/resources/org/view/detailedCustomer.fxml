@@ -44,9 +44,9 @@
                         <Label text="Fakturaaddresse" GridPane.columnIndex="4" />
                         <Label fx:id="lblInsuranceNr" text="Label" GridPane.rowIndex="1" />
                         <Label fx:id="lblSurname" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblFirstname" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblFirstName" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label fx:id="lblCustomerSince" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label fx:id="lblInvoiveAddress" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Label fx:id="lblInvoiceAddress" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
