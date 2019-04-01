@@ -8,22 +8,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import models.gui.OpenNewStage;
 import models.gui.OpenScene;
 
 import java.io.IOException;
 
 public class FXMLController {
 
+    public Label lblTemporary;
+
     @FXML
     private void btnNewCustomerClicked(ActionEvent event) {
-        openNewCustomerScene(event);
+        openCustomerScene(event);
     }
 
-    private void openNewCustomerScene(ActionEvent event) {
+    private void openCustomerScene(ActionEvent event) {
         String pathToFXML = "/org/view/newCustomer.fxml";
+        String stageTitle = "Registrer ny kunde";
 
-        OpenScene openScene = new OpenScene();
-        openScene.openScene(event,pathToFXML);
+        OpenNewStage openNewStage = new OpenNewStage();
+        openNewStage.openNewStage(event,pathToFXML,stageTitle);
     }
 
     public void initialize() {

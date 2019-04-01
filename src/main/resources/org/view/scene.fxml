@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FXMLController">
    <children>
-      <Label layoutX="202.0" layoutY="43.0" text="Midlertidig side!">
+      <Label fx:id="lblTemporary" layoutX="202.0" layoutY="43.0" text="Midlertidig side!">
          <font>
             <Font size="26.0" />
          </font>
