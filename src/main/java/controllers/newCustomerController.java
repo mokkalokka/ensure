@@ -42,15 +42,11 @@ public class newCustomerController {
     }
 
 
-    private void openTemporaryHomeScene(ActionEvent event){
-        try{
-            Parent FXML = FXMLLoader.load(getClass().getResource("/org/view/scene.fxml"));
-            OpenScene openScene = new OpenScene();
-            openScene.openScene(event,FXML);
-        }
-        catch (IOException e){
-            System.out.println("FXML file not found!");
-        }
+    private void openTemporaryHomeScene(ActionEvent event) {
+        String pathToFXML = "/org/view/scene.fxml";
+
+        OpenScene openScene = new OpenScene();
+        openScene.openScene(event,pathToFXML);
     }
 
     @FXML

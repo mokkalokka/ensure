@@ -23,15 +23,11 @@ public class FXMLController {
     }
 
 
-    private void openNewCustomerScene(ActionEvent event){
-        try{
-        Parent FXML = FXMLLoader.load(getClass().getResource("/org/view/newCustomer.fxml"));
+    private void openNewCustomerScene(ActionEvent event) {
+        String pathToFXML = "/org/view/newCustomer.fxml";
+
         OpenScene openScene = new OpenScene();
-        openScene.openScene(event,FXML);
-        }
-        catch (IOException e){
-            System.out.println("FXML file not found!");
-        }
+        openScene.openScene(event,pathToFXML);
     }
 
 
