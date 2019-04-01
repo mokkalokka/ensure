@@ -15,13 +15,9 @@ import java.io.IOException;
 public class FXMLController {
 
     @FXML
-    private Label label;
-
-    @FXML
     private void btnNewCustomerClicked(ActionEvent event) {
         openNewCustomerScene(event);
     }
-
 
     private void openNewCustomerScene(ActionEvent event) {
         String pathToFXML = "/org/view/newCustomer.fxml";
@@ -29,9 +25,6 @@ public class FXMLController {
         OpenScene openScene = new OpenScene();
         openScene.openScene(event,pathToFXML);
     }
-
-
-
 
     public void initialize() {
         // TODO

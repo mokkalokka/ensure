@@ -2,14 +2,11 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import models.customer.CustomerHandling;
 import models.customer.ListOfCustomers;
 import models.gui.OpenScene;
-import java.io.IOException;
 
 public class newCustomerController {
 
