@@ -1,8 +1,9 @@
 package models.insurance;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Insurance {
+public abstract class Insurance implements Serializable {
     private double annualPremium;
     private Date dateOfIssue;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?

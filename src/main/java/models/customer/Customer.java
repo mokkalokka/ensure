@@ -23,6 +23,7 @@ public class Customer implements Serializable {
     public Customer(String firstName, String lastName, String invoiceAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.invoiceAddress = invoiceAddress;
         this.customerSince = new Date();
         this.invoiceAddress = invoiceAddress;
         this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
