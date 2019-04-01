@@ -12,4 +12,10 @@ public class ListOfCustomers {
     public static int getCustomerCount(){
         return customerArrayList.size();
     }
+
+    //for testing //TODO hele klassen burde vere en singleton
+    public ArrayList<Customer> getCustomerArrayList() {
+        return customerArrayList;
+    }
 }
+
