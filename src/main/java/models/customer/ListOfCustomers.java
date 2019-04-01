@@ -14,7 +14,7 @@ public class ListOfCustomers {
     }
 
     //for testing //TODO hele klassen burde vere en singleton
-    public ArrayList<Customer> getCustomerArrayList() {
+    public static ArrayList<Customer> getCustomerArrayList() {
         return customerArrayList;
     }
 }
