@@ -1,11 +1,13 @@
 package controllers;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import models.customer.Customer;
 import models.gui.OpenScene;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class detailedCustomerController {
 
@@ -27,20 +29,25 @@ public class detailedCustomerController {
 
     @FXML
     private void btnBack(ActionEvent event) {
+        //Bytter ut vind
         OpenScene openScene = new OpenScene();
-        openScene.openScene(event, "/org/view/detailedCustomer.fxml");
+        openScene.openScene(event, "/org/view/customers.fxml");
     }
 
-    public void initialize() {
-    }
 
-    public void showCustomer(Customer aCustomer) {
-        //TODO formatere strenger istedenfor "" +
-        lblInsuranceNr.setText("" + aCustomer.getInsuranceNr());
+
+    public void pickCustomer(Customer aCustomer) {
+        //Datoformat uten klokkeslett
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        //Setter alle lablene
+        lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));
         lblSurname.setText(aCustomer.getLastName());
         lblFirstName.setText(aCustomer.getFirstName());
-        lblCustomerSince.setText("" + aCustomer.getCustomerSince());
+        lblCustomerSince.setText(dateFormat.format(aCustomer.getCustomerSince()));
         lblInvoiceAddress.setText(aCustomer.getInvoiceAddress());
+
+
     }
 
 }

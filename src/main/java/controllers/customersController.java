@@ -1,19 +1,25 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.gui.OpenScene;
+
+import java.io.IOException;
 import java.util.Date;
 
 
@@ -40,37 +46,54 @@ public class customersController {
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;
 
+    //Liste linket til tablet fra lista med alle customers
+    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(CustomerList.getCustomerArrayList());
+
+
     @FXML
     private void btnRegister(ActionEvent event) {
         OpenScene openScene = new OpenScene();
         openScene.openScene(event, "/org/view/newCustomer.fxml");
     }
 
-    //Liste linket til tablet fra lista med alle customers
-    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(CustomerList.getCustomerArrayList());
+    
+    public void doubleClicked(Customer clickedCustomer) {
+        //TODO maa erstatte vindu, ikke aapne nytt
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/detailedCustomer.fxml"));
+            Parent root = loader.load();
+
+            detailedCustomerController controller = loader.getController();
+
+            controller.pickCustomer(clickedCustomer);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("FXML file not found!");
+        }
+    }
+
 
 
     public void initialize() {
-        //Dobbel klikking på kunder
-        //-----------------------------------------------------------------------------
+        //Klikking paa kunder
+
         tblCustomer.setRowFactory(tableView -> {
             TableRow<Customer> aRow = new TableRow<>();
             aRow.setOnMouseClicked(mouseEvent -> {
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
-                    Customer rowData = aRow.getItem();
-                    System.out.println("Double click on: " + rowData.getClass());
 
-                    //Hvis en kunde blir trykket paa, apne detaljert kunde view og passer kunden
-                    OpenScene openScene = new OpenScene();
-                    openScene.openScene(mouseEvent, "/org/view/detailedCustomer.fxml");
-                    //detailedCustomerController.showCustomer(rowData);
+                    doubleClicked(aRow.getItem());
                 }
             });
             return aRow;
         });
 
-        //Søk og visning av kunder
-        //-----------------------------------------------------------------------------
+
+
+        //Soek i kunder
 
         //ValueFactory på alle kolonnene
         clmnInsuranceNr.setCellValueFactory(new PropertyValueFactory<>("insuranceNr"));
@@ -99,7 +122,6 @@ public class customersController {
 
         SortedList<Customer> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tblCustomer.comparatorProperty());
-
         tblCustomer.setItems(sortedData);
 
     }
