@@ -18,6 +18,6 @@
           <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaadresse" />
         </columns>
       </TableView>
-      <JFXButton onAction="#btnRegister" layoutX="751.0" layoutY="27.0" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
+      <JFXButton layoutX="751.0" layoutY="27.0" onAction="#btnRegister" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
    </children>
 </AnchorPane>
