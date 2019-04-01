@@ -27,7 +27,7 @@ public class FXMLController {
         String stageTitle = "Registrer ny kunde";
 
         OpenNewStage openNewStage = new OpenNewStage();
-        openNewStage.openNewStage(event,pathToFXML,stageTitle);
+        openNewStage.openNewStage(event, pathToFXML, stageTitle);
     }
 
     public void initialize() {

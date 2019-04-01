@@ -27,6 +27,7 @@ public class OpenNewStage {
         }
         catch (IOException e){
             System.out.println("FXML file not found!");
+            //TODO:Kaste exception håndtere dette!
         }
     }
 }
