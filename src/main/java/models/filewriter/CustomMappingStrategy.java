@@ -38,7 +38,7 @@ public class CustomMappingStrategy<T> extends ColumnPositionMappingStrategy<T> {
 
         // Går gjennom hvert annoterte datafelt i bean objektet
         // og legger til det annoterte navnet i header.
-        // this.findField(int col) returnerer T.Field fra gitt column nr.
+        // this.findField(int col) returnerer T.Field fra gitt col nr.
         for (int i = 0; i <= numOfColumns; i++) {
             beanField = this.findField(i);
             String columnHeaderName = extractHeaderName(beanField);
