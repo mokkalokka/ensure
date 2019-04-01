@@ -33,6 +33,5 @@ public class CustomerTest {
     public void getNextInsuranceNr() {
         assertEquals(customer1.getInsuranceNr() + 1, customer2.getInsuranceNr());
         assertEquals(customer1.getInsuranceNr() + 2, customer3.getInsuranceNr());
-        assertEquals(10000, customer1.getInsuranceNr());
     }
 }
