@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import models.customer.CustomerHandling;
-import models.customer.ListOfCustomers;
+import models.customer.CustomerList;
 import models.gui.OpenScene;
 
 public class newCustomerController {
@@ -40,7 +40,7 @@ public class newCustomerController {
 
 
     private void openTemporaryHomeScene(ActionEvent event) {
-        String pathToFXML = "/org/view/scene.fxml";
+        String pathToFXML = "/org/view/customers.fxml";
 
         OpenScene openScene = new OpenScene();
         openScene.openScene(event,pathToFXML);
@@ -48,7 +48,7 @@ public class newCustomerController {
 
     @FXML
     private void updateStatus(String message){
-        int customerCount = ListOfCustomers.getCustomerCount();
+        int customerCount = CustomerList.getCustomerCount();
         lblStatus.setText(message +"\n\nAntall brukere i systemet: " + customerCount);
     }
 
