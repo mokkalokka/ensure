@@ -1,5 +1,6 @@
 package models.insurance;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +16,8 @@ public abstract class Insurance implements Serializable {
         this.coverageDescription = coverageDescription;
         dateOfIssue = new Date();
     }
+
+
 
     // TODO: Legg til abstrakte metoder som må implementeres i subklasser.
     // TODO: implementere Serializable?
