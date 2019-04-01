@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TableColumn;
@@ -11,6 +12,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.customer.Customer;
+import models.gui.OpenScene;
+
 import java.util.Date;
 
 
@@ -35,7 +38,13 @@ public class customersController {
     private TableColumn<Customer, Date>  clmnCustomerSince;
 
     @FXML
-    private TableColumn<Customer, String> clmnInvoiceAddress; //TODO: finne en måte å fremstille arrayene for skademeldinger og forsikringer
+    private TableColumn<Customer, String> clmnInvoiceAddress;
+
+    @FXML
+    private void btnRegister(ActionEvent event) {
+        OpenScene OpenScene = new OpenScene();
+        OpenScene.openScene(event, "/org/view/newCustomer.fxml");
+    }
 
     //TODO: Liste med alle kunder, denne trenger absolutt ikke være her
     private ObservableList<Customer> customerData = FXCollections.observableArrayList();
