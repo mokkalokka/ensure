@@ -1,6 +1,6 @@
 package models.gui;
 
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class OpenScene {
 
-    public void openScene(ActionEvent event, String pathToFXML) {
+    public void openScene(Event event, String pathToFXML) {
         try{
             Parent FXML = FXMLLoader.load(getClass().getResource(pathToFXML));
             Scene root = new Scene(FXML);
