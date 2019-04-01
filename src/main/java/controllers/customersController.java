@@ -12,6 +12,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.customer.Customer;
+import models.customer.ListOfCustomers;
 import models.gui.OpenScene;
 
 import java.util.Date;
@@ -46,15 +47,9 @@ public class customersController {
         OpenScene.openScene(event, "/org/view/newCustomer.fxml");
     }
 
-    //TODO: Liste med alle kunder, denne trenger absolutt ikke være her
-    private ObservableList<Customer> customerData = FXCollections.observableArrayList();
+    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(ListOfCustomers.getCustomerArrayList());
 
-    //Dummy data
-    public customersController() {
-        customerData.add(new Customer("Ola", "Normann","Adressegata 12"));
-        customerData.add(new Customer("Kari", "Halvorsen", "Hovedveien 19b"));
-        customerData.add(new Customer("Per", "Sørensen", "Gokstadveien 5"));
-    }
+
     public void initialize() {
         //Dobbel klikking på kunder
         //-----------------------------------------------------------------------------
@@ -80,7 +75,7 @@ public class customersController {
         clmnInvoiceAddress.setCellValueFactory(new PropertyValueFactory<>("invoiceAddress"));
 
         //Alle kunder til en filteret liste uten filter
-        FilteredList<Customer> filteredData = new FilteredList<>(customerData, null);
+        FilteredList<Customer> filteredData = new FilteredList<>(observableCustomerList, null);
 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(aCustomer -> {
