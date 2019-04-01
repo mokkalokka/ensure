@@ -12,9 +12,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.customer.Customer;
-import models.customer.ListOfCustomers;
+import models.customer.CustomerList;
 import models.gui.OpenScene;
-
 import java.util.Date;
 
 
@@ -43,11 +42,12 @@ public class customersController {
 
     @FXML
     private void btnRegister(ActionEvent event) {
-        OpenScene OpenScene = new OpenScene();
-        OpenScene.openScene(event, "/org/view/newCustomer.fxml");
+        OpenScene openScene = new OpenScene();
+        openScene.openScene(event, "/org/view/newCustomer.fxml");
     }
 
-    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(ListOfCustomers.getCustomerArrayList());
+    //Liste linket til tablet fra lista med alle customers
+    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(CustomerList.getCustomerArrayList());
 
 
     public void initialize() {
@@ -58,7 +58,12 @@ public class customersController {
             aRow.setOnMouseClicked(mouseEvent -> {
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     Customer rowData = aRow.getItem();
-                    System.out.println("Double click on: " + rowData.getFirstName());
+                    System.out.println("Double click on: " + rowData.getClass());
+
+                    //Hvis en kunde blir trykket paa, apne detaljert kunde view og passer kunden
+                    OpenScene openScene = new OpenScene();
+                    openScene.openScene(mouseEvent, "/org/view/detailedCustomer.fxml");
+                    //detailedCustomerController.showCustomer(rowData);
                 }
             });
             return aRow;
