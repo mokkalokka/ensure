@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.toolbarController">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="900.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Fil">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Åpne" />
+                  <MenuItem mnemonicParsing="false" text="Lagre som ..." />
+              <MenuItem mnemonicParsing="false" onAction="#toolbarClose" text="Lukk" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Rediger">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#toolbarNewCustomer" text="Registrer ny kunde" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Hjelp">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Hjelp for ensure" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

@@ -17,20 +17,26 @@ public class FXMLController {
 
     public Label lblTemporary;
 
+
+    //Lagrer vinduet her for å kunne åpne popup
+    private Stage currentStage;
+
     @FXML
     private void btnNewCustomerClicked(ActionEvent event) {
-        openCustomerScene(event);
+        //openCustomerScene(event);
     }
 
-    private void openCustomerScene(ActionEvent event) {
+    private void openCustomerScene() {
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
 
-        OpenNewStage openNewStage = new OpenNewStage();
-        openNewStage.openNewStage(event, pathToFXML, stageTitle);
+        //OpenNewStage openNewStage = new OpenNewStage();
+        //openNewStage.openNewStage(event, pathToFXML, stageTitle);
     }
 
     public void initialize() {
         // TODO
+        currentStage = (Stage) lblTemporary.getScene().getWindow();
+
     }
 }
