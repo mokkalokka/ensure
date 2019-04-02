@@ -1,7 +1,7 @@
 package models.customer;
 
 import com.opencsv.bean.*;
-import models.filewriter.LocalDateConverter;
+import models.fileReader.LocalDateConverter;
 import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
 
