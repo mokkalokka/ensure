@@ -64,8 +64,12 @@ public class Customer implements Serializable {
         return (insuranceNr + firstName + lastName + invoiceAddress).toLowerCase();
     }
 
-    //---------- Getters & setters -----------
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s, %s, %s", insuranceNr, lastName, firstName, customerSince, invoiceAddress, listOfInsurances, accidentStatements, pendingCompensation);
+    }
 
+    //---------- Getters & setters -----------
 
     public int getInsuranceNr() {
         return insuranceNr;
