@@ -11,8 +11,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.customer.Customer;
-import java.util.Date;
 
+import java.time.LocalDate;
 
 public class customersController {
     //Alle fx elementene
@@ -32,7 +32,7 @@ public class customersController {
     private TableColumn<Customer, String> clmnFirstName;
 
     @FXML
-    private TableColumn<Customer, Date>  clmnCustomerSince;
+    private TableColumn<Customer, LocalDate>  clmnCustomerSince;
 
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress; //TODO: finne en måte å fremstille arrayene for skademeldinger og forsikringer
