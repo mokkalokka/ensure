@@ -23,14 +23,20 @@ public class newCustomerController {
     @FXML
     private Label lblStatus;
 
-
-
     @FXML
     private void btnAddCustomerClicked(ActionEvent event) {
         CustomerHandling customerHandling = new CustomerHandling();
-        String statusMessage = customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),
+        boolean addedSuccessfully;
+
+        //Returnerer true om kunden blir lagt i listen
+        addedSuccessfully = customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),
                 txtInvoiceAddress.getText());
-        updateStatus(statusMessage);
+        if (addedSuccessfully){
+            updateStatus("Kunden er lagt til i listen");
+        }
+        else{
+            updateStatus("Ingen siffer tillatt i fornavn og etternavn");
+        }
     }
 
     @FXML
@@ -41,7 +47,6 @@ public class newCustomerController {
 
     private void openTemporaryHomeScene(ActionEvent event) {
         String pathToFXML = "/org/view/scene.fxml";
-
         OpenScene openScene = new OpenScene();
         openScene.openScene(event,pathToFXML);
     }
@@ -50,9 +55,11 @@ public class newCustomerController {
     private void updateStatus(String message){
         int customerCount = ListOfCustomers.getCustomerCount();
         lblStatus.setText(message +"\n\nAntall brukere i systemet: " + customerCount);
+        //TODO: Dette kan muligens vises i en popup
     }
 
     public void initialize() {
-        // TODO
+
     }
 }
+
