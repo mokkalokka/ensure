@@ -6,9 +6,6 @@ import javafx.scene.control.Label;
 import models.customer.Customer;
 import models.gui.OpenScene;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 public class detailedCustomerController {
 
     //FX elementene
@@ -37,14 +34,12 @@ public class detailedCustomerController {
 
 
     public void pickCustomer(Customer aCustomer) {
-        //Datoformat uten klokkeslett
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         //Setter alle lablene
         lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));
         lblSurname.setText(aCustomer.getLastName());
         lblFirstName.setText(aCustomer.getFirstName());
-        lblCustomerSince.setText(dateFormat.format(aCustomer.getCustomerSince()));
+        lblCustomerSince.setText(aCustomer.getCustomerSince().toString());
         lblInvoiceAddress.setText(aCustomer.getInvoiceAddress());
 
 
