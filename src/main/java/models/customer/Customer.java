@@ -4,10 +4,12 @@ import com.opencsv.bean.*;
 import models.fileReader.LocalDateConverter;
 import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
+import models.insurance.InsuranceList;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer implements Serializable {
@@ -37,7 +39,7 @@ public class Customer implements Serializable {
 
     @CsvBindByName(column = "Forsikringer")
     @CsvBindByPosition(position = 5)
-    private ArrayList<Insurance> listOfInsurances;
+    private InsuranceList listOfInsurances;
 
     @CsvBindByName(column = "Skademeldinger")
     @CsvBindByPosition(position = 6)
@@ -60,6 +62,7 @@ public class Customer implements Serializable {
         this.customerSince = LocalDate.now();
         this.invoiceAddress = invoiceAddress;
         this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
+        listOfInsurances = new InsuranceList(insuranceNr);
     }
 
     public String searchData() {
@@ -69,6 +72,10 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return String.format("%s, %s, %s, %s, %s, %s, %s, %s", insuranceNr, lastName, firstName, customerSince, invoiceAddress, listOfInsurances, accidentStatements, pendingCompensation);
+    }
+
+    public void addInsurance(Insurance insurance) throws InputMismatchException {
+        listOfInsurances.addInsurance(insurance);
     }
 
     //---------- Getters & setters -----------
@@ -113,12 +120,8 @@ public class Customer implements Serializable {
         this.invoiceAddress = invoiceAddress;
     }
 
-    public ArrayList<Insurance> getListOfInsurances() {
+    public InsuranceList getListOfInsurances() {
         return listOfInsurances;
-    }
-
-    public void setListOfInsurances(ArrayList<Insurance> listOfInsurances) {
-        this.listOfInsurances = listOfInsurances;
     }
 
     public ArrayList<AccidentStatement> getAccidentStatements() {
