@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer implements Serializable {
 
+    private static final long serialVersionUID = 7374958920320110060L;
     private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000); // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
 
     @CsvBindByName(column = "Forsikringsnummer")
@@ -27,7 +28,7 @@ public class Customer implements Serializable {
     private String firstName;
 
     @CsvBindByName(column = "Kunde siden", required = true)
-    @CsvCustomBindByPosition(position = 3,converter = LocalDateConverter.class)
+    @CsvCustomBindByPosition(position = 3, converter = LocalDateConverter.class)
     private LocalDate customerSince;
 
     @CsvBindByName(column = "Fakturaadresse", required = true)
@@ -49,6 +50,7 @@ public class Customer implements Serializable {
     public Customer() {
         // tom konstruktør for å følge bean-standard
         // (nødvendig for OpenCsv)
+        // Stille inn NEXT_INSURANCE_NR her?
     }
 
     public Customer(String firstName, String lastName, String invoiceAddress) {
