@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
+import models.gui.OpenNewStage;
 import models.gui.OpenScene;
 
 import java.io.IOException;
@@ -51,9 +52,16 @@ public class customersController {
 
 
     @FXML
-    private void btnRegister(ActionEvent event) {
-        OpenScene openScene = new OpenScene();
-        openScene.openScene(event, "/org/view/newCustomer.fxml");
+    private void btnRegister() {
+        String pathToFXML = "/org/view/newCustomer.fxml";
+        String stageTitle = "Registrer ny kunde";
+        OpenNewStage openNewStage = new OpenNewStage();
+        openNewStage.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
+    }
+
+    //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
+    private Stage getCurrentStage(){
+        return (Stage) txtSearch.getScene().getWindow();
     }
 
 
