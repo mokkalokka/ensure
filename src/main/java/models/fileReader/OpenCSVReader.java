@@ -20,7 +20,7 @@ import java.util.List;
 public class OpenCSVReader implements fileReader {
 
     @Override
-    public Object readObject(String path) throws IOException, ClassNotFoundException {
+    public Object readObject(String path) throws IOException {
 
         /*
         Reader reader = Files.newBufferedReader(Paths.get(path));
