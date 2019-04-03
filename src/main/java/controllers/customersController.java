@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
@@ -50,12 +51,13 @@ public class customersController {
     //Liste linket til tablet fra lista med alle customers
     private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(CustomerList.getCustomerArrayList());
 
-
     @FXML
     private void btnRegister() {
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
         OpenNewStage openNewStage = new OpenNewStage();
+
+        //Åpner vinduet i en ny popup og låser dette vinduet
         openNewStage.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
     }
 
@@ -80,7 +82,15 @@ public class customersController {
             //Visning av nye vindu
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            //Setter eieren til den det nye vinduet til å være det du kommer fra
+            stage.initOwner(getCurrentStage());
+            //Setter modality slik at det gamle vinduet blir låst frem til det nye blir lukket
+            stage.initModality(Modality.WINDOW_MODAL);
+
             stage.show();
+
+
         } catch (IOException e) {
             System.err.println("FXML file not found!");
         }
