@@ -13,6 +13,7 @@ import models.filewriter.SerializedObjectWriter;
 import models.gui.OpenNewStage;
 import java.io.IOException;
 import java.util.ArrayList;
+import models.customer.CustomerList;
 
 public class toolbarController {
 
@@ -50,8 +51,12 @@ public class toolbarController {
         String path = fileChooser.showSaveDialog(null).getPath();
 
         SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
+
+        //Kopierer fra observableList til vanlig arraylist som er serializable
+        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerArrayList());
+
         try {
-            serializedObjectWriter.writeObject(CustomerList.getCustomerArrayList(),path); // TODO: Fiks exceptions!
+            serializedObjectWriter.writeObject(serializebleCustomers,path); // TODO: Fiks exceptions!
         } catch (IOException e) {
             e.printStackTrace();
         }
