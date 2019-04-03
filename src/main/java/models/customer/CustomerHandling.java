@@ -3,7 +3,7 @@ package models.customer;
 public class CustomerHandling {
 
 
-    //
+    // Tror denne metode heller burde returnere true/false slik at man kan handle alt som skal vises i controller.
     public String createNewCustomer(String firstName, String lastName, String invoiceAddress){
         if(!stringContainsNumbers(firstName) && !stringContainsNumbers(lastName)){
         Customer customer = new Customer(firstName,lastName,invoiceAddress);
