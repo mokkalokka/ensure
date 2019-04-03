@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,10 +35,9 @@ public class newCustomerController {
     }
 
     @FXML
-    private void btnBackClicked(ActionEvent event){
-        openTemporaryHomeScene(event);
+    private void btnClose(){
+        Platform.exit();
     }
-
 
     private void openTemporaryHomeScene(ActionEvent event) {
         String pathToFXML = "/org/view/customers.fxml";
