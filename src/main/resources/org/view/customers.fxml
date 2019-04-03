@@ -11,7 +11,7 @@
        <fx:include source="toolbar.fxml" />
       <AnchorPane layoutY="28.0" prefHeight="572.0" prefWidth="900.0">
          <children>
-            <JFXTextField fx:id="txtSearch" layoutY="16.0" prefHeight="25.0" prefWidth="219.0" promptText="Søk i kunder" style="-fx-background-color: #E5E5E5;" />
+            <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="219.0" promptText="Søk i kunder" style="-fx-background-color: #E5E5E5;" />
             <TableView fx:id="tblCustomer" layoutY="54.0" prefHeight="518.0" prefWidth="900.0">
               <columns>
                 <TableColumn fx:id="clmnInsuranceNr" prefWidth="83.0" text="KundeNr" />
@@ -21,7 +21,7 @@
                 <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaaddresse" />
               </columns>
             </TableView>
-            <JFXButton layoutX="766.0" layoutY="16.0" onAction="#btnRegister" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
+            <JFXButton layoutX="752.0" layoutY="16.0" onAction="#btnRegister" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
          </children>
       </AnchorPane>
    </children>
