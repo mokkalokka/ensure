@@ -27,6 +27,7 @@ public class ObjectCsvWriterTest {
         String path = "./src/test/resources/csvObjectWriterTest.csv";
 
         ObjectCsvWriter csvWriter = new ObjectCsvWriter();
+
         try {
             csvWriter.writeObject(customers, path);
         } catch (IOException e) {
