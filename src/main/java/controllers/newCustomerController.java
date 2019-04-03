@@ -1,14 +1,11 @@
 package controllers;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import javafx.stage.Stage;
 import models.customer.CustomerHandling;
 import models.customer.CustomerList;
-import models.gui.OpenScene;
 
 public class newCustomerController {
 
@@ -25,10 +22,8 @@ public class newCustomerController {
     @FXML
     private Label lblStatus;
 
-
-
     @FXML
-    private void btnAddCustomerClicked(ActionEvent event) {
+    private void btnAddCustomerClicked() {
         CustomerHandling customerHandling = new CustomerHandling();
         String statusMessage = customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),
                 txtInvoiceAddress.getText());
