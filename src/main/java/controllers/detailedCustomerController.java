@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import models.customer.Customer;
 import models.gui.OpenScene;
-import java.time.LocalDate;
 
 public class detailedCustomerController {
 
