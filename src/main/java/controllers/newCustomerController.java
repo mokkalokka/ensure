@@ -1,12 +1,11 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
+import javafx.stage.Stage;
 import models.customer.CustomerHandling;
 import models.customer.CustomerList;
-import models.gui.OpenScene;
 
 public class newCustomerController {
 
@@ -23,10 +22,8 @@ public class newCustomerController {
     @FXML
     private Label lblStatus;
 
-
-
     @FXML
-    private void btnAddCustomerClicked(ActionEvent event) {
+    private void btnAddCustomerClicked() {
         CustomerHandling customerHandling = new CustomerHandling();
         String statusMessage = customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),
                 txtInvoiceAddress.getText());
@@ -34,16 +31,14 @@ public class newCustomerController {
     }
 
     @FXML
-    private void btnBackClicked(ActionEvent event){
-        openTemporaryHomeScene(event);
+    private void btnClose(){
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
     }
 
-
-    private void openTemporaryHomeScene(ActionEvent event) {
-        String pathToFXML = "/org/view/customers.fxml";
-
-        OpenScene openScene = new OpenScene();
-        openScene.openScene(event,pathToFXML);
+    //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
+    private Stage getCurrentStage(){
+        return (Stage) lblStatus.getScene().getWindow();
     }
 
     @FXML
