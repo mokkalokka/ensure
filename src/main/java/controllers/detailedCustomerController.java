@@ -3,6 +3,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import models.customer.Customer;
 import models.gui.OpenScene;
 
@@ -25,12 +26,16 @@ public class detailedCustomerController {
     private Label lblInvoiceAddress;
 
     @FXML
-    private void btnBack(ActionEvent event) {
-        //Bytter ut vind
-        OpenScene openScene = new OpenScene();
-        openScene.openScene(event, "/org/view/customers.fxml");
+    private void btnBack() {
+        //lukker vinduet
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
     }
 
+    //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
+    private Stage getCurrentStage(){
+        return (Stage) lblSurname.getScene().getWindow();
+    }
 
 
     public void pickCustomer(Customer aCustomer) {
