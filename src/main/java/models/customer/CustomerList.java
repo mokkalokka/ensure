@@ -18,5 +18,3 @@ public class CustomerList {
         return customerArrayList;
     }
 }
-
-

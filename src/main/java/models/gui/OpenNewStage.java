@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 public class OpenNewStage {
 
-    public void openNewStage(ActionEvent event, String pathToFXML, String stageTitle) {
+    public void openNewStage(Stage currentStage, String pathToFXML, String stageTitle) {
         try{
             //Henter inn FXML fila til det nye vinduet
             Parent FXML = FXMLLoader.load(getClass().getResource(pathToFXML));
@@ -18,7 +18,9 @@ public class OpenNewStage {
             newStage.setTitle(stageTitle);
             newStage.setScene(new Scene(FXML, 350, 400));
             //Finner nåværende stage fra ActionEvent
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            //Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
             //Setter eieren til den det nye vinduet til å være det du kommer fra
             newStage.initOwner(currentStage);
             //Setter modality slik at det gamle vinduet blir låst frem til det nye blir lukket
