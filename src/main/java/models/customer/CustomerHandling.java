@@ -18,9 +18,9 @@ public class CustomerHandling {
         }
     }
 
-    //Legger til kunden i ListOfCustomers
+    //Legger til kunden i CustomerList
     private void addToCustomersList(Customer customer) {
-        ListOfCustomers.addCustomer(customer);
+        CustomerList.addCustomer(customer);
     }
 
 

@@ -7,12 +7,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.customer.Customer;
-import models.customer.ListOfCustomers;
+import models.customer.CustomerList;
 import models.fileReader.SerializedObjectReader;
 import models.filewriter.SerializedObjectWriter;
 import models.gui.OpenNewStage;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ public class toolbarController {
         try {
             ArrayList<Customer> customerListFromFile = (ArrayList<Customer>) serializedObjectReader.readObject(path);
             for (Customer customer : customerListFromFile) {
-                ListOfCustomers.addCustomer(customer);
+                CustomerList.addCustomer(customer);
             }
         } catch (IOException e) {
             e.printStackTrace(); //TODO: Fiks exceptions!
@@ -53,12 +51,10 @@ public class toolbarController {
 
         SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
         try {
-            serializedObjectWriter.writeObject(ListOfCustomers.getCustomers(),path); // TODO: Fiks exceptions!
+            serializedObjectWriter.writeObject(CustomerList.getCustomerArrayList(),path); // TODO: Fiks exceptions!
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML
@@ -88,9 +84,4 @@ public class toolbarController {
     public void initialize(){
 
     }
-
-
-
-
-
 }
