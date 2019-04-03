@@ -48,8 +48,8 @@ public class customersController {
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;
 
-    //Liste linket til tablet fra lista med alle customers
-    private ObservableList<Customer> observableCustomerList = FXCollections.observableArrayList(CustomerList.getCustomerArrayList());
+    //Lokalt peker for lista
+    private ObservableList observableCustomerList = CustomerList.getCustomerArrayList();
 
     @FXML
     private void btnRegister() {
