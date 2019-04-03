@@ -20,8 +20,8 @@ import models.customer.CustomerList;
 import models.gui.OpenScene;
 
 import java.io.IOException;
-import java.util.Date;
 
+import java.time.LocalDate;
 
 public class customersController {
     //Alle fx elementene
@@ -41,7 +41,7 @@ public class customersController {
     private TableColumn<Customer, String> clmnFirstName;
 
     @FXML
-    private TableColumn<Customer, Date>  clmnCustomerSince;
+    private TableColumn<Customer, LocalDate>  clmnCustomerSince;
 
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;

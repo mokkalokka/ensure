@@ -30,7 +30,7 @@ public class SerializedObjectWriterTest {
 
         SerializedObjectWriter writer = new SerializedObjectWriter();
         try {
-            writer.writeCustomers(customers, path);
+            writer.writeObject(customers, path);
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Could not write list of customers: " + e.getCause());

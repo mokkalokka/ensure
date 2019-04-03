@@ -4,7 +4,7 @@ import models.customer.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ public class CustomerTest {
 
     @Test
     public void getCustomerSince() {
-        Date now = new Date();
+        LocalDate now = LocalDate.now();
         assertEquals(now, customer1.getCustomerSince());
     }
 
@@ -33,6 +33,5 @@ public class CustomerTest {
     public void getNextInsuranceNr() {
         assertEquals(customer1.getInsuranceNr() + 1, customer2.getInsuranceNr());
         assertEquals(customer1.getInsuranceNr() + 2, customer3.getInsuranceNr());
-        assertEquals(10000, customer1.getInsuranceNr());
     }
 }
