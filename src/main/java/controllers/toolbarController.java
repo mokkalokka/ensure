@@ -4,8 +4,17 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.customer.Customer;
+import models.customer.ListOfCustomers;
+import models.fileReader.SerializedObjectReader;
+import models.filewriter.SerializedObjectWriter;
 import models.gui.OpenNewStage;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class toolbarController {
 
@@ -13,12 +22,42 @@ public class toolbarController {
     private AnchorPane anchorPane;
 
     @FXML
-    private void toolbarOpenFile(ActionEvent event){
+    private void toolbarOpenFile(){
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj)", "*.jobj");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        fileChooser.setTitle("Open file");
+        String path = fileChooser.showOpenDialog(null).getPath();
+
+        SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
+
+        try {
+            ArrayList<Customer> customerListFromFile = (ArrayList<Customer>) serializedObjectReader.readObject(path);
+            for (Customer customer : customerListFromFile) {
+                ListOfCustomers.addCustomer(customer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); //TODO: Fiks exceptions!
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
-    private void toolbarSaveAs(ActionEvent event){
+    private void toolbarSaveAs(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        String path = fileChooser.showSaveDialog(null).getPath();
+
+        SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
+        try {
+            serializedObjectWriter.writeObject(ListOfCustomers.getCustomers(),path); // TODO: Fiks exceptions!
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

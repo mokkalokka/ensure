@@ -12,4 +12,8 @@ public class ListOfCustomers {
     public static int getCustomerCount(){
         return customerArrayList.size();
     }
+
+    public static ArrayList getCustomers(){
+        return customerArrayList;
+    }
 }
