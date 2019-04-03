@@ -123,7 +123,7 @@ public class customersController {
             //False: elmentet blir fjernet
             filteredData.setPredicate(aCustomer -> {
 
-                //Hvis soekeboksen er tom, returnerer false
+                //Hvis soekeboksen er tom, returner true
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
