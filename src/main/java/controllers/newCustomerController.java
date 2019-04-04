@@ -1,11 +1,13 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import javafx.stage.Stage;
 import models.customer.CustomerHandling;
 import models.customer.CustomerList;
+import models.exceptions.InvalidCustomerException;
 
 public class newCustomerController {
 
@@ -25,9 +27,15 @@ public class newCustomerController {
     @FXML
     private void btnAddCustomerClicked() {
         CustomerHandling customerHandling = new CustomerHandling();
-        String statusMessage = customerHandling.createNewCustomer(txtFirstName.getText(),txtLastName.getText(),
-                txtInvoiceAddress.getText());
-        updateStatus(statusMessage);
+
+        try {
+            customerHandling.createNewCustomer(txtFirstName.getText(), txtLastName.getText(),
+                    txtInvoiceAddress.getText());
+            updateStatus("Kunden er lagt til i listen");
+        }
+        catch (InvalidCustomerException e){
+            invalidInputAlert(e.getMessage());
+        }
     }
 
     @FXML
@@ -44,7 +52,16 @@ public class newCustomerController {
     @FXML
     private void updateStatus(String message){
         int customerCount = CustomerList.getCustomerCount();
-        lblStatus.setText(message +"\n\nAntall brukere i systemet: " + customerCount);
+        lblStatus.setText(message + "\n\nAntall brukere i systemet: " + customerCount);
+    }
+
+    private void invalidInputAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Feil formatering av kunde");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
     }
 
     public void initialize() {
