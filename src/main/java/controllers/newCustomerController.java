@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.stage.Stage;
 import models.customer.CustomerHandling;
 import models.customer.CustomerList;
-import models.exceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.InvalidCustomerException;
 
 public class newCustomerController {
 

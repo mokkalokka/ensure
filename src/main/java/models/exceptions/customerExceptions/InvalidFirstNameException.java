@@ -1,4 +1,4 @@
-package models.exceptions;
+package models.exceptions.customerExceptions;
 
 public class InvalidFirstNameException extends InvalidCustomerException {
     public InvalidFirstNameException() {
