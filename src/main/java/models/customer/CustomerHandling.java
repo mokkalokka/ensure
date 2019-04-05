@@ -14,7 +14,7 @@ public class CustomerHandling {
         else if(stringContainsNumbers(lastName)){
             throw new InvalidLastNameException();
         }
-        else if (firstName.equals("") || lastName.equals("") || invoiceAddress.equals("")){
+        else if (firstName.isEmpty() || lastName.isEmpty() || invoiceAddress.isEmpty()){
             throw new EmptyFieldsException();
         }
 
@@ -22,6 +22,8 @@ public class CustomerHandling {
         else if (duplicateCustomer(firstName,lastName,invoiceAddress)){
             throw new DuplicateCustomerException();
         }
+
+        //Dersom ingen feil har oppstått opprett kunden og legg kunden i lista
         else{
         Customer customer = new Customer(firstName,lastName,invoiceAddress);
         addToCustomersList(customer);
