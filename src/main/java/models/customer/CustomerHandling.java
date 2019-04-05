@@ -3,8 +3,6 @@ package models.customer;
 import javafx.collections.ObservableList;
 import models.exceptions.customerExceptions.*;
 
-import static models.customer.CustomerList.getCustomerArrayList;
-
 public class CustomerHandling {
 
 
@@ -41,6 +39,7 @@ public class CustomerHandling {
         return string.matches(".*\\d.*");
     }
 
+    //Sjekker om kunden ligger i systemet allerede
     public boolean duplicateCustomer(String firstName, String lastName, String invoiceAddress){
         ObservableList<Customer> customerObservableList = CustomerList.getCustomerArrayList();
         for (Customer customer : customerObservableList){
