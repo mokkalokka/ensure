@@ -1,9 +1,9 @@
 package models.customer;
 
-import models.exceptions.customerExceptions.EmptyFieldsException;
-import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.InvalidFirstNameException;
-import models.exceptions.customerExceptions.InvalidLastNameException;
+import javafx.collections.ObservableList;
+import models.exceptions.customerExceptions.*;
+
+import static models.customer.CustomerList.getCustomerArrayList;
 
 public class CustomerHandling {
 
@@ -18,6 +18,11 @@ public class CustomerHandling {
         }
         else if (firstName.equals("") || lastName.equals("") || invoiceAddress.equals("")){
             throw new EmptyFieldsException();
+        }
+
+        //Sjekker om kunden ligger i listen allerede
+        else if (duplicateCustomer(firstName,lastName,invoiceAddress)){
+            throw new DuplicateCustomerException();
         }
         else{
         Customer customer = new Customer(firstName,lastName,invoiceAddress);
@@ -34,6 +39,17 @@ public class CustomerHandling {
     //Sjekker om en String inneholder nummer
     public boolean stringContainsNumbers(String string){
         return string.matches(".*\\d.*");
+    }
+
+    public boolean duplicateCustomer(String firstName, String lastName, String invoiceAddress){
+        ObservableList<Customer> customerObservableList = CustomerList.getCustomerArrayList();
+        for (Customer customer : customerObservableList){
+            if(customer.getFirstName().equals(firstName) && customer.getLastName().equals(lastName) &&
+                    customer.getInvoiceAddress().equals(invoiceAddress)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

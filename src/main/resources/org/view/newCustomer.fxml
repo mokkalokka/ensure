@@ -12,9 +12,9 @@
          <font>
             <Font size="17.0" />
          </font></Label>
-      <JFXTextField fx:id="txtFirstName" layoutX="144.0" layoutY="82.0" />
-      <JFXTextField fx:id="txtLastName" layoutX="144.0" layoutY="119.0" />
-      <JFXTextField fx:id="txtInvoiceAddress" layoutX="144.0" layoutY="162.0" />
+      <JFXTextField fx:id="txtFirstName" layoutX="144.0" layoutY="82.0" onAction="#btnAddCustomerClicked" />
+      <JFXTextField fx:id="txtLastName" layoutX="144.0" layoutY="119.0" onAction="#btnAddCustomerClicked" />
+      <JFXTextField fx:id="txtInvoiceAddress" layoutX="144.0" layoutY="162.0" onAction="#btnAddCustomerClicked" />
       <Label layoutX="25.0" layoutY="87.0" text="Fornavn" />
       <Label layoutX="25.0" layoutY="132.0" text="Etternavn" />
       <Label layoutX="25.0" layoutY="175.0" text="Fakturaadresse" />
