@@ -35,6 +35,7 @@ public class newCustomerController {
             customerHandling.createNewCustomer(txtFirstName.getText(), txtLastName.getText(),
                     txtInvoiceAddress.getText());
             updateStatus("Kunden er lagt til i listen");
+            resetFieldColor();
         }
         catch (InvalidFirstNameException e){
             setTextFieldFocusAndColor(txtFirstName);
@@ -52,7 +53,12 @@ public class newCustomerController {
 
     private void setTextFieldFocusAndColor(TextField field){
         field.requestFocus();
-        field.setStyle("-jfx-focus-color:red");
+        field.setStyle("-jfx-focus-color:rgb(250,105,102)");
+    }
+
+    private void resetFieldColor(){
+        txtFirstName.setStyle("-jfx-focus-color:rgb(64,89,169)");
+        txtLastName.setStyle("-jfx-focus-color:rgb(64,89,169)");
     }
 
     @FXML
