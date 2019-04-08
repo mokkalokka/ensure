@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -14,17 +16,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.detailedCustomerController">
    <children>
-      <SplitPane dividerPositions="0.32441471571906355" orientation="VERTICAL" prefHeight="600.0" prefWidth="900.0">
+      <SplitPane dividerPositions="0.3277591973244147" orientation="VERTICAL" prefHeight="600.0" prefWidth="900.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="146.0" prefWidth="898.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="157.0" prefWidth="898.0">
                <children>
-                  <JFXButton layoutX="14.0" layoutY="27.0" onAction="#btnBack" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Tilbake" />
-                  <Label layoutX="100.0" layoutY="22.0" prefHeight="35.0" prefWidth="230.0" text="Oppsumering for kunde:">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <GridPane layoutX="367.0" layoutY="10.0">
+                  <JFXButton layoutX="11.0" layoutY="14.0" onAction="#btnBack" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Tilbake" />
+                  <GridPane layoutX="89.0" layoutY="10.0" prefHeight="60.0" prefWidth="795.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -42,13 +39,34 @@
                         <Label text="Fornavn" GridPane.columnIndex="2" />
                         <Label text="Opprettet" GridPane.columnIndex="3" />
                         <Label text="Fakturaaddresse" GridPane.columnIndex="4" />
-                        <Label fx:id="lblInsuranceNr" text="Label" GridPane.rowIndex="1" />
-                        <Label fx:id="lblSurname" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblFirstName" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="lblCustomerSince" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label fx:id="lblInvoiceAddress" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="lblInsuranceNr" editable="false" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="lblSurname" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="lblFirstName" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="lblCustomerSince" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="lblInvoiceAddress" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </JFXTextField>
                      </children>
                   </GridPane>
+                  <JFXButton onAction="#btnSaveCustomer" layoutX="11.0" layoutY="45.0" prefHeight="25.0" prefWidth="54.0" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Lagre" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

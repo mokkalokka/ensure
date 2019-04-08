@@ -1,50 +1,61 @@
 package controllers;
 
-import javafx.event.ActionEvent;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import models.customer.Customer;
-import models.gui.OpenScene;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class detailedCustomerController {
 
     //FX elementene
     @FXML
-    private Label lblInsuranceNr;
+    private JFXTextField lblInsuranceNr;
 
     @FXML
-    private Label lblSurname;
+    private JFXTextField  lblSurname;
 
     @FXML
-    private Label lblFirstName;
+    private JFXTextField  lblFirstName;
 
     @FXML
-    private Label lblCustomerSince;
+    private JFXTextField  lblCustomerSince;
 
     @FXML
-    private Label lblInvoiceAddress;
+    private JFXTextField  lblInvoiceAddress;
 
     @FXML
-    private void btnBack(ActionEvent event) {
-        //Bytter ut vind
-        OpenScene openScene = new OpenScene();
-        openScene.openScene(event, "/org/view/customers.fxml");
+    private void btnBack() {
+        //lukker vinduet
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
+    }
+
+    @FXML
+    private void btnSaveCustomer() {
+        //TODO exceptions, sjekke om tom osv
+        //Oppdaterer kunden med redigert data
+        currentCustomer.setLastName(lblSurname.getText());
+        currentCustomer.setFirstName(lblFirstName.getText());
+        currentCustomer.setInvoiceAddress(lblInvoiceAddress.getText());
+    }
+
+    private Customer currentCustomer;
+
+    //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
+    private Stage getCurrentStage(){
+        return (Stage) lblSurname.getScene().getWindow();
     }
 
 
-
     public void pickCustomer(Customer aCustomer) {
-        //Datoformat uten klokkeslett
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //Lokal variabel for kunden som vises
+        currentCustomer = aCustomer;
 
-        //Setter alle lablene
+        //Setter textboksene
         lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));
         lblSurname.setText(aCustomer.getLastName());
         lblFirstName.setText(aCustomer.getFirstName());
-        lblCustomerSince.setText(dateFormat.format(aCustomer.getCustomerSince()));
+        lblCustomerSince.setText(aCustomer.getCustomerSince().toString());
         lblInvoiceAddress.setText(aCustomer.getInvoiceAddress());
 
 
