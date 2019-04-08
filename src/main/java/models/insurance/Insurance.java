@@ -4,7 +4,7 @@ package models.insurance;
 import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Insurance implements Serializable {
+public abstract class Insurance implements Serializable, Comparable<Insurance> {
     private double annualPremium;
     private Date dateOfIssue;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
@@ -15,6 +15,19 @@ public abstract class Insurance implements Serializable {
         this.total = total;
         this.coverageDescription = coverageDescription;
         dateOfIssue = new Date();
+    }
+
+    @Override
+    public int compareTo(Insurance t) {
+        String thisClassName = this.getClass().getSimpleName();
+        String compareClassname = t.getClass().getSimpleName();
+
+        //Hvis klassenavnene er like sammenlign registeredTo
+        if (thisClassName.equals(compareClassname)) {
+            return this.registeredTo - t.registeredTo;
+        }
+
+        return thisClassName.compareTo((compareClassname));
     }
 
 
