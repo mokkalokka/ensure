@@ -4,13 +4,15 @@ package models.insurance;
 import models.customer.Customer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Insurance implements Serializable {
 
     private int registeredTo;
     private double annualPremium;
-    private Date dateOfIssue;
+    private LocalDate dateOfIssue;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
 
@@ -19,13 +21,45 @@ public abstract class Insurance implements Serializable {
         this.annualPremium = annualPremium;
         this.total = total;
         this.coverageDescription = coverageDescription;
-        dateOfIssue = new Date();
+        dateOfIssue = LocalDate.now();
     }
 
+    public ArrayList<String> getFieldNamesAsStrings() {
 
-    // TODO: Legg til abstrakte metoder som må implementeres i subklasser.
+        return new ArrayList<>(Arrays.asList("Registrert til",
+                "Årlig forsikringspremie",
+                "Dato opprettet",
+                "Forsikringsbeløp",
+                "Forsikringsbetingelser"));
+    }
+
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(annualPremium),
+                String.valueOf(dateOfIssue),
+                String.valueOf(total),
+                String.valueOf(coverageDescription)
+        ));
+    }
 
     public int getRegisteredTo() {
         return registeredTo;
+    }
+
+    public double getAnnualPremium() {
+        return annualPremium;
+    }
+
+    public LocalDate getDateOfIssue() {
+        return dateOfIssue;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public String getCoverageDescription() {
+        return coverageDescription;
     }
 }

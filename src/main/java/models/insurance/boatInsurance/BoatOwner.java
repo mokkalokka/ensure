@@ -11,4 +11,9 @@ public class BoatOwner implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return lastName + ", " + firstName;
+    }
 }
