@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class Insurance implements Serializable {
+public abstract class Insurance implements Serializable, Comparable<Insurance>{
 
     private int registeredTo;
     private double annualPremium;
@@ -42,6 +42,19 @@ public abstract class Insurance implements Serializable {
                 String.valueOf(coverageDescription)
         ));
     }
+    @Override
+    public int compareTo(Insurance t) {
+        String thisClassName = this.getClass().getSimpleName();
+        String compareClassname = t.getClass().getSimpleName();
+
+        //Hvis klassenavnene er like sammenlign registeredTo
+        if (thisClassName.equals(compareClassname)) {
+            return this.registeredTo - t.registeredTo;
+        }
+
+        return thisClassName.compareTo((compareClassname));
+    }
+
 
     public int getRegisteredTo() {
         return registeredTo;
