@@ -8,6 +8,7 @@ import models.insurance.Insurance;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CsvWriter {
@@ -37,6 +38,7 @@ public class CsvWriter {
             }
 
             // TODO: listOfAllInsurances må her være sortert etter klasse, dette må implementeres med en compareTo e.l.
+            Collections.sort(listOfAllInsurances);
             for (int i = 0; i < listOfAllInsurances.size(); i++) {
                 Insurance insurance = listOfAllInsurances.get(i);
 
