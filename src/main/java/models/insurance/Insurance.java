@@ -1,25 +1,78 @@
 package models.insurance;
 
 
-import java.io.Serializable;
-import java.util.Date;
+import models.customer.Customer;
 
-public abstract class Insurance implements Serializable {
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public abstract class Insurance implements Serializable, Comparable<Insurance>{
+
+    private int registeredTo;
     private double annualPremium;
-    private Date dateOfIssue;
+    private LocalDate dateOfIssue;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
 
-    public Insurance(double annualPremium, double total, String coverageDescription) {
+    public Insurance(Customer customer, double annualPremium, double total, String coverageDescription) {
+        registeredTo = customer.getInsuranceNr();
         this.annualPremium = annualPremium;
         this.total = total;
         this.coverageDescription = coverageDescription;
-        dateOfIssue = new Date();
+        dateOfIssue = LocalDate.now();
+    }
+
+    public ArrayList<String> getFieldNamesAsStrings() {
+
+        return new ArrayList<>(Arrays.asList("Registrert til",
+                "Årlig forsikringspremie",
+                "Dato opprettet",
+                "Forsikringsbeløp",
+                "Forsikringsbetingelser"));
+    }
+
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(annualPremium),
+                String.valueOf(dateOfIssue),
+                String.valueOf(total),
+                String.valueOf(coverageDescription)
+        ));
+    }
+    @Override
+    public int compareTo(Insurance t) {
+        String thisClassName = this.getClass().getSimpleName();
+        String compareClassname = t.getClass().getSimpleName();
+
+        //Hvis klassenavnene er like sammenlign registeredTo
+        if (thisClassName.equals(compareClassname)) {
+            return this.registeredTo - t.registeredTo;
+        }
+
+        return thisClassName.compareTo((compareClassname));
     }
 
 
+    public int getRegisteredTo() {
+        return registeredTo;
+    }
 
-    // TODO: Legg til abstrakte metoder som må implementeres i subklasser.
-    // TODO: implementere Serializable?
+    public double getAnnualPremium() {
+        return annualPremium;
+    }
 
+    public LocalDate getDateOfIssue() {
+        return dateOfIssue;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public String getCoverageDescription() {
+        return coverageDescription;
+    }
 }

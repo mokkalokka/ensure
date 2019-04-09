@@ -1,0 +1,10 @@
+Forsikringsnummer;Etternavn;Fornavn;Kunde siden;Fakturaadresse
+10001;Marsvinsen;Bolle;Trondheimsveien 7
+10002;Hurt;Tore D.;Ullevålsveien 2a
+
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Eier;Registreringsnummer;Type;Modell;Lengde i fot;Årsmodell;Motortype;Motorstyrke (HP)
+10001;30000.0;2019-04-08;50000.0;Dekker masse rart;Nilsen, Per;regnr;fregatt;Modell;25.5;2004;Svær;500
+10002;34000.0;2019-04-08;50000.0;Dekker ikke like mye;Nilsen, Per;regnr;fregatt;Modell;25.5;2004;Svær;500
+
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Forsikringsområde;Forsikringssum
+10002;20000.0;2019-04-08;100000.0;Dekker hus og innbo;STANDARD;200000.0
