@@ -40,7 +40,7 @@ public class CsvWriterTest {
                 .build();
 
         BoatInsurance boatInsurance3 = new BoatInsuranceBuilder()
-                .setBoat(boat1)
+                .setBoat(boat3)
                 .setAnnualPremium(191313.33)
                 .setCoverageDescription("Helt greit")
                 .setRegisteredTo(customer2.getInsuranceNr())
