@@ -1,6 +1,7 @@
-package models.insurance.boatInsurance;
+package models.builders.boatInsurance;
 
-import java.time.Year;
+import models.insurance.boatInsurance.Boat;
+import models.insurance.boatInsurance.BoatOwner;
 
 public class BoatBuilder {
 

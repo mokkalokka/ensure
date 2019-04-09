@@ -1,12 +1,11 @@
 package models.boatInsurance;
 
 
-import javafx.fxml.FXML;
+import models.builders.boatInsurance.BoatBuilder;
+import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
 import models.insurance.boatInsurance.*;
-import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class BoatInsuranceTest {
     BoatInsurance boatInsurance;

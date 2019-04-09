@@ -1,5 +1,7 @@
 package models.filewriter;
 
+import models.builders.boatInsurance.BoatBuilder;
+import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
 import models.insurance.boatInsurance.*;
 import models.travelInsurance.TravelInsurance;
@@ -7,11 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class CsvWriterTest {
     List<Customer> customerList;

@@ -1,10 +1,15 @@
-package models.insurance.boatInsurance;
+package models.builders.boatInsurance;
+
+import models.insurance.boatInsurance.Boat;
+import models.insurance.boatInsurance.BoatInsurance;
 
 public class BoatInsuranceBuilder{
+
     private int registeredTo;
     private double annualPremium;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
+
     private Boat boat;
 
 

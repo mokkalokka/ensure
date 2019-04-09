@@ -1,4 +1,6 @@
-package models.insurance.residenceInsurance;
+package models.builders.residenceInsurance;
+
+import models.insurance.residenceInsurance.Residence;
 
 import java.time.Year;
 
