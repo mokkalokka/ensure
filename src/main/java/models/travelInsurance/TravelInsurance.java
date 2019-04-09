@@ -14,15 +14,15 @@ public class TravelInsurance extends Insurance {
     private CoverageType coverageType; // TODO: -> enum Det her må nok være et annet datafelt. HashMap? tvunget til å velge 1?
     private double maxCoverage; // forsikringssum på norsk
 
-    public TravelInsurance(Customer customer, double annualPremium, double total, String coverageDescription, double maxCoverage) {
-        super(customer, annualPremium, total, coverageDescription);
+    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, double maxCoverage) {
+        super(registeredTo, annualPremium, total, coverageDescription);
         this.coverageType = CoverageType.STANDARD;
         this.maxCoverage = maxCoverage;
     }
 
     // Overloaded constructor om man ønsker premium type reiseforsikring.
-    public TravelInsurance(Customer customer, double annualPremium, double total, String coverageDescription, double maxCoverage, CoverageType coverageType) {
-        super(customer, annualPremium, total, coverageDescription);
+    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, double maxCoverage, CoverageType coverageType) {
+        super(registeredTo, annualPremium, total, coverageDescription);
         this.coverageType = coverageType;
         this.maxCoverage = maxCoverage;
     }

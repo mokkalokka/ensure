@@ -1,9 +1,7 @@
 package models.filewriter;
 
 import models.customer.Customer;
-import models.insurance.boatInsurance.Boat;
-import models.insurance.boatInsurance.BoatInsurance;
-import models.insurance.boatInsurance.BoatOwner;
+import models.insurance.boatInsurance.*;
 import models.travelInsurance.TravelInsurance;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,12 +26,32 @@ public class CsvWriterTest {
         customerList.add(customer2);
 
         Boat boat1 = new Boat("regnr","fregatt", "Modell", new BoatOwner("Per", "Nilsen"), 25.5, "2004", "Svær", 500);
-        BoatInsurance boatInsurance1 = new BoatInsurance(customer1, 30000.0, 50000.0, "Dekker masse rart", boat1);
-        BoatInsurance boatInsurance2 = new BoatInsurance(customer2, 34000.0, 50000.0, "Dekker ikke like mye", boat1 );
-        TravelInsurance travelInsurance1 = new TravelInsurance(customer2, 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0);
+        BoatInsurance boatInsurance1 = new BoatInsurance(customer1.getInsuranceNr(), 30000.0, 50000.0, "Dekker masse rart", boat1);
+        BoatInsurance boatInsurance2 = new BoatInsurance(customer2.getInsuranceNr(), 34000.0, 50000.0, "Dekker ikke like mye", boat1 );
+        TravelInsurance travelInsurance1 = new TravelInsurance(customer2.getInsuranceNr(), 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0);
+
+        Boat boat3 = new BoatBuilder("92100ne")
+                .setBoatModel("S32hh")
+                .setBoatType("Snekke")
+                .setEngineHP(20)
+                .setEngineType("Diesel")
+                .setLengthInft(20)
+                .setModelYear("1990")
+                .setOwner(new BoatOwner("Pål", "Hansen"))
+                .build();
+
+        BoatInsurance boatInsurance3 = new BoatInsuranceBuilder()
+                .setBoat(boat1)
+                .setAnnualPremium(191313.33)
+                .setCoverageDescription("Helt greit")
+                .setRegisteredTo(customer2.getInsuranceNr())
+                .setTotal(3133)
+                .build();
+
         customer1.addInsurance(boatInsurance1);
         customer2.addInsurance(travelInsurance1);
         customer2.addInsurance(boatInsurance2);
+        customer2.addInsurance(boatInsurance3);
     }
 
     @Test
