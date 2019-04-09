@@ -27,7 +27,7 @@ public class CsvWriterTest {
         Boat boat1 = new Boat("regnr","fregatt", "Modell", new BoatOwner("Per", "Nilsen"), 25.5, "2004", "Svær", 500);
         BoatInsurance boatInsurance1 = new BoatInsurance(customer1.getInsuranceNr(), 30000.0, 50000.0, "Dekker masse rart", boat1);
         BoatInsurance boatInsurance2 = new BoatInsurance(customer2.getInsuranceNr(), 34000.0, 50000.0, "Dekker ikke like mye", boat1 );
-        TravelInsurance travelInsurance1 = new TravelInsurance(customer2.getInsuranceNr(), 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0);
+        TravelInsurance travelInsurance1 = new TravelInsurance(customer2.getInsuranceNr(), 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0,true);
 
         Boat boat3 = new BoatBuilder("92100ne")
                 .setBoatModel("S32hh")

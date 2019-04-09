@@ -7,5 +7,5 @@ Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikr
 10001;34000.0;2019-04-09;50000.0;Dekker ikke like mye;Nilsen, Per;regnr;fregatt;Modell;25.5;2004;Svær;500
 10001;191313.33;2019-04-09;3133.0;Helt greit;Nilsen, Per;regnr;fregatt;Modell;25.5;2004;Svær;500
 
-Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Forsikringsområde;Forsikringssum
-10001;20000.0;2019-04-09;100000.0;Dekker hus og innbo;STANDARD;200000.0
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Premiumforsikring;Forsikringssum
+10001;20000.0;2019-04-09;100000.0;Dekker hus og innbo;true;200000.0
