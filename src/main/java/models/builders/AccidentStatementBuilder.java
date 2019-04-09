@@ -8,7 +8,6 @@ import java.util.Date;
 public class AccidentStatementBuilder {
 
     private Date dateOfAccident;
-    private int accidentNr; // skal inkrementeres.
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden
@@ -16,11 +15,6 @@ public class AccidentStatementBuilder {
 
     public AccidentStatementBuilder setDateOfAccident(Date dateOfAccident) {
         this.dateOfAccident = dateOfAccident;
-        return this;
-    }
-
-    public AccidentStatementBuilder setAccidentNr(int accidentNr) {
-        this.accidentNr = accidentNr;
         return this;
     }
 
@@ -47,7 +41,6 @@ public class AccidentStatementBuilder {
     public AccidentStatement build(){
         return new AccidentStatement(
                 dateOfAccident,
-                accidentNr,
                 accidentType,
                 accidentDescription,
                 appraisalAmount,
