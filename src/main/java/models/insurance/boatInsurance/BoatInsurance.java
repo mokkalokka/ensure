@@ -9,8 +9,8 @@ import java.util.Arrays;
 public class BoatInsurance extends Insurance {
     private Boat boat;
 
-    public BoatInsurance(Customer customer, double annualPremium, double total, String coverageDescription, Boat boat) {
-        super(customer, annualPremium, total, coverageDescription);
+    public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat) {
+        super(registeredTo, annualPremium, total, coverageDescription);
         this.boat = boat;
     }
 

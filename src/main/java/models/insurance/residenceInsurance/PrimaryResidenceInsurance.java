@@ -11,8 +11,8 @@ public class PrimaryResidenceInsurance extends Insurance {
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
 
-    public PrimaryResidenceInsurance(Customer customer, double annualPremium, double total, String coverageDescription, Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount) {
-        super(customer, annualPremium, total, coverageDescription);
+    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount) {
+        super(registeredTo, annualPremium, total, coverageDescription);
         this.residence = residence;
         this.propertyInsuranceAmount = propertyInsuranceAmount;
         this.assetsInsuranceAmount = assetsInsuranceAmount;
