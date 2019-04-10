@@ -16,19 +16,19 @@ public class BoatInsuranceTest {
         Boat boat1 = new BoatBuilder("92100ne")
                 .setBoatModel("S32hh")
                 .setBoatType("Snekke")
-                .setEngineHP(20)
+                .setEngineHP("20")
                 .setEngineType("Diesel")
-                .setLengthInft(20)
+                .setLengthInft("20")
                 .setModelYear("1990")
                 .setOwner(new BoatOwner("Pål", "Hansen"))
                 .build();
 
          boatInsurance = new BoatInsuranceBuilder()
                 .setBoat(boat1)
-                .setAnnualPremium(191313.33)
+                .setAnnualPremium("191313.33")
                 .setCoverageDescription("Helt greit")
-                .setRegisteredTo(customer.getInsuranceNr())
-                .setTotal(3133)
+                .setRegisteredTo(String.valueOf(customer.getInsuranceNr()))
+                .setTotal("3133")
                 .build();
     }
 

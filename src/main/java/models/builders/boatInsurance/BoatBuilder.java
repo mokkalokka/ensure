@@ -14,8 +14,9 @@ public class BoatBuilder {
     private String engineType;
     private int engineHP;
 
-    public BoatBuilder(String registrationNr) {
+    public BoatBuilder setRegistrationNr(String registrationNr) {
         this.registrationNr = registrationNr;
+        return this;
     }
 
     public BoatBuilder setBoatType(String boatType) {
