@@ -2,6 +2,8 @@ package models.customer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 
 import java.util.ArrayList;
 
@@ -21,4 +23,6 @@ public class CustomerList {
     public static ObservableList<Customer> getCustomerArrayList() {
         return customerArrayList;
     }
+
+
 }

@@ -17,28 +17,28 @@ public class PrimaryResidenceInsuranceBuilder{
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(double propertyInsuranceAmount) {
-        this.propertyInsuranceAmount = propertyInsuranceAmount;
+    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) {
+        this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(double assetsInsuranceAmount) {
-        this.assetsInsuranceAmount = assetsInsuranceAmount;
+    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) {
+        this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setRegisteredTo(int registeredTo) {
-        this.registeredTo = registeredTo;
+    public PrimaryResidenceInsuranceBuilder setRegisteredTo(String registeredTo) {
+        this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setAnnualPremium(double annualPremium) {
-        this.annualPremium = annualPremium;
+    public PrimaryResidenceInsuranceBuilder setAnnualPremium(String annualPremium) {
+        this.annualPremium = Double.parseDouble(annualPremium);
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setTotal(double total) {
-        this.total = total;
+    public PrimaryResidenceInsuranceBuilder setTotal(String total) {
+        this.total = Double.parseDouble(total);
         return this;
     }
 

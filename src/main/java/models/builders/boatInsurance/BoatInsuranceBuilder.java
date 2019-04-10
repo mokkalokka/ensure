@@ -13,18 +13,18 @@ public class BoatInsuranceBuilder{
     private Boat boat;
 
 
-    public BoatInsuranceBuilder setRegisteredTo(int registeredTo) {
-        this.registeredTo = registeredTo;
+    public BoatInsuranceBuilder setRegisteredTo(String registeredTo) {
+        this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 
-    public BoatInsuranceBuilder setAnnualPremium(double annualPremium) {
-        this.annualPremium = annualPremium;
+    public BoatInsuranceBuilder setAnnualPremium(String annualPremium) {
+        this.annualPremium = Double.parseDouble(annualPremium);
         return this;
     }
 
-    public BoatInsuranceBuilder setTotal(double total) {
-        this.total = total;
+    public BoatInsuranceBuilder setTotal(String total) {
+        this.total = Double.parseDouble(total);
         return this;
     }
 

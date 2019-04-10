@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.customer.CustomerHandling;
+import models.customer.CustomerHandler;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
@@ -29,10 +29,10 @@ public class newCustomerController {
 
     @FXML
     private void btnAddCustomerClicked() {
-        CustomerHandling customerHandling = new CustomerHandling();
+        CustomerHandler customerHandler = new CustomerHandler();
 
         try {
-            customerHandling.createNewCustomer(txtFirstName.getText(), txtLastName.getText(),
+            customerHandler.createNewCustomer(txtFirstName.getText(), txtLastName.getText(),
                     txtInvoiceAddress.getText());
             updateStatus("Kunden er lagt til i listen");
             resetFieldColor();

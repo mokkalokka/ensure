@@ -33,8 +33,9 @@ public class BoatBuilder {
         return this;
     }
 
-    public BoatBuilder setLengthInft(double lengthInft) {
-        this.lengthInft = lengthInft;
+    public BoatBuilder setLengthInft(String lengthInft) {
+        //TODO: Exceptions!
+        this.lengthInft = Double.parseDouble(lengthInft);
         return this;
     }
 
@@ -48,8 +49,9 @@ public class BoatBuilder {
         return this;
     }
 
-    public BoatBuilder setEngineHP(int engineHP) {
-        this.engineHP = engineHP;
+    public BoatBuilder setEngineHP(String engineHP) {
+        //TODO: Exceptions!
+        this.engineHP = Integer.parseInt(engineHP);
         return this;
     }
 

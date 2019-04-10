@@ -15,33 +15,34 @@ public class TravelInsuranceBuilder {
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
 
-    public TravelInsuranceBuilder setPremium(boolean premium) {
-        isPremium = premium;
+    public TravelInsuranceBuilder setPremium(String isPremium) {
+        this.isPremium = Boolean.parseBoolean(isPremium);
         return this;
     }
 
-    public TravelInsuranceBuilder setMaxCoverage(double maxCoverage) {
-        this.maxCoverage = maxCoverage;
+    public TravelInsuranceBuilder setMaxCoverage(String maxCoverage) {
+        this.maxCoverage = Double.parseDouble(maxCoverage);
         return this;
     }
 
-    public TravelInsuranceBuilder setRegisteredTo(int registeredTo) {
-        this.registeredTo = registeredTo;
+    public TravelInsuranceBuilder setRegisteredTo(String registeredTo) {
+        this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 
-    public TravelInsuranceBuilder setAnnualPremium(double annualPremium) {
-        this.annualPremium = annualPremium;
+    public TravelInsuranceBuilder setAnnualPremium(String annualPremium) {
+        this.annualPremium = Double.parseDouble(annualPremium);
         return this;
     }
 
-    public TravelInsuranceBuilder setDateOfIssue(LocalDate dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
+    public TravelInsuranceBuilder setDateOfIssue(String dateOfIssue) {
+        //TODO: Kan endre date format i parse her
+        this.dateOfIssue = LocalDate.parse(dateOfIssue);
         return this;
     }
 
-    public TravelInsuranceBuilder setTotal(double total) {
-        this.total = total;
+    public TravelInsuranceBuilder setTotal(String total) {
+        this.total = Double.parseDouble(total);
         return this;
     }
 
