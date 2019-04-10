@@ -12,8 +12,9 @@ public class ResidenceBuilder {
     private String condition;
     private int sqMeters;
 
-    public ResidenceBuilder setYearOfConstruction(Year yearOfConstruction) {
-        this.yearOfConstruction = yearOfConstruction;
+    public ResidenceBuilder setYearOfConstruction(String yearOfConstruction) {
+        //TODO: Year eller int?
+        this.yearOfConstruction = Year.parse(yearOfConstruction);
         return this;
     }
 
@@ -32,8 +33,8 @@ public class ResidenceBuilder {
         return this;
     }
 
-    public ResidenceBuilder setSqMeters(int sqMeters) {
-        this.sqMeters = sqMeters;
+    public ResidenceBuilder setSqMeters(String sqMeters) {
+        this.sqMeters = Integer.parseInt(sqMeters);
         return this;
     }
 
