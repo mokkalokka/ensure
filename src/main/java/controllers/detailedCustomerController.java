@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.customer.Customer;
-import models.gui.OpenNewStage;
+import models.gui.WindowHandler;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -149,8 +149,8 @@ public class detailedCustomerController {
         InsuranceController insuranceController = insuranceViewLoader.getController();
         insuranceController.setCreateNewInsuranceState(currentCustomer);
 
-        OpenNewStage openNewStage = new OpenNewStage();
-        openNewStage.openNewStage(getCurrentStage(), pathToXml, stageTitle);
+        WindowHandler windowHandler = new WindowHandler();
+        windowHandler.openNewStage(getCurrentStage(), pathToXml, stageTitle);
     }
 
 }
