@@ -73,7 +73,6 @@ public class customersController {
             //Last inn ny fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/detailedCustomer.fxml"));
             Parent root = loader.load();
-
             //Finner kontrolleren til fxml fila og passerer den dobbelklikkede kunden til kontrolleren
             detailedCustomerController controller = loader.getController();
             controller.pickCustomer(clickedCustomer);
