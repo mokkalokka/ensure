@@ -105,10 +105,10 @@
                                        <right>
                                           <MenuButton mnemonicParsing="false" text="Opprett forsikring" BorderPane.alignment="CENTER">
                                             <items>
-                                              <MenuItem mnemonicParsing="false" text="Båtforsikring" />
-                                              <MenuItem mnemonicParsing="false" text="Husforsikring" />
-                                                <MenuItem mnemonicParsing="false" text="Fritidsbolig-forsikring" />
-                                                <MenuItem mnemonicParsing="false" text="Reiseforsikring" />
+                                              <MenuItem onAction="#btnBoatInsurance" mnemonicParsing="false" text="Båtforsikring" />
+                                              <MenuItem onAction="#btnPrimaryResidenceInsurance" mnemonicParsing="false" text="Husforsikring" />
+                                                <MenuItem onAction="#btnSecondaryResidenceInsurance" mnemonicParsing="false" text="Fritidsbolig-forsikring" />
+                                                <MenuItem onAction="#btnTravelInsurance" mnemonicParsing="false" text="Reiseforsikring" />
                                             </items>
                                           </MenuButton>
                                        </right>

@@ -37,11 +37,40 @@ public class detailedCustomerController {
     private JFXTextField  lblInvoiceAddress;
 
     @FXML
+    private void btnBoatInsurance() {
+        WindowHandler windowHandler = new WindowHandler();
+        try {
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), "/org/view/boatInsurance.fxml", "Vis Kunde");
+        } catch (IOException e) {
+            //TODO error håndtering
+        }
+    }
+
+    @FXML
+    private void  btnPrimaryResidenceInsurance() {
+
+    }
+
+    @FXML
+    private void btnSecondaryResidenceInsurance() {
+
+    }
+
+    @FXML
+    private void btnTravelInsurance() {
+
+    }
+
+
+
+    @FXML
     private void btnBack() {
         //lukker vinduet
         Stage currentStage = getCurrentStage();
         currentStage.close();
     }
+
+
 
     @FXML
     private void btnSaveCustomer() {
@@ -127,16 +156,9 @@ public class detailedCustomerController {
             BoatInsuranceController controller = loader.getController();
             controller.loadBoatInsurance(boatInsurance);
 
-            //Visning av nye vindu
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            WindowHandler windowHandler = new WindowHandler();
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Båt fosikring");
 
-            //Setter eieren til den det nye vinduet til å være det du kommer fra
-            stage.initOwner(getCurrentStage());
-            //Setter modality slik at det gamle vinduet blir låst frem til det nye blir lukket
-            stage.initModality(Modality.WINDOW_MODAL);
-
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             // TODO: Display error window.
