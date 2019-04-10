@@ -7,12 +7,10 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
@@ -55,7 +53,11 @@ public class customersController {
         WindowHandler windowHandler = new WindowHandler();
 
         //Åpner vinduet i en ny popup og låser dette vinduet
-        windowHandler.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
+        try {
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
+        } catch(IOException e) {
+            //TODO error vindu
+        }
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
@@ -76,17 +78,8 @@ public class customersController {
             detailedCustomerController controller = loader.getController();
             controller.pickCustomer(clickedCustomer);
 
-            //Visning av nye vindu
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-
-            //Setter eieren til den det nye vinduet til å være det du kommer fra
-            stage.initOwner(getCurrentStage());
-            //Setter modality slik at det gamle vinduet blir låst frem til det nye blir lukket
-            stage.initModality(Modality.WINDOW_MODAL);
-
-            stage.show();
-
+            WindowHandler windowHandler = new WindowHandler();
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Vis Kunde");
 
         } catch (IOException e) {
             System.err.println("FXML file not found!");
