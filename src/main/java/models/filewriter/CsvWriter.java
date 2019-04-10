@@ -45,11 +45,11 @@ public class CsvWriter {
 
                 if (i == 0) {
                     writer.println(insurance.getInsuranceName());
-                    writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
+                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
                 }
                 else if (currentInsuranceIsDifferentType(insurance, listOfAllInsurances.get(i-1))) {
                     writer.println(insurance.getInsuranceName());
-                    writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
+                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
                 }
 
                 writer.println(String.join(";", insurance.getFieldValuesAsStrings()));

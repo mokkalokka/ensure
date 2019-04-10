@@ -29,7 +29,8 @@ public class CsvWriterTest {
         BoatInsurance boatInsurance2 = new BoatInsurance(customer2.getInsuranceNr(), 34000.0, 50000.0, "Dekker ikke like mye", boat1 );
         TravelInsurance travelInsurance1 = new TravelInsurance(customer2.getInsuranceNr(), 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0,true);
 
-        Boat boat3 = new BoatBuilder("92100ne")
+        Boat boat3 = new BoatBuilder()
+                .setRegistrationNr("NE23094872")
                 .setBoatModel("S32hh")
                 .setBoatType("Snekke")
                 .setEngineHP("20")
