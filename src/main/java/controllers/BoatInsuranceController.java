@@ -34,9 +34,9 @@ public class BoatInsuranceController {
         Boat boat = new BoatBuilder(txtRegistrationNr.getText())
                 .setBoatModel(txtBoatModel.getText())
                 .setBoatType(txtBoatType.getText())
-                .setEngineHP(Integer.parseInt(txtEngineHP.getText()))
+                .setEngineHP(txtEngineHP.getText())
                 .setEngineType(txtEngineType.getText())
-                .setLengthInft(Double.parseDouble(txtLengthInFt.getText()))
+                .setLengthInft(txtLengthInFt.getText())
                 .setModelYear(txtModelYear.getText())
                 .setOwner(new BoatOwner(txtOwnerFirstName.getText(), txtOwnerSurname.getText()))
                 .build();
