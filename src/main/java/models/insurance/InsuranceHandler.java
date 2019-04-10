@@ -7,6 +7,6 @@ public class InsuranceHandler {
 
     public void addNewInsurance(Insurance insurance) throws NoSuchCustomerException {
 
-        CustomerHandler.addInsuranceToCustomer(insurance);
+        CustomerHandler.addNewInsuranceToCustomer(insurance);
     }
 }

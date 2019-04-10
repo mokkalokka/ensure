@@ -53,15 +53,33 @@ public class CustomerHandler {
         return false;
     }
 
-    public static void addInsuranceToCustomer(Insurance insurance) throws NoSuchCustomerException {
+    public static void addNewInsuranceToCustomer(Insurance newInsurance) throws NoSuchCustomerException {
         for (Customer customer : CustomerList.getCustomerList()) {
-            if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
-                customer.addInsurance(insurance);
+            if (insuranceBelongsToCustomer(newInsurance, customer)) {
+                customer.addInsurance(newInsurance);
                 return;
             }
         }
         throw (new NoSuchCustomerException());
     }
 
+    public static void overwriteInsurance(Insurance newInsurance) {
+        for (Customer customer : CustomerList.getCustomerList()) {
+
+            if (insuranceBelongsToCustomer(newInsurance, customer)) {
+
+                for (int i = 0; i < customer.getListOfInsurances().size(); i++) {
+                    // TODO: Fikse .equals for Insurance slik at dette funker.
+                    if (newInsurance.equals(customer.getListOfInsurances().get(i))) {
+                        customer.getListOfInsurances().set(i, newInsurance);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean insuranceBelongsToCustomer(Insurance insurance, Customer customer) {
+        return (customer.getInsuranceNr() == insurance.getRegisteredTo());
+    }
 
 }
