@@ -20,7 +20,7 @@ public class CustomerList {
     }
 
     //for testing //TODO hele klassen burde vere en singleton
-    public static ObservableList<Customer> getCustomerArrayList() {
+    public static ObservableList<Customer> getCustomerList() {
         return customerList;
     }
 

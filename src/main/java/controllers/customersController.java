@@ -44,7 +44,7 @@ public class customersController {
     private TableColumn<Customer, String> clmnInvoiceAddress;
 
     //Lokalt peker for lista
-    private ObservableList observableCustomerList = CustomerList.getCustomerArrayList();
+    private ObservableList observableCustomerList = CustomerList.getCustomerList();
 
     @FXML
     private void btnRegister() {
