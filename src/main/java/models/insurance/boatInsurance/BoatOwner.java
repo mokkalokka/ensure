@@ -22,6 +22,6 @@ public class BoatOwner implements Serializable {
 
     @Override
     public String toString() {
-        return lastName + ", " + firstName;
+        return lastName + "," + firstName;
     }
 }

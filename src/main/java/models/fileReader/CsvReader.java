@@ -3,6 +3,8 @@ package models.fileReader;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
+import models.customer.CustomerHandler;
+import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
 
@@ -16,16 +18,18 @@ public class CsvReader {
 
 
         BufferedReader br = new BufferedReader(new FileReader(pathToCsv));
-        String line;
+        String line = br.readLine();
         String skipLine;
 
-        while ((line = br.readLine()) != null) {
+
+        while (line != null) {
             String[] lineArray = line.split(";");
 
             //Hvis lengden på linjen er 1, vil det si at denne linjen er en ny klasse
             if (lineArray.length == 1) {
                 switch (lineArray[0]) {
                     case "Kunder":
+
                         //Todo: kunde parser
 
                         skipLine = br.readLine(); // Hopper over linjen med headere
@@ -34,13 +38,12 @@ public class CsvReader {
                         while ((line = br.readLine()) != null &&
                                 ((lineArray = line.split(";")).length) != 1) {
 
-                            System.out.println(lineArray[0]);
-                            //boatInsuranceParser(lineArray);
+                            customerParser(lineArray);
                         }
 
                         break;
 
-                    case "Batforsikring":
+                    case "Batforsikringer":
                         //Todo: parser
                         skipLine = br.readLine(); // Hopper over linjen med headere
 
@@ -53,15 +56,15 @@ public class CsvReader {
                         }
                         break;
 
-                    case "Husforsikring":
+                    case "Husforsikringer":
                         //Todo: parser
                         break;
 
-                    case "Fritidsboligforsikring":
+                    case "Fritidsboligforsikringer":
                         //Todo: parser
                         break;
 
-                    case "Reiseforsikring":
+                    case "Reiseforsikringer":
                         //Todo: parser
                         break;
 
@@ -76,22 +79,31 @@ public class CsvReader {
 
 
     }
+
+    private void customerParser(String[] lineArray) {
+        CustomerHandler customerHandler = new CustomerHandler();
+        try {
+            customerHandler.createNewCustomer(lineArray[2], lineArray[1],lineArray[3]);
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 /*
     private void boatInsuranceParser(String[] lineArray) {
         BoatInsurance boatInsurance = new BoatInsuranceBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAnnualPremium(lineArray[1])
-                .setCoverageDescription(lineArray[2])
-                .setTotal(lineArray[4])
-                .setBoat(new BoatBuilder()
-                        .setBoatModel(lineArray[5])
-                        .setBoatType(lineArray[6])
-                        .setEngineHP(lineArray[7]))
-                .build()
-                .addToInsuranceList(); //TODO: Denne metoden er ikke opprettet
+                //TODO:Dato opprettet
+                .setTotal(lineArray[3])
+                .setCoverageDescription(lineArray[4]);
+
+        //TODO: Denne metoden er ikke opprettet
     }
+    */
 
 
 }
- */
-}
+
+
