@@ -52,7 +52,7 @@ public class toolbarController {
         SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
 
         //Kopierer fra observableList til vanlig arraylist som er serializable
-        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerArrayList());
+        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerList());
 
         try {
             serializedObjectWriter.writeObject(serializebleCustomers,path); // TODO: Fiks exceptions!

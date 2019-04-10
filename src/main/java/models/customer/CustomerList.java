@@ -9,19 +9,19 @@ import java.util.ArrayList;
 
 public class CustomerList {
     //private static ArrayList<Customer> customerArrayList = new ArrayList<>();
-    private static ObservableList<Customer> customerArrayList = FXCollections.observableArrayList();
+    private static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     public static void addCustomer(Customer customer) {
-        CustomerList.customerArrayList.add(customer);
+        CustomerList.customerList.add(customer);
     }
 
     public static int getCustomerCount(){
-        return customerArrayList.size();
+        return customerList.size();
     }
 
     //for testing //TODO hele klassen burde vere en singleton
-    public static ObservableList<Customer> getCustomerArrayList() {
-        return customerArrayList;
+    public static ObservableList<Customer> getCustomerList() {
+        return customerList;
     }
 
 
