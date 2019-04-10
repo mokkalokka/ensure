@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import models.exceptions.customerExceptions.*;
 import models.insurance.Insurance;
 
-public class CustomerHandling {
+public class CustomerHandler {
 
 
     // Tror denne metode heller burde returnere true/false slik at man kan handle alt som skal vises i controller.
