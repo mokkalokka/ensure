@@ -43,7 +43,7 @@ public class CustomerHandler {
 
     //Sjekker om kunden ligger i systemet allerede
     public boolean duplicateCustomer(String firstName, String lastName, String invoiceAddress){
-        ObservableList<Customer> customerObservableList = CustomerList.getCustomerArrayList();
+        ObservableList<Customer> customerObservableList = CustomerList.getCustomerList();
         for (Customer customer : customerObservableList){
             if(customer.getFirstName().equals(firstName) && customer.getLastName().equals(lastName) &&
                     customer.getInvoiceAddress().equals(invoiceAddress)){
@@ -54,7 +54,7 @@ public class CustomerHandler {
     }
 
     public static void addInsuranceToCustomer(Insurance insurance) throws NoSuchCustomerException {
-        for (Customer customer : CustomerList.getCustomerArrayList()) {
+        for (Customer customer : CustomerList.getCustomerList()) {
             if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
                 customer.addInsurance(insurance);
                 return;
