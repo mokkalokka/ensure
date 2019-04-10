@@ -31,7 +31,8 @@ public class BoatInsuranceController {
     TextField txtEngineHP;
 
     public BoatInsurance createBoatInsurance() {
-        Boat boat = new BoatBuilder(txtRegistrationNr.getText())
+        Boat boat = new BoatBuilder()
+                .setRegistrationNr(txtRegistrationNr.getText())
                 .setBoatModel(txtBoatModel.getText())
                 .setBoatType(txtBoatType.getText())
                 .setEngineHP(txtEngineHP.getText())
