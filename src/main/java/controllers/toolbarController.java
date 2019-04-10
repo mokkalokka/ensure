@@ -72,7 +72,11 @@ public class toolbarController {
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
         WindowHandler windowHandler = new WindowHandler();
-        windowHandler.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
+        try {
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
+        } catch (IOException e) {
+            //TODO error vindu
+        }
     }
 
     @FXML

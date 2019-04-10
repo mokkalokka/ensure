@@ -150,7 +150,11 @@ public class detailedCustomerController {
         insuranceController.setCreateNewInsuranceState(currentCustomer);
 
         WindowHandler windowHandler = new WindowHandler();
-        windowHandler.openNewStage(getCurrentStage(), pathToXml, stageTitle);
+        try {
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToXml, stageTitle);
+        } catch(IOException e) {
+            //Todo error vindu
+        }
     }
 
 }
