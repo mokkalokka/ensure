@@ -10,10 +10,9 @@ import models.customer.Customer;
 import models.customer.CustomerList;
 import models.fileReader.SerializedObjectReader;
 import models.filewriter.SerializedObjectWriter;
-import models.gui.OpenNewStage;
+import models.gui.WindowHandler;
 import java.io.IOException;
 import java.util.ArrayList;
-import models.customer.CustomerList;
 
 public class toolbarController {
 
@@ -72,8 +71,8 @@ public class toolbarController {
     private void toolbarNewCustomer(){
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
-        OpenNewStage openNewStage = new OpenNewStage();
-        openNewStage.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
+        WindowHandler windowHandler = new WindowHandler();
+        windowHandler.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
     }
 
     @FXML

@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-public class OpenNewStage {
+public class WindowHandler {
 
     public void openNewStage(Stage currentStage, String pathToFXML, String stageTitle) {
         try{

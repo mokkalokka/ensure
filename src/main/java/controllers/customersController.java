@@ -1,11 +1,9 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
-import models.gui.OpenNewStage;
-import models.gui.OpenScene;
+import models.gui.WindowHandler;
 
 import java.io.IOException;
 
@@ -55,10 +52,10 @@ public class customersController {
     private void btnRegister() {
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
-        OpenNewStage openNewStage = new OpenNewStage();
+        WindowHandler windowHandler = new WindowHandler();
 
         //Åpner vinduet i en ny popup og låser dette vinduet
-        openNewStage.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
+        windowHandler.openNewStage(getCurrentStage(), pathToFXML, stageTitle);
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup

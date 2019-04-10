@@ -2,6 +2,7 @@ package models.customer;
 
 import javafx.collections.ObservableList;
 import models.exceptions.customerExceptions.*;
+import models.insurance.Insurance;
 
 public class CustomerHandling {
 
@@ -35,7 +36,6 @@ public class CustomerHandling {
         CustomerList.addCustomer(customer);
     }
 
-
     //Sjekker om en String inneholder nummer
     public boolean stringContainsNumbers(String string){
         return string.matches(".*\\d.*");
@@ -51,6 +51,16 @@ public class CustomerHandling {
             }
         }
         return false;
+    }
+
+    public static void addInsuranceToCustomer(Insurance insurance) throws NoSuchCustomerException {
+        for (Customer customer : CustomerList.getCustomerArrayList()) {
+            if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
+                customer.addInsurance(insurance);
+                return;
+            }
+        }
+        throw (new NoSuchCustomerException());
     }
 
 

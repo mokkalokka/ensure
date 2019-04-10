@@ -45,7 +45,7 @@ public class CsvWriter {
                 if (i == 0) {
                     writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
                 }
-                else if (insurance.getClass() != listOfAllInsurances.get(i - 1).getClass()) {
+                else if (currentInsuranceIsDifferentTypeFromPrevious(insurance, listOfAllInsurances.get(i-1))) {
                     writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
                 }
 
@@ -58,5 +58,9 @@ public class CsvWriter {
                 writer.close();
             }
         }
+    }
+    
+    private boolean currentInsuranceIsDifferentTypeFromPrevious(Insurance currentInsurance, Insurance previousInsurance) {
+        return currentInsurance.getClass() != previousInsurance.getClass();
     }
 }
