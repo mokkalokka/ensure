@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
-
+    private final String insuranceName = "Reiseforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     /*
     private enum CoverageType {
             STANDARD, PREMIUM
@@ -48,6 +48,11 @@ public class TravelInsurance extends Insurance {
                 ));
         fieldValues.addAll(0, super.getFieldValuesAsStrings());
         return fieldValues;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return insuranceName;
     }
 
     public double getMaxCoverage() {

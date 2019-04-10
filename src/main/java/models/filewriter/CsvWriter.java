@@ -30,6 +30,7 @@ public class CsvWriter {
             writer = new PrintWriter(path, "UTF-8");
 
             // Lag en header og skriv så rader for hver kunde
+            writer.println("Kunder");
             writer.println(customerWriter.generateHeader());
             for (Customer customer : customerList) {
                 writer.println(customerWriter.write(customer));
@@ -43,10 +44,12 @@ public class CsvWriter {
                 Insurance insurance = listOfAllInsurances.get(i);
 
                 if (i == 0) {
-                    writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
+                    writer.println(insurance.getInsuranceName());
+                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
                 }
                 else if (insurance.getClass() != listOfAllInsurances.get(i - 1).getClass()) {
-                    writer.println("\n" + String.join(";", insurance.getFieldNamesAsStrings()));
+                    writer.println(insurance.getInsuranceName());
+                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
                 }
 
                 writer.println(String.join(";", insurance.getFieldValuesAsStrings()));

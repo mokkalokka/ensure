@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BoatInsurance extends Insurance {
+    private final String insuranceName = "Batforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     private Boat boat;
 
     public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat) {
@@ -38,6 +39,11 @@ public class BoatInsurance extends Insurance {
         );
         fieldValues.addAll(0, super.getFieldValuesAsStrings());
         return fieldValues;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return insuranceName;
     }
 
     public Boat getBoat() {

@@ -42,6 +42,9 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
                 String.valueOf(coverageDescription)
         ));
     }
+
+    public abstract String getInsuranceName();
+
     @Override
     public int compareTo(Insurance t) {
         String thisClassName = this.getClass().getSimpleName();

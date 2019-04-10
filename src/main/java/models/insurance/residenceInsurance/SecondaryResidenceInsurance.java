@@ -4,6 +4,7 @@ import models.customer.Customer;
 import models.insurance.Insurance;
 
 public class SecondaryResidenceInsurance extends Insurance {
+    private final String insuranceName = "Fritidsboligforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     private Residence residence;
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
@@ -13,5 +14,10 @@ public class SecondaryResidenceInsurance extends Insurance {
         this.residence = residence;
         this.propertyInsuranceAmount = propertyInsuranceAmount;
         this.assetsInsuranceAmount = assetsInsuranceAmount;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return null;
     }
 }

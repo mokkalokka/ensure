@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PrimaryResidenceInsurance extends Insurance {
+    private final String insuranceName = "Husforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     private Residence residence;
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
@@ -56,5 +57,10 @@ public class PrimaryResidenceInsurance extends Insurance {
         );
         fieldValues.addAll(0, super.getFieldValuesAsStrings());
         return fieldValues;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return insuranceName;
     }
 }
