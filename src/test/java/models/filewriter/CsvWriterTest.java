@@ -2,11 +2,15 @@ package models.filewriter;
 
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
+import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
+import models.builders.residenceInsurance.ResidenceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
 import models.customer.CustomerHandler;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.boatInsurance.*;
+import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
+import models.insurance.residenceInsurance.Residence;
 import models.travelInsurance.TravelInsurance;
 import org.junit.Before;
 import org.junit.Test;
@@ -112,17 +116,34 @@ public class CsvWriterTest {
                     .setTotal("3133")
                     .build();
 
+            PrimaryResidenceInsurance primaryResidenceInsurance1 = new PrimaryResidenceInsuranceBuilder()
+                    .setRegisteredTo(String.valueOf(customer1.getInsuranceNr()))
+                    .setAnnualPremium("244888")
+                    //Her kommer kunden som date of issue (optional)
+                    .setTotal("100000.00")
+                    .setCoverageDescription("Dekker ikke naturkatastrofer")
+                    .setResidence(new ResidenceBuilder()
+                            .setAddress("Osloveien 50")
+                            .setCondition("Middels")
+                            .setConstructionMaterial("Tre")
+                            .setSqMeters("200")
+                            .setType("Enebolig")
+                            .setYearOfConstruction("1965")
+                            .build())
+                    .setPropertyInsuranceAmount("20000000.00")
+                    .setAssetsInsuranceAmount("500000")
+                    .build();
+
 
             customer1.addInsurance(travelInsurance1);
             customer1.addInsurance(boatInsurance1);
             customer2.addInsurance(boatInsurance2);
             customer2.addInsurance(boatInsurance3);
+            customer1.addInsurance(primaryResidenceInsurance1);
 
         }
 
     }
-
-
 
     @Test
     public void writeObject() {

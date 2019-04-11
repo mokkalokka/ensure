@@ -38,7 +38,7 @@ public class PrimaryResidenceInsurance extends Insurance {
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
                 Arrays.asList("Forsikringsbeløp bygning", "Forsikringsbeløp innbo", "Adresse", "Byggeår",
-                        "Boligtype", "Boligmateriale", "Boligtype", "Standard", "Kvadratmeter")
+                        "Boligtype", "Boligmateriale", "Standard", "Kvadratmeter")
         );
         fieldNames.addAll(0, super.getFieldNamesAsStrings());
         return fieldNames;
