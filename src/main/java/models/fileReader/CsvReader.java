@@ -54,7 +54,7 @@ public class CsvReader {
 
                 case "Husforsikringer":
                     //primaryResidenceInsuranceParser(lineArray);
-                    System.out.println("Hus");
+                    System.out.println("Hus" + lineArray[0]);
                     //Todo: parser
                     break;
 
@@ -65,7 +65,7 @@ public class CsvReader {
                 case "Reiseforsikringer":
                     //Todo: parser
                     System.out.println("Reise " + lineArray[0]);
-                    parseTravelInsurance(lineArray);
+                    //parseTravelInsurance(lineArray);
                     break;
 
                 case "Skademeldinger":

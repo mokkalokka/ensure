@@ -10,14 +10,14 @@ public class CsvReaderTest {
     public void readCsv(){
         CsvReader csvReader = new CsvReader();
         String pathToCsv = "./src/test/resources/csvWriterTest.csv";
-
+        System.out.println(CustomerList.getCustomerCount());
         try {
             csvReader.readCsv(pathToCsv);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        CustomerList.getCustomerCount();
+        System.out.println(CustomerList.getCustomerCount());
 
     }
 }

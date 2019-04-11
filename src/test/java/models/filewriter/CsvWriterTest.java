@@ -130,7 +130,7 @@ public class CsvWriterTest {
                             .setType("Enebolig")
                             .setYearOfConstruction("1965")
                             .build())
-                    .setPropertyInsuranceAmount("20000000.00")
+                    .setPropertyInsuranceAmount("2000000.00")
                     .setAssetsInsuranceAmount("500000")
                     .build();
 
