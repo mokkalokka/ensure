@@ -1,12 +1,12 @@
 Kunder
 Forsikringsnummer;Etternavn;Fornavn;Kunde siden;Fakturaadresse
-10000;Marsvinsen;Bolle;2019-04-10;Trondheimsveien 7
-10001;Hurt;Tore D.;2019-04-10;Ullevålsveien 2a
+10000;Marsvinsen;Bolle;2019-04-11;Trondheimsveien 7
+10001;Hurt;Tore D.;2019-04-11;Ullevålsveien 2a
 Batforsikringer
 Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Eier;Registreringsnummer;Type;Modell;Lengde i fot;Årsmodell;Motortype;Motorstyrke (HP)
-10000;30000.0;2019-04-10;50000.0;Dekker masse rart;Nilsen,Per;regnr;fregatt;Modell;25.5;2004;Svær;500
-10001;34000.0;2019-04-10;50000.0;Dekker ikke like mye;Nilsen,Per;regnr;fregatt;Modell;25.5;2004;Svær;500
-10001;191313.33;2019-04-10;3133.0;Helt greit;Hansen,Pål;NE23094872;Snekke;S32hh;20.0;1990;Diesel;20
+10000;13222.0;2019-04-11;5400.0;Ikke så mye;Nansen,Fritjof;SS3214;Rib;YL44;21.0;2018;Diesel;9000
+10001;131332.33;2019-04-11;5400.0;Alt!;Persen,Gunnar;KHD73242;Fregatt;X500;45.0;1650;Manpower!;300
+10001;191313.33;2019-04-11;3133.0;Helt greit;Hansen,Pål;NE23094872;Snekke;S32hh;20.0;1990;Diesel;20
 Reiseforsikringer
 Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Premiumforsikring;Forsikringssum
-10001;20000.0;2019-04-10;100000.0;Dekker hus og innbo;true;200000.0
+10000;2000.0;2019-04-11;150000.0;Dekker hus og innbo;true;100000.0

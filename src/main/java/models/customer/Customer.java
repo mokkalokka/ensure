@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 7374958920320110060L;
-    private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000); // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
+    public static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000); // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
 
     private int insuranceNr;
     private String lastName;
@@ -23,6 +23,8 @@ public class Customer implements Serializable {
     private ArrayList<Insurance> listOfInsurances;
     private ArrayList<AccidentStatement> listOfAccidentStatements; // skademelding
     private String pendingCompensation; // TODO: finn en måte å strukturere data på.
+
+    //TODO: Denne burde fjernes til fordel for den andre konstruktøren
 
     public Customer(String firstName, String lastName, String invoiceAddress) {
         this.firstName = firstName;
@@ -34,7 +36,6 @@ public class Customer implements Serializable {
         listOfAccidentStatements = new ArrayList<>();
     }
 
-    //Overloading når kunden er lest fra en fil og har ett forsikringsnr og kunde siden.
     public Customer(String firstName, String lastName, String invoiceAddress, int insuranceNr, LocalDate customerSince) {
         this.firstName = firstName;
         this.lastName = lastName;

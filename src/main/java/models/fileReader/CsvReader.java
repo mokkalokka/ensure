@@ -5,6 +5,7 @@ import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.CustomerHandler;
+import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
@@ -42,7 +43,7 @@ public class CsvReader {
 
             switch (currentClass) {
                 case "Kunder":
-                    //customerParser(lineArray);
+                    customerParser(lineArray);
                     System.out.println("kunde " + lineArray[0]);
                     break;
 
@@ -92,6 +93,8 @@ public class CsvReader {
 
     private void customerParser(String[] lineArray) {
         CustomerHandler customerHandler = new CustomerHandler();
+        customerHandler.setInsuranceNr(lineArray[0]);
+        customerHandler.setCustomerSince(lineArray[3]);
 
         //TODO: Customer builder? & CustomerID
         try {

@@ -1,11 +1,9 @@
 package models.fileReader;
 
-import models.fileReader.CsvReader;
+
+import models.customer.CustomerList;
 import org.junit.Test;
-
 import java.io.IOException;
-import java.time.LocalDate;
-
 public class CsvReaderTest {
 
     @Test
@@ -18,6 +16,8 @@ public class CsvReaderTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        CustomerList.getCustomerCount();
 
     }
 }
