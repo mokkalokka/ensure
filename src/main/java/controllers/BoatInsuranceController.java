@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
+import models.customer.CustomerHandler;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.InsuranceHandler;
 import models.insurance.boatInsurance.Boat;
@@ -15,6 +16,10 @@ public class BoatInsuranceController {
 
     private final InsuranceController insuranceController =
             new FXMLLoader(getClass().getResource("/org/view/insurance.fxml")).getController();
+
+    // En slags 'state' for om nåværende forsikring er ny, eller skal overskrive en eksisterende.
+    // Siden det kun er 2 states og disse påvirker bare 1 metode, er det valgt en enkel løsning med boolsk variabel,
+    // i stedet for å implementere State-designmønsteret.
     private boolean currentInsuranceIsNew;
 
     @FXML
@@ -38,20 +43,34 @@ public class BoatInsuranceController {
 
     @FXML
     private void btnSave() {
-        if (currentInsuranceIsNew) {
-            try {
+        try {
+            if (currentInsuranceIsNew) {
                 saveNewBoatInsurance();
                 currentInsuranceIsNew = false;
-            } catch (NoSuchCustomerException e) {
-                // TODO: error window
-                e.printStackTrace();
             }
+            else {
+                overwriteExistingInsurance();
+            }
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+            // TODO: Display error window.
         }
     }
+
+
 
     private void saveNewBoatInsurance() throws NoSuchCustomerException {
         InsuranceHandler insuranceHandler = new InsuranceHandler();
         insuranceHandler.addNewInsurance(getCurrentBoatInsurance());
+    }
+
+    private void overwriteExistingInsurance() {
+        try {
+            CustomerHandler.overwriteInsurance(getCurrentBoatInsurance());
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+            // TODO: Display error window.
+        }
     }
 
     private BoatInsurance getCurrentBoatInsurance() {
@@ -77,7 +96,7 @@ public class BoatInsuranceController {
                 .build();
     }
 
-    private void loadBoatInsurance(BoatInsurance boatInsurance) {
+    protected void loadBoatInsurance(BoatInsurance boatInsurance) {
         txtRegistrationNr.setText(boatInsurance.getBoat().getBoatModel());
         txtBoatModel.setText(boatInsurance.getBoat().getBoatModel());
         txtBoatType.setText(boatInsurance.getBoat().getBoatType());

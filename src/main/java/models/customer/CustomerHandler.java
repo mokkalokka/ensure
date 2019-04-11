@@ -63,7 +63,7 @@ public class CustomerHandler {
         throw (new NoSuchCustomerException());
     }
 
-    public static void overwriteInsurance(Insurance newInsurance) {
+    public static void overwriteInsurance(Insurance newInsurance) throws NoSuchCustomerException {
         for (Customer customer : CustomerList.getCustomerList()) {
 
             if (insuranceBelongsToCustomer(newInsurance, customer)) {
@@ -76,6 +76,7 @@ public class CustomerHandler {
                 }
             }
         }
+        throw (new NoSuchCustomerException());
     }
 
     private static boolean insuranceBelongsToCustomer(Insurance insurance, Customer customer) {
