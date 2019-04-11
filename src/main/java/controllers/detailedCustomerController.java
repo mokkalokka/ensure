@@ -156,12 +156,14 @@ public class detailedCustomerController {
         initializeInsuranceTable();
         initializeAccidentStatementTable();
 
+        //TODO det kan heller ikke kjores her
         //Listener som oppdaterer tablene nar vinduet blir fokusert
         //Dette ma til siden tablet ikke oppdaterer seg selv ved endringer, men bare ved tillegg eller fjerning
-        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            tblInsurance.refresh();
-            tblAccidentStatement.refresh();
-        });
+        /*anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+         *  tblInsurance.refresh();
+         *  tblAccidentStatement.refresh();
+         *});
+        */
 
         //Setter textboksene
         lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));

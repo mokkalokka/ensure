@@ -73,7 +73,7 @@ public class customersController {
 
     //Metode som kjores av mainapp, med en gang vinduet apnes
     //Denne kjores etter initialize. Denne funket ikke der fordi getWindow() returnerer null i initialize
-    //TODO faa denne til a kjore etter vinduet apnes, funket ikke a kjore manuelt i mainapp
+    //TODO faa denne til a kjore etter vinduet apnes, funket ikke a kjore manuelt i mainapp, den funker hvor som helst ellers, men ma finne et logisk sted a kjore
     public void onWindowShow() {
         anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
     }
