@@ -18,23 +18,23 @@ public class BoatInsuranceController {
     private boolean currentInsuranceIsNew;
 
     @FXML
-    TextField txtOwnerSurname;
+    private TextField txtOwnerSurname;
     @FXML
-    TextField txtOwnerFirstName;
+    private TextField txtOwnerFirstName;
     @FXML
-    TextField txtRegistrationNr;
+    private TextField txtRegistrationNr;
     @FXML
-    TextField txtBoatType;
+    private TextField txtBoatType;
     @FXML
-    TextField txtLengthInFt;
+    private TextField txtLengthInFt;
     @FXML
-    TextField txtModelYear;
+    private TextField txtModelYear;
     @FXML
-    TextField txtEngineType;
+    private TextField txtEngineType;
     @FXML
-    TextField txtBoatModel;
+    private TextField txtBoatModel;
     @FXML
-    TextField txtEngineHP;
+    private TextField txtEngineHP;
 
     @FXML
     private void btnSave() {

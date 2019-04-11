@@ -13,23 +13,21 @@ public class InsuranceController {
     Insurance currentInsurance;
 
     @FXML
-    TextField txtRegisteredTo;
-
+    private TextField txtRegisteredTo;
     @FXML
-    TextField txtDateOfIssue;
-
+    private TextField txtDateOfIssue;
     @FXML
-    TextField txtTotal;
-
+    private TextField txtTotal;
     @FXML
-    TextField txtCoverageDescription;
-
+    private TextField txtCoverageDescription;
     @FXML
-    TextField txtAnnualPremium;
+    private TextField txtAnnualPremium;
+
 
     public void btnBack() {
         getCurrentStage().close();
     }
+
 
     private Stage getCurrentStage(){
         return (Stage) txtRegisteredTo.getScene().getWindow();
