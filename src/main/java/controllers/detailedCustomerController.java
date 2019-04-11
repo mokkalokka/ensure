@@ -1,19 +1,17 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.gui.WindowHandler;
@@ -69,6 +67,10 @@ public class detailedCustomerController {
     private TableColumn<AccidentStatement, String> clmnAccidentDescription;
 
     //FX elementene
+
+    @FXML
+    private AnchorPane anchorPane;
+
     @FXML
     private JFXTextField lblInsuranceNr;
 
@@ -153,6 +155,13 @@ public class detailedCustomerController {
         //Hjelp metoder siden dette ikke kan ligge i den innebygde initialize metoden
         initializeInsuranceTable();
         initializeAccidentStatementTable();
+
+        //Listener som oppdaterer tablene nar vinduet blir fokusert
+        //Dette ma til siden tablet ikke oppdaterer seg selv ved endringer, men bare ved tillegg eller fjerning
+        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            tblInsurance.refresh();
+            tblAccidentStatement.refresh();
+        });
 
         //Setter textboksene
         lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));
