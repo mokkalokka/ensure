@@ -3,6 +3,7 @@ package models.insurance.residenceInsurance;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,8 +13,10 @@ public class PrimaryResidenceInsurance extends Insurance {
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
 
-    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount) {
-        super(registeredTo, annualPremium, total, coverageDescription);
+    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
+                                     Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount,
+                                     LocalDate dateOfIssue) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
         this.residence = residence;
         this.propertyInsuranceAmount = propertyInsuranceAmount;
         this.assetsInsuranceAmount = assetsInsuranceAmount;

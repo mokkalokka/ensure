@@ -11,7 +11,7 @@ public class TravelInsuranceBuilder {
     //Fra superklassen Insurance
     private int registeredTo;
     private double annualPremium;
-    private LocalDate dateOfIssue;
+    private LocalDate dateOfIssue = null;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
 
@@ -52,12 +52,16 @@ public class TravelInsuranceBuilder {
     }
 
     public TravelInsurance build(){
+        if (dateOfIssue == null) {
+            dateOfIssue = LocalDate.now();
+        }
         return new TravelInsurance(
                 registeredTo,
                 annualPremium,
                 total,
                 coverageDescription,
                 maxCoverage,
-                isPremium);
+                isPremium,
+                dateOfIssue);
     }
 }

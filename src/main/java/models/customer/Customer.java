@@ -34,6 +34,17 @@ public class Customer implements Serializable {
         listOfAccidentStatements = new ArrayList<>();
     }
 
+    //Overloading når kunden er lest fra en fil og har ett forsikringsnr og kunde siden.
+    public Customer(String firstName, String lastName, String invoiceAddress, int insuranceNr, LocalDate customerSince) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.invoiceAddress = invoiceAddress;
+        this.customerSince = customerSince;
+        this.insuranceNr = insuranceNr;
+        listOfInsurances = new ArrayList<>();
+        listOfAccidentStatements = new ArrayList<>();
+    }
+
     public String searchData() {
         return (insuranceNr + firstName + lastName + invoiceAddress).toLowerCase();
     }

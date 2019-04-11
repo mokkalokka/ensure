@@ -3,6 +3,7 @@ package models.insurance.boatInsurance;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,8 +11,11 @@ public class BoatInsurance extends Insurance {
     private final String insuranceName = "Batforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     private Boat boat;
 
-    public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat) {
-        super(registeredTo, annualPremium, total, coverageDescription);
+
+    //Overloading når forsikringen er lest fra en fil og har en dateOfIssue
+    public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat,
+                         LocalDate dateOfIssue) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
         this.boat = boat;
     }
 
