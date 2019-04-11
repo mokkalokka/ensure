@@ -1,6 +1,8 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -11,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
@@ -22,6 +25,9 @@ import java.time.LocalDate;
 
 public class customersController {
     //Alle fx elementene
+    @FXML
+    private AnchorPane anchorPane;
+
     @FXML
     private JFXTextField txtSearch;
 
@@ -62,9 +68,15 @@ public class customersController {
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
     private Stage getCurrentStage(){
-        return (Stage) txtSearch.getScene().getWindow();
+        return (Stage) anchorPane.getScene().getWindow();
     }
 
+    //Metode som kjores av mainapp, med en gang vinduet apnes
+    //Denne kjores etter initialize. Denne funket ikke der fordi getWindow() returnerer null i initialize
+    //TODO faa denne til a kjore etter vinduet apnes, funket ikke a kjore manuelt i mainapp
+    public void onWindowShow() {
+        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
+    }
 
     public void doubleClicked(Customer clickedCustomer) {
         //TODO maa erstatte vindu, ikke aapne nytt
@@ -83,7 +95,6 @@ public class customersController {
 
             WindowHandler windowHandler = new WindowHandler();
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, title);
-            System.out.println("test");
 
         } catch (IOException e) {
             System.err.println("FXML file not found!");
@@ -91,8 +102,11 @@ public class customersController {
     }
 
 
-
     public void initialize() {
+
+        //anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
+
+
         //Klikking paa kunder
 
         //Funksjon pa alle rader in tablet
