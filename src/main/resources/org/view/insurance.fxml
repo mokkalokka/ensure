@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -14,9 +13,6 @@
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="181.0" prefWidth="872.0">
          <children>
-            <JFXButton layoutX="21.0" layoutY="23.0" onAction="#btnBack" prefHeight="27.0" prefWidth="64.0" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Tilbake" />
-            <JFXButton layoutX="105.0" layoutY="23.0" onAction="#btnBack" prefHeight="27.0" prefWidth="64.0" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Slett" />
-            <JFXButton layoutX="187.0" layoutY="23.0" onAction="#btnSaveCustomer" prefHeight="27.0" prefWidth="64.0" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Lagre" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="15.0" prefHeight="43.0" prefWidth="182.0" text="Forsikringsdata">
                <font>
                   <Font size="23.0" />

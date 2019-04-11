@@ -5,11 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
+import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.InsuranceHandler;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 
 public class BoatInsuranceController {
+
+    private final InsuranceController insuranceController =
+            new FXMLLoader(getClass().getResource("/org/view/insurance.fxml")).getController();
+    private boolean currentInsuranceIsNew;
 
     @FXML
     TextField txtOwnerSurname;
@@ -30,8 +36,36 @@ public class BoatInsuranceController {
     @FXML
     TextField txtEngineHP;
 
-    public BoatInsurance createBoatInsurance() {
-        Boat boat = new BoatBuilder()
+    @FXML
+    private void btnSave() {
+        if (currentInsuranceIsNew) {
+            try {
+                saveNewBoatInsurance();
+                currentInsuranceIsNew = false;
+            } catch (NoSuchCustomerException e) {
+                // TODO: error window
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveNewBoatInsurance() throws NoSuchCustomerException {
+        InsuranceHandler insuranceHandler = new InsuranceHandler();
+        insuranceHandler.addNewInsurance(getCurrentBoatInsurance());
+    }
+
+    private BoatInsurance getCurrentBoatInsurance() {
+        return new BoatInsuranceBuilder()
+                .setRegisteredTo(insuranceController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(insuranceController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(insuranceController.getTxtCoverageDescription().getText())
+                .setTotal(insuranceController.getTxtTotal().getText())
+                .setBoat(getCurrentBoat())
+                .build();
+    }
+
+    private Boat getCurrentBoat() {
+        return new BoatBuilder()
                 .setRegistrationNr(txtRegistrationNr.getText())
                 .setBoatModel(txtBoatModel.getText())
                 .setBoatType(txtBoatType.getText())
@@ -41,10 +75,9 @@ public class BoatInsuranceController {
                 .setModelYear(txtModelYear.getText())
                 .setOwner(new BoatOwner(txtOwnerFirstName.getText(), txtOwnerSurname.getText()))
                 .build();
-        return null;
     }
 
-    public void loadBoatInsurance(BoatInsurance boatInsurance) {
+    private void loadBoatInsurance(BoatInsurance boatInsurance) {
         txtRegistrationNr.setText(boatInsurance.getBoat().getBoatModel());
         txtBoatModel.setText(boatInsurance.getBoat().getBoatModel());
         txtBoatType.setText(boatInsurance.getBoat().getBoatType());
@@ -56,11 +89,7 @@ public class BoatInsuranceController {
         txtOwnerSurname.setText(boatInsurance.getBoat().getOwner().getLastName());
     }
 
-    public BoatInsurance saveBoatInsurance() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/insurance.fxml"));
-        InsuranceController insuranceController = loader.getController();
-        insuranceController.getTxtAnnualPremium();
-        // TODO: Fiks her.
-        return null;
+    private void setCurrentInsuranceIsNew(boolean currentInsuranceIsNew) {
+        this.currentInsuranceIsNew = currentInsuranceIsNew;
     }
 }
