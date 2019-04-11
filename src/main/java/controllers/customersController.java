@@ -77,8 +77,13 @@ public class customersController {
             detailedCustomerController controller = loader.getController();
             controller.pickCustomer(clickedCustomer);
 
+            //Setter tittel
+            String title = String.format("Viser kunde: %s %s %s",
+                    clickedCustomer.getInsuranceNr(), clickedCustomer.getFirstName(), clickedCustomer.getLastName());
+
             WindowHandler windowHandler = new WindowHandler();
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Vis Kunde");
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, title);
+            System.out.println("test");
 
         } catch (IOException e) {
             System.err.println("FXML file not found!");
