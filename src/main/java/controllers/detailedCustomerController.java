@@ -161,7 +161,7 @@ public class detailedCustomerController {
         lblCustomerSince.setText(aCustomer.getCustomerSince().toString());
         lblInvoiceAddress.setText(aCustomer.getInvoiceAddress());
     }
-    
+
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
