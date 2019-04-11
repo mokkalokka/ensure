@@ -3,16 +3,20 @@ package models.insurance.residenceInsurance;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PrimaryResidenceInsurance extends Insurance {
+    private final String insuranceName = "Husforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     private Residence residence;
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
 
-    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount) {
-        super(registeredTo, annualPremium, total, coverageDescription);
+    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
+                                     Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount,
+                                     LocalDate dateOfIssue) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
         this.residence = residence;
         this.propertyInsuranceAmount = propertyInsuranceAmount;
         this.assetsInsuranceAmount = assetsInsuranceAmount;
@@ -34,7 +38,7 @@ public class PrimaryResidenceInsurance extends Insurance {
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
                 Arrays.asList("Forsikringsbeløp bygning", "Forsikringsbeløp innbo", "Adresse", "Byggeår",
-                        "Boligtype", "Boligmateriale", "Boligtype", "Standard", "Kvadratmeter")
+                        "Boligtype", "Boligmateriale", "Standard", "Kvadratmeter")
         );
         fieldNames.addAll(0, super.getFieldNamesAsStrings());
         return fieldNames;
@@ -56,5 +60,10 @@ public class PrimaryResidenceInsurance extends Insurance {
         );
         fieldValues.addAll(0, super.getFieldValuesAsStrings());
         return fieldValues;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return insuranceName;
     }
 }

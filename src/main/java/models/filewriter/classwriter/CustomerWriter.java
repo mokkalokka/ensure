@@ -13,10 +13,11 @@ public class CustomerWriter implements WriteClassToCsv<Customer> {
 
     @Override
     public String write(Customer customer) {
-        return String.format("%s;%s;%s;%s",
+        return String.format("%s;%s;%s;%s;%s",
                 customer.getInsuranceNr(),
                 customer.getLastName(),
                 customer.getFirstName(),
+                customer.getCustomerSince(),
                 customer.getInvoiceAddress()
         );
     }

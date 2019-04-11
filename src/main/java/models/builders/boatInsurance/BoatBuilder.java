@@ -3,6 +3,8 @@ package models.builders.boatInsurance;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatOwner;
 
+import java.time.LocalDate;
+
 public class BoatBuilder {
 
     private String registrationNr;
