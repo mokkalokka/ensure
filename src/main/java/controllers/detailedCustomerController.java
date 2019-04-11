@@ -157,7 +157,7 @@ public class detailedCustomerController {
             controller.loadBoatInsurance(boatInsurance);
 
             WindowHandler windowHandler = new WindowHandler();
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Båt fosikring");
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Båt forsikring");
 
         } catch (IOException e) {
             e.printStackTrace();
