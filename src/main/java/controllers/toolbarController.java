@@ -1,6 +1,5 @@
 package controllers;
 
-import com.opencsv.CSVReader;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +31,6 @@ public class toolbarController {
         String path = fileChooser.showOpenDialog(null).getPath();
         String[] filePathArray = path.split("\\.");
         String fileExtension = filePathArray[filePathArray.length - 1];
-        System.out.println(fileExtension);
 
         if(fileExtension.equals("jobj")){
             SerializedObjectReader serializedObjectReader = new SerializedObjectReader();

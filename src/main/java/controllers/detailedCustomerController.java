@@ -175,7 +175,7 @@ public class detailedCustomerController {
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
-        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("insurnanceName"));
+        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("insuranceName"));
         clmnJoinDate.setCellValueFactory(new PropertyValueFactory<>("dateOfIssue"));
         clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         clmnAnnualPremium.setCellValueFactory(new PropertyValueFactory<>("annualPremium"));
