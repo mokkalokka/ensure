@@ -16,11 +16,9 @@ import models.insurance.boatInsurance.BoatOwner;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import models.travelInsurance.TravelInsurance;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 
 
 public class CsvReader {
@@ -88,17 +86,6 @@ public class CsvReader {
                 .setAccidentType(lineArray[5])
                 .setDispersedCompensation(lineArray[6])
                 .build();
-
-
-
-/*
-        private LocalDate dateOfAccident;
-        private String accidentType; // type skade, kanskje annet datafelt
-        private String accidentDescription;
-        private double appraisalAmount; // Takseringsbeøp av skaden
-        private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
-        private int accidentNr = 0;
-        */
 
     }
 
