@@ -1,5 +1,6 @@
 package models.fileReader;
 
+import models.builders.AccidentStatementBuilder;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
@@ -9,6 +10,7 @@ import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.CustomerHandler;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.AccidentStatement;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -18,6 +20,7 @@ import models.travelInsurance.TravelInsurance;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 public class CsvReader {
@@ -76,7 +79,18 @@ public class CsvReader {
     }
 
     private void parseAccidentStatement(String[] lineArray) {
+        AccidentStatement accidentStatement = new AccidentStatementBuilder()
+                .setRegisteredTo(lineArray[0])
 
+
+/*
+        private LocalDate dateOfAccident;
+        private String accidentType; // type skade, kanskje annet datafelt
+        private String accidentDescription;
+        private double appraisalAmount; // Takseringsbeøp av skaden
+        private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
+        private int accidentNr = 0;
+        */
 
     }
 

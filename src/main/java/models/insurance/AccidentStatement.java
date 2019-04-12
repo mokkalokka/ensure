@@ -15,9 +15,11 @@ public class AccidentStatement implements Serializable {
     // private ArrayList<ContactInfo> witnessContactInfo; // TODO: Finne noe smart her
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
+    private int registeredTo;
 
-    public AccidentStatement(LocalDate dateOfAccident, String accidentType, String accidentDescription,
+    public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription,
                              double appraisalAmount, double dispersedCompensation, int accidentNr) {
+        this.registeredTo = registeredTo;
         this.dateOfAccident = dateOfAccident;
         this.accidentNr = accidentNr;
         this.accidentType = accidentType;
