@@ -27,16 +27,17 @@ public class Customer implements Serializable {
     //TODO: Denne burde fjernes til fordel for den andre konstruktøren
 
     public Customer(String firstName, String lastName, String invoiceAddress) {
+        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;
         this.customerSince = LocalDate.now();
-        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
     }
 
     public Customer(String firstName, String lastName, String invoiceAddress, LocalDate customerSince) {
+        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;

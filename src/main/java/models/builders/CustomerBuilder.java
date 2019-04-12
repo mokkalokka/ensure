@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CustomerBuilder {
 
-    private int insuranceNr;
+    private int insuranceNr = 0;
     private String lastName;
     private String firstName;
     private LocalDate customerSince;
