@@ -1,15 +1,15 @@
 Kunder
 Forsikringsnummer;Etternavn;Fornavn;Kunde siden;Fakturaadresse
-10000;Marsvinsen;Bolle;2019-04-11;Trondheimsveien 7
-10001;Hurt;Tore D.;2019-04-11;Ullevålsveien 2a
+10001;Marsvinsen;Bolle;2019-04-12;Trondheimsveien 7
+10002;Hurt;Tore D.;2019-04-12;Ullevålsveien 2a
 Batforsikringer
 Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Eier;Registreringsnummer;Type;Modell;Lengde i fot;Årsmodell;Motortype;Motorstyrke (HP)
-10000;13222.0;2019-04-11;5400.0;Ikke så mye;Nansen,Fritjof;SS3214;Rib;YL44;21.0;2018;Diesel;9000
-10001;131332.33;2019-04-11;5400.0;Alt!;Persen,Gunnar;KHD73242;Fregatt;X500;45.0;1650;Manpower!;300
-10001;191313.33;2019-04-11;3133.0;Helt greit;Hansen,Pål;NE23094872;Snekke;S32hh;20.0;1990;Diesel;20
+10001;13222.0;2019-04-12;5400.0;Ikke så mye;Nansen,Fritjof;SS3214;Rib;YL44;21.0;2018;Diesel;9000
+10002;131332.33;2019-04-12;5400.0;Alt!;Persen,Gunnar;KHD73242;Fregatt;X500;45.0;1650;Manpower!;300
+10002;191313.33;2019-04-12;3133.0;Helt greit;Hansen,Pål;NE23094872;Snekke;S32hh;20.0;1990;Diesel;20
 Husforsikringer
 Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Forsikringsbeløp bygning;Forsikringsbeløp innbo;Adresse;Byggeår;Boligtype;Boligmateriale;Standard;Kvadratmeter
-10000;244888.0;2019-04-11;100000.0;Dekker ikke naturkatastrofer;2000000.0;500000.0;Osloveien 50;1965;Enebolig;Tre;Middels;200
+10001;244888.0;2019-04-12;100000.0;Dekker ikke naturkatastrofer;2000000.0;500000.0;Osloveien 50;1965;Enebolig;Tre;Middels;200
 Reiseforsikringer
 Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Premiumforsikring;Forsikringssum
-10000;2000.0;2019-04-11;150000.0;Dekker hus og innbo;true;100000.0
+10001;2000.0;2019-04-12;150000.0;Dekker hus og innbo;true;100000.0

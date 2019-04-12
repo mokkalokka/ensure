@@ -10,11 +10,17 @@ import java.util.Date;
 
 public class AccidentStatementBuilder {
 
+    private int registeredTo;
     private LocalDate dateOfAccident;
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
+
+    public AccidentStatementBuilder setRegisteredTo(String registeredTo) {
+        this.registeredTo = Integer.parseInt(registeredTo);
+        return this;
+    }
 
     public AccidentStatementBuilder setDateOfAccident(String dateOfAccident) {
         //TODO: Mulig å endre date format i parse
@@ -44,6 +50,7 @@ public class AccidentStatementBuilder {
 
     public AccidentStatement build(){
         return new AccidentStatement(
+                registeredTo,
                 dateOfAccident,
                 accidentType,
                 accidentDescription,

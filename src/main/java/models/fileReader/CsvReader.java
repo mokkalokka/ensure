@@ -1,12 +1,15 @@
 package models.fileReader;
 
+import models.builders.CustomerBuilder;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
-import models.customer.CustomerHandler;
+import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.InvalidFirstNameException;
+import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -19,7 +22,7 @@ import java.io.IOException;
 
 public class CsvReader {
 
-    public void readCsv(String pathToCsv) throws IOException {
+    public void readCsv(String pathToCsv) throws IOException, InvalidCustomerException {
 
 
         BufferedReader br = new BufferedReader(new FileReader(pathToCsv));
@@ -91,17 +94,16 @@ public class CsvReader {
     }
 
 
-    private void customerParser(String[] lineArray) {
-        CustomerHandler customerHandler = new CustomerHandler();
-        customerHandler.setInsuranceNr(lineArray[0]);
-        customerHandler.setCustomerSince(lineArray[3]);
+    private void customerParser(String[] lineArray) throws InvalidCustomerException {
+        Customer parsedCustomer = new CustomerBuilder()
+                .setInsuranceNr(lineArray[0])
+                .setLastName(lineArray[1])
+                .setFirstName(lineArray[2])
+                .setCustomerSince(lineArray[3])
+                .setInvoiceAddress(lineArray[4])
+                .build();
 
-        //TODO: Customer builder? & CustomerID
-        try {
-            customerHandler.createNewCustomer(lineArray[2], lineArray[1],lineArray[3]);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-        }
+        CustomerList.addCustomer(parsedCustomer);
 
     }
 

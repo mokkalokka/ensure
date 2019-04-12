@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.customer.CustomerHandler;
+import models.builders.CustomerBuilder;
+import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
@@ -28,27 +29,23 @@ public class newCustomerController {
     private Label lblStatus;
 
     @FXML
-    private void btnAddCustomerClicked() {
-        CustomerHandler customerHandler = new CustomerHandler();
-
+    private void btnAddCustomer() {
         try {
-            customerHandler.createNewCustomer(txtFirstName.getText(), txtLastName.getText(),
-                    txtInvoiceAddress.getText());
+            CustomerList.addCustomer(getCurrentCustomer());
             updateStatus("Kunden er lagt til i listen");
             resetFieldColor();
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+            // TODO: Display error window.
         }
-        catch (InvalidFirstNameException e){
-            setTextFieldFocusAndColor(txtFirstName);
-            invalidInputAlert(e.getMessage());
-        }
-        catch (InvalidLastNameException e){
-            setTextFieldFocusAndColor(txtLastName);
-            invalidInputAlert(e.getMessage());
-        }
-        catch (InvalidCustomerException e){
-            invalidInputAlert(e.getMessage());
+    }
 
-        }
+    private Customer getCurrentCustomer() throws InvalidCustomerException {
+        return new CustomerBuilder()
+                .setFirstName(txtFirstName.getText())
+                .setLastName(txtLastName.getText())
+                .setInvoiceAddress(txtInvoiceAddress.getText())
+                .build();
     }
 
     private void setTextFieldFocusAndColor(TextField field){
