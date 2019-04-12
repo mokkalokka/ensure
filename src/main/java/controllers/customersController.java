@@ -7,11 +7,13 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
@@ -73,26 +75,42 @@ public class customersController {
     //Metode som kjores av mainapp, med en gang vinduet apnes
     //Denne kjores etter initialize. Denne funket ikke der fordi getWindow() returnerer null i initialize
     public void onWindowShow(WindowEvent event) {
-        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
+        //Legger til en listener pa vinduet som refresher tablet nar vinduet far fokus
+        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, onFocus, onUnfocus) -> tblCustomer.refresh());
     }
 
     public void doubleClicked(Customer clickedCustomer) {
-        //TODO maa erstatte vindu, ikke aapne nytt
-        //TODO feilhandering
+        //TODO denne kan ikke forlopig implemnteres med windowhandler metoder
         try {
             //Last inn ny fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/detailedCustomer.fxml"));
             Parent root = loader.load();
+
             //Finner kontrolleren til fxml fila og passerer den dobbelklikkede kunden til kontrolleren
             detailedCustomerController controller = loader.getController();
             controller.pickCustomer(clickedCustomer);
+
+            //Oppretter en ny stage
+            Stage newStage = new Stage();
+
+            //Legger til en eventListener pa den nye stagen som kjorer onWinodwShow i detailedCustomerController nar vinduet vises
+            newStage.setOnShown(controller::onWindowShow);
 
             //Setter tittel
             String title = String.format("Viser kunde: %s %s %s",
                     clickedCustomer.getInsuranceNr(), clickedCustomer.getFirstName(), clickedCustomer.getLastName());
 
-            WindowHandler windowHandler = new WindowHandler();
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, title);
+            newStage.setTitle(title);
+
+            Scene newScene = new Scene(root);
+            newStage.setScene(newScene);
+
+            newStage.initOwner(getCurrentStage());
+            //Låser det gamle vinduet til det nye lukkes
+            newStage.initModality(Modality.WINDOW_MODAL);
+            //Hviser vinduet
+            newStage.show();
+
 
         } catch (IOException e) {
             System.err.println("FXML file not found!");
