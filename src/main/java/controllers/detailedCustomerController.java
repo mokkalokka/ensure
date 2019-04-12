@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import models.customer.Customer;
 import models.gui.WindowHandler;
 import models.insurance.AccidentStatement;
@@ -152,27 +153,25 @@ public class detailedCustomerController {
         insuranceObservableList = FXCollections.observableArrayList(currentCustomer.getListOfInsurances());
         accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
 
+        //Setter textboksene
+        lblInsuranceNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
+        lblSurname.setText(currentCustomer.getLastName());
+        lblFirstName.setText(currentCustomer.getFirstName());
+        lblCustomerSince.setText(currentCustomer.getCustomerSince().toString());
+        lblInvoiceAddress.setText(currentCustomer.getInvoiceAddress());
+    }
+
+    public void onWindowShow(WindowEvent event) {
+        //Legger til en listener pa vinduet som refresher begge tablene nar vinduet far fokus
+        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, onFocus, onUnfocus) -> {
+           tblInsurance.refresh();
+           tblAccidentStatement.refresh();
+        });
+
         //Hjelp metoder siden dette ikke kan ligge i den innebygde initialize metoden
         initializeInsuranceTable();
         initializeAccidentStatementTable();
-
-        //TODO det kan heller ikke kjores her
-        //Listener som oppdaterer tablene nar vinduet blir fokusert
-        //Dette ma til siden tablet ikke oppdaterer seg selv ved endringer, men bare ved tillegg eller fjerning
-        /*anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-         *  tblInsurance.refresh();
-         *  tblAccidentStatement.refresh();
-         *});
-        */
-
-        //Setter textboksene
-        lblInsuranceNr.setText(String.valueOf(aCustomer.getInsuranceNr()));
-        lblSurname.setText(aCustomer.getLastName());
-        lblFirstName.setText(aCustomer.getFirstName());
-        lblCustomerSince.setText(aCustomer.getCustomerSince().toString());
-        lblInvoiceAddress.setText(aCustomer.getInvoiceAddress());
     }
-
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
