@@ -1,8 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -15,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.gui.WindowHandler;
@@ -73,8 +72,7 @@ public class customersController {
 
     //Metode som kjores av mainapp, med en gang vinduet apnes
     //Denne kjores etter initialize. Denne funket ikke der fordi getWindow() returnerer null i initialize
-    //TODO faa denne til a kjore etter vinduet apnes, funket ikke a kjore manuelt i mainapp, den funker hvor som helst ellers, men ma finne et logisk sted a kjore
-    public void onWindowShow() {
+    public void onWindowShow(WindowEvent event) {
         anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
     }
 
@@ -103,10 +101,6 @@ public class customersController {
 
 
     public void initialize() {
-
-        //anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, aBoolean, t1) -> tblCustomer.refresh());
-
-
         //Klikking paa kunder
 
         //Funksjon pa alle rader in tablet
