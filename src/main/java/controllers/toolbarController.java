@@ -1,5 +1,6 @@
 package controllers;
 
+import com.opencsv.CSVReader;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
+import models.fileReader.CsvReader;
 import models.fileReader.SerializedObjectReader;
 import models.filewriter.SerializedObjectWriter;
 import models.gui.WindowHandler;
@@ -22,24 +24,42 @@ public class toolbarController {
     @FXML
     private void toolbarOpenFile(){
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj)", "*.jobj");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
+                "*.jobj","*.csv");
         fileChooser.getExtensionFilters().add(extFilter);
 
         fileChooser.setTitle("Open file");
         String path = fileChooser.showOpenDialog(null).getPath();
+        String[] filePathArray = path.split("\\.");
+        String fileExtension = filePathArray[filePathArray.length - 1];
+        System.out.println(fileExtension);
 
-        SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
+        if(fileExtension.equals("jobj")){
+            SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
 
-        try {
-            ArrayList<Customer> customerListFromFile = (ArrayList<Customer>) serializedObjectReader.readObject(path);
-            for (Customer customer : customerListFromFile) {
-                CustomerList.addCustomer(customer);
+            try {
+                ArrayList<Customer> customerListFromFile = (ArrayList<Customer>) serializedObjectReader.readObject(path);
+                for (Customer customer : customerListFromFile) {
+                    CustomerList.addCustomer(customer);
+                }
+            } catch (IOException e) {
+                e.printStackTrace(); //TODO: Fiks exceptions!
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: Fiks exceptions!
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
         }
+        else if (fileExtension.equals("csv")){
+            CsvReader csvReader = new CsvReader();
+
+            try {
+                csvReader.readCsv(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
     }
 
