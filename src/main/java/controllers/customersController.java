@@ -76,7 +76,10 @@ public class customersController {
     //Denne kjores etter initialize. Denne funket ikke der fordi getWindow() returnerer null i initialize
     public void onWindowShow(WindowEvent event) {
         //Legger til en listener pa vinduet som refresher tablet nar vinduet far fokus
-        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, onFocus, onUnfocus) -> tblCustomer.refresh());
+        anchorPane.getScene()
+                .getWindow()
+                .focusedProperty()
+                .addListener((observableValue, onFocus, onUnfocus) -> tblCustomer.refresh());
     }
 
     public void doubleClicked(Customer clickedCustomer) {
@@ -98,7 +101,9 @@ public class customersController {
 
             //Setter tittel
             String title = String.format("Viser kunde: %s %s %s",
-                    clickedCustomer.getInsuranceNr(), clickedCustomer.getFirstName(), clickedCustomer.getLastName());
+                    clickedCustomer.getInsuranceNr(),
+                    clickedCustomer.getFirstName(),
+                    clickedCustomer.getLastName());
 
             newStage.setTitle(title);
 
