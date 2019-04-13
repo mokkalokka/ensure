@@ -2,6 +2,7 @@ package models.fileReader;
 
 
 import models.customer.CustomerList;
+import models.exceptions.customerExceptions.InvalidCustomerException;
 import org.junit.Test;
 import java.io.IOException;
 public class CsvReaderTest {
@@ -14,6 +15,9 @@ public class CsvReaderTest {
         try {
             csvReader.readCsv(pathToCsv);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidCustomerException e) {
+            System.err.println(e.getMessage());
             e.printStackTrace();
         }
 
