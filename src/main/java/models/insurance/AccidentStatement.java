@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AccidentStatement implements Serializable {
-    public static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
+    private static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
 
     private int registeredTo;
     private LocalDate dateOfAccident;
