@@ -12,7 +12,9 @@ import java.util.ArrayList;
 
 public class CustomerBuilder {
 
-    private int insuranceNr;
+    private final StringChecker sc = new StringChecker();
+
+    private int insuranceNr = 0;
     private String lastName;
     private String firstName;
     private LocalDate customerSince;
@@ -20,7 +22,7 @@ public class CustomerBuilder {
     private String pendingCompensation; // TODO: finn en måte å strukturere data på.
 
     public CustomerBuilder setInsuranceNr(String insuranceNr) throws EmptyFieldsException {
-        if (isEmptyOrNull(insuranceNr)) {
+        if (sc.isEmptyOrNull(insuranceNr)) {
             throw new EmptyFieldsException();
         }
         this.insuranceNr = Integer.parseInt(insuranceNr);
@@ -28,10 +30,10 @@ public class CustomerBuilder {
     }
 
     public CustomerBuilder setLastName(String lastName) throws InvalidLastNameException, EmptyFieldsException {
-        if (isEmptyOrNull(lastName)) {
+        if (sc.isEmptyOrNull(lastName)) {
             throw new EmptyFieldsException();
         }
-        else if (containsNumbers(lastName)) {
+        else if (sc.containsNumbers(lastName)) {
             throw new InvalidLastNameException();
         }
         this.lastName = lastName;
@@ -39,23 +41,18 @@ public class CustomerBuilder {
     }
 
     public CustomerBuilder setFirstName(String firstName) throws InvalidFirstNameException, EmptyFieldsException {
-        if (isEmptyOrNull(firstName)) {
+        if (sc.isEmptyOrNull(firstName)) {
             throw new EmptyFieldsException();
         }
-        else if (containsNumbers(firstName)) {
+        else if (sc.containsNumbers(firstName)) {
             throw new InvalidFirstNameException();
         }
         this.firstName = firstName;
         return this;
     }
 
-    public boolean containsNumbers(String string){
-        return string.matches(".*\\d.*");
-    }
-
-
     public CustomerBuilder setCustomerSince(String customerSince) throws EmptyFieldsException {
-        if (isEmptyOrNull(customerSince)) {
+        if (sc.isEmptyOrNull(customerSince)) {
             throw new EmptyFieldsException();
         }
         this.customerSince = LocalDate.parse(customerSince);
@@ -63,7 +60,7 @@ public class CustomerBuilder {
     }
 
     public CustomerBuilder setInvoiceAddress(String invoiceAddress) throws EmptyFieldsException {
-        if (isEmptyOrNull(invoiceAddress)) {
+        if (sc.isEmptyOrNull(invoiceAddress)) {
             throw new EmptyFieldsException();
         }
         this.invoiceAddress = invoiceAddress;
@@ -71,15 +68,11 @@ public class CustomerBuilder {
     }
 
     public CustomerBuilder setPendingCompensation(String pendingCompensation) throws EmptyFieldsException {
-        if (isEmptyOrNull(pendingCompensation)) {
+        if (sc.isEmptyOrNull(pendingCompensation)) {
             throw new EmptyFieldsException();
         }
         this.pendingCompensation = pendingCompensation;
         return this;
-    }
-
-    private boolean isEmptyOrNull(String string) {
-        return (string == null || string.trim().isEmpty());
     }
 
     public Customer build() {
