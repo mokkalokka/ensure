@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.DuplicateCustomerException;
+import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.fileReader.CsvReader;
 import models.fileReader.SerializedObjectReader;
 import models.filewriter.SerializedObjectWriter;
@@ -56,6 +57,8 @@ public class toolbarController {
             try {
                 csvReader.readCsv(path);
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidCustomerException e) {
                 e.printStackTrace();
             }
         }

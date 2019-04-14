@@ -17,7 +17,6 @@ public class AccidentStatementBuilder {
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
     private int accidentNr = 0;
-    private int registeredTo;
 
     public AccidentStatementBuilder setRegisteredTo(String registeredTo) {
         this.registeredTo = Integer.parseInt(registeredTo);
@@ -26,11 +25,6 @@ public class AccidentStatementBuilder {
 
     public AccidentStatementBuilder setAccidentNr(String accidentNr) {
         this.accidentNr = Integer.parseInt(accidentNr);
-        return this;
-    }
-
-    public AccidentStatementBuilder setRegisteredTo(String registeredTo) {
-        this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 
@@ -72,6 +66,7 @@ public class AccidentStatementBuilder {
                 accidentDescription,
                 appraisalAmount,
                 dispersedCompensation,
-                accidentNr);
+                accidentNr
+                );
     }
 }

@@ -11,8 +11,6 @@ import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.InvalidFirstNameException;
-import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.AccidentStatement;
 import models.insurance.boatInsurance.BoatInsurance;
@@ -52,33 +50,27 @@ public class CsvReader {
 
             switch (currentClass) {
                 case "Kunder":
-                    customerParser(lineArray);
-                    System.out.println("kunde " + lineArray[0]);
+                    parseCustomer(lineArray);
                     break;
 
                 case "Batforsikringer":
-                    //boatInsuranceParser(lineArray);
-                    System.out.println("båt " + lineArray[0]);
+                    parseBoatInsurance(lineArray);
                     break;
 
                 case "Husforsikringer":
-                    //primaryResidenceInsuranceParser(lineArray);
-                    System.out.println("Hus" + lineArray[0]);
-                    //Todo: parser
+                    parsePrimaryResidenceInsurance(lineArray);
                     break;
 
                 case "Fritidsboligforsikringer":
-                    //Todo: parser
+                    parseSecondaryResidenceInsurance(lineArray);
                     break;
 
                 case "Reiseforsikringer":
-                    //Todo: parser
-                    System.out.println("Reise " + lineArray[0]);
-                    //parseTravelInsurance(lineArray);
+                    parseTravelInsurance(lineArray);
                     break;
 
                 case "Skademeldinger":
-                    //Todo: parser
+                    parseAccidentStatement(lineArray);
                     break;
             }
 
@@ -97,7 +89,6 @@ public class CsvReader {
                 .setAccidentType(lineArray[5])
                 .setDispersedCompensation(lineArray[6])
                 .build();
-
     }
 
     private void parseSecondaryResidenceInsurance(String[] lineArray) {
@@ -119,11 +110,10 @@ public class CsvReader {
                         .build())
                 .build();
         try {
-            CustomerHandler.addInsuranceToCustomer(secondaryResidenceInsurance);
+            CustomerList.addInsuranceToCustomer(secondaryResidenceInsurance);
         } catch (NoSuchCustomerException e) {
             e.printStackTrace();
         }
-
     }
 
     private void parsePrimaryResidenceInsurance(String[] lineArray) {
@@ -147,7 +137,7 @@ public class CsvReader {
                 .build();
 
         try {
-            CustomerHandler.addInsuranceToCustomer(primaryResidenceInsurance);
+            CustomerList.addInsuranceToCustomer(primaryResidenceInsurance);
         } catch (NoSuchCustomerException e) {
             e.printStackTrace();
         }
@@ -165,14 +155,14 @@ public class CsvReader {
                 .build();
 
         try {
-            CustomerHandler.addInsuranceToCustomer(travelInsurance);
+            CustomerList.addInsuranceToCustomer(travelInsurance);
         } catch (NoSuchCustomerException e) {
             e.printStackTrace();
         }
     }
 
 
-    private void customerParser(String[] lineArray) throws InvalidCustomerException {
+    private void parseCustomer(String[] lineArray) throws InvalidCustomerException {
         Customer parsedCustomer = new CustomerBuilder()
                 .setInsuranceNr(lineArray[0])
                 .setLastName(lineArray[1])
@@ -209,10 +199,15 @@ public class CsvReader {
                         .setEngineHP(lineArray[12])
                         .build())
                 .build();
-        //TODO: Må legge forsikringen i lista over forsikringer
 
+        try {
+            CustomerList.addInsuranceToCustomer(boatInsurance);
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+        }
     }
 
 }
+
 
 
