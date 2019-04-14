@@ -3,6 +3,8 @@ package models.builders.residenceInsurance;
 import models.insurance.residenceInsurance.Residence;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
+import java.time.LocalDate;
+
 public class SecondaryResidenceInsuranceBuilder{
     private Residence residence;
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
@@ -13,6 +15,12 @@ public class SecondaryResidenceInsuranceBuilder{
     private double annualPremium;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
+    private LocalDate dateOfIssue = null;
+
+    public SecondaryResidenceInsuranceBuilder setDateOfIssue(String dateOfIssue) {
+        this.dateOfIssue = LocalDate.parse(dateOfIssue);
+        return this;
+    }
 
     public SecondaryResidenceInsuranceBuilder setResidence(Residence residence) {
         this.residence = residence;
@@ -50,6 +58,9 @@ public class SecondaryResidenceInsuranceBuilder{
     }
 
     public SecondaryResidenceInsurance build(){
+        if (dateOfIssue == null) {
+            dateOfIssue = LocalDate.now();
+        }
         return new SecondaryResidenceInsurance(
                 registeredTo,
                 annualPremium,
@@ -57,6 +68,7 @@ public class SecondaryResidenceInsuranceBuilder{
                 coverageDescription,
                 residence,
                 propertyInsuranceAmount,
-                assetsInsuranceAmount);
+                assetsInsuranceAmount,
+                dateOfIssue);
     }
 }

@@ -16,6 +16,7 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
 
+    /*
     public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription) {
         this.registeredTo = registeredTo;
         this.annualPremium = annualPremium;
@@ -23,6 +24,16 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
         this.coverageDescription = coverageDescription;
         dateOfIssue = LocalDate.now();
     }
+    */
+
+    public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription, LocalDate dateOfIssue) {
+        this.registeredTo = registeredTo;
+        this.annualPremium = annualPremium;
+        this.total = total;
+        this.coverageDescription = coverageDescription;
+        this.dateOfIssue = dateOfIssue;
+    }
+
 
     public ArrayList<String> getFieldNamesAsStrings() {
 
@@ -42,6 +53,9 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
                 String.valueOf(coverageDescription)
         ));
     }
+
+    public abstract String getInsuranceName();
+
     @Override
     public int compareTo(Insurance t) {
         String thisClassName = this.getClass().getSimpleName();

@@ -3,11 +3,12 @@ package models.travelInsurance;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
-
+    private final String insuranceName = "Reiseforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
     /*
     private enum CoverageType {
             STANDARD, PREMIUM
@@ -17,21 +18,13 @@ public class TravelInsurance extends Insurance {
     //private CoverageType coverageType; // TODO: -> enum Det her må nok være et annet datafelt. HashMap? tvunget til å velge 1?
     private double maxCoverage; // forsikringssum på norsk
 
-    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, double maxCoverage, boolean isPremium) {
-        super(registeredTo, annualPremium, total, coverageDescription);
+    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
+                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue ) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
         //this.coverageType = CoverageType.STANDARD;
         this.isPremium = isPremium;
         this.maxCoverage = maxCoverage;
     }
-
-    /*
-    // Overloaded constructor om man ønsker premium type reiseforsikring.
-    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, double maxCoverage, CoverageType coverageType) {
-        super(registeredTo, annualPremium, total, coverageDescription);
-        this.coverageType = coverageType;
-        this.maxCoverage = maxCoverage;
-    }
-    */
 
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
@@ -48,6 +41,11 @@ public class TravelInsurance extends Insurance {
                 ));
         fieldValues.addAll(0, super.getFieldValuesAsStrings());
         return fieldValues;
+    }
+
+    @Override
+    public String getInsuranceName() {
+        return insuranceName;
     }
 
     public double getMaxCoverage() {

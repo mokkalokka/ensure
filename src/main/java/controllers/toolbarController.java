@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
+import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.fileReader.SerializedObjectReader;
 import models.filewriter.SerializedObjectWriter;
 import models.gui.WindowHandler;
@@ -38,6 +39,8 @@ public class toolbarController {
         } catch (IOException e) {
             e.printStackTrace(); //TODO: Fiks exceptions!
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (DuplicateCustomerException e) {
             e.printStackTrace();
         }
 

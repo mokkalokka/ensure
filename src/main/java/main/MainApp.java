@@ -1,7 +1,7 @@
 package main;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
+import controllers.customersController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +12,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/org/view/customers.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/customers.fxml"));
+        Parent root = (Parent) loader.load();
+
+        //Henter kontrolleren
+        customersController controller = (customersController)loader.getController();
+
+        //onWindowShow blir kjort i controlleren etter initialize blir kjort og vinduet har blitt lastet inn
+        stage.setOnShown(controller::onWindowShow);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
