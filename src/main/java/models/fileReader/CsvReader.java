@@ -1,18 +1,22 @@
 package models.fileReader;
 
 import models.builders.CustomerBuilder;
+import models.builders.AccidentStatementBuilder;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
+import models.builders.residenceInsurance.ResidenceBuilder;
+import models.builders.residenceInsurance.SecondaryResidenceInsuranceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.InvalidFirstNameException;
-import models.exceptions.customerExceptions.InvalidLastNameException;
+import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.AccidentStatement;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
+import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import models.travelInsurance.TravelInsurance;
 
 import java.io.BufferedReader;
@@ -46,39 +50,97 @@ public class CsvReader {
 
             switch (currentClass) {
                 case "Kunder":
-                    customerParser(lineArray);
-                    System.out.println("kunde " + lineArray[0]);
+                    parseCustomer(lineArray);
                     break;
 
                 case "Batforsikringer":
-                    //boatInsuranceParser(lineArray);
-                    System.out.println("båt " + lineArray[0]);
+                    parseBoatInsurance(lineArray);
                     break;
 
                 case "Husforsikringer":
-                    //primaryResidenceInsuranceParser(lineArray);
-                    System.out.println("Hus" + lineArray[0]);
-                    //Todo: parser
+                    parsePrimaryResidenceInsurance(lineArray);
                     break;
 
                 case "Fritidsboligforsikringer":
-                    //Todo: parser
+                    parseSecondaryResidenceInsurance(lineArray);
                     break;
 
                 case "Reiseforsikringer":
-                    //Todo: parser
-                    System.out.println("Reise " + lineArray[0]);
-                    //parseTravelInsurance(lineArray);
+                    parseTravelInsurance(lineArray);
                     break;
 
                 case "Skademeldinger":
-                    //Todo: parser
+                    parseAccidentStatement(lineArray);
                     break;
             }
 
         }
 
 
+    }
+
+    private void parseAccidentStatement(String[] lineArray) {
+        AccidentStatement accidentStatement = new AccidentStatementBuilder()
+                .setRegisteredTo(lineArray[0])
+                .setAccidentNr(lineArray[1])
+                .setDateOfAccident(lineArray[2])
+                .setAppraisalAmount(lineArray[3])
+                .setAccidentDescription(lineArray[4])
+                .setAccidentType(lineArray[5])
+                .setDispersedCompensation(lineArray[6])
+                .build();
+    }
+
+    private void parseSecondaryResidenceInsurance(String[] lineArray) {
+        SecondaryResidenceInsurance secondaryResidenceInsurance = new SecondaryResidenceInsuranceBuilder()
+                .setRegisteredTo(lineArray[0])
+                .setAnnualPremium(lineArray[1])
+                .setDateOfIssue(lineArray[2])
+                .setTotal(lineArray[3])
+                .setCoverageDescription(lineArray[4])
+                .setPropertyInsuranceAmount(lineArray[5])
+                .setAssetsInsuranceAmount(lineArray[6])
+                .setResidence(new ResidenceBuilder()
+                        .setAddress(lineArray[7])
+                        .setYearOfConstruction(lineArray[8])
+                        .setType(lineArray[9])
+                        .setConstructionMaterial(lineArray[10])
+                        .setCondition(lineArray[11])
+                        .setSqMeters(lineArray[12])
+                        .build())
+                .build();
+        try {
+            CustomerList.addInsuranceToCustomer(secondaryResidenceInsurance);
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parsePrimaryResidenceInsurance(String[] lineArray) {
+
+        PrimaryResidenceInsurance primaryResidenceInsurance = new PrimaryResidenceInsuranceBuilder()
+                .setRegisteredTo(lineArray[0])
+                .setAnnualPremium(lineArray[1])
+                .setDateOfIssue(lineArray[2])
+                .setTotal(lineArray[3])
+                .setCoverageDescription(lineArray[4])
+                .setPropertyInsuranceAmount(lineArray[5])
+                .setAssetsInsuranceAmount(lineArray[6])
+                .setResidence(new ResidenceBuilder()
+                        .setAddress(lineArray[7])
+                        .setYearOfConstruction(lineArray[8])
+                        .setType(lineArray[9])
+                        .setConstructionMaterial(lineArray[10])
+                        .setCondition(lineArray[11])
+                        .setSqMeters(lineArray[12])
+                        .build())
+                .build();
+
+        try {
+            CustomerList.addInsuranceToCustomer(primaryResidenceInsurance);
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseTravelInsurance(String[] lineArray) {
@@ -91,10 +153,16 @@ public class CsvReader {
                 .setPremium(lineArray[5])
                 .setTotal(lineArray[6])
                 .build();
+
+        try {
+            CustomerList.addInsuranceToCustomer(travelInsurance);
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    private void customerParser(String[] lineArray) throws InvalidCustomerException {
+    private void parseCustomer(String[] lineArray) throws InvalidCustomerException {
         Customer parsedCustomer = new CustomerBuilder()
                 .setInsuranceNr(lineArray[0])
                 .setLastName(lineArray[1])
@@ -107,7 +175,7 @@ public class CsvReader {
 
     }
 
-    private void boatInsuranceParser(String[] lineArray) {
+    private void parseBoatInsurance(String[] lineArray) {
         // Fornavn og etternavn for båteier
         String[] boatOwner = lineArray[5].split(",");
         String lastName = boatOwner[0];
@@ -131,10 +199,15 @@ public class CsvReader {
                         .setEngineHP(lineArray[12])
                         .build())
                 .build();
-        //TODO: Må legge forsikringen i lista over forsikringer
 
+        try {
+            CustomerList.addInsuranceToCustomer(boatInsurance);
+        } catch (NoSuchCustomerException e) {
+            e.printStackTrace();
+        }
     }
 
 }
+
 
 

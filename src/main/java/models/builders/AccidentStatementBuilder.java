@@ -16,9 +16,15 @@ public class AccidentStatementBuilder {
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
+    private int accidentNr = 0;
 
     public AccidentStatementBuilder setRegisteredTo(String registeredTo) {
         this.registeredTo = Integer.parseInt(registeredTo);
+        return this;
+    }
+
+    public AccidentStatementBuilder setAccidentNr(String accidentNr) {
+        this.accidentNr = Integer.parseInt(accidentNr);
         return this;
     }
 
@@ -49,12 +55,18 @@ public class AccidentStatementBuilder {
     }
 
     public AccidentStatement build(){
+        //Dersom accidentNr ikke blir satt av en csv fil blir denne inkrementert
+        if (accidentNr == 0){
+            accidentNr = AccidentStatement.NEXT_ACCIDENT_NR.getAndIncrement();
+        }
         return new AccidentStatement(
                 registeredTo,
                 dateOfAccident,
                 accidentType,
                 accidentDescription,
                 appraisalAmount,
-                dispersedCompensation);
+                dispersedCompensation,
+                accidentNr
+                );
     }
 }

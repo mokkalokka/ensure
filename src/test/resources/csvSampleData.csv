@@ -1,0 +1,37 @@
+Kunder;;;;;;;;;;;;
+Forsikringsnummer;Etternavn;Fornavn;Kunde siden;Fakturaadresse;;;;;;;;
+10000;Marsvinsen;Bolle;2019-04-11;Trondheimsveien 7;;;;;;;;
+10001;Hurt;Tore D.;2019-04-11;Ullevålsveien 2a;;;;;;;;
+10002;Tonning;Torstein;1995-02-03;Springklev 99;;;;;;;;
+10003;Bakken;Gabriella;1933-01-10;Sofie Hartmanns vei 235;;;;;;;;
+10004;Skaug;Amelie;1950-01-30;Øvre Åsvei 34;;;;;;;;
+10005;Stabell;William;1976-05-10;Kristian Lofthus gate 148;;;;;;;;
+10006;Brastad;Emmy;1987-11-16;Bjørnemyra 56;;;;;;;;
+10007;Melheim;Diana;1997-11-21;Toppåsjordet 44;;;;;;;;
+10008;Olsen;Emrik;1955-12-18;Olav Bjålands veg 47;;;;;;;;
+10009;Berget;Maria;1984-03-10;Holbekkveien 132;;;;;;;;
+10010;Bruun;Einar;1988-08-31;Rømmekollen 85;;;;;;;;
+10011;Ahmed;Elias;1960-05-22;Kollerøysveien 127;;;;;;;;
+10012;Christensen;Edvard;1990-11-10;Sjøveien 248;;;;;;;;
+10013;Kristiansen;Vilde;1956-04-07;Søreidåsen 106;;;;;;;;
+10014;Markussen;Thea;1976-11-12;Barlindvegen 21;;;;;;;;
+10015;Moan;Petra;1984-02-07;Oscar Dahls vei 129;;;;;;;;
+10016;Marken;Tobias;1944-11-30;Tveitanvegen 152;;;;;;;;
+10017;Huseby;Trym;1944-11-14;Ladeveien 42;;;;;;;;
+10018;Koppang;Iver;1945-02-28;Sagåsen 21;;;;;;;;
+10019;Teigen;Sindre;1959-08-04;Tartargaten 25;;;;;;;;
+Batforsikringer;;;;;;;;;;;;
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Eier;Registreringsnummer;Type;Modell;Lengde i fot;Årsmodell;Motortype;Motorstyrke (HP)
+10000;13222.0;2019-04-11;5400.0;Ikke så mye;Nansen,Fritjof;SS3214;Rib;YL44;21.0;2018;Diesel;9000
+10001;131332.33;2019-04-11;5400.0;Alt!;Persen,Gunnar;KHD73242;Fregatt;X500;45.0;1650;Manpower!;300
+10001;191313.33;2019-04-11;3133.0;Helt greit;Hansen,Pål;NE23094872;Snekke;S32hh;20.0;1990;Diesel;20
+Husforsikringer;;;;;;;;;;;;
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Forsikringsbeløp bygning;Forsikringsbeløp innbo;Adresse;Byggeår;Boligtype;Boligmateriale;Standard;Kvadratmeter
+10000;244888.0;2019-04-11;100000.0;Dekker ikke naturkatastrofer;2000000.0;500000.0;Osloveien 50;1965;Enebolig;Tre;Middels;200
+Fritidsboligforsikringer;;;;;;;;;;;;
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Forsikringsbeløp bygning;Forsikringsbeløp innbo;Adresse;Byggeår;Boligtype;Boligmateriale;Standard;Kvadratmeter
+10001;40000;2010-04-11;100000.0;Dekker ikke naturkatastrofer;2000000.0;500000.0;Olavsvei 60;1965;Hytte;Tre;Middels;100
+10001;500000;2010-04-11;100000.0;Dekker bare naturkatastrofer;2000001.0;600000.0;Storgata 4;1890;Skur;Betong;Dårlig;10
+Reiseforsikringer;;;;;;;;;;;;
+Registrert til;Årlig forsikringspremie;Dato opprettet;Forsikringsbeløp;Forsikringsbetingelser;Premiumforsikring;Forsikringssum;;;;;;
+10000;2000.0;2019-04-11;150000.0;Dekker hus og innbo;true;100000.0;;;;;;
