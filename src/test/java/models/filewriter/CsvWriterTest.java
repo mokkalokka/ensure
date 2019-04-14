@@ -1,12 +1,12 @@
 package models.filewriter;
 
+import models.builders.CustomerBuilder;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
 import models.builders.residenceInsurance.ResidenceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
-import models.customer.CustomerHandler;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.boatInsurance.*;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -26,32 +26,27 @@ public class CsvWriterTest {
     @Before
     public void setUp() {
         customerList = new ArrayList<>();
-        /*
-        Customer customer1 = new Customer("Bolle", "Marsvinsen", "Trondheimsveien 7");
-        Customer customer2 = new Customer("Tore D.", "Hurt", "Ullevålsveien 2a");
-        */
-
 
 
         Customer customer1 = null;
         Customer customer2 = null;
 
         try {
-            //CustomerHandler customerHandler = new CustomerHandler();
-            customer1 = new CustomerHandler().createNewCustomer("Bolle", "Marsvinsen", "Trondheimsveien 7");
-            customer2 = new CustomerHandler().createNewCustomer("Tore D.", "Hurt", "Ullevålsveien 2a");
+            customer1 = new CustomerBuilder()
+                    .setFirstName("Bolle")
+                    .setLastName("Marsvinsen")
+                    .setInvoiceAddress("Trondheimsveien 7")
+                    .build();
+            customer2 = new CustomerBuilder()
+                    .setFirstName("Tore Davidson")
+                    .setLastName("Hurt")
+                    .setInvoiceAddress("Ullevålsveien 2a")
+                    .build();
             customerList.add(customer1);
             customerList.add(customer2);
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
         }
-
-        /*
-        Boat boat1 = new Boat("regnr","fregatt", "Modell", new BoatOwner("Per", "Nilsen"), 25.5, "2004", "Svær", 500);
-        BoatInsurance boatInsurance1 = new BoatInsurance(customer1.getInsuranceNr(), 30000.0, 50000.0, "Dekker masse rart", boat1);
-        BoatInsurance boatInsurance2 = new BoatInsurance(customer2.getInsuranceNr(), 34000.0, 50000.0, "Dekker ikke like mye", boat1 );
-        TravelInsurance travelInsurance = new TravelInsurance(customer2.getInsuranceNr(), 20000.0, 100_000.0, "Dekker hus og innbo", 200_000.0,true);
-        */
 
         if (customer1 != null && customer2 != null){
             TravelInsurance travelInsurance1 = new TravelInsuranceBuilder()

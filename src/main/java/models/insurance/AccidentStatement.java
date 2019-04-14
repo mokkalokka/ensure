@@ -6,8 +6,9 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AccidentStatement implements Serializable {
-    public static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
+    private static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
 
+    private int registeredTo;
     private LocalDate dateOfAccident;
     private int accidentNr; // skal inkrementeres.
     private String accidentType; // type skade, kanskje annet datafelt
@@ -15,16 +16,19 @@ public class AccidentStatement implements Serializable {
     // private ArrayList<ContactInfo> witnessContactInfo; // TODO: Finne noe smart her
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
-    private int registeredTo;
 
-    public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription,
-                             double appraisalAmount, double dispersedCompensation, int accidentNr) {
+    public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation) {
+        this.accidentNr = NEXT_ACCIDENT_NR.getAndIncrement();
+
         this.registeredTo = registeredTo;
         this.dateOfAccident = dateOfAccident;
-        this.accidentNr = accidentNr;
         this.accidentType = accidentType;
         this.accidentDescription = accidentDescription;
         this.appraisalAmount = appraisalAmount;
         this.dispersedCompensation = dispersedCompensation;
+    }
+
+    public int getRegisteredTo() {
+        return registeredTo;
     }
 }

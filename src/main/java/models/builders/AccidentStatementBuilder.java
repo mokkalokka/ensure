@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class AccidentStatementBuilder {
 
+    private int registeredTo;
     private LocalDate dateOfAccident;
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
@@ -25,6 +26,11 @@ public class AccidentStatementBuilder {
 
     public AccidentStatementBuilder setAccidentNr(String accidentNr) {
         this.accidentNr = Integer.parseInt(accidentNr);
+        return this;
+    }
+
+    public AccidentStatementBuilder setRegisteredTo(String registeredTo) {
+        this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 

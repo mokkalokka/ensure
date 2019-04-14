@@ -1,5 +1,6 @@
 package models.fileReader;
 
+import models.builders.CustomerBuilder;
 import models.builders.AccidentStatementBuilder;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
@@ -7,8 +8,11 @@ import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
 import models.builders.residenceInsurance.ResidenceBuilder;
 import models.builders.residenceInsurance.SecondaryResidenceInsuranceBuilder;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
-import models.customer.CustomerHandler;
+import models.customer.Customer;
+import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.InvalidFirstNameException;
+import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.AccidentStatement;
 import models.insurance.boatInsurance.BoatInsurance;
@@ -16,6 +20,7 @@ import models.insurance.boatInsurance.BoatOwner;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import models.travelInsurance.TravelInsurance;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,7 +28,7 @@ import java.io.IOException;
 
 public class CsvReader {
 
-    public void readCsv(String pathToCsv) throws IOException {
+    public void readCsv(String pathToCsv) throws IOException, InvalidCustomerException {
 
 
         BufferedReader br = new BufferedReader(new FileReader(pathToCsv));
@@ -47,27 +52,33 @@ public class CsvReader {
 
             switch (currentClass) {
                 case "Kunder":
-                    parseCustomer(lineArray);
+                    customerParser(lineArray);
+                    System.out.println("kunde " + lineArray[0]);
                     break;
 
                 case "Batforsikringer":
-                    parseBoatInsurance(lineArray);
+                    //boatInsuranceParser(lineArray);
+                    System.out.println("båt " + lineArray[0]);
                     break;
 
                 case "Husforsikringer":
-                    parsePrimaryResidenceInsurance(lineArray);
+                    //primaryResidenceInsuranceParser(lineArray);
+                    System.out.println("Hus" + lineArray[0]);
+                    //Todo: parser
                     break;
 
                 case "Fritidsboligforsikringer":
-                    parseSecondaryResidenceInsurance(lineArray);
+                    //Todo: parser
                     break;
 
                 case "Reiseforsikringer":
-                    parseTravelInsurance(lineArray);
+                    //Todo: parser
+                    System.out.println("Reise " + lineArray[0]);
+                    //parseTravelInsurance(lineArray);
                     break;
 
                 case "Skademeldinger":
-                    parseAccidentStatement(lineArray);
+                    //Todo: parser
                     break;
             }
 
@@ -161,17 +172,16 @@ public class CsvReader {
     }
 
 
-    private void parseCustomer(String[] lineArray) {
-        CustomerHandler customerHandler = new CustomerHandler();
-        customerHandler.setInsuranceNr(lineArray[0]);
-        customerHandler.setCustomerSince(lineArray[3]);
+    private void customerParser(String[] lineArray) throws InvalidCustomerException {
+        Customer parsedCustomer = new CustomerBuilder()
+                .setInsuranceNr(lineArray[0])
+                .setLastName(lineArray[1])
+                .setFirstName(lineArray[2])
+                .setCustomerSince(lineArray[3])
+                .setInvoiceAddress(lineArray[4])
+                .build();
 
-        //TODO: Customer builder? & CustomerID
-        try {
-            customerHandler.createNewCustomer(lineArray[2], lineArray[1],lineArray[4]);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-        }
+        CustomerList.addCustomer(parsedCustomer);
 
     }
 
@@ -199,13 +209,6 @@ public class CsvReader {
                         .setEngineHP(lineArray[12])
                         .build())
                 .build();
-
-        try {
-            CustomerHandler.addInsuranceToCustomer(boatInsurance);
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-        }
-
         //TODO: Må legge forsikringen i lista over forsikringer
 
     }

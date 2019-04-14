@@ -27,34 +27,59 @@ public class Customer implements Serializable {
     //TODO: Denne burde fjernes til fordel for den andre konstruktøren
 
     public Customer(String firstName, String lastName, String invoiceAddress) {
+        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;
         this.customerSince = LocalDate.now();
-        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
     }
 
-    public Customer(String firstName, String lastName, String invoiceAddress, int insuranceNr, LocalDate customerSince) {
+    public Customer(String firstName, String lastName, String invoiceAddress, LocalDate customerSince) {
+        this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;
         this.customerSince = customerSince;
-        this.insuranceNr = insuranceNr;
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
     }
 
-    public String searchData() {
-        return (insuranceNr + firstName + lastName + invoiceAddress).toLowerCase();
+    public Customer(int insuranceNr, String firstName, String lastName, String invoiceAddress, LocalDate customerSince) {
+        setInsuranceNr(insuranceNr);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.invoiceAddress = invoiceAddress;
+        this.customerSince = customerSince;
+        listOfInsurances = new ArrayList<>();
+        listOfAccidentStatements = new ArrayList<>();
     }
 
     public void addInsurance(Insurance insurance) throws InputMismatchException {
-        if (insurance.getRegisteredTo() != insuranceNr) {
+        if (!isRegisteredToThisCustomer(insurance)) {
             throw new InputMismatchException("Insurance must be registered to this customer.");
         }
         listOfInsurances.add(insurance);
+    }
+
+    public void addAccidentStatement(AccidentStatement accidentStatement) {
+        if (!isRegisteredToThisCustomer(accidentStatement)) {
+            throw new InputMismatchException("Accident Statement must be registered to this customer.");
+        }
+        listOfAccidentStatements.add(accidentStatement);
+    }
+
+    private boolean isRegisteredToThisCustomer(Insurance insurance) {
+        return insuranceNr == insurance.getRegisteredTo();
+    }
+
+    private boolean isRegisteredToThisCustomer(AccidentStatement accidentStatement) {
+        return insuranceNr == accidentStatement.getRegisteredTo();
+    }
+
+    public String searchData() {
+        return (insuranceNr + firstName + lastName + invoiceAddress + customerSince).toLowerCase();
     }
 
     //---------- Getters & setters -----------
@@ -64,7 +89,14 @@ public class Customer implements Serializable {
     }
 
     public void setInsuranceNr(int insuranceNr) {
+        if (insuranceNr >= NEXT_INSURANCE_NR.get()) {
+            NEXT_INSURANCE_NR.lazySet(insuranceNr + 1);
+        }
         this.insuranceNr = insuranceNr;
+    }
+
+    public static int getNextInsuranceNr() {
+        return NEXT_INSURANCE_NR.get();
     }
 
     public String getLastName() {
