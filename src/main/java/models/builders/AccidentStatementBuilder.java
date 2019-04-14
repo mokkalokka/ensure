@@ -57,7 +57,14 @@ public class AccidentStatementBuilder {
     public AccidentStatement build(){
         //Dersom accidentNr ikke blir satt av en csv fil blir denne inkrementert
         if (accidentNr == 0){
-            accidentNr = AccidentStatement.NEXT_ACCIDENT_NR.getAndIncrement();
+            return new AccidentStatement(
+                    registeredTo,
+                    dateOfAccident,
+                    accidentType,
+                    accidentDescription,
+                    appraisalAmount,
+                    dispersedCompensation
+            );
         }
         return new AccidentStatement(
                 registeredTo,
