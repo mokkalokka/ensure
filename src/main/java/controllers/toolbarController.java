@@ -24,22 +24,26 @@ public class toolbarController {
     private AnchorPane anchorPane;
 
     @FXML
-    private void toolbarOpenFile(){
+    private void toolbarOpenFile() {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
-                "*.jobj","*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
+        FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
+                "*.jobj");
+        FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter("Comma-separated values (*.csv)",
+                "*.csv");
+
+        fileChooser.getExtensionFilters().add(extFilterJobj);
+        fileChooser.getExtensionFilters().add(extFilterCsv);
 
         fileChooser.setTitle("Open file");
         String path = fileChooser.showOpenDialog(null).getPath();
         String[] filePathArray = path.split("\\.");
         String fileExtension = filePathArray[filePathArray.length - 1];
 
-        if(fileExtension.equals("jobj")){
+        if (fileExtension.equals("jobj")) {
             SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
 
             try {
-                List<Customer> customerListFromFile = serializedObjectReader.readObject(path);
+                List<Customer> customerListFromFile = serializedObjectReader.readFile(path);
                 if (customerListFromFile == null) {
                     // TODO: Display error window.
                     System.err.println("Feil ved lesing fra fil");
@@ -52,24 +56,29 @@ public class toolbarController {
                 e.printStackTrace();
             }
 
-        }
-        else if (fileExtension.equals("csv")){
+        } else if (fileExtension.equals("csv")) {
             CsvReader csvReader = new CsvReader();
-
             try {
-                csvReader.readCsv(path);
+                List<Customer> customerListFromFile = csvReader.readFile(path);
+                if (customerListFromFile == null) {
+                    // TODO: Display error window.
+                    System.err.println("Feil ved lesing fra fil");
+                } else {
+                    CustomerList.initializeNewList(customerListFromFile);
+                }
+
+
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (InvalidCustomerException e) {
                 e.printStackTrace();
             }
         }
-
-
-
     }
 
-    @FXML
+            @FXML
     private void toolbarSaveAs(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");

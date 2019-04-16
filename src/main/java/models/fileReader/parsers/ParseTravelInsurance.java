@@ -3,10 +3,11 @@ package models.fileReader.parsers;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 import models.travelInsurance.TravelInsurance;
 
 public class ParseTravelInsurance {
-    public void parseTravelInsurance(String[] lineArray) {
+    public static Insurance parseTravelInsurance(String[] lineArray) {
         TravelInsurance travelInsurance = new TravelInsuranceBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAnnualPremium(lineArray[1])
@@ -18,10 +19,6 @@ public class ParseTravelInsurance {
                 .setTotal(lineArray[7])
                 .build();
 
-        try {
-            CustomerList.addInsuranceToCustomer(travelInsurance);
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-        }
+        return travelInsurance;
     }
 }

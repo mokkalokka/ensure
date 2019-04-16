@@ -4,10 +4,11 @@ import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilder;
 import models.builders.residenceInsurance.ResidenceBuilder;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 
 public class ParsePrimaryResidenceInsurance {
-    public void parsePrimaryResidenceInsurance(String[] lineArray) {
+    public static Insurance parsePrimaryResidenceInsurance(String[] lineArray) {
 
         PrimaryResidenceInsurance primaryResidenceInsurance = new PrimaryResidenceInsuranceBuilder()
                 .setRegisteredTo(lineArray[0])
@@ -28,10 +29,6 @@ public class ParsePrimaryResidenceInsurance {
                         .build())
                 .build();
 
-        try {
-            CustomerList.addInsuranceToCustomer(primaryResidenceInsurance);
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-        }
+        return primaryResidenceInsurance;
     }
 }

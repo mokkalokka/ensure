@@ -4,11 +4,12 @@ import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 
 public class ParseBoatInsurance {
-    public void parseBoatInsurance(String[] lineArray) {
+    public static Insurance parseBoatInsurance(String[] lineArray) {
         // Fornavn og etternavn for båteier
         String[] boatOwner = lineArray[6].split(",");
         String lastName = boatOwner[0];
@@ -34,11 +35,7 @@ public class ParseBoatInsurance {
                         .build())
                 .build();
 
-        try {
-            CustomerList.addInsuranceToCustomer(boatInsurance);
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-        }
+        return boatInsurance;
     }
 
 

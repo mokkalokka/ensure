@@ -4,7 +4,7 @@ import models.builders.AccidentStatementBuilder;
 import models.insurance.AccidentStatement;
 
 public class ParseAccidentStatement {
-    public void parseAccidentStatement(String[] lineArray) {
+    public static AccidentStatement parseAccidentStatement(String[] lineArray) {
         AccidentStatement accidentStatement = new AccidentStatementBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAccidentNr(lineArray[1])
@@ -14,5 +14,7 @@ public class ParseAccidentStatement {
                 .setAccidentType(lineArray[5])
                 .setDispersedCompensation(lineArray[6])
                 .build();
+
+        return accidentStatement;
     }
 }
