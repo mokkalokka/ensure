@@ -146,4 +146,8 @@ public class Customer implements Serializable {
     public ArrayList<AccidentStatement> getListOfAccidentStatements() {
         return listOfAccidentStatements;
     }
+
+    public void overwriteInsurance(int insuranceToReplace, Insurance insurance) {
+        listOfInsurances.set(insuranceToReplace, insurance);
+    }
 }
