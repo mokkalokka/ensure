@@ -7,9 +7,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Insurance implements Serializable, Comparable<Insurance>{
 
+    private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(200000);
+
+    private int insuranceNr;
     private int registeredTo;
     private double annualPremium;
     private LocalDate dateOfIssue;
@@ -34,6 +38,21 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
         this.dateOfIssue = dateOfIssue;
     }
 
+    public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription, LocalDate dateOfIssue, int insuranceNr) {
+        this.registeredTo = registeredTo;
+        this.annualPremium = annualPremium;
+        this.total = total;
+        this.coverageDescription = coverageDescription;
+        this.dateOfIssue = dateOfIssue;
+        setInsuranceNr(insuranceNr);
+    }
+
+    private void setInsuranceNr(int insuranceNr) {
+        if (insuranceNr >= NEXT_INSURANCE_NR.get()) {
+            NEXT_INSURANCE_NR.set(insuranceNr + 1);
+        }
+        this.insuranceNr = insuranceNr;
+    }
 
     public ArrayList<String> getFieldNamesAsStrings() {
 
@@ -88,5 +107,9 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
 
     public String getCoverageDescription() {
         return coverageDescription;
+    }
+
+    public int getInsuranceNr() {
+        return insuranceNr;
     }
 }
