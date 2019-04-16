@@ -74,6 +74,7 @@ public class CsvWriterTest {
                     .setCoverageDescription("Ikke så mye")
                     .setRegisteredTo(String.valueOf(customer1.getInsuranceNr()))
                     .setTotal("5400")
+                    .setInsuranceID("200000")
                     .build();
 
 
@@ -127,7 +128,6 @@ public class CsvWriterTest {
                             .build())
                     .setPropertyInsuranceAmount("2000000.00")
                     .setAssetsInsuranceAmount("500000")
-                    .setInsuranceID("32923")
                     .build();
 
 

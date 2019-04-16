@@ -10,7 +10,7 @@ import models.insurance.boatInsurance.BoatOwner;
 public class ParseBoatInsurance {
     public void parseBoatInsurance(String[] lineArray) {
         // Fornavn og etternavn for båteier
-        String[] boatOwner = lineArray[5].split(",");
+        String[] boatOwner = lineArray[6].split(",");
         String lastName = boatOwner[0];
         String firstName = boatOwner[1];
 
@@ -21,15 +21,16 @@ public class ParseBoatInsurance {
                 .setDateOfIssue(lineArray[2])
                 .setTotal(lineArray[3])
                 .setCoverageDescription(lineArray[4])
+                .setInsuranceID(lineArray[5])
                 .setBoat( new BoatBuilder()
                         .setOwner( new BoatOwner(firstName, lastName))
-                        .setRegistrationNr(lineArray[6])
-                        .setBoatType(lineArray[7])
+                        .setRegistrationNr(lineArray[7])
                         .setBoatType(lineArray[8])
-                        .setLengthInft(lineArray[9])
-                        .setModelYear(lineArray[10])
-                        .setEngineType(lineArray[11])
-                        .setEngineHP(lineArray[12])
+                        .setBoatType(lineArray[9])
+                        .setLengthInft(lineArray[10])
+                        .setModelYear(lineArray[11])
+                        .setEngineType(lineArray[12])
+                        .setEngineHP(lineArray[13])
                         .build())
                 .build();
 
