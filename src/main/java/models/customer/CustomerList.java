@@ -7,6 +7,7 @@ import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerList {
     //private static ArrayList<Customer> customerArrayList = new ArrayList<>();
@@ -26,6 +27,10 @@ public class CustomerList {
     //for testing //TODO hele klassen burde vere en singleton
     public static ObservableList<Customer> getCustomerList() {
         return customerList;
+    }
+
+    public static void initializeNewList(List<Customer> listOfCustomers) {
+        customerList = FXCollections.observableArrayList(listOfCustomers);
     }
 
     private static boolean duplicateCustomer(Customer source){

@@ -9,7 +9,7 @@ public class NewInsurance implements InsuranceState {
 
     @Override
     public void loadInsurance(InsuranceController controller) {
-        Customer customer = controller.getMyCustomer();
+        Customer customer = controller.getCustomer();
         EmbeddedFieldsController embeddedFieldsController = controller.getEmbeddedFieldsController();
         embeddedFieldsController.displayNewInsurance(customer);
     }
@@ -19,7 +19,7 @@ public class NewInsurance implements InsuranceState {
         InsuranceHandler insuranceHandler = new InsuranceHandler();
         insuranceHandler.addNewInsurance(controller.getCurrentInsurance());
 
-        controller.setMyInsurance(controller.getCurrentInsurance());
+        controller.setInsurance(controller.getCurrentInsurance());
         controller.setState(new ExistingInsurance());
     }
 }

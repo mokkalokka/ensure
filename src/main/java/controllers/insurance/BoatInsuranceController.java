@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
+import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.insurance.InsuranceHandler;
@@ -23,12 +24,6 @@ public class BoatInsuranceController implements InsuranceController {
     private Parent embeddedFields;
     @FXML
     private EmbeddedFieldsController embeddedFieldsController;
-
-
-    // En slags 'state' for om nåværende forsikring er ny, eller skal overskrive en eksisterende.
-    // Siden det kun er 2 states og disse påvirker bare 1 metode, er det valgt en enkel løsning med boolsk variabel,
-    // i stedet for å implementere State-designmønsteret.
-    private boolean currentInsuranceIsNew;
 
     @FXML
     private TextField txtOwnerSurname;
@@ -50,44 +45,34 @@ public class BoatInsuranceController implements InsuranceController {
     private TextField txtEngineHP;
 
     @FXML
-    public void initialize() {
-        state = new NewInsurance();
+    private void btnSave() {
+        try {
+            state.saveInsurance(this);
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+            // TODO: display error window
+        }
+    }
+
+    public void load() {
         state.loadInsurance(this);
     }
 
-
-    @FXML
-    private void btnSave() {
-        try {
-            if (currentInsuranceIsNew) {
-                saveNewBoatInsurance();
-                currentInsuranceIsNew = false;
-            }
-            else {
-                overwriteExistingInsurance();
-            }
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-            // TODO: Display error window.
-        }
+    public void loadInsurance() {
+        embeddedFieldsController.displayExistingInsurance(myInsurance);
+        displayBoat(myInsurance.getBoat());
     }
 
-
-    private void saveNewBoatInsurance() throws NoSuchCustomerException {
-        InsuranceHandler insuranceHandler = new InsuranceHandler();
-        insuranceHandler.addNewInsurance(getCurrentInsurance());
-    }
-
-    private void overwriteExistingInsurance() {
-        /* TODO: OVerwrite existing insurance here :
-
-        try {
-           // CustomerList.overwriteInsurance(getCurrentInsurance());
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-            // TODO: Display error window.
-        }
-        */
+    private void displayBoat(Boat boat) {
+        txtRegistrationNr.setText(myInsurance.getBoat().getBoatModel());
+        txtBoatModel.setText(myInsurance.getBoat().getBoatModel());
+        txtBoatType.setText(myInsurance.getBoat().getBoatType());
+        txtEngineHP.setText(String.valueOf(myInsurance.getBoat().getEngineHP()));
+        txtEngineType.setText(myInsurance.getBoat().getEngineType());
+        txtLengthInFt.setText(String.valueOf(myInsurance.getBoat().getLengthInft()));
+        txtModelYear.setText(myInsurance.getBoat().getModelYear());
+        txtOwnerFirstName.setText(myInsurance.getBoat().getOwner().getFirstName());
+        txtOwnerSurname.setText(myInsurance.getBoat().getOwner().getLastName());
     }
 
     public Insurance getCurrentInsurance() {
@@ -113,18 +98,6 @@ public class BoatInsuranceController implements InsuranceController {
                 .build();
     }
 
-    public void loadInsurance() {
-        txtRegistrationNr.setText(myInsurance.getBoat().getBoatModel());
-        txtBoatModel.setText(myInsurance.getBoat().getBoatModel());
-        txtBoatType.setText(myInsurance.getBoat().getBoatType());
-        txtEngineHP.setText(String.valueOf(myInsurance.getBoat().getEngineHP()));
-        txtEngineType.setText(myInsurance.getBoat().getEngineType());
-        txtLengthInFt.setText(String.valueOf(myInsurance.getBoat().getLengthInft()));
-        txtModelYear.setText(myInsurance.getBoat().getModelYear());
-        txtOwnerFirstName.setText(myInsurance.getBoat().getOwner().getFirstName());
-        txtOwnerSurname.setText(myInsurance.getBoat().getOwner().getLastName());
-    }
-
     public EmbeddedFieldsController getEmbeddedFieldsController() {
         return embeddedFieldsController;
     }
@@ -134,47 +107,16 @@ public class BoatInsuranceController implements InsuranceController {
     }
 
     @Override
-    public void setMyInsurance(Insurance insurance) {
+    public void setInsurance(Insurance insurance) {
         myInsurance = (BoatInsurance) insurance;
     }
 
-    public Customer getMyCustomer() {
+    public void setCustomer(Customer customer) {
+        myCustomer = customer;
+    }
+
+    public Customer getCustomer() {
         return myCustomer;
     }
 
-    public TextField getTxtOwnerSurname() {
-        return txtOwnerSurname;
-    }
-
-    public TextField getTxtOwnerFirstName() {
-        return txtOwnerFirstName;
-    }
-
-    public TextField getTxtRegistrationNr() {
-        return txtRegistrationNr;
-    }
-
-    public TextField getTxtBoatType() {
-        return txtBoatType;
-    }
-
-    public TextField getTxtLengthInFt() {
-        return txtLengthInFt;
-    }
-
-    public TextField getTxtModelYear() {
-        return txtModelYear;
-    }
-
-    public TextField getTxtEngineType() {
-        return txtEngineType;
-    }
-
-    public TextField getTxtBoatModel() {
-        return txtBoatModel;
-    }
-
-    public TextField getTxtEngineHP() {
-        return txtEngineHP;
-    }
 }

@@ -1,8 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import controllers.insurance.BoatInsuranceController;
-import controllers.insurance.EmbeddedFieldsController;
+import controllers.insurance.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -89,34 +88,6 @@ public class detailedCustomerController {
     @FXML
     private JFXTextField  lblInvoiceAddress;
 
-    @FXML
-    private void btnNewBoatInsurance() {
-
-        WindowHandler windowHandler = new WindowHandler();
-        try {
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), "/org/view/boatInsurance.fxml", "Vis Kunde");
-        } catch (IOException e) {
-            e.printStackTrace();
-            //TODO error håndtering
-        }
-    }
-
-    @FXML
-    private void  btnPrimaryResidenceInsurance() {
-
-    }
-
-    @FXML
-    private void btnSecondaryResidenceInsurance() {
-
-    }
-
-    @FXML
-    private void btnTravelInsurance() {
-
-    }
-
-
 
     @FXML
     private void btnBack() {
@@ -138,7 +109,11 @@ public class detailedCustomerController {
 
     @FXML
     private void insuranceDblClicked(Insurance clickedInsurance) {
-        openInsuranceWindow(clickedInsurance);
+        try {
+            openInsuranceWindow(clickedInsurance);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void accidentStatementDblClicked(AccidentStatement clickedAccidentStatement) {
@@ -245,20 +220,62 @@ public class detailedCustomerController {
         });
     }
 
+
     @FXML
-    private void openInsuranceWindow(Insurance insurance) {
+    private void btnNewBoatInsurance() {
+        try {
+            String pathToXml = "/org/view/boatInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO: Display error window.
+        }
+    }
+
+    @FXML
+    private void  btnPrimaryResidenceInsurance() {
+
+    }
+
+    @FXML
+    private void btnSecondaryResidenceInsurance() {
+
+    }
+
+    @FXML
+    private void btnTravelInsurance() {
+
+    }
+
+    @FXML
+    private void openCreateNewInsuranceWindow(String pathToXml, String stageTitle) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
+        Parent root = loader.load();
+        InsuranceController controller = loader.getController();
+
+        controller.setCustomer(currentCustomer);
+        controller.setState(new NewInsurance());
+        controller.load();
+
+        WindowHandler windowHandler = new WindowHandler();
+        windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
+    }
+
+    @FXML
+    private void openInsuranceWindow(Insurance insurance) throws IOException {
+        String pathToXml;
 
         if (insurance instanceof BoatInsurance) {
-            BoatInsurance boatInsurance = (BoatInsurance) insurance;
-            openBoatInsuranceWindow(boatInsurance);
+            pathToXml = "/org/view/boatInsurance.fxml";
+            openExistingInsuranceWindow(insurance, pathToXml, "Båtforsikring");
         }
         else if (insurance instanceof TravelInsurance) {
-            TravelInsurance travelInsurance = (TravelInsurance) insurance;
-            openTravelInsuranceWindow(travelInsurance);
+            pathToXml = "/org/view/travelInsurance.fxml";
+            openExistingInsuranceWindow(insurance, pathToXml, "Reiseforsikring");
         }
         else if (insurance instanceof PrimaryResidenceInsurance) {
-            PrimaryResidenceInsurance primaryResidenceInsurance = (PrimaryResidenceInsurance) insurance;
-            openPrimaryResidenceInsuranceWindow(primaryResidenceInsurance);
+            System.out.println("Primary residence insurance clicked...");
+            // TODO: implementer her.
         }
         else {
             // TODO: Display error window
@@ -266,55 +283,22 @@ public class detailedCustomerController {
 
     }
 
-    // Setter felles datafelt for alle Insurance i embeddedInsFields.fxml. Dette vinduet er del av alle
-    // subforsikringsvinduene.
     @FXML
-    private void setCommonInsuranceFields(Insurance insurance) {
-        FXMLLoader insuranceViewLoader = new FXMLLoader(getClass().getResource("/org/view/embeddedInsFields.fxml"));
-        EmbeddedFieldsController embeddedFieldsController = insuranceViewLoader.getController();
-        embeddedFieldsController.displayExistingInsurance(insurance);
-    }
+    private void openExistingInsuranceWindow(Insurance insurance, String pathToXml, String stageTitle) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
+        Parent root = loader.load();
+        InsuranceController controller = loader.getController();
 
-    private void openPrimaryResidenceInsuranceWindow(PrimaryResidenceInsurance primaryResidenceInsurance) {
-        setCommonInsuranceFields(primaryResidenceInsurance);
-        // TODO: last inn ny fxml og sett controller med argumentet.
-    }
+        controller.setInsurance(insurance);
+        controller.setState(new ExistingInsurance());
+        controller.load();
 
-    private void openTravelInsuranceWindow(TravelInsurance travelInsurance) {
-        setCommonInsuranceFields(travelInsurance);
-        // TODO: last inn ny fxml og sett controller med argumentet.
-    }
-
-    private void openBoatInsuranceWindow(BoatInsurance boatInsurance) {
-        setCommonInsuranceFields(boatInsurance);
-
-        try {
-            //Last inn ny fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/boatInsurance.fxml"));
-            Parent root = loader.load();
-
-            //Finner kontrolleren til fxml fila og passerer boatinsurance til kontrolleren.
-            BoatInsuranceController controller = loader.getController();
-            controller.loadInsurance(boatInsurance);
-
-            WindowHandler windowHandler = new WindowHandler();
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Båt forsikring");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // TODO: Display error window.
-        }
-    }
-
-    @FXML
-    private void openCreateNewInsuranceWindow(String pathToXml, String stageTitle) {
         WindowHandler windowHandler = new WindowHandler();
-        try {
-            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToXml, stageTitle);
-        } catch(IOException e) {
-            e.printStackTrace();
-            //Todo error vindu
-        }
+        windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
     }
+
+
+
+
 
 }

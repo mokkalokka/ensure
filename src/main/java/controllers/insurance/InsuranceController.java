@@ -5,15 +5,19 @@ import models.insurance.Insurance;
 
 public interface InsuranceController {
 
-    Customer getMyCustomer();
+    Customer getCustomer();
+
+    void setCustomer(Customer customer);
 
     EmbeddedFieldsController getEmbeddedFieldsController();
 
     Insurance getCurrentInsurance();
 
-    void loadInsurance();
+    void load();
 
     void setState(InsuranceState state);
 
-    void setMyInsurance(Insurance currentInsurance);
+    void setInsurance(Insurance insurance);
+
+    void loadInsurance();
 }

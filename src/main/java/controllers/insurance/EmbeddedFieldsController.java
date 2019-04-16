@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public class EmbeddedFieldsController {
 
-    Insurance currentInsurance;
 
     @FXML
     private TextField txtRegisteredTo;
@@ -23,34 +22,19 @@ public class EmbeddedFieldsController {
     @FXML
     private TextField txtAnnualPremium;
 
-    public void test(){
-        System.out.println("working!");
-    }
 
 
-    public void btnBack() {
-        getCurrentStage().close();
-    }
-
-
-    private Stage getCurrentStage(){
-        return (Stage) txtRegisteredTo.getScene().getWindow();
-    }
-
-
-    public void displayExistingInsurance(Insurance anInsurance) {
-        currentInsurance = anInsurance;
-
-        txtRegisteredTo.setText(String.valueOf(currentInsurance.getRegisteredTo()));
-        txtDateOfIssue.setText(String.valueOf(currentInsurance.getDateOfIssue()));
-        txtTotal.setText(String.valueOf(currentInsurance.getTotal()));
-        txtCoverageDescription.setText(currentInsurance.getCoverageDescription());
-        txtAnnualPremium.setText(String.valueOf(txtAnnualPremium));
-    }
-
-    public void displayNewInsurance(Customer customer) {
-        txtRegisteredTo.setText(String.valueOf(customer.getInsuranceNr()));
+    public void displayNewInsurance(Customer ownerOfInsurance) {
+        txtRegisteredTo.setText(String.valueOf(ownerOfInsurance.getInsuranceNr()));
         txtDateOfIssue.setText(String.valueOf(LocalDate.now()));
+    }
+
+    public void displayExistingInsurance(Insurance insurance) {
+        txtRegisteredTo.setText(String.valueOf(insurance.getRegisteredTo()));
+        txtDateOfIssue.setText(String.valueOf(insurance.getDateOfIssue()));
+        txtTotal.setText(String.valueOf(insurance.getTotal()));
+        txtCoverageDescription.setText(insurance.getCoverageDescription());
+        txtAnnualPremium.setText(String.valueOf(txtAnnualPremium));
     }
 
     public TextField getTxtRegisteredTo() {
