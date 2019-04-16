@@ -243,8 +243,14 @@ public class detailedCustomerController {
     }
 
     @FXML
-    private void btnTravelInsurance() {
-
+    private void btnNewTravelInsurance() {
+        try {
+            String pathToXml = "/org/view/travelInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, "Reiseforsikring");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO: Display error window.
+        }
     }
 
     @FXML

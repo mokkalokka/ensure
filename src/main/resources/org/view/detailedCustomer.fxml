@@ -114,7 +114,7 @@
                                                                                 <MenuItem mnemonicParsing="false" onAction="#btnNewBoatInsurance" text="Båtforsikring" />
                                                                                 <MenuItem mnemonicParsing="false" text="Husforsikring" />
                                                                                 <MenuItem mnemonicParsing="false" text="Fritidsbolig-forsikring" />
-                                                                                <MenuItem mnemonicParsing="false" text="Reiseforsikring" />
+                                                                                <MenuItem mnemonicParsing="false" onAction="#btnNewTravelInsurance" text="Reiseforsikring" />
                                                                             </items>
                                                                         </MenuButton>
                                                                     </right>

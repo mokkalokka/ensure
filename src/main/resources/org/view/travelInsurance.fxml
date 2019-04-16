@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,11 +21,12 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <GridPane layoutX="98.0" layoutY="83.0" prefHeight="106.0" prefWidth="631.0">
+            <GridPane layoutX="69.0" layoutY="83.0" prefHeight="107.0" prefWidth="722.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="130.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="332.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="163.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="255.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="131.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="171.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="175.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -32,22 +34,25 @@
               </rowConstraints>
                <children>
                   <Label text="Dekningsområde" />
-                  <Label text="Forsikringssum" GridPane.columnIndex="2" />
-                  <Label text="Type Reiseforsikring" GridPane.columnIndex="1" />
-                  <JFXTextField fx:id="txtMaxCoverage" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label text="Forsikringssum" GridPane.columnIndex="3" />
+                  <Label prefHeight="17.0" prefWidth="129.0" text="Type Reiseforsikring" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                  <JFXTextField fx:id="txtMaxCoverage" prefHeight="27.0" prefWidth="166.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <Group GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <children>
-                        <JFXRadioButton />
-                     </children>
-                  </Group>
+                  <Group GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <JFXRadioButton fx:id="radioStandard" selected="true" text="Standard" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radioGroup" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="radioPremium" text="Premium" toggleGroup="$radioGroup" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="lblCoverageArea" prefHeight="56.0" prefWidth="227.0" text="Standard reisemål for reising opptil 30 dager." wrapText="true" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
       </AnchorPane>
-      <fx:include source="embeddedInsFields.fxml" />
+      <fx:include fx:id="embeddedFields" source="embeddedInsFields.fxml" />
    </children>
 </AnchorPane>

@@ -41,7 +41,7 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtDateOfIssue" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtDateOfIssue" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
@@ -51,12 +51,12 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtCoverageDescription" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtCoverageDescription" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtAnnualPremium" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="txtAnnualPremium" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
