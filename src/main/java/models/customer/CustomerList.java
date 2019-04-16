@@ -6,7 +6,6 @@ import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerList {
@@ -57,13 +56,13 @@ public class CustomerList {
 
     public static void overwriteInsuranceInCustomer(Insurance insurance) throws NoSuchCustomerException {
         //Indeksen til forsikringen som skal overskrives
-        int insuranceToReplaceIndex = insurance.getInsuranceNr();
+        int insuranceToReplaceIndex = insurance.getInsuranceID();
 
         //For alle customers sjekk hvilken den nye forsikringen hører til
         for (Customer customer : getCustomerList()) {
             if (insuranceBelongsToCustomer(insurance, customer)) {
                 for (Insurance insuranceToReplace : customer.getListOfInsurances()) {
-                    if (insuranceToReplace.getInsuranceNr() == insuranceToReplaceIndex) {
+                    if (insuranceToReplace.getInsuranceID() == insuranceToReplaceIndex) {
                         customer.overwriteInsurance(insuranceToReplaceIndex, insurance);
                         return;
                     }
