@@ -16,6 +16,7 @@ import models.filewriter.SerializedObjectWriter;
 import models.gui.WindowHandler;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class toolbarController {
 
@@ -38,15 +39,16 @@ public class toolbarController {
             SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
 
             try {
-                ArrayList<Customer> customerListFromFile = (ArrayList<Customer>) serializedObjectReader.readObject(path);
-                for (Customer customer : customerListFromFile) {
-                    CustomerList.addCustomer(customer);
+                List<Customer> customerListFromFile = serializedObjectReader.readObject(path);
+                if (customerListFromFile == null) {
+                    // TODO: Display error window.
+                    System.err.println("Feil ved lesing fra fil");
+                } else {
+                    CustomerList.initializeNewList(customerListFromFile);
                 }
             } catch (IOException e) {
                 e.printStackTrace(); //TODO: Fiks exceptions!
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }catch (DuplicateCustomerException e) {
                 e.printStackTrace();
             }
 
