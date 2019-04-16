@@ -14,6 +14,12 @@ public class TravelInsuranceBuilder {
     private LocalDate dateOfIssue = null;
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
+    private int insuranceID;
+
+    public TravelInsuranceBuilder setInsuranceID(String insuranceID) {
+        this.insuranceID = Integer.parseInt(insuranceID);
+        return this;
+    }
 
     public TravelInsuranceBuilder setPremium(String isPremium) {
         this.isPremium = Boolean.parseBoolean(isPremium);
@@ -55,13 +61,27 @@ public class TravelInsuranceBuilder {
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        return new TravelInsurance(
-                registeredTo,
-                annualPremium,
-                total,
-                coverageDescription,
-                maxCoverage,
-                isPremium,
-                dateOfIssue);
+        if(insuranceID == 0){
+            return new TravelInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    maxCoverage,
+                    isPremium,
+                    dateOfIssue);
+        }
+        else{
+            return new TravelInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    maxCoverage,
+                    isPremium,
+                    dateOfIssue,
+                    insuranceID);
+        }
+
     }
 }

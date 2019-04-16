@@ -74,6 +74,7 @@ public class CsvWriterTest {
                     .setCoverageDescription("Ikke så mye")
                     .setRegisteredTo(String.valueOf(customer1.getInsuranceNr()))
                     .setTotal("5400")
+                    .setInsuranceID("200000")
                     .build();
 
 

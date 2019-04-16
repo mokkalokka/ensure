@@ -13,8 +13,9 @@ public class ParseTravelInsurance {
                 .setDateOfIssue(lineArray[2])
                 .setMaxCoverage(lineArray[3])
                 .setCoverageDescription(lineArray[4])
-                .setPremium(lineArray[5])
-                .setTotal(lineArray[6])
+                .setInsuranceID(lineArray[5])
+                .setPremium(lineArray[6])
+                .setTotal(lineArray[7])
                 .build();
 
         try {

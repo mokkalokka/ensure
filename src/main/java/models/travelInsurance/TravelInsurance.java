@@ -26,6 +26,14 @@ public class TravelInsurance extends Insurance {
         this.maxCoverage = maxCoverage;
     }
 
+    public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
+                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue, int insuranceID ) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue, insuranceID);
+        //this.coverageType = CoverageType.STANDARD;
+        this.isPremium = isPremium;
+        this.maxCoverage = maxCoverage;
+    }
+
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
                 Arrays.asList("Premiumforsikring", "Forsikringssum"));

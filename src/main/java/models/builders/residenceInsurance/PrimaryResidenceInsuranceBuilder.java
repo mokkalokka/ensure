@@ -14,6 +14,12 @@ public class PrimaryResidenceInsuranceBuilder{
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
     private LocalDate dateOfIssue = null;
+    private int insuranceID;
+
+    public PrimaryResidenceInsuranceBuilder setInsuranceID(String insuranceID) {
+        this.insuranceID = Integer.parseInt(insuranceID);
+        return this;
+    }
 
     public PrimaryResidenceInsuranceBuilder setDateOfIssue(String dateOfIssue) {
         this.dateOfIssue = LocalDate.parse(dateOfIssue);
@@ -59,15 +65,30 @@ public class PrimaryResidenceInsuranceBuilder{
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        return new PrimaryResidenceInsurance(
-                registeredTo,
-                annualPremium,
-                total,
-                coverageDescription,
-                residence,
-                propertyInsuranceAmount,
-                assetsInsuranceAmount,
-                dateOfIssue);
+        if(insuranceID == 0){
+            return new PrimaryResidenceInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    residence,
+                    propertyInsuranceAmount,
+                    assetsInsuranceAmount,
+                    dateOfIssue);
+        }
+        else{
+            return new PrimaryResidenceInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    residence,
+                    propertyInsuranceAmount,
+                    assetsInsuranceAmount,
+                    dateOfIssue,
+                    insuranceID);
+
+        }
     }
 
 }

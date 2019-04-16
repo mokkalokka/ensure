@@ -12,8 +12,14 @@ public class BoatInsuranceBuilder{
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
     private LocalDate dateOfIssue = null;
+    private int insuranceID;
 
     private Boat boat;
+
+    public BoatInsuranceBuilder setInsuranceID(String insuranceID) {
+        this.insuranceID = Integer.parseInt(insuranceID);
+        return this;
+    }
 
     public BoatInsuranceBuilder setDateOfIssue(String dateOfIssue) {
         this.dateOfIssue = LocalDate.parse(dateOfIssue);
@@ -49,14 +55,27 @@ public class BoatInsuranceBuilder{
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        return new BoatInsurance(
-                registeredTo,
-                annualPremium,
-                total,
-                coverageDescription,
-                boat,
-                dateOfIssue
-        );
+        if (insuranceID == 0) {
+            return new BoatInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    boat,
+                    dateOfIssue
+            );
+        }
+        else {
+            return new BoatInsurance(
+                    registeredTo,
+                    annualPremium,
+                    total,
+                    coverageDescription,
+                    boat,
+                    dateOfIssue,
+                    insuranceID
+            );
+        }
     }
 
 }
