@@ -12,6 +12,7 @@ import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
+import models.gui.ErrorDialog;
 
 public class newCustomerController {
 
@@ -35,8 +36,7 @@ public class newCustomerController {
             updateStatus("Kunden er lagt til i listen");
             resetFieldColor();
         } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            // TODO: Display error window.
+            new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
     }
 
