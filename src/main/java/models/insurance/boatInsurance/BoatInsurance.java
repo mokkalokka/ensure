@@ -12,10 +12,17 @@ public class BoatInsurance extends Insurance {
     private Boat boat;
 
 
-    //Overloading når forsikringen er lest fra en fil og har en dateOfIssue
+
     public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat,
                          LocalDate dateOfIssue) {
         super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
+        this.boat = boat;
+    }
+
+    //Overloading når forsikringen er lest fra en fil og har en insuranceID
+    public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat,
+                         LocalDate dateOfIssue, int insuranceID) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue, insuranceID);
         this.boat = boat;
     }
 

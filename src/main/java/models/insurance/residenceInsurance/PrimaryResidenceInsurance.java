@@ -22,6 +22,15 @@ public class PrimaryResidenceInsurance extends Insurance {
         this.assetsInsuranceAmount = assetsInsuranceAmount;
     }
 
+    public PrimaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
+                                     Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount,
+                                     LocalDate dateOfIssue, int insuranceID) {
+        super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue, insuranceID);
+        this.residence = residence;
+        this.propertyInsuranceAmount = propertyInsuranceAmount;
+        this.assetsInsuranceAmount = assetsInsuranceAmount;
+    }
+
     public Residence getResidence() {
         return residence;
     }
