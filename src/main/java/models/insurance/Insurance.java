@@ -58,7 +58,8 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
                 "Årlig forsikringspremie",
                 "Dato opprettet",
                 "Forsikringsbeløp",
-                "Forsikringsbetingelser"));
+                "Forsikringsbetingelser",
+                "ForsikringsID"));
     }
 
     public ArrayList<String> getFieldValuesAsStrings() {
@@ -67,7 +68,8 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
                 String.valueOf(annualPremium),
                 String.valueOf(dateOfIssue),
                 String.valueOf(total),
-                String.valueOf(coverageDescription)
+                String.valueOf(coverageDescription),
+                String.valueOf(insuranceID)
         ));
     }
 
