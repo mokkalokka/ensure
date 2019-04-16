@@ -34,6 +34,7 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
         this.total = total;
         this.coverageDescription = coverageDescription;
         this.dateOfIssue = dateOfIssue;
+        this.insuranceID = NEXT_INSURANCE_ID.getAndIncrement();
     }
 
     public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription, LocalDate dateOfIssue, int insuranceID) {
