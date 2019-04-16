@@ -1,6 +1,8 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
+import controllers.insurance.BoatInsuranceController;
+import controllers.insurance.EmbeddedFieldsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -88,11 +90,13 @@ public class detailedCustomerController {
     private JFXTextField  lblInvoiceAddress;
 
     @FXML
-    private void btnBoatInsurance() {
+    private void btnNewBoatInsurance() {
+
         WindowHandler windowHandler = new WindowHandler();
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), "/org/view/boatInsurance.fxml", "Vis Kunde");
         } catch (IOException e) {
+            e.printStackTrace();
             //TODO error håndtering
         }
     }
@@ -262,13 +266,13 @@ public class detailedCustomerController {
 
     }
 
-    // Setter felles datafelt for alle Insurance i insurance.fxml. Dette vinduet er del av alle
+    // Setter felles datafelt for alle Insurance i embeddedInsFields.fxml. Dette vinduet er del av alle
     // subforsikringsvinduene.
     @FXML
     private void setCommonInsuranceFields(Insurance insurance) {
-        FXMLLoader insuranceViewLoader = new FXMLLoader(getClass().getResource("/org/view/insurance.fxml"));
-        InsuranceController insuranceController = insuranceViewLoader.getController();
-        insuranceController.displayInsurance(insurance);
+        FXMLLoader insuranceViewLoader = new FXMLLoader(getClass().getResource("/org/view/embeddedInsFields.fxml"));
+        EmbeddedFieldsController embeddedFieldsController = insuranceViewLoader.getController();
+        embeddedFieldsController.displayExistingInsurance(insurance);
     }
 
     private void openPrimaryResidenceInsuranceWindow(PrimaryResidenceInsurance primaryResidenceInsurance) {
@@ -291,7 +295,7 @@ public class detailedCustomerController {
 
             //Finner kontrolleren til fxml fila og passerer boatinsurance til kontrolleren.
             BoatInsuranceController controller = loader.getController();
-            controller.loadBoatInsurance(boatInsurance);
+            controller.loadInsurance(boatInsurance);
 
             WindowHandler windowHandler = new WindowHandler();
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, "Båt forsikring");
@@ -304,14 +308,11 @@ public class detailedCustomerController {
 
     @FXML
     private void openCreateNewInsuranceWindow(String pathToXml, String stageTitle) {
-        FXMLLoader insuranceViewLoader = new FXMLLoader(getClass().getResource("/org/view/insurance.fxml"));
-        InsuranceController insuranceController = insuranceViewLoader.getController();
-        insuranceController.setCreateNewInsuranceState(currentCustomer);
-
         WindowHandler windowHandler = new WindowHandler();
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToXml, stageTitle);
         } catch(IOException e) {
+            e.printStackTrace();
             //Todo error vindu
         }
     }

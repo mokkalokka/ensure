@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TravelInsuranceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.insurance.TravelInsuranceController">
    <children>
       <AnchorPane layoutX="21.0" layoutY="204.0" prefHeight="295.0" prefWidth="859.0">
          <children>
@@ -48,6 +48,6 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <fx:include source="insurance.fxml" />
+      <fx:include source="embeddedInsFields.fxml" />
    </children>
 </AnchorPane>

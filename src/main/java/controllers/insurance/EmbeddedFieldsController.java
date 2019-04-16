@@ -1,4 +1,4 @@
-package controllers;
+package controllers.insurance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -8,7 +8,7 @@ import models.insurance.Insurance;
 
 import java.time.LocalDate;
 
-public class InsuranceController {
+public class EmbeddedFieldsController {
 
     Insurance currentInsurance;
 
@@ -23,6 +23,10 @@ public class InsuranceController {
     @FXML
     private TextField txtAnnualPremium;
 
+    public void test(){
+        System.out.println("working!");
+    }
+
 
     public void btnBack() {
         getCurrentStage().close();
@@ -34,7 +38,7 @@ public class InsuranceController {
     }
 
 
-    public void displayInsurance(Insurance anInsurance) {
+    public void displayExistingInsurance(Insurance anInsurance) {
         currentInsurance = anInsurance;
 
         txtRegisteredTo.setText(String.valueOf(currentInsurance.getRegisteredTo()));
@@ -44,7 +48,7 @@ public class InsuranceController {
         txtAnnualPremium.setText(String.valueOf(txtAnnualPremium));
     }
 
-    public void setCreateNewInsuranceState(Customer customer) {
+    public void displayNewInsurance(Customer customer) {
         txtRegisteredTo.setText(String.valueOf(customer.getInsuranceNr()));
         txtDateOfIssue.setText(String.valueOf(LocalDate.now()));
     }
