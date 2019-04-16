@@ -11,10 +11,10 @@ import java.util.List;
 public class SerializedObjectReader implements fileReader {
 
     @Override
-    public Object readObject(String path) throws IOException, ClassNotFoundException {
+    public List<Customer> readObject(String path) throws IOException, ClassNotFoundException {
         FileInputStream fin = new FileInputStream(path);
         ObjectInputStream oin = new ObjectInputStream(fin);
-        Object loadedCustomers = oin.readObject();
+        List<Customer> loadedCustomers = (List<Customer>) oin.readObject();
 
         // TODO: Lag custom exceptions for InvalidCustomerFormat som denne metoden skal kaste.
 

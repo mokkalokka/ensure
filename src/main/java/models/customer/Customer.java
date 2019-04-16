@@ -88,7 +88,7 @@ public class Customer implements Serializable {
         return insuranceNr;
     }
 
-    private void setInsuranceNr(int insuranceNr) {
+    public void setInsuranceNr(int insuranceNr) {
         if (insuranceNr >= NEXT_INSURANCE_NR.get()) {
             NEXT_INSURANCE_NR.lazySet(insuranceNr + 1);
         }
