@@ -10,7 +10,10 @@ public class InsuranceHandler {
         CustomerList.addInsuranceToCustomer(insurance);
     }
 
-    public void overwriteInsurance(Insurance insurance) {
-        // TODO: implement this method.
+
+    public void overwriteExistingInsurance(Insurance insurance) throws NoSuchCustomerException {
+
+        CustomerList.overwriteInsuranceInCustomer(insurance);
+
     }
 }

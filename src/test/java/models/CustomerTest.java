@@ -34,10 +34,4 @@ public class CustomerTest {
         assertEquals(customer1.getInsuranceNr() + 1, customer2.getInsuranceNr());
         assertEquals(customer1.getInsuranceNr() + 2, customer3.getInsuranceNr());
     }
-
-    @Test
-    public void setInsuranceNr() {
-        customer1.setInsuranceNr(100_000);
-        assertEquals(customer1.getInsuranceNr() + 1, Customer.getNextInsuranceNr());
-    }
 }

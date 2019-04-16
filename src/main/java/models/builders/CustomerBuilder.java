@@ -19,7 +19,7 @@ public class CustomerBuilder {
     private String firstName;
     private LocalDate customerSince;
     private String invoiceAddress;
-    private String pendingCompensation; // TODO: finn en måte å strukturere data på.
+    private double pendingCompensation = 0.0; // TODO: finn en måte å strukturere data på.
 
     public CustomerBuilder setInsuranceNr(String insuranceNr) throws EmptyFieldsException {
         if (sc.isEmptyOrNull(insuranceNr)) {
@@ -71,9 +71,10 @@ public class CustomerBuilder {
         if (sc.isEmptyOrNull(pendingCompensation)) {
             throw new EmptyFieldsException();
         }
-        this.pendingCompensation = pendingCompensation;
+        this.pendingCompensation = Double.parseDouble(pendingCompensation);
         return this;
     }
+
 
     public Customer build() {
         if (customerSince == null) {
@@ -84,7 +85,8 @@ public class CustomerBuilder {
                     firstName,
                     lastName,
                     invoiceAddress,
-                    customerSince
+                    customerSince,
+                    pendingCompensation
             );
         }
         return new Customer(
@@ -92,7 +94,8 @@ public class CustomerBuilder {
                 firstName,
                 lastName,
                 invoiceAddress,
-                customerSince
+                customerSince,
+                pendingCompensation
         );
     }
 

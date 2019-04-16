@@ -22,7 +22,7 @@ public class Customer implements Serializable {
     private String invoiceAddress;
     private ArrayList<Insurance> listOfInsurances;
     private ArrayList<AccidentStatement> listOfAccidentStatements; // skademelding
-    private String pendingCompensation; // TODO: finn en måte å strukturere data på.
+    private double pendingCompensation; // TODO: finn en måte å strukturere data på.
 
     //TODO: Denne burde fjernes til fordel for den andre konstruktøren
 
@@ -34,24 +34,27 @@ public class Customer implements Serializable {
         this.customerSince = LocalDate.now();
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
+        pendingCompensation = 0.0;
     }
 
-    public Customer(String firstName, String lastName, String invoiceAddress, LocalDate customerSince) {
+    public Customer(String firstName, String lastName, String invoiceAddress, LocalDate customerSince, double pendingCompensation) {
         this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;
         this.customerSince = customerSince;
+        this.pendingCompensation = pendingCompensation;
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
     }
 
-    public Customer(int insuranceNr, String firstName, String lastName, String invoiceAddress, LocalDate customerSince) {
+    public Customer(int insuranceNr, String firstName, String lastName, String invoiceAddress, LocalDate customerSince, double pendingCompensation) {
         setInsuranceNr(insuranceNr);
         this.firstName = firstName;
         this.lastName = lastName;
         this.invoiceAddress = invoiceAddress;
         this.customerSince = customerSince;
+        this.pendingCompensation = pendingCompensation;
         listOfInsurances = new ArrayList<>();
         listOfAccidentStatements = new ArrayList<>();
     }
@@ -135,15 +138,19 @@ public class Customer implements Serializable {
         return listOfInsurances;
     }
 
-    public String getPendingCompensation() {
+    public double getPendingCompensation() {
         return pendingCompensation;
     }
 
-    public void setPendingCompensation(String pendingCompensation) {
+    public void setPendingCompensation(double pendingCompensation) {
         this.pendingCompensation = pendingCompensation;
     }
 
     public ArrayList<AccidentStatement> getListOfAccidentStatements() {
         return listOfAccidentStatements;
+    }
+
+    public void overwriteInsurance(int insuranceToReplace, Insurance insurance) {
+        listOfInsurances.set(insuranceToReplace, insurance);
     }
 }

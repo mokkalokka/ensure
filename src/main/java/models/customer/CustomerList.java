@@ -30,7 +30,8 @@ public class CustomerList {
     }
 
     public static void initializeNewList(List<Customer> listOfCustomers) {
-        customerList = FXCollections.observableArrayList(listOfCustomers);
+        customerList.clear();
+        customerList.addAll(listOfCustomers);
     }
 
     private static boolean duplicateCustomer(Customer source){
@@ -53,4 +54,27 @@ public class CustomerList {
         }
         throw (new NoSuchCustomerException());
     }
+
+    public static void overwriteInsuranceInCustomer(Insurance insurance) throws NoSuchCustomerException {
+        //Indeksen til forsikringen som skal overskrives
+        int insuranceToReplaceIndex = insurance.getInsuranceID();
+
+        //For alle customers sjekk hvilken den nye forsikringen hører til
+        for (Customer customer : getCustomerList()) {
+            if (insuranceBelongsToCustomer(insurance, customer)) {
+                for (Insurance insuranceToReplace : customer.getListOfInsurances()) {
+                    if (insuranceToReplace.getInsuranceID() == insuranceToReplaceIndex) {
+                        customer.overwriteInsurance(insuranceToReplaceIndex, insurance);
+                        return;
+                    }
+                }
+            }
+        }
+        throw (new NoSuchCustomerException());
+    }
+
+    private static boolean insuranceBelongsToCustomer(Insurance insurance, Customer customer) {
+        return insurance.getRegisteredTo() == customer.getInsuranceNr();
+    }
+
 }
