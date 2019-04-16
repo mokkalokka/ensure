@@ -14,6 +14,7 @@ public class ParseCustomer {
                 .setFirstName(lineArray[2])
                 .setCustomerSince(lineArray[3])
                 .setInvoiceAddress(lineArray[4])
+                .setPendingCompensation(lineArray[5])
                 .build();
 
         CustomerList.addCustomer(parsedCustomer);
