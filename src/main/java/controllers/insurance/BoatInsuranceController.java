@@ -3,6 +3,7 @@ package controllers.insurance;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
@@ -53,6 +54,13 @@ public class BoatInsuranceController implements InsuranceController {
             // TODO: display error window
         }
     }
+
+    @FXML
+    private void btnClose() {
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
+    }
+
 
     public void load() {
         state.loadInsurance(this);
@@ -117,6 +125,10 @@ public class BoatInsuranceController implements InsuranceController {
 
     public Customer getCustomer() {
         return myCustomer;
+    }
+
+    private Stage getCurrentStage() {
+        return (Stage) txtRegistrationNr.getScene().getWindow();
     }
 
 }
