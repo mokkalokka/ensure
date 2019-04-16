@@ -6,6 +6,7 @@ import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerList {
