@@ -1,8 +1,9 @@
 package models.insurance.residenceInsurance;
 
+import java.io.Serializable;
 import java.time.Year;
 
-public class Residence {
+public class Residence implements Serializable {
     private String address; // fritidsbolig skal ha forskjellig adresse fra Customer.invoiceAdress
     private Year yearOfConstruction;
     private String residenceType;

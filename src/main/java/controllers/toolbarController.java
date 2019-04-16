@@ -25,6 +25,69 @@ public class toolbarController {
 
     @FXML
     private void toolbarOpenFile() {
+        List<Customer> customerListFromFile = null;
+        
+        String path = chooseFileAndAddFilters();
+        String fileExtension = findFileExtension(path);
+
+
+
+        if (fileExtension.equals("jobj")) {
+            customerListFromFile = readSerializedObject(path);
+            
+        } else if (fileExtension.equals("csv")) {
+            customerListFromFile = readCsv(path);
+        }
+        addCustomers(customerListFromFile);
+    }
+
+    private List<Customer> readCsv(String path) {
+        CsvReader csvReader = new CsvReader();
+        try {
+            return csvReader.readFile(path);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private void addCustomers(List<Customer> customerListFromFile ) {
+        if (customerListFromFile == null) {
+            // TODO: Display error window.
+            System.err.println("Feil ved lesing fra fil");
+        } else {
+            CustomerList.initializeNewList(customerListFromFile);
+        }
+    }
+
+    private List<Customer> readSerializedObject(String path) {
+        SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
+
+        try {
+            return serializedObjectReader.readFile(path);
+
+        } catch (IOException e) {
+            e.printStackTrace(); //TODO: Fiks exceptions!
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private String findFileExtension(String path) {
+        String[] filePathArray = path.split("\\.");
+        String fileExtension = filePathArray[filePathArray.length - 1];
+        return fileExtension;
+    }
+
+    private String chooseFileAndAddFilters() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
                 "*.jobj");
@@ -35,50 +98,11 @@ public class toolbarController {
         fileChooser.getExtensionFilters().add(extFilterCsv);
 
         fileChooser.setTitle("Open file");
-        String path = fileChooser.showOpenDialog(null).getPath();
-        String[] filePathArray = path.split("\\.");
-        String fileExtension = filePathArray[filePathArray.length - 1];
 
-        if (fileExtension.equals("jobj")) {
-            SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
-
-            try {
-                List<Customer> customerListFromFile = serializedObjectReader.readFile(path);
-                if (customerListFromFile == null) {
-                    // TODO: Display error window.
-                    System.err.println("Feil ved lesing fra fil");
-                } else {
-                    CustomerList.initializeNewList(customerListFromFile);
-                }
-            } catch (IOException e) {
-                e.printStackTrace(); //TODO: Fiks exceptions!
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        } else if (fileExtension.equals("csv")) {
-            CsvReader csvReader = new CsvReader();
-            try {
-                List<Customer> customerListFromFile = csvReader.readFile(path);
-                if (customerListFromFile == null) {
-                    // TODO: Display error window.
-                    System.err.println("Feil ved lesing fra fil");
-                } else {
-                    CustomerList.initializeNewList(customerListFromFile);
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InvalidCustomerException e) {
-                e.printStackTrace();
-            }
-        }
+        return fileChooser.showOpenDialog(null).getPath();
     }
 
-            @FXML
+    @FXML
     private void toolbarSaveAs(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
