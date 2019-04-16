@@ -88,6 +88,9 @@ public class detailedCustomerController {
     private JFXTextField  lblInvoiceAddress;
 
     @FXML
+    private JFXTextField lblPendingCompensation;
+
+    @FXML
     private void btnBoatInsurance() {
         WindowHandler windowHandler = new WindowHandler();
         try {
@@ -130,6 +133,11 @@ public class detailedCustomerController {
         currentCustomer.setLastName(lblSurname.getText());
         currentCustomer.setFirstName(lblFirstName.getText());
         currentCustomer.setInvoiceAddress(lblInvoiceAddress.getText());
+        try {
+            currentCustomer.setPendingCompensation(Double.parseDouble(lblPendingCompensation.getText()));
+        } catch (NumberFormatException e) {
+            // TODO: display error window.
+        }
     }
 
     @FXML
@@ -159,6 +167,7 @@ public class detailedCustomerController {
         lblFirstName.setText(currentCustomer.getFirstName());
         lblCustomerSince.setText(currentCustomer.getCustomerSince().toString());
         lblInvoiceAddress.setText(currentCustomer.getInvoiceAddress());
+        lblPendingCompensation.setText(String.valueOf(currentCustomer.getPendingCompensation()));
     }
 
     public void onWindowShow(WindowEvent event) {
