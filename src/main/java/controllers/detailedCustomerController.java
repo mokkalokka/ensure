@@ -137,8 +137,7 @@ public class detailedCustomerController {
     public void pickCustomer(Customer aCustomer) {
         //Lokal variabel for kunden som vises, og arrayene til kunden til observablelister
         currentCustomer = aCustomer;
-        insuranceObservableList = FXCollections.observableArrayList(currentCustomer.getListOfInsurances());
-        accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
+        updateTables();
 
         //Setter textboksene
         lblInsuranceNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
@@ -152,13 +151,22 @@ public class detailedCustomerController {
     public void onWindowShow(WindowEvent event) {
         //Legger til en listener pa vinduet som refresher begge tablene nar vinduet far fokus
         anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, onFocus, onUnfocus) -> {
-           tblInsurance.refresh();
-           tblAccidentStatement.refresh();
+           updateTables();
         });
 
         //Hjelp metoder siden dette ikke kan ligge i den innebygde initialize metoden
         initializeInsuranceTable();
         initializeAccidentStatementTable();
+    }
+
+    //TODO FIXME
+    //TRY ME CATCH THESE HANDS
+    private void updateTables() {
+        insuranceObservableList = FXCollections.observableArrayList(currentCustomer.getListOfInsurances());
+        tblInsurance.setItems(insuranceObservableList);
+        accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
+        tblInsurance.refresh();
+        tblAccidentStatement.refresh();
     }
 
     private void initializeInsuranceTable() {
