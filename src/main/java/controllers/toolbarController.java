@@ -1,27 +1,44 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
-import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.fileReader.CsvReader;
-import models.fileReader.SerializedObjectReader;
+import models.fileReader.CsvReaderTask;
+//import models.fileReader.fileReaderTask;
 import models.filewriter.CsvWriter;
 import models.filewriter.SerializedObjectWriter;
+import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class toolbarController {
 
     @FXML
     private AnchorPane anchorPane;
+
+    //Progress bar FXML komponenter
+    @FXML
+    private Stage progressStage;
+    private JFXButton btnProgress;
+    private Label lblProgress;
 
     @FXML
     private void toolbarOpenFile() {
@@ -31,55 +48,89 @@ public class toolbarController {
         fileChooser.setTitle("Åpne fil");
         String path = fileChooser.showOpenDialog(null).getPath();
         String fileExtension = findFileExtension(path);
+        //executeFileReaderTask(path, fileExtension);
 
-        if (fileExtension.equals("jobj")) {
-            customerListFromFile = readSerializedObject(path);
+        if(fileExtension.equals("csv")){
+            ExecutorService service = Executors.newSingleThreadExecutor();
+            Task<List<Customer>> task = new CsvReaderTask(path);
+            service.execute(task);
 
+            progressWindow(task);
+            task.setOnSucceeded(event -> {
+                addCustomers(task.getValue());
+                btnProgress.setText("Lukk");
+                lblProgress.setText("Alle kunder er lastet inn");
+                btnProgress.setOnAction(e -> progressStage.close());
+            });
+
+            task.setOnFailed(event -> {
+                ErrorDialog errorDialog = new ErrorDialog("error", task.getException().getMessage());
+                errorDialog.show();
+            });
+
+            task.setOnCancelled(event -> {
+                ErrorDialog errorDialog = new ErrorDialog("Avbrutt","Abrutt av bruker");
+                errorDialog.show();
+            });
         }
-        else if (fileExtension.equals("csv")) {
-            customerListFromFile = readCsv(path);
-        }
-        addCustomers(customerListFromFile);
+
     }
 
-    private List<Customer> readCsv(String path) {
-        CsvReader csvReader = new CsvReader();
-        try {
-            return csvReader.readFile(path);
+    public void progressWindow(Task task){
+        progressStage = new Stage();
+        ProgressBar progressBar = new ProgressBar();
+        btnProgress = new JFXButton();
+        lblProgress = new Label();
+        btnProgress.setText("Avbryt");
+        btnProgress.setStyle("-fx-background-color: #E5E5E5;");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-        }
+        btnProgress.setOnAction(event -> {
+            task.cancel();
+            progressStage.close();
+        });
 
-        return null;
+
+
+        FlowPane root = new FlowPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        root.setVgap(20);
+        root.getChildren().addAll(progressBar, btnProgress,lblProgress);
+        progressBar.progressProperty().bind(task.progressProperty());
+
+        Scene scene = new Scene(root, 200, 100);
+
+        progressStage.setTitle("Leser inn fil...");
+
+        progressStage.setScene(scene);
+        progressStage.show();
+
     }
 
-    private void addCustomers(List<Customer> customerListFromFile ) {
+
+/*    private void executeFileReaderTask(String path, String fileExtension) {
+
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Task<List<Customer>> task = new fileReaderTask(path, fileExtension);
+        service.execute(task);
+
+        task.setOnSucceeded(event -> {
+            addCustomers(task.getValue());
+        });
+
+        task.setOnFailed(event -> {
+            ErrorDialog errorDialog = new ErrorDialog("error", task.getException().getMessage());
+            errorDialog.show();
+        });
+    }*/
+
+    private void addCustomers( List<Customer> customerListFromFile) {
         if (customerListFromFile == null) {
-            // TODO: Display error window.
-            System.err.println("Feil ved lesing fra fil");
+            ErrorDialog errorDialog = new ErrorDialog("Error", "Feil ved lesing fra fil");
+            errorDialog.show();
         } else {
             CustomerList.initializeNewList(customerListFromFile);
         }
-    }
-
-    private List<Customer> readSerializedObject(String path) {
-        SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
-
-        try {
-            return serializedObjectReader.readFile(path);
-
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: Fiks exceptions!
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     private String findFileExtension(String path) {

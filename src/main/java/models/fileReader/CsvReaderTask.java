@@ -1,6 +1,6 @@
-/*
 package models.fileReader;
 
+import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
@@ -15,11 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CsvReader implements fileReader{
+public class CsvReaderTask extends Task implements fileReaderTaskInterface{
     private static ArrayList<Customer> loadedCustomers = new ArrayList<>();
+    private final String path;
+
+    public CsvReaderTask(String path) {
+        this.path = path;
+    }
 
     @Override
-    public List<Customer> readFile(String path) throws IOException, ClassNotFoundException, InvalidCustomerException {
+    public List<Customer> call() throws IOException, ClassNotFoundException, InvalidCustomerException {
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 
@@ -28,9 +33,18 @@ public class CsvReader implements fileReader{
         String line; // = br.readLine();
         String currentClass = "Kunder";
         String skipLine;
+        Double totalLines = getTotalLines(path);
+        double currentLine = 0;
 
 
         while ((line = br.readLine()) != null) {
+            if(isCancelled()){
+                updateMessage("Innlesing avbrutt");
+                break;
+            }
+
+            currentLine += 1;
+            updateProgress(currentLine,totalLines);
             String[] lineArray = line.split(";");
 
             //Hvis lengden på linjen er 1, vil det si at denne linjen starter en ny klassse
@@ -77,6 +91,16 @@ public class CsvReader implements fileReader{
         return loadedCustomers;
     }
 
+    private Double getTotalLines(String path) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String line;
+        Double totalLines = 0.0;
+        while ((line = br.readLine()) != null) {
+            totalLines ++;
+        }
+        return totalLines;
+    }
+
     private static void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
         for (Customer customer : loadedCustomers) {
             if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
@@ -95,8 +119,11 @@ public class CsvReader implements fileReader{
         }
         throw (new NoSuchCustomerException());
     }
+
+
 }
 
 
 
-*/
+
+
