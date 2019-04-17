@@ -34,7 +34,7 @@ public class EmbeddedFieldsController {
         txtDateOfIssue.setText(String.valueOf(insurance.getDateOfIssue()));
         txtTotal.setText(String.valueOf(insurance.getTotal()));
         txtCoverageDescription.setText(insurance.getCoverageDescription());
-        txtAnnualPremium.setText(String.valueOf(txtAnnualPremium));
+        txtAnnualPremium.setText(String.valueOf(insurance.getAnnualPremium()));
     }
 
     public TextField getTxtRegisteredTo() {
