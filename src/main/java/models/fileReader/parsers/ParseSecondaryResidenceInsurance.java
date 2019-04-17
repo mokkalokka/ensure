@@ -4,11 +4,12 @@ import models.builders.residenceInsurance.ResidenceBuilder;
 import models.builders.residenceInsurance.SecondaryResidenceInsuranceBuilder;
 import models.customer.CustomerList;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 public class ParseSecondaryResidenceInsurance {
 
-    public void parseSecondaryResidenceInsurance(String[] lineArray) {
+    public static Insurance parseSecondaryResidenceInsurance(String[] lineArray) {
         SecondaryResidenceInsurance secondaryResidenceInsurance = new SecondaryResidenceInsuranceBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAnnualPremium(lineArray[1])
@@ -27,10 +28,6 @@ public class ParseSecondaryResidenceInsurance {
                         .setSqMeters(lineArray[13])
                         .build())
                 .build();
-        try {
-            CustomerList.addInsuranceToCustomer(secondaryResidenceInsurance);
-        } catch (NoSuchCustomerException e) {
-            e.printStackTrace();
-        }
+        return secondaryResidenceInsurance;
     }
 }

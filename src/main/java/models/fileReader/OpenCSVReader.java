@@ -20,7 +20,7 @@ import java.util.List;
 public class OpenCSVReader implements fileReader {
 
     @Override
-    public List<Customer> readObject(String path) throws IOException {
+    public List<Customer> readFile(String path) throws IOException {
 
         Path filePath = Paths.get(path);
         BufferedReader br = Files.newBufferedReader(filePath, StandardCharsets.UTF_8);

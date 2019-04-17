@@ -7,7 +7,7 @@ import models.exceptions.customerExceptions.InvalidCustomerException;
 
 public class ParseCustomer {
 
-    public void parseCustomer(String[] lineArray) throws InvalidCustomerException {
+    public static Customer parseCustomer(String[] lineArray) throws InvalidCustomerException {
         Customer parsedCustomer = new CustomerBuilder()
                 .setInsuranceNr(lineArray[0])
                 .setLastName(lineArray[1])
@@ -17,7 +17,7 @@ public class ParseCustomer {
                 .setPendingCompensation(lineArray[5])
                 .build();
 
-        CustomerList.addCustomer(parsedCustomer);
+        return parsedCustomer;
 
     }
 

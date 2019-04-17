@@ -11,7 +11,7 @@ import java.util.List;
 public class SerializedObjectReader implements fileReader {
 
     @Override
-    public List<Customer> readObject(String path) throws IOException, ClassNotFoundException {
+    public List<Customer> readFile(String path) throws IOException, ClassNotFoundException {
         FileInputStream fin = new FileInputStream(path);
         ObjectInputStream oin = new ObjectInputStream(fin);
         List<Customer> loadedCustomers = (List<Customer>) oin.readObject();

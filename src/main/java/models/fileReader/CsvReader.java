@@ -1,17 +1,29 @@
 package models.fileReader;
 
+import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.fileReader.parsers.*;
+import models.insurance.AccidentStatement;
+import models.insurance.Insurance;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class CsvReader {
+public class CsvReader implements fileReader{
+    private static ArrayList<Customer> loadedCustomers = new ArrayList<>();
 
-    public void readCsv(String pathToCsv) throws IOException, InvalidCustomerException {
+    @Override
+    public List<Customer> readFile(String path) throws IOException, ClassNotFoundException, InvalidCustomerException {
+        //Tømmer loaded customers
+        loadedCustomers = new ArrayList<>();
 
-        BufferedReader br = new BufferedReader(new FileReader(pathToCsv));
+
+        BufferedReader br = new BufferedReader(new FileReader(path));
         String line; // = br.readLine();
         String currentClass = "Kunder";
         String skipLine;
@@ -32,48 +44,56 @@ public class CsvReader {
 
             switch (currentClass) {
                 case "Kunder":
-                    ParseCustomer parseCustomer = new ParseCustomer();
-                    parseCustomer.parseCustomer(lineArray);
+                    loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
                     break;
 
                 case "Batforsikringer":
-                    ParseBoatInsurance parseBoatInsurance = new ParseBoatInsurance();
-                    parseBoatInsurance.parseBoatInsurance(lineArray);
+                    addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
                     break;
 
                 case "Husforsikringer":
-                    ParsePrimaryResidenceInsurance parsePrimaryResidenceInsurance = new ParsePrimaryResidenceInsurance();
-                    parsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray);
+                    addInsuranceToLoadedCustomers(
+                            ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
                     break;
 
                 case "Fritidsboligforsikringer":
-                    ParseSecondaryResidenceInsurance parseSecondaryResidenceInsurance = new ParseSecondaryResidenceInsurance();
-                    parseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray);
+                    addInsuranceToLoadedCustomers(
+                            ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
                     break;
 
                 case "Reiseforsikringer":
-                    ParseTravelInsurance parseTravelInsurance = new ParseTravelInsurance();
-                    parseTravelInsurance.parseTravelInsurance(lineArray);
+                    addInsuranceToLoadedCustomers(
+                            ParseTravelInsurance.parseTravelInsurance(lineArray));
                     break;
 
                 case "Skademeldinger":
-                    ParseAccidentStatement parseAccidentStatement = new ParseAccidentStatement();
-                    parseAccidentStatement.parseAccidentStatement(lineArray);
+                    addAccidentStatementToLoadedCustomers(
+                            ParseAccidentStatement.parseAccidentStatement(lineArray));
                     break;
             }
 
         }
-
+        return loadedCustomers;
     }
 
-
-
-
-
-
-
-
-
+    private static void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
+        for (Customer customer : loadedCustomers) {
+            if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
+                customer.addInsurance(insurance);
+                return;
+            }
+        }
+        throw (new NoSuchCustomerException());
+    }
+    private static void addAccidentStatementToLoadedCustomers(AccidentStatement accidentStatement) throws NoSuchCustomerException {
+        for (Customer customer : loadedCustomers) {
+            if (customer.getInsuranceNr() == accidentStatement.getRegisteredTo()) {
+                customer.addAccidentStatement(accidentStatement);
+                return;
+            }
+        }
+        throw (new NoSuchCustomerException());
+    }
 }
 
 

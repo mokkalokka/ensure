@@ -8,10 +8,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
-import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.fileReader.CsvReader;
 import models.fileReader.SerializedObjectReader;
+import models.filewriter.CsvWriter;
 import models.filewriter.SerializedObjectWriter;
 import models.gui.WindowHandler;
 import java.io.IOException;
@@ -24,57 +24,114 @@ public class toolbarController {
     private AnchorPane anchorPane;
 
     @FXML
-    private void toolbarOpenFile(){
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
-                "*.jobj","*.csv");
-        fileChooser.getExtensionFilters().add(extFilter);
+    private void toolbarOpenFile() {
+        List<Customer> customerListFromFile = null;
 
-        fileChooser.setTitle("Open file");
+        FileChooser fileChooser = fileChooserWithExtensionFilters();
+        fileChooser.setTitle("Åpne fil");
         String path = fileChooser.showOpenDialog(null).getPath();
+        String fileExtension = findFileExtension(path);
+
+        if (fileExtension.equals("jobj")) {
+            customerListFromFile = readSerializedObject(path);
+
+        }
+        else if (fileExtension.equals("csv")) {
+            customerListFromFile = readCsv(path);
+        }
+        addCustomers(customerListFromFile);
+    }
+
+    private List<Customer> readCsv(String path) {
+        CsvReader csvReader = new CsvReader();
+        try {
+            return csvReader.readFile(path);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private void addCustomers(List<Customer> customerListFromFile ) {
+        if (customerListFromFile == null) {
+            // TODO: Display error window.
+            System.err.println("Feil ved lesing fra fil");
+        } else {
+            CustomerList.initializeNewList(customerListFromFile);
+        }
+    }
+
+    private List<Customer> readSerializedObject(String path) {
+        SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
+
+        try {
+            return serializedObjectReader.readFile(path);
+
+        } catch (IOException e) {
+            e.printStackTrace(); //TODO: Fiks exceptions!
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private String findFileExtension(String path) {
         String[] filePathArray = path.split("\\.");
         String fileExtension = filePathArray[filePathArray.length - 1];
+        return fileExtension;
+    }
 
-        if(fileExtension.equals("jobj")){
-            SerializedObjectReader serializedObjectReader = new SerializedObjectReader();
+    private FileChooser fileChooserWithExtensionFilters() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
+                "*.jobj");
+        FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter("Comma-separated values (*.csv)",
+                "*.csv");
 
-            try {
-                List<Customer> customerListFromFile = serializedObjectReader.readObject(path);
-                if (customerListFromFile == null) {
-                    // TODO: Display error window.
-                    System.err.println("Feil ved lesing fra fil");
-                } else {
-                    CustomerList.initializeNewList(customerListFromFile);
-                }
-            } catch (IOException e) {
-                e.printStackTrace(); //TODO: Fiks exceptions!
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        fileChooser.getExtensionFilters().add(extFilterJobj);
+        fileChooser.getExtensionFilters().add(extFilterCsv);
 
-        }
-        else if (fileExtension.equals("csv")){
-            CsvReader csvReader = new CsvReader();
-
-            try {
-                csvReader.readCsv(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InvalidCustomerException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
+        return fileChooser;
     }
 
     @FXML
     private void toolbarSaveAs(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        String path = fileChooser.showSaveDialog(null).getPath();
+        FileChooser fileChooser = fileChooserWithExtensionFilters();
+        fileChooser.setTitle("Lagre som...");
 
+        String path = fileChooser.showSaveDialog(null).getPath();
+        String fileExtension = findFileExtension(path);
+
+        if(fileExtension.equals("jobj")){
+            writeToJobj(path);
+
+        }
+        else if (fileExtension.equals("csv")){
+            writeToCsv(path);
+        }
+
+
+    }
+
+    private void writeToCsv(String path) {
+        CsvWriter csvWriter = new CsvWriter();
+
+        ArrayList<Customer> customersToCsv = new ArrayList<>(CustomerList.getCustomerList());
+        try {
+            csvWriter.writeCustomersData(customersToCsv, path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeToJobj(String path) {
         SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
 
         //Kopierer fra observableList til vanlig arraylist som er serializable

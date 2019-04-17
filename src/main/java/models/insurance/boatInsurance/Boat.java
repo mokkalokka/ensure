@@ -1,6 +1,8 @@
 package models.insurance.boatInsurance;
 
-public class Boat {
+import java.io.Serializable;
+
+public class Boat implements Serializable {
 
     private String registrationNr;
     private BoatOwner owner;
