@@ -162,11 +162,12 @@ public class detailedCustomerController {
     //TODO FIXME
     //TRY ME CATCH THESE HANDS
     private void updateTables() {
+        //Henter alle forsikring og skademeldinger fra lista i kunden
         insuranceObservableList = FXCollections.observableArrayList(currentCustomer.getListOfInsurances());
-        tblInsurance.setItems(insuranceObservableList);
         accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
-        tblInsurance.refresh();
-        tblAccidentStatement.refresh();
+        //Setter tablene
+        tblInsurance.setItems(insuranceObservableList);
+        tblAccidentStatement.setItems(accidentStatementsObservableList);
     }
 
     private void initializeInsuranceTable() {
@@ -176,16 +177,6 @@ public class detailedCustomerController {
         clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         clmnAnnualPremium.setCellValueFactory(new PropertyValueFactory<>("annualPremium"));
         clmnCoverageDescription.setCellValueFactory(new PropertyValueFactory<>("coverageDescription"));
-
-
-        SortedList<Insurance> sortedData = new SortedList<>(insuranceObservableList);
-
-        //Binder lista til javafx comparetorproperty, denne gir muligheten til sortering av tablet automatisk.
-        sortedData.comparatorProperty().bind(tblInsurance.comparatorProperty());
-
-        //Oppdaterer tablet
-        tblInsurance.setItems(sortedData);
-
 
         tblInsurance.setRowFactory(tableView -> {
 
@@ -210,15 +201,6 @@ public class detailedCustomerController {
         clmnDateOfAccident.setCellValueFactory(new PropertyValueFactory<>("dateOfAccident"));
         clmnAccidentType.setCellValueFactory(new PropertyValueFactory<>("accidentType"));
         clmnAccidentDescription.setCellValueFactory(new PropertyValueFactory<>("accidentDescription"));
-
-
-        SortedList<AccidentStatement> sortedData = new SortedList<>(accidentStatementsObservableList);
-
-        //Binder lista til javafx comparetorproperty, denne gir muligheten til sortering av tablet automatisk.
-        sortedData.comparatorProperty().bind(tblAccidentStatement.comparatorProperty());
-
-        //Oppdaterer tablet
-        tblAccidentStatement.setItems(sortedData);
 
         tblAccidentStatement.setRowFactory(tableView -> {
 
