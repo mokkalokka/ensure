@@ -28,7 +28,6 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 
-
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line; // = br.readLine();
         String currentClass = "Kunder";
@@ -54,6 +53,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                 skipLine = br.readLine(); // Hopper over klassebeskrivelsen
                 line = br.readLine();
                 lineArray = line.split(";");
+                currentLine += 2;
 
             }
 

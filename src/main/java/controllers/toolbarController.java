@@ -4,11 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +16,7 @@ import javafx.stage.Stage;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.fileReader.CsvReaderTask;
-//import models.fileReader.fileReaderTask;
+import models.fileReader.SerializedObjectReaderTask;
 import models.filewriter.CsvWriter;
 import models.filewriter.SerializedObjectWriter;
 import models.gui.ErrorDialog;
@@ -39,28 +37,31 @@ public class toolbarController {
     private Stage progressStage;
     private JFXButton btnProgress;
     private Label lblProgress;
+    private ProgressBar fxProgressBar;
 
     @FXML
     private void toolbarOpenFile() {
-        List<Customer> customerListFromFile = null;
-
+        
         FileChooser fileChooser = fileChooserWithExtensionFilters();
         fileChooser.setTitle("Åpne fil");
         String path = fileChooser.showOpenDialog(null).getPath();
         String fileExtension = findFileExtension(path);
-        //executeFileReaderTask(path, fileExtension);
+        Task task = executeFileReaderTask(path, fileExtension);
+        waitForUpdatesAndAddCustomers(task);
 
-        if(fileExtension.equals("csv")){
-            ExecutorService service = Executors.newSingleThreadExecutor();
-            Task<List<Customer>> task = new CsvReaderTask(path);
-            service.execute(task);
+    }
+
+    private void waitForUpdatesAndAddCustomers(Task task) {
+        if (task != null){
 
             progressWindow(task);
             task.setOnSucceeded(event -> {
-                addCustomers(task.getValue());
+                addCustomers((List<Customer>) task.getValue());
                 btnProgress.setText("Lukk");
-                lblProgress.setText("Alle kunder er lastet inn");
                 btnProgress.setOnAction(e -> progressStage.close());
+                lblProgress.setText("Alle kunder er lastet inn");
+                fxProgressBar.progressProperty().bind(task.progressProperty());
+
             });
 
             task.setOnFailed(event -> {
@@ -72,13 +73,15 @@ public class toolbarController {
                 ErrorDialog errorDialog = new ErrorDialog("Avbrutt","Abrutt av bruker");
                 errorDialog.show();
             });
+
         }
+
 
     }
 
     public void progressWindow(Task task){
         progressStage = new Stage();
-        ProgressBar progressBar = new ProgressBar();
+        fxProgressBar = new ProgressBar();
         btnProgress = new JFXButton();
         lblProgress = new Label();
         btnProgress.setText("Avbryt");
@@ -90,13 +93,12 @@ public class toolbarController {
         });
 
 
-
         FlowPane root = new FlowPane();
         root.setPadding(new Insets(10));
         root.setHgap(10);
         root.setVgap(20);
-        root.getChildren().addAll(progressBar, btnProgress,lblProgress);
-        progressBar.progressProperty().bind(task.progressProperty());
+        root.getChildren().addAll(fxProgressBar, btnProgress,lblProgress);
+        fxProgressBar.progressProperty().bind(task.progressProperty());
 
         Scene scene = new Scene(root, 200, 100);
 
@@ -108,21 +110,22 @@ public class toolbarController {
     }
 
 
-/*    private void executeFileReaderTask(String path, String fileExtension) {
-
+    private Task executeFileReaderTask(String path, String fileExtension) {
+        Task<List<Customer>> task = null;
         ExecutorService service = Executors.newSingleThreadExecutor();
-        Task<List<Customer>> task = new fileReaderTask(path, fileExtension);
-        service.execute(task);
 
-        task.setOnSucceeded(event -> {
-            addCustomers(task.getValue());
-        });
 
-        task.setOnFailed(event -> {
-            ErrorDialog errorDialog = new ErrorDialog("error", task.getException().getMessage());
-            errorDialog.show();
-        });
-    }*/
+        if (fileExtension.equals("csv")) {
+            task = new CsvReaderTask(path);
+            service.execute(task);
+        } else if (fileExtension.equals("jobj")) {
+            task = new SerializedObjectReaderTask(path);
+            service.execute(task);
+        }
+        return task;
+    }
+
+
 
     private void addCustomers( List<Customer> customerListFromFile) {
         if (customerListFromFile == null) {
