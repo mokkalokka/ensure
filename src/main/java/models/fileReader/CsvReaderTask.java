@@ -88,6 +88,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
             }
 
         }
+        br.close();
         return loadedCustomers;
     }
 
