@@ -32,7 +32,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
         String line; // = br.readLine();
         String currentClass = "Kunder";
         String skipLine;
-        Double totalLines = getTotalLines(path);
+        double totalLines = getTotalLines(path);
         double currentLine = 0;
 
 

@@ -17,8 +17,8 @@ import models.customer.Customer;
 import models.customer.CustomerList;
 import models.fileReader.CsvReaderTask;
 import models.fileReader.SerializedObjectReaderTask;
-import models.filewriter.CsvWriter;
-import models.filewriter.SerializedObjectWriter;
+import models.filewriter.CsvWriterTask;
+import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import java.io.IOException;
@@ -41,25 +41,80 @@ public class toolbarController {
 
     @FXML
     private void toolbarOpenFile() {
-        
+        boolean readingFromFile = true;
         FileChooser fileChooser = fileChooserWithExtensionFilters();
         fileChooser.setTitle("Åpne fil");
         String path = fileChooser.showOpenDialog(null).getPath();
         String fileExtension = findFileExtension(path);
         Task task = executeFileReaderTask(path, fileExtension);
-        waitForUpdatesAndAddCustomers(task);
+        progressWindow(task, "Leser fra fil...");
+        waitForUpdates(task, readingFromFile);
+    }
+
+    @FXML
+    private void toolbarSaveAs(){
+        Boolean readingFromFile = false;
+        FileChooser fileChooser = fileChooserWithExtensionFilters();
+        fileChooser.setTitle("Lagre som...");
+
+        String path = fileChooser.showSaveDialog(null).getPath();
+        String fileExtension = findFileExtension(path);
+
+        Task task = executeFileWriterTask(path, fileExtension);
+        progressWindow(task, "Skriver til fil...");
+        waitForUpdates(task, false);
 
     }
 
-    private void waitForUpdatesAndAddCustomers(Task task) {
+    private Task executeFileWriterTask(String path, String fileExtension) {
+        Task task = null;
+        ExecutorService service = Executors.newSingleThreadExecutor();
+
+        ArrayList<Customer> customersToFile = new ArrayList<>(CustomerList.getCustomerList());
+
+        if(fileExtension.equals("jobj")){
+            //SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
+            //serializedObjectWriter.writeObject(customersToFile,path); // TODO: Fiks exceptions!
+            task = new SerializedObjectWriterTask(customersToFile, path);
+            service.execute(task);
+        }
+
+        else if (fileExtension.equals("csv")){
+            //writeToCsv(path);
+            task = new CsvWriterTask(customersToFile, path);
+            service.execute(task);
+        }
+        return task;
+    }
+
+
+    private Task executeFileReaderTask(String path, String fileExtension) {
+        Task<List<Customer>> task = null;
+        ExecutorService service = Executors.newSingleThreadExecutor();
+
+        if (fileExtension.equals("csv")) {
+            task = new CsvReaderTask(path);
+            service.execute(task);
+        } else if (fileExtension.equals("jobj")) {
+            task = new SerializedObjectReaderTask(path);
+            service.execute(task);
+        }
+        return task;
+    }
+
+    private void waitForUpdates(Task task, Boolean readingFromFile) {
         if (task != null){
 
-            progressWindow(task);
             task.setOnSucceeded(event -> {
-                addCustomers((List<Customer>) task.getValue());
+                if(readingFromFile){
+                    addCustomers((List<Customer>) task.getValue());
+                    lblProgress.setText("Alle kunder er lastet inn");
+                }
+                else {
+                    lblProgress.setText("Alle kunder er skrevet til fil");
+                }
                 btnProgress.setText("Lukk");
                 btnProgress.setOnAction(e -> progressStage.close());
-                lblProgress.setText("Alle kunder er lastet inn");
                 fxProgressBar.progressProperty().bind(task.progressProperty());
 
             });
@@ -78,54 +133,6 @@ public class toolbarController {
 
 
     }
-
-    public void progressWindow(Task task){
-        progressStage = new Stage();
-        fxProgressBar = new ProgressBar();
-        btnProgress = new JFXButton();
-        lblProgress = new Label();
-        btnProgress.setText("Avbryt");
-        btnProgress.setStyle("-fx-background-color: #E5E5E5;");
-
-        btnProgress.setOnAction(event -> {
-            task.cancel();
-            progressStage.close();
-        });
-
-
-        FlowPane root = new FlowPane();
-        root.setPadding(new Insets(10));
-        root.setHgap(10);
-        root.setVgap(20);
-        root.getChildren().addAll(fxProgressBar, btnProgress,lblProgress);
-        fxProgressBar.progressProperty().bind(task.progressProperty());
-
-        Scene scene = new Scene(root, 200, 100);
-
-        progressStage.setTitle("Leser inn fil...");
-
-        progressStage.setScene(scene);
-        progressStage.show();
-
-    }
-
-
-    private Task executeFileReaderTask(String path, String fileExtension) {
-        Task<List<Customer>> task = null;
-        ExecutorService service = Executors.newSingleThreadExecutor();
-
-
-        if (fileExtension.equals("csv")) {
-            task = new CsvReaderTask(path);
-            service.execute(task);
-        } else if (fileExtension.equals("jobj")) {
-            task = new SerializedObjectReaderTask(path);
-            service.execute(task);
-        }
-        return task;
-    }
-
-
 
     private void addCustomers( List<Customer> customerListFromFile) {
         if (customerListFromFile == null) {
@@ -155,48 +162,6 @@ public class toolbarController {
         return fileChooser;
     }
 
-    @FXML
-    private void toolbarSaveAs(){
-        FileChooser fileChooser = fileChooserWithExtensionFilters();
-        fileChooser.setTitle("Lagre som...");
-
-        String path = fileChooser.showSaveDialog(null).getPath();
-        String fileExtension = findFileExtension(path);
-
-        if(fileExtension.equals("jobj")){
-            writeToJobj(path);
-
-        }
-        else if (fileExtension.equals("csv")){
-            writeToCsv(path);
-        }
-
-
-    }
-
-    private void writeToCsv(String path) {
-        CsvWriter csvWriter = new CsvWriter();
-
-        ArrayList<Customer> customersToCsv = new ArrayList<>(CustomerList.getCustomerList());
-        try {
-            csvWriter.writeCustomersData(customersToCsv, path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void writeToJobj(String path) {
-        SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
-
-        //Kopierer fra observableList til vanlig arraylist som er serializable
-        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerList());
-
-        try {
-            serializedObjectWriter.writeObject(serializebleCustomers,path); // TODO: Fiks exceptions!
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private void toolbarClose(){
@@ -226,7 +191,80 @@ public class toolbarController {
         return (Stage) anchorPane.getScene().getWindow();
     }
 
+
+/*    public toolbarController getController() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("toolbarController.fxml"));
+        return loader.getController();
+    }*/
+
+    public void progressWindow(Task task, String title){
+        progressStage = new Stage();
+        fxProgressBar = new ProgressBar();
+        btnProgress = new JFXButton();
+        lblProgress = new Label();
+        btnProgress.setText("Avbryt");
+        btnProgress.setStyle("-fx-background-color: #E5E5E5;");
+
+        btnProgress.setOnAction(event -> {
+            task.cancel();
+            progressStage.close();
+        });
+
+
+        FlowPane root = new FlowPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        root.setVgap(20);
+        root.getChildren().addAll(fxProgressBar, btnProgress, lblProgress);
+        fxProgressBar.progressProperty().bind(task.progressProperty());
+
+        Scene scene = new Scene(root, 200, 100);
+
+        progressStage.setTitle(title);
+
+        progressStage.setScene(scene);
+        progressStage.show();
+
+    }
+
     public void initialize(){
 
     }
+
 }
+
+
+
+
+
+/*
+    private void writeToCsv(String path) {
+        //CsvWriter csvWriter = new CsvWriter();
+        //csvWriter.writeCustomersData(customersToCsv, path);
+        Task task = null;
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        Boolean readingFromFile = false;
+
+
+        ArrayList<Customer> customersToCsv = new ArrayList<>(CustomerList.getCustomerList());
+
+        task = new CsvWriterTask(customersToCsv,path);
+        service.execute(task);
+        progressWindow(task,"Skriver til fil...");
+        waitForUpdates(task, readingFromFile);
+
+    }
+
+    private void writeToJobj(String path) {
+        SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
+
+        //Kopierer fra observableList til vanlig arraylist som er serializable
+        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerList());
+
+        try {
+            serializedObjectWriter.writeObject(serializebleCustomers,path); // TODO: Fiks exceptions!
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+ */
