@@ -1,3 +1,4 @@
+/*
 package models.fileReader;
 
 import org.junit.Test;
@@ -26,4 +27,7 @@ public class SerializedObjectReaderTest {
         }
 
     }
-}
+
+
+
+}*/
