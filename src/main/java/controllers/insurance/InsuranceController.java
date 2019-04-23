@@ -11,7 +11,9 @@ public interface InsuranceController {
 
     EmbeddedFieldsController getEmbeddedFieldsController();
 
-    Insurance getCurrentInsurance();
+    Insurance getNewInsurance();
+
+    Insurance getEditedInsurance();
 
     void load();
 

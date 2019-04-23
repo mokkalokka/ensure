@@ -13,6 +13,6 @@ public class ExistingInsurance implements InsuranceState {
     @Override
     public void saveInsurance(InsuranceController controller) throws NoSuchCustomerException {
         InsuranceHandler insuranceHandler = new InsuranceHandler();
-        insuranceHandler.overwriteExistingInsurance(controller.getCurrentInsurance());
+        insuranceHandler.overwriteExistingInsurance(controller.getEditedInsurance());
     }
 }
