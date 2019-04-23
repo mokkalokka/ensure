@@ -8,12 +8,11 @@ import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
-import models.insurance.InsuranceHandler;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
+import controllers.detailedCustomerController;
 
 public class BoatInsuranceController implements InsuranceController {
 
@@ -45,6 +44,8 @@ public class BoatInsuranceController implements InsuranceController {
     @FXML
     private TextField txtEngineHP;
 
+    private detailedCustomerController parent;
+
     @FXML
     private void btnSave() {
         try {
@@ -53,6 +54,7 @@ public class BoatInsuranceController implements InsuranceController {
             e.printStackTrace();
             // TODO: display error window
         }
+        parent.refreshTables();
     }
 
     @FXML
@@ -129,6 +131,10 @@ public class BoatInsuranceController implements InsuranceController {
 
     private Stage getCurrentStage() {
         return (Stage) txtRegistrationNr.getScene().getWindow();
+    }
+
+    public void setParent(detailedCustomerController parent) {
+        this.parent = parent;
     }
 
 }
