@@ -102,7 +102,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public Insurance getCurrentInsurance() {
+    public Insurance getNewInsurance() {
         boolean isPremium = radioGroup
                 .getSelectedToggle()
                 .getUserData()
@@ -115,7 +115,26 @@ public class TravelInsuranceController implements InsuranceController{
                 .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
                 .setTotal(embeddedFieldsController.getTxtTotal().getText())
                 .setMaxCoverage(txtMaxCoverage.getText())
-                .setPremium(String.valueOf(isPremium))
+                .setPremium(isPremium)
+                .build();
+    }
+
+    @Override
+    public Insurance getEditedInsurance() {
+        boolean isPremium = radioGroup
+                .getSelectedToggle()
+                .getUserData()
+                .equals("PREMIUM");
+
+        return new TravelInsuranceBuilder()
+                .setInsuranceID(myInsurance.getInsuranceID())
+                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
+                .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
+                .setTotal(embeddedFieldsController.getTxtTotal().getText())
+                .setMaxCoverage(txtMaxCoverage.getText())
+                .setPremium(isPremium)
                 .build();
     }
 

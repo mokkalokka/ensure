@@ -21,8 +21,18 @@ public class TravelInsuranceBuilder {
         return this;
     }
 
+    public TravelInsuranceBuilder setInsuranceID(int insuranceID) {
+        this.insuranceID = insuranceID;
+        return this;
+    }
+
     public TravelInsuranceBuilder setPremium(String isPremium) {
         this.isPremium = Boolean.parseBoolean(isPremium);
+        return this;
+    }
+
+    public TravelInsuranceBuilder setPremium(boolean isPremium) {
+        this.isPremium = isPremium;
         return this;
     }
 

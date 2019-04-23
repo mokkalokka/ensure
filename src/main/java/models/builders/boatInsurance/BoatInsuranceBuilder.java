@@ -16,6 +16,11 @@ public class BoatInsuranceBuilder{
 
     private Boat boat;
 
+    public BoatInsuranceBuilder setInsuranceID(int insuranceID) {
+        this.insuranceID = insuranceID;
+        return this;
+    }
+
     public BoatInsuranceBuilder setInsuranceID(String insuranceID) {
         this.insuranceID = Integer.parseInt(insuranceID);
         return this;

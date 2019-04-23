@@ -113,4 +113,24 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
     public int getInsuranceID() {
         return insuranceID;
     }
+
+    public void setRegisteredTo(int registeredTo) {
+        this.registeredTo = registeredTo;
+    }
+
+    public void setAnnualPremium(double annualPremium) {
+        this.annualPremium = annualPremium;
+    }
+
+    public void setDateOfIssue(LocalDate dateOfIssue) {
+        this.dateOfIssue = dateOfIssue;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public void setCoverageDescription(String coverageDescription) {
+        this.coverageDescription = coverageDescription;
+    }
 }

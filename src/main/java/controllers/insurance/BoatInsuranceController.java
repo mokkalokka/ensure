@@ -83,8 +83,19 @@ public class BoatInsuranceController implements InsuranceController {
         txtOwnerSurname.setText(myInsurance.getBoat().getOwner().getLastName());
     }
 
-    public Insurance getCurrentInsurance() {
+    public Insurance getNewInsurance() {
         return new BoatInsuranceBuilder()
+                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
+                .setTotal(embeddedFieldsController.getTxtTotal().getText())
+                .setBoat(getCurrentBoat())
+                .build();
+    }
+
+    public Insurance getEditedInsurance() {
+        return new BoatInsuranceBuilder()
+                .setInsuranceID(myInsurance.getInsuranceID())
                 .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
                 .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
                 .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())

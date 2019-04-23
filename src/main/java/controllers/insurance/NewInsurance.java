@@ -17,9 +17,9 @@ public class NewInsurance implements InsuranceState {
     @Override
     public void saveInsurance(InsuranceController controller) throws InvalidCustomerException {
         InsuranceHandler insuranceHandler = new InsuranceHandler();
-        insuranceHandler.addNewInsurance(controller.getCurrentInsurance());
+        insuranceHandler.addNewInsurance(controller.getNewInsurance());
 
-        controller.setInsurance(controller.getCurrentInsurance());
+        controller.setInsurance(controller.getNewInsurance());
         controller.setState(new ExistingInsurance());
     }
 }
