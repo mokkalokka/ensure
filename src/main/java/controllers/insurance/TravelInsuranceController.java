@@ -147,6 +147,15 @@ public class TravelInsuranceController implements InsuranceController{
     @Override
     public void setInsurance(Insurance insurance) {
         myInsurance = (TravelInsurance) insurance;
+        setSelectedRadioToggle();
+    }
+
+    private void setSelectedRadioToggle() {
+        if (myInsurance != null) {
+            radioPremium.setSelected(myInsurance.isPremium());
+        } else {
+            radioStandard.setSelected(true);
+        }
     }
 
     @Override
