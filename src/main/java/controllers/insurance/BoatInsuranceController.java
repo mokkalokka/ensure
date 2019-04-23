@@ -144,8 +144,8 @@ public class BoatInsuranceController implements InsuranceController {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
 
-    public void setParent(detailedCustomerController parent) {
-        this.parent = parent;
+    public void setParent(detailedCustomerController parentController) {
+        this.parent = parentController;
     }
 
 }

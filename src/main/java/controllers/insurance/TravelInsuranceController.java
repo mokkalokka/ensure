@@ -157,7 +157,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public void setParent(detailedCustomerController parent) {
+    public void setParent(detailedCustomerController parentController) {
 
     }
 
