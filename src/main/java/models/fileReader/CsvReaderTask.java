@@ -57,6 +57,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                 line = br.readLine();
                 lineArray = line.split(";");
                 currentLine += 2;
+                updateProgress(currentLine,totalLines);
 
             }
 
