@@ -9,6 +9,7 @@ public class CsvReaderTest {
 
     @Test
     public void readCsv(){
+        /*
         CsvReader csvReader = new CsvReader();
         String pathToCsv = "./src/test/resources/csvWriterTest.csv";
         System.out.println(CustomerList.getCustomerCount());
@@ -22,6 +23,6 @@ public class CsvReaderTest {
         }
 
         System.out.println(CustomerList.getCustomerCount());
-
+        */
     }
 }

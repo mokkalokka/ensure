@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -73,6 +74,17 @@ public class TravelInsuranceController implements InsuranceController{
             e.printStackTrace();
             // TODO: display error window
         }
+    }
+
+    @FXML
+    private void btnClose() {
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
+    }
+
+    @FXML
+    private Stage getCurrentStage() {
+        return (Stage) lblCoverageArea.getScene().getWindow();
     }
 
     @Override

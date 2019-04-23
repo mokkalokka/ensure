@@ -280,6 +280,7 @@ public class detailedCustomerController {
             // TODO: implementer her.
         }
         else {
+            System.err.println("type of insurance not found!");
             // TODO: Display error window
         }
 
