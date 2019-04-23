@@ -60,16 +60,17 @@ public class CustomerList {
         throw (new NoSuchCustomerException());
     }
 
-    public static void overwriteInsuranceInCustomer(Insurance insurance) throws NoSuchCustomerException {
+    public static void overwriteInsuranceInCustomer(Insurance newInsurance) throws NoSuchCustomerException {
         //Indeksen til forsikringen som skal overskrives
-        int insuranceToReplaceIndex = insurance.getInsuranceID();
+        int insuranceID = newInsurance.getInsuranceID();
 
         //For alle customers sjekk hvilken den nye forsikringen hører til
         for (Customer customer : getCustomerList()) {
-            if (insuranceBelongsToCustomer(insurance, customer)) {
-                for (Insurance insuranceToReplace : customer.getListOfInsurances()) {
-                    if (insuranceToReplace.getInsuranceID() == insuranceToReplaceIndex) {
-                        customer.overwriteInsurance(insuranceToReplaceIndex, insurance);
+            if (insuranceBelongsToCustomer(newInsurance, customer)) {
+                for (int i = 0; i < customer.getListOfInsurances().size(); i++) {
+                    Insurance oldInsurance = customer.getListOfInsurances().get(i);
+                    if (oldInsurance.getInsuranceID() == insuranceID) {
+                        customer.overwriteInsurance(i, newInsurance);
                         return;
                     }
                 }
