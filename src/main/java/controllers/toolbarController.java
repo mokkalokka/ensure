@@ -120,7 +120,7 @@ public class toolbarController {
             });
 
             task.setOnFailed(event -> {
-                ErrorDialog errorDialog = new ErrorDialog("error", task.getException().getMessage());
+                ErrorDialog errorDialog = new ErrorDialog("Feil ved lesing av fil:", task.getException().getMessage());
                 errorDialog.show();
             });
 
