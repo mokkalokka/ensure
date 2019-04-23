@@ -2,13 +2,9 @@ package controllers.insurance;
 
 import com.jfoenix.controls.JFXRadioButton;
 import controllers.detailedCustomerController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
@@ -25,6 +21,8 @@ public class TravelInsuranceController implements InsuranceController{
 
     @FXML
     private EmbeddedFieldsController embeddedFieldsController;
+    @FXML
+    private detailedCustomerController parentController;
 
     @FXML
     private TextField txtMaxCoverage;
@@ -74,6 +72,7 @@ public class TravelInsuranceController implements InsuranceController{
             e.printStackTrace();
             // TODO: display error window
         }
+        parentController.refreshTables();
     }
 
     @FXML
@@ -166,8 +165,8 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public void setParent(detailedCustomerController parent) {
-
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
     }
 
     private void displayTravelData() {

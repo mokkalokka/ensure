@@ -21,6 +21,8 @@ public class BoatInsuranceController implements InsuranceController {
     private BoatInsurance myInsurance;
 
     @FXML
+    private detailedCustomerController parentController;
+    @FXML
     private Parent embeddedFields;
     @FXML
     private EmbeddedFieldsController embeddedFieldsController;
@@ -44,7 +46,6 @@ public class BoatInsuranceController implements InsuranceController {
     @FXML
     private TextField txtEngineHP;
 
-    private detailedCustomerController parent;
 
     @FXML
     private void btnSave() {
@@ -54,7 +55,7 @@ public class BoatInsuranceController implements InsuranceController {
             e.printStackTrace();
             // TODO: display error window
         }
-        parent.refreshTables();
+        parentController.refreshTables();
     }
 
     @FXML
@@ -144,8 +145,8 @@ public class BoatInsuranceController implements InsuranceController {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
 
-    public void setParent(detailedCustomerController parent) {
-        this.parent = parent;
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
     }
 
 }
