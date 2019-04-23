@@ -2,15 +2,13 @@ package controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import controllers.insurance.*;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -120,7 +118,7 @@ public class detailedCustomerController {
     }
 
     @FXML
-    private void insuranceDblClicked(Insurance clickedInsurance) {
+    private void openDetailedInsurance(Insurance clickedInsurance) {
         try {
             openInsuranceWindow(clickedInsurance);
         } catch (IOException e) {
@@ -128,8 +126,18 @@ public class detailedCustomerController {
         }
     }
 
-    private void accidentStatementDblClicked(AccidentStatement clickedAccidentStatement) {
+    private void removeInsurance(Insurance insurance) {
+        currentCustomer.removeInsurance(insurance);
+        tblInsurance.refresh();
+    }
 
+    private void openDetailedAccidentStatement(AccidentStatement clickedAccidentStatement) {
+
+    }
+
+    private void removeAccidentStatement(AccidentStatement accidentStatement) {
+        currentCustomer.removeAccidentStatement(accidentStatement);
+        tblAccidentStatement.refresh();
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
@@ -177,12 +185,38 @@ public class detailedCustomerController {
             //Tom rad
             TableRow<Insurance> aRow = new TableRow<>();
 
+            //Alle rader får kontekstmeny og et menuitem
+            ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Slett forsikring");
+            MenuItem openItem = new MenuItem("Åpne detaljert visning");
+            //Når slett kunde blir trykket gjør et kall på removeCustomer med kunden
+            removeItem.setOnAction(e -> {
+                removeInsurance(aRow.getItem());
+            });
+
+            openItem.setOnAction(e -> {
+                openDetailedInsurance(aRow.getItem());
+            });
+
+            //Legger til removeitem og openItem listener på menyken
+            rowMenu.getItems().add(openItem);
+            rowMenu.getItems().add(removeItem);
+
+
+            //Gjør så den ikke kjøres når rad er tom
+            aRow.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null));
+
+
+
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
-                    insuranceDblClicked(aRow.getItem());
+                    openDetailedInsurance(aRow.getItem());
                 }
             });
             return aRow;
@@ -202,12 +236,35 @@ public class detailedCustomerController {
             //Tom rad
             TableRow<AccidentStatement> aRow = new TableRow<>();
 
+            ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Slett skademelding");
+            MenuItem openItem = new MenuItem("Åpne detaljert visning");
+            //Når slett kunde blir trykket gjør et kall på removeCustomer med kunden
+            removeItem.setOnAction(e -> {
+                removeAccidentStatement(aRow.getItem());
+            });
+
+            openItem.setOnAction(e -> {
+                openDetailedAccidentStatement(aRow.getItem());
+            });
+
+            //Legger til removeitem og openItem listener på menyken
+            rowMenu.getItems().add(openItem);
+            rowMenu.getItems().add(removeItem);
+
+
+            //Gjør så den ikke kjøres når rad er tom
+            aRow.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null));
+
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
-                    accidentStatementDblClicked(aRow.getItem());
+                    openDetailedAccidentStatement(aRow.getItem());
                 }
             });
             return aRow;
