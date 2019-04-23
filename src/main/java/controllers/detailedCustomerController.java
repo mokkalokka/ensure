@@ -105,6 +105,10 @@ public class detailedCustomerController {
     private void btnSaveCustomer() {
         //TODO exceptions, sjekke om tom osv
         //Oppdaterer kunden med redigert data
+        updateCustomer();
+    }
+
+    private void updateCustomer() {
         currentCustomer.setLastName(lblSurname.getText());
         currentCustomer.setFirstName(lblFirstName.getText());
         currentCustomer.setInvoiceAddress(lblInvoiceAddress.getText());
@@ -137,7 +141,8 @@ public class detailedCustomerController {
     public void pickCustomer(Customer aCustomer) {
         //Lokal variabel for kunden som vises, og arrayene til kunden til observablelister
         currentCustomer = aCustomer;
-        updateTables();
+        insuranceObservableList = FXCollections.observableList(currentCustomer.getListOfInsurances());
+        accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
 
         //Setter textboksene
         lblInsuranceNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
@@ -149,26 +154,15 @@ public class detailedCustomerController {
     }
 
     public void onWindowShow(WindowEvent event) {
-        //Legger til en listener pa vinduet som refresher begge tablene nar vinduet far fokus
-        anchorPane.getScene().getWindow().focusedProperty().addListener((observableValue, onFocus, onUnfocus) -> {
-           updateTables();
-        });
-
-        //Hjelp metoder siden dette ikke kan ligge i den innebygde initialize metoden
         initializeInsuranceTable();
         initializeAccidentStatementTable();
     }
 
-    //TODO FIXME
-    //TRY ME CATCH THESE HANDS
-    private void updateTables() {
-        //Henter alle forsikring og skademeldinger fra lista i kunden
-        insuranceObservableList = FXCollections.observableArrayList(currentCustomer.getListOfInsurances());
-        accidentStatementsObservableList = FXCollections.observableList(currentCustomer.getListOfAccidentStatements());
-        //Setter tablene
-        tblInsurance.setItems(insuranceObservableList);
-        tblAccidentStatement.setItems(accidentStatementsObservableList);
+    public void refreshTables() {
+        tblInsurance.refresh();
+        tblAccidentStatement.refresh();
     }
+
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
@@ -193,6 +187,7 @@ public class detailedCustomerController {
             });
             return aRow;
         });
+        tblInsurance.setItems(insuranceObservableList);
     }
 
     private void initializeAccidentStatementTable() {
@@ -217,6 +212,7 @@ public class detailedCustomerController {
             });
             return aRow;
         });
+        tblAccidentStatement.setItems(accidentStatementsObservableList);
     }
 
 
@@ -260,6 +256,7 @@ public class detailedCustomerController {
 
         controller.setCustomer(currentCustomer);
         controller.setState(new NewInsurance());
+        controller.setParent(this);
         controller.load();
 
         WindowHandler windowHandler = new WindowHandler();
@@ -297,6 +294,7 @@ public class detailedCustomerController {
 
         controller.setInsurance(insurance);
         controller.setState(new ExistingInsurance());
+        controller.setParent(this);
         controller.load();
 
         WindowHandler windowHandler = new WindowHandler();
