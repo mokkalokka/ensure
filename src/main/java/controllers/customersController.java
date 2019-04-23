@@ -83,11 +83,10 @@ public class customersController {
 
     private void removeCustomer(Customer clickedCustomer) {
         CustomerList.removeCustomer(clickedCustomer);
-        System.out.println("delete");
         tblCustomer.refresh();
     }
 
-    private void pickCustomer(Customer clickedCustomer) {
+    private void openDetailedCustomer(Customer clickedCustomer) {
         //TODO denne kan ikke forlopig implemnteres med windowhandler metoder
         try {
             //Last inn ny fxml
@@ -147,7 +146,7 @@ public class customersController {
             });
 
             openItem.setOnAction(e -> {
-                pickCustomer(aRow.getItem());
+                openDetailedCustomer(aRow.getItem());
             });
 
             //Legger til removeitem og openItem listener på menyken
@@ -166,7 +165,7 @@ public class customersController {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
-                    pickCustomer(aRow.getItem());
+                    openDetailedCustomer(aRow.getItem());
                 }
             });
             return aRow;
