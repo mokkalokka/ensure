@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -54,5 +55,7 @@
          </children>
       </AnchorPane>
       <fx:include fx:id="embeddedFields" source="embeddedInsFields.fxml" />
+      <JFXButton layoutX="21.0" layoutY="512.0" onAction="#btnSave" text="Lagre" />
+      <JFXButton layoutX="102.0" layoutY="512.0" onAction="#btnClose" text="Lukk vindu" />
    </children>
 </AnchorPane>

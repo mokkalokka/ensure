@@ -107,7 +107,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton fx:id="btnClose" text="Lukk Vindu" GridPane.columnIndex="1" />
+            <JFXButton onAction="#btnClose" text="Lukk Vindu" GridPane.columnIndex="1" />
             <JFXButton onAction="#btnSave" text="Lagre" />
          </children>
       </GridPane>
