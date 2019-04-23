@@ -128,7 +128,7 @@ public class BoatInsuranceController implements InsuranceController {
     }
 
     private Stage getCurrentStage() {
-        return (Stage) txtRegistrationNr.getScene().getWindow();
+        return (Stage) txtBoatModel.getScene().getWindow();
     }
 
 }
