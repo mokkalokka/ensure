@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -8,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -82,7 +81,12 @@ public class customersController {
                 .addListener((observableValue, onFocus, onUnfocus) -> tblCustomer.refresh());
     }
 
-    public void doubleClicked(Customer clickedCustomer) {
+    private void removeCustomer(Customer clickedCustomer) {
+        CustomerList.removeCustomer(clickedCustomer);
+        tblCustomer.refresh();
+    }
+
+    private void openDetailedCustomer(Customer clickedCustomer) {
         //TODO denne kan ikke forlopig implemnteres med windowhandler metoder
         try {
             //Last inn ny fxml
@@ -132,12 +136,36 @@ public class customersController {
             //Tom rad
             TableRow<Customer> aRow = new TableRow<>();
 
+            //Alle rader får kontekstmeny og et menuitem
+            ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Slett kunde");
+            MenuItem openItem = new MenuItem("Åpne detaljert visning");
+            //Når slett kunde blir trykket gjør et kall på removeCustomer med kunden
+            removeItem.setOnAction(e -> {
+                removeCustomer(aRow.getItem());
+            });
+
+            openItem.setOnAction(e -> {
+                openDetailedCustomer(aRow.getItem());
+            });
+
+            //Legger til removeitem og openItem listener på menyken
+            rowMenu.getItems().add(openItem);
+            rowMenu.getItems().add(removeItem);
+
+
+            //Gjør så den ikke kjøres når rad er tom
+            aRow.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null));
+
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
                 if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
-                    doubleClicked(aRow.getItem());
+                    openDetailedCustomer(aRow.getItem());
                 }
             });
             return aRow;

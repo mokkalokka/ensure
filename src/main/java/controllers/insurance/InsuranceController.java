@@ -1,5 +1,6 @@
 package controllers.insurance;
 
+import controllers.detailedCustomerController;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
@@ -11,7 +12,9 @@ public interface InsuranceController {
 
     EmbeddedFieldsController getEmbeddedFieldsController();
 
-    Insurance getCurrentInsurance();
+    Insurance getNewInsurance();
+
+    Insurance getEditedInsurance();
 
     void load();
 
@@ -20,4 +23,6 @@ public interface InsuranceController {
     void setInsurance(Insurance insurance);
 
     void loadInsurance();
+
+    void setParent(detailedCustomerController parent);
 }

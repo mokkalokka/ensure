@@ -1,6 +1,7 @@
 package controllers.insurance;
 
 import com.jfoenix.controls.JFXRadioButton;
+import controllers.detailedCustomerController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -74,6 +76,17 @@ public class TravelInsuranceController implements InsuranceController{
         }
     }
 
+    @FXML
+    private void btnClose() {
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
+    }
+
+    @FXML
+    private Stage getCurrentStage() {
+        return (Stage) lblCoverageArea.getScene().getWindow();
+    }
+
     @Override
     public Customer getCustomer() {
         return myCustomer;
@@ -90,7 +103,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public Insurance getCurrentInsurance() {
+    public Insurance getNewInsurance() {
         boolean isPremium = radioGroup
                 .getSelectedToggle()
                 .getUserData()
@@ -103,7 +116,26 @@ public class TravelInsuranceController implements InsuranceController{
                 .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
                 .setTotal(embeddedFieldsController.getTxtTotal().getText())
                 .setMaxCoverage(txtMaxCoverage.getText())
-                .setPremium(String.valueOf(isPremium))
+                .setPremium(isPremium)
+                .build();
+    }
+
+    @Override
+    public Insurance getEditedInsurance() {
+        boolean isPremium = radioGroup
+                .getSelectedToggle()
+                .getUserData()
+                .equals("PREMIUM");
+
+        return new TravelInsuranceBuilder()
+                .setInsuranceID(myInsurance.getInsuranceID())
+                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
+                .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
+                .setTotal(embeddedFieldsController.getTxtTotal().getText())
+                .setMaxCoverage(txtMaxCoverage.getText())
+                .setPremium(isPremium)
                 .build();
     }
 
@@ -121,6 +153,11 @@ public class TravelInsuranceController implements InsuranceController{
     public void loadInsurance() {
         embeddedFieldsController.displayExistingInsurance(myInsurance);
         displayTravelData();
+
+    }
+
+    @Override
+    public void setParent(detailedCustomerController parent) {
 
     }
 

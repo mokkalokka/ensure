@@ -66,11 +66,19 @@ public class Customer implements Serializable {
         listOfInsurances.add(insurance);
     }
 
+    public void removeInsurance(Insurance insurance)  {
+        listOfInsurances.remove(insurance);
+    }
+
     public void addAccidentStatement(AccidentStatement accidentStatement) {
         if (!isRegisteredToThisCustomer(accidentStatement)) {
             throw new InputMismatchException("Accident Statement must be registered to this customer.");
         }
         listOfAccidentStatements.add(accidentStatement);
+    }
+
+    public void removeAccidentStatement(AccidentStatement accidentStatement) {
+        listOfAccidentStatements.remove(accidentStatement);
     }
 
     private boolean isRegisteredToThisCustomer(Insurance insurance) {

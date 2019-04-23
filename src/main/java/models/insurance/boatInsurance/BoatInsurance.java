@@ -61,4 +61,7 @@ public class BoatInsurance extends Insurance {
         return boat;
     }
 
+    public void setBoat(Boat boat) {
+        this.boat = boat;
+    }
 }

@@ -20,6 +20,11 @@ public class CustomerList {
         CustomerList.customerList.add(newCustomer);
     }
 
+    //Kanskje feilhåndtering
+    public static void removeCustomer(Customer customerToRemove) {
+        CustomerList.customerList.remove(customerToRemove);
+    }
+
     public static int getCustomerCount(){
         return customerList.size();
     }
