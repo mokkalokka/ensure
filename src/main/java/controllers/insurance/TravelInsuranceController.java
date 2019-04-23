@@ -1,6 +1,7 @@
 package controllers.insurance;
 
 import com.jfoenix.controls.JFXRadioButton;
+import controllers.detailedCustomerController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -122,6 +123,11 @@ public class TravelInsuranceController implements InsuranceController{
         embeddedFieldsController.displayExistingInsurance(myInsurance);
         displayTravelData();
 
+    }
+
+    @Override
+    public void setParent(detailedCustomerController parent) {
+        
     }
 
     private void displayTravelData() {
