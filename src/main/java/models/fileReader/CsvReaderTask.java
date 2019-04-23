@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -59,7 +60,12 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
 
             switch (currentClass) {
                 case "Kunder":
+                    if(lineArray.length == 7){
                     loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
+                    }
+                    else{
+                        throw new InputMismatchException("Feil antall felt i kunder på linje " + currentLine);
+                    }
                     break;
 
                 case "Batforsikringer":
