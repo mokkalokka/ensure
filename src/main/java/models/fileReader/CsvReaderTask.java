@@ -4,8 +4,7 @@ import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
-import models.exceptions.fileReaderExceptions.FileReaderInputException;
-import models.exceptions.fileReaderExceptions.InvalidLineLengthException;
+import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
@@ -14,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -27,7 +25,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
     }
 
     @Override
-    public List<Customer> call() throws IOException, FileReaderInputException, InvalidCustomerException {
+    public List<Customer> call() throws IOException, InvalidLineLengthException, InvalidCustomerException {
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 
@@ -67,7 +65,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                         loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
                     }
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for kunde på linje " + (int)currentLine);
+                        throw new InvalidLineLengthException("kunde", (int)currentLine);
                     }
                     break;
 
@@ -76,7 +74,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                         addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
                     }
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for båtforsikring på linje " + (int)currentLine);
+                        throw new InvalidLineLengthException("båtforsikring", (int)currentLine);
                     }
                     break;
 
@@ -86,7 +84,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                                 ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
                     }
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for husforsikring på linje " + (int)currentLine);
+                        throw new InvalidLineLengthException("husforsikring", (int)currentLine);
                     }
 
                     break;
@@ -97,8 +95,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                                 ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
                     }
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for fritidsboligforsikringe på linje"
-                                + (int)currentLine);
+                        throw new InvalidLineLengthException("fritidsboligforsikring", (int)currentLine);
                     }
                     break;
 
@@ -108,8 +105,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                                 ParseTravelInsurance.parseTravelInsurance(lineArray));
                     }
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for fritidsboligforsikringe på linje"
-                                + (int)currentLine);
+                        throw new InvalidLineLengthException("reiseforsikring", (int)currentLine);
                     }
                     break;
 
@@ -119,8 +115,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                         addAccidentStatementToLoadedCustomers(
                                 ParseAccidentStatement.parseAccidentStatement(lineArray));
                     else{
-                        throw new InvalidLineLengthException("Feil antall felt for fritidsboligforsikringe på linje"
-                                + (int)currentLine);
+                        throw new InvalidLineLengthException("skademelding", (int)currentLine);
                     }
 
                     break;

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.Boat;
