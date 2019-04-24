@@ -1,7 +1,7 @@
 package models.fileReader.parsers;
 
 import models.builders.AccidentStatementBuilder;
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 
 public class ParseAccidentStatement {
     public static AccidentStatement parseAccidentStatement(String[] lineArray) {
