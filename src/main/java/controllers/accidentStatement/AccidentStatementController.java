@@ -7,11 +7,13 @@ import javafx.scene.control.TextField;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
+import controllers.detailedCustomerController;
 
 public class AccidentStatementController {
     private Customer currentCustomer;
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
+    private detailedCustomerController parentController;
 
     @FXML
     private TextField txtAccidentType;
@@ -84,4 +86,11 @@ public class AccidentStatementController {
         this.state = state;
     }
 
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
+    }
+
+    public void load() {
+        state.setFields(this);
+    }
 }
