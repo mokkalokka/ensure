@@ -66,15 +66,15 @@ public class BoatInsuranceController implements InsuranceController {
 
 
     public void load() {
-        state.loadInsurance(this);
+        state.setFields(this);
     }
 
-    public void loadInsurance() {
+    public void displayExistingInsurance() {
         embeddedFieldsController.displayExistingInsurance(myInsurance);
-        displayBoat(myInsurance.getBoat());
+        displayBoat();
     }
 
-    private void displayBoat(Boat boat) {
+    private void displayBoat() {
         txtRegistrationNr.setText(myInsurance.getBoat().getBoatModel());
         txtBoatModel.setText(myInsurance.getBoat().getBoatModel());
         txtBoatType.setText(myInsurance.getBoat().getBoatType());
@@ -145,6 +145,10 @@ public class BoatInsuranceController implements InsuranceController {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
 
+    @Override
+    public void displayNewInsurance() {
+        embeddedFieldsController.displayNewInsurance(myCustomer);
+      
     public void setParentController(detailedCustomerController parentController) {
         this.parentController = parentController;
     }

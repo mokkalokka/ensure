@@ -61,7 +61,7 @@ public class TravelInsuranceController implements InsuranceController{
 
     @Override
     public void load() {
-        state.loadInsurance(this);
+        state.setFields(this);
     }
 
     @FXML
@@ -158,7 +158,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public void loadInsurance() {
+    public void displayExistingInsurance() {
         embeddedFieldsController.displayExistingInsurance(myInsurance);
         displayTravelData();
 
@@ -167,6 +167,11 @@ public class TravelInsuranceController implements InsuranceController{
     @Override
     public void setParentController(detailedCustomerController parentController) {
         this.parentController = parentController;
+    }
+
+    @Override
+    public void displayNewInsurance() {
+        embeddedFieldsController.displayNewInsurance(myCustomer);
     }
 
     private void displayTravelData() {

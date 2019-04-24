@@ -9,10 +9,8 @@ import models.insurance.InsuranceHandler;
 public class NewInsurance implements InsuranceState {
 
     @Override
-    public void loadInsurance(InsuranceController controller) {
-        Customer customer = controller.getCustomer();
-        EmbeddedFieldsController embeddedFieldsController = controller.getEmbeddedFieldsController();
-        embeddedFieldsController.displayNewInsurance(customer);
+    public void setFields(InsuranceController controller) {
+        controller.displayNewInsurance();
     }
 
     @Override

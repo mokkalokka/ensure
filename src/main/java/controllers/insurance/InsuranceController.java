@@ -22,7 +22,9 @@ public interface InsuranceController {
 
     void setInsurance(Insurance insurance);
 
-    void loadInsurance();
+    void displayExistingInsurance();
+
+    void displayNewInsurance();
 
     void setParentController(detailedCustomerController parent);
 }

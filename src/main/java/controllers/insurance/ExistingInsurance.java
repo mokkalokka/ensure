@@ -6,8 +6,8 @@ import models.insurance.InsuranceHandler;
 public class ExistingInsurance implements InsuranceState {
 
     @Override
-    public void loadInsurance(InsuranceController controller) {
-        controller.loadInsurance();
+    public void setFields(InsuranceController controller) {
+        controller.displayExistingInsurance();
     }
 
     @Override
