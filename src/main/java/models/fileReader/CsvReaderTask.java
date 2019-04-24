@@ -8,6 +8,8 @@ import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
+import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
+import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -78,7 +80,8 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                     }
                     break;
 
-                case "Husforsikringer":
+
+                case PrimaryResidenceInsurance.insuranceName:
                     if(lineArray.length == 14){
                         addInsuranceToLoadedCustomers(
                                 ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
@@ -89,7 +92,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
 
                     break;
 
-                case "Fritidsboligforsikringer":
+                case SecondaryResidenceInsurance.insuranceName:
                     if(lineArray.length == 14){
                         addInsuranceToLoadedCustomers(
                                 ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
@@ -97,6 +100,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                     else{
                         throw new InvalidLineLengthException("fritidsboligforsikring", (int)currentLine);
                     }
+
                     break;
 
                 case "Reiseforsikringer":

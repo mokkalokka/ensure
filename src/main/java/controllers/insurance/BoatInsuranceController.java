@@ -22,6 +22,8 @@ public class BoatInsuranceController implements InsuranceController {
     private BoatInsurance myInsurance;
 
     @FXML
+    private detailedCustomerController parentController;
+    @FXML
     private Parent embeddedFields;
     @FXML
     private EmbeddedFieldsController embeddedFieldsController;
@@ -45,7 +47,6 @@ public class BoatInsuranceController implements InsuranceController {
     @FXML
     private TextField txtEngineHP;
 
-    private detailedCustomerController parent;
 
     @FXML
     private void btnSave() {
@@ -55,7 +56,7 @@ public class BoatInsuranceController implements InsuranceController {
             e.printStackTrace();
             // TODO: display error window
         }
-        parent.refreshTables();
+        parentController.refreshTables();
     }
 
     @FXML
@@ -66,15 +67,15 @@ public class BoatInsuranceController implements InsuranceController {
 
 
     public void load() {
-        state.loadInsurance(this);
+        state.setFields(this);
     }
 
-    public void loadInsurance() {
+    public void displayExistingInsurance() {
         embeddedFieldsController.displayExistingInsurance(myInsurance);
-        displayBoat(myInsurance.getBoat());
+        displayBoat();
     }
 
-    private void displayBoat(Boat boat) {
+    private void displayBoat() {
         txtRegistrationNr.setText(myInsurance.getBoat().getBoatModel());
         txtBoatModel.setText(myInsurance.getBoat().getBoatModel());
         txtBoatType.setText(myInsurance.getBoat().getBoatType());
@@ -145,8 +146,12 @@ public class BoatInsuranceController implements InsuranceController {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
 
-    public void setParent(detailedCustomerController parent) {
-        this.parent = parent;
+    @Override
+    public void displayNewInsurance() {
+        embeddedFieldsController.displayNewInsurance(myCustomer);
+      
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
     }
 
 }
