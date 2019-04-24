@@ -4,11 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
 import controllers.detailedCustomerController;
 import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 
 public class AccidentStatementController {
     private Customer currentCustomer;
@@ -20,7 +23,7 @@ public class AccidentStatementController {
     private TextField txtAccidentType;
 
     @FXML
-    private TextField txtRegisteredTo;
+    private TextField txtAccidentNr;
 
     @FXML
     private DatePicker dateOfAccident;
@@ -34,7 +37,25 @@ public class AccidentStatementController {
     @FXML
     private TextArea txtAccidentDescription;
 
+    @FXML
+    private void btnClose() {
+        Stage currentstage = getCurrentStage();
+        currentstage.close();
+    }
 
+    @FXML
+    private void btnSave() {
+        try {
+            state.saveAccidentStatement(this);
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+            //TODO error vindu
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
+            errorDialog.show();
+        }
+        parentController.refreshTables();
+    }
 
     public Customer getCustomer() {
         return currentCustomer;
@@ -45,13 +66,13 @@ public class AccidentStatementController {
     }
 
     public void displayNewAccidentStatement() {
-        txtRegisteredTo.setText(String.valueOf(currentCustomer.getInsuranceNr()));
+        txtAccidentNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
     }
 
     public AccidentStatement getNewAccidentStatement() throws BuilderInputException {
         return new AccidentStatementBuilder()
                 .setAccidentType(txtAccidentType.getText())
-                .setRegisteredTo(txtRegisteredTo.getText())
+                .setRegisteredTo(txtAccidentNr.getText())
                 .setDateOfAccident(dateOfAccident.getValue().toString())
                 .setAppraisalAmount(txtAppraisalAmount.getText())
                 .setDispersedCompensation(txtDispersedCompensation.getText())
@@ -61,7 +82,7 @@ public class AccidentStatementController {
 
     public void displayExistingAccidentStatement() {
         txtAccidentType.setText(currentAccidentStatement.getAccidentType());
-        txtRegisteredTo.setText(String.valueOf(currentAccidentStatement.getRegisteredTo()));
+        txtAccidentNr.setText(String.valueOf(currentAccidentStatement.getAccidentNr()));
         dateOfAccident.setValue(currentAccidentStatement.getDateOfAccident());
         txtAppraisalAmount.setText(String.valueOf(currentAccidentStatement.getAppraisalAmount()));
         txtDispersedCompensation.setText(String.valueOf(currentAccidentStatement.getDispersedCompensation()));
@@ -71,7 +92,7 @@ public class AccidentStatementController {
     public AccidentStatement getEditedAccidentStatement() throws BuilderInputException {
         return new AccidentStatementBuilder()
                 .setAccidentType(txtAccidentType.getText())
-                .setRegisteredTo(txtRegisteredTo.getText())
+                .setRegisteredTo(txtAccidentNr.getText())
                 .setDateOfAccident(dateOfAccident.getValue().toString())
                 .setAppraisalAmount(txtAppraisalAmount.getText())
                 .setDispersedCompensation(txtDispersedCompensation.getText())
@@ -93,5 +114,9 @@ public class AccidentStatementController {
 
     public void load() {
         state.setFields(this);
+    }
+
+    private Stage getCurrentStage() {
+        return (Stage) txtAccidentType.getScene().getWindow();
     }
 }
