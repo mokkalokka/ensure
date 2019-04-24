@@ -26,21 +26,6 @@ public class PrimaryResidenceInsuranceBuilder{
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setResidence(Residence residence) {
-        this.residence = residence;
-        return this;
-    }
-
-    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) {
-        this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
-        return this;
-    }
-
-    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) {
-        this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
-        return this;
-    }
-
     public PrimaryResidenceInsuranceBuilder setRegisteredTo(String registeredTo) {
         this.registeredTo = Integer.parseInt(registeredTo);
         return this;
@@ -58,6 +43,21 @@ public class PrimaryResidenceInsuranceBuilder{
 
     public PrimaryResidenceInsuranceBuilder setCoverageDescription(String coverageDescription) {
         this.coverageDescription = coverageDescription;
+        return this;
+    }
+
+    public PrimaryResidenceInsuranceBuilder setResidence(Residence residence) {
+        this.residence = residence;
+        return this;
+    }
+
+    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) {
+        this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
+        return this;
+    }
+
+    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) {
+        this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
         return this;
     }
 
