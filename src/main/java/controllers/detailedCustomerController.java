@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
 import models.gui.WindowHandler;
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
