@@ -1,10 +1,7 @@
 package models.builders.boatInsurance;
 
 import models.builders.StringChecker;
-import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.builderExceptions.EmptyFieldException;
-import models.exceptions.builderExceptions.InvalidYearException;
-import models.exceptions.builderExceptions.NotANumberException;
+import models.exceptions.builderExceptions.*;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatOwner;
 
@@ -57,15 +54,20 @@ public class BoatBuilder {
     }
 
     public BoatBuilder setLengthInft(String lengthInft) throws BuilderInputException {
+        String fieldName = "Lengde i fot";
         if(stringChecker.isEmptyOrNull(lengthInft)){
-            throw new EmptyFieldException("Lengde i fot");
+            throw new EmptyFieldException(fieldName);
         }
         else{
             try {
                 this.lengthInft = Double.parseDouble(lengthInft);
+
+                if (stringChecker.isNegative(lengthInft)){
+                    throw new InvalidPositiveDoubleException(fieldName);
+                }
             }
             catch (NumberFormatException e){
-                throw new NotANumberException("Lengde i fot");
+                throw new InvalidPositiveDoubleException(fieldName);
             }
         }
         return this;
@@ -86,7 +88,7 @@ public class BoatBuilder {
             }
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
         this.modelYear = modelYear;
         return this;
@@ -108,9 +110,13 @@ public class BoatBuilder {
         }
         try{
             this.engineHP = Integer.parseInt(engineHP);
+            if(stringChecker.isNegative(engineHP)){
+                throw new InvalidPositiveIntegerException(fieldName);
+            }
+
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
         return this;
     }
