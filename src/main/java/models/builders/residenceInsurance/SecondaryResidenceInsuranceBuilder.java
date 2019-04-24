@@ -53,6 +53,11 @@ public class SecondaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilde
         return this;
     }
 
+    public SecondaryResidenceInsuranceBuilder setResidence(Residence residence) {
+        this.residence = residence;
+        return this;
+    }
+
 
     public SecondaryResidenceInsurance build(){
         if (dateOfIssue == null) {
