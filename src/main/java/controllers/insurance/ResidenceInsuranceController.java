@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.ResidenceInsurance;
 
@@ -43,6 +45,9 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
             // TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring ", e.getMessage());
+            errorDialog.show();
         }
         parentController.refreshTables();
     }
