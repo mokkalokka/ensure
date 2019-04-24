@@ -1,4 +1,4 @@
-package models.insurance;
+package models.accidentStatement;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -50,5 +50,7 @@ public class AccidentStatement implements Serializable {
         }
         this.accidentNr = accidentNr;
     }
+
+    public int getAccidentNr() { return accidentNr; }
 
 }
