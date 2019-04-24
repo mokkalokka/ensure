@@ -115,8 +115,8 @@
                                                                         <MenuButton mnemonicParsing="false" text="Opprett forsikring" BorderPane.alignment="CENTER">
                                                                             <items>
                                                                                 <MenuItem mnemonicParsing="false" onAction="#btnNewBoatInsurance" text="Båtforsikring" />
-                                                                                <MenuItem mnemonicParsing="false" text="Husforsikring" />
-                                                                                <MenuItem mnemonicParsing="false" text="Fritidsbolig-forsikring" />
+                                                                                <MenuItem mnemonicParsing="false" onAction="#btnNewPrimaryResidenceInsurance" text="Husforsikring" />
+                                                                                <MenuItem mnemonicParsing="false" onAction="#btnNewSecondaryResidenceInsurance" text="Fritidsboligforsikring" />
                                                                                 <MenuItem mnemonicParsing="false" onAction="#btnNewTravelInsurance" text="Reiseforsikring" />
                                                                             </items>
                                                                         </MenuButton>

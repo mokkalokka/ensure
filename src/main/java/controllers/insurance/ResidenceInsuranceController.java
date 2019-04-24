@@ -1,14 +1,17 @@
 package controllers.insurance;
 
 import controllers.detailedCustomerController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.builders.residenceInsurance.ResidenceBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.insurance.Insurance;
+import models.insurance.residenceInsurance.Residence;
 import models.insurance.residenceInsurance.ResidenceInsurance;
 
 public abstract class ResidenceInsuranceController implements InsuranceController {
@@ -37,16 +40,15 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     @FXML
     protected TextField txtYearOfConstruction;
 
-
     @FXML
-    private void btnSave() {
+    public void btnSave() {
         try {
             state.saveInsurance(this);
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
-            // TODO: display error window
+            //TODO: display error window
         } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring ", e.getMessage());
+            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
             errorDialog.show();
         }
         parentController.refreshTables();
@@ -89,26 +91,17 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     }
 
     @Override
-    public abstract void load();
-
-    @Override
     public void displayExistingInsurance() {
         embeddedFieldsController.displayExistingInsurance(myInsurance);
         displayResidenceFields();
     }
 
     @Override
-    public abstract Insurance getNewInsurance();
-
-    @Override
-    public abstract Insurance getEditedInsurance();
-
-    @Override
     public void setInsurance(Insurance insurance) {
         myInsurance = (ResidenceInsurance) insurance;
     }
 
-    public void displayResidenceFields() {
+    void displayResidenceFields() {
         txtAddress.setText(myInsurance.getResidence().getAddress());
         txtResidenceType.setText(myInsurance.getResidence().getResidenceType());
         txtCondition.setText(myInsurance.getResidence().getCondition());
@@ -119,6 +112,29 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
         txtAssetsInsuranceAmount.setText(String.valueOf(myInsurance.getAssetsInsuranceAmount()));
     }
 
+    Residence getResidence() throws BuilderInputException {
+        return new ResidenceBuilder()
+                .setAddress(txtAddress.getText())
+                .setCondition(txtCondition.getText())
+                .setConstructionMaterial(txtConstructionMaterial.getText())
+                .setSqMeters(txtSqMeters.getText())
+                .setType(txtResidenceType.getText())
+                .setYearOfConstruction(txtYearOfConstruction.getText())
+                .build();
+    }
+
+    @Override
+    public abstract void load();
+
+    @Override
+    public abstract Insurance getNewInsurance() throws BuilderInputException;
+
+    @Override
+    public abstract Insurance getEditedInsurance() throws BuilderInputException;
+
+
     @Override
     public abstract void displayNewInsurance();
+
+
 }

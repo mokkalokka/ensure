@@ -1,7 +1,5 @@
 package controllers.insurance;
 
-
-import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.Insurance;
