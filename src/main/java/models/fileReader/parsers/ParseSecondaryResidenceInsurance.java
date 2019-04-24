@@ -3,13 +3,14 @@ package models.fileReader.parsers;
 import models.builders.residenceInsurance.ResidenceBuilder;
 import models.builders.residenceInsurance.SecondaryResidenceInsuranceBuilder;
 import models.customer.CustomerList;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 public class ParseSecondaryResidenceInsurance {
 
-    public static Insurance parseSecondaryResidenceInsurance(String[] lineArray) {
+    public static Insurance parseSecondaryResidenceInsurance(String[] lineArray) throws BuilderInputException {
         SecondaryResidenceInsurance secondaryResidenceInsurance = new SecondaryResidenceInsuranceBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAnnualPremium(lineArray[1])

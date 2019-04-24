@@ -3,13 +3,14 @@ package models.fileReader.parsers;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.CustomerList;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 
 public class ParseBoatInsurance {
-    public static Insurance parseBoatInsurance(String[] lineArray) {
+    public static Insurance parseBoatInsurance(String[] lineArray) throws BuilderInputException {
         // Fornavn og etternavn for båteier
         String[] boatOwner = lineArray[6].split(",");
         String lastName = boatOwner[0];

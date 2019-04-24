@@ -1,10 +1,11 @@
 package models.fileReader.parsers;
 
 import models.builders.AccidentStatementBuilder;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.AccidentStatement;
 
 public class ParseAccidentStatement {
-    public static AccidentStatement parseAccidentStatement(String[] lineArray) {
+    public static AccidentStatement parseAccidentStatement(String[] lineArray) throws BuilderInputException {
         AccidentStatement accidentStatement = new AccidentStatementBuilder()
                 .setRegisteredTo(lineArray[0])
                 .setAccidentNr(lineArray[1])
