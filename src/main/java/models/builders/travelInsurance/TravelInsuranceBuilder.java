@@ -10,14 +10,6 @@ import java.time.LocalDate;
 public class TravelInsuranceBuilder extends InsuranceBuilder {
     private boolean isPremium;
     private double maxCoverage; // forsikringssum på norsk
-
-    //Fra superklassen Insurance
-    private int registeredTo;
-    private double annualPremium;
-    private LocalDate dateOfIssue = null;
-    private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
-    private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
-    private int insuranceID;
     private StringChecker stringChecker = new StringChecker();
 
     public TravelInsuranceBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
@@ -82,11 +74,13 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
             throw new EmptyFieldException(fieldName);
         }
         try{
-
             this.maxCoverage = Double.parseDouble(maxCoverage);
+            if(stringChecker.isNegative(maxCoverage)){
+                throw new InvalidPositiveDoubleException(fieldName);
+            }
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName);
         }
 
         return this;

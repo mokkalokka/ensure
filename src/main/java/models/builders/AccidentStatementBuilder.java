@@ -6,6 +6,8 @@ import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.builderExceptions.EmptyFieldException;
 import models.exceptions.builderExceptions.InvalidDateFormatException;
 import models.exceptions.builderExceptions.NotANumberException;
+import models.exceptions.builderExceptions.*;
+import models.insurance.AccidentStatement;
 
 
 import java.time.DateTimeException;
@@ -32,7 +34,7 @@ public class AccidentStatementBuilder {
         try {
             this.registeredTo = Integer.parseInt(registeredTo);
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
@@ -48,7 +50,7 @@ public class AccidentStatementBuilder {
         try {
             this.registeredTo = Integer.parseInt(accidentNr);
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
@@ -98,10 +100,13 @@ public class AccidentStatementBuilder {
         }
         try{
         this.appraisalAmount = Double.parseDouble(appraisalAmount);
+            if(stringChecker.isNegative(appraisalAmount)){
+                throw new InvalidPositiveDoubleException(fieldName);
+            }
 
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName);
         }
         return this;
     }
@@ -113,11 +118,14 @@ public class AccidentStatementBuilder {
             throw new EmptyFieldException(fieldName);
         }
         try{
-
         this.dispersedCompensation = Double.parseDouble(dispersedCompensation);
+            if(stringChecker.isNegative(dispersedCompensation)){
+                throw new InvalidPositiveDoubleException(fieldName);
+            }
+
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName);
         }
         return this;
     }

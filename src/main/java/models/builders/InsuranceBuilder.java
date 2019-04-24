@@ -1,9 +1,6 @@
 package models.builders;
 
-import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.builderExceptions.EmptyFieldException;
-import models.exceptions.builderExceptions.InvalidDateFormatException;
-import models.exceptions.builderExceptions.NotANumberException;
+import models.exceptions.builderExceptions.*;
 import models.insurance.Insurance;
 
 import java.time.LocalDate;
@@ -30,7 +27,7 @@ public abstract class InsuranceBuilder {
         try {
             this.registeredTo = Integer.parseInt(registeredTo);
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
@@ -46,8 +43,11 @@ public abstract class InsuranceBuilder {
 
         try {
             this.annualPremium = Double.parseDouble(annualPremium);
+            if(stringChecker.isNegative(annualPremium)){
+                throw new InvalidPositiveDoubleException(fieldName);
+            }
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName);
         }
         return this;
     }
@@ -76,8 +76,11 @@ public abstract class InsuranceBuilder {
 
         try {
             this.total = Double.parseDouble(total);
+            if(stringChecker.isNegative(total)){
+                throw new InvalidPositiveDoubleException(fieldName);
+            }
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName);
         }
 
         return this;
@@ -111,7 +114,7 @@ public abstract class InsuranceBuilder {
         try {
             this.insuranceID = Integer.parseInt(insuranceID);
         } catch (NumberFormatException e) {
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
         return this;
     }
