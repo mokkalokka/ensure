@@ -1,12 +1,11 @@
 package models.customer;
 
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -160,5 +159,9 @@ public class Customer implements Serializable {
 
     public void overwriteInsurance(int insuranceToReplace, Insurance insurance) {
         listOfInsurances.set(insuranceToReplace, insurance);
+    }
+
+    public void overwriteAccidentStatement(int accidentStatementToReplace, AccidentStatement accidentStatement) {
+        listOfAccidentStatements.set(accidentStatementToReplace, accidentStatement);
     }
 }

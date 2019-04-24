@@ -154,7 +154,7 @@ public class BoatInsuranceController implements InsuranceController {
     public void displayNewInsurance() {
         embeddedFieldsController.displayNewInsurance(myCustomer);
     }
-      
+
     public void setParentController(detailedCustomerController parentController) {
         this.parentController = parentController;
     }
