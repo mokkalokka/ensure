@@ -7,6 +7,8 @@ import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.fileReader.parsers.*;
 import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
+import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
+import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -66,12 +68,12 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
                     addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
                     break;
 
-                case "Husforsikringer":
+                case PrimaryResidenceInsurance.insuranceName:
                     addInsuranceToLoadedCustomers(
                             ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
                     break;
 
-                case "Fritidsboligforsikringer":
+                case SecondaryResidenceInsurance.insuranceName:
                     addInsuranceToLoadedCustomers(
                             ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
                     break;
