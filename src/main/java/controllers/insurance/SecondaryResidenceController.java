@@ -6,23 +6,10 @@ import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 public class SecondaryResidenceController extends ResidenceInsuranceController {
 
-    private SecondaryResidenceInsurance myInsurance;
 
     @Override
     public void load() {
 
-    }
-
-    @Override
-    public void displayExistingInsurance() {
-        txtAddress.setText(myInsurance.getResidence().getAddress());
-        txtResidenceType.setText(myInsurance.getResidence().getResidenceType());
-        txtCondition.setText(myInsurance.getResidence().getCondition());
-        txtConstructionMaterial.setText(myInsurance.getResidence().getConstructionMaterial());
-        txtYearOfConstruction.setText(String.valueOf(myInsurance.getResidence().getYearOfConstruction()));
-        txtSqMeters.setText(String.valueOf(myInsurance.getResidence().getSqMeters()));
-        txtPropertyInsuranceAmount.setText(String.valueOf(myInsurance.getPropertyInsuranceAmount()));
-        txtAssetsInsuranceAmount.setText(String.valueOf(myInsurance.getAssetsInsuranceAmount()));
     }
 
     @Override
@@ -37,11 +24,6 @@ public class SecondaryResidenceController extends ResidenceInsuranceController {
 
     @Override
     public void setInsurance(Insurance insurance) {
-
-    }
-
-    @Override
-    void displayResidenceFields() {
 
     }
 

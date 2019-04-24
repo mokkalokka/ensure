@@ -2,6 +2,7 @@ package controllers.insurance;
 
 import controllers.detailedCustomerController;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.Insurance;
 
 public interface InsuranceController {
@@ -12,9 +13,9 @@ public interface InsuranceController {
 
     EmbeddedFieldsController getEmbeddedFieldsController();
 
-    Insurance getNewInsurance();
+    Insurance getNewInsurance() throws BuilderInputException;
 
-    Insurance getEditedInsurance();
+    Insurance getEditedInsurance() throws BuilderInputException;
 
     void load();
 

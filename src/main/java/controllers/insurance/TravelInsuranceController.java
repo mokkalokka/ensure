@@ -9,7 +9,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.travelInsurance.TravelInsurance;
 
@@ -71,6 +73,9 @@ public class TravelInsuranceController implements InsuranceController{
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
             // TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring", e.getMessage());
+            errorDialog.show();
         }
         parentController.refreshTables();
     }
@@ -102,7 +107,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public Insurance getNewInsurance() {
+    public Insurance getNewInsurance() throws BuilderInputException {
         boolean isPremium = radioGroup
                 .getSelectedToggle()
                 .getUserData()
@@ -120,7 +125,7 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public Insurance getEditedInsurance() {
+    public Insurance getEditedInsurance() throws BuilderInputException {
         boolean isPremium = radioGroup
                 .getSelectedToggle()
                 .getUserData()
