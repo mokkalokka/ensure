@@ -8,6 +8,7 @@ import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
 import controllers.detailedCustomerController;
+import models.exceptions.builderExceptions.BuilderInputException;
 
 public class AccidentStatementController {
     private Customer currentCustomer;
@@ -47,7 +48,7 @@ public class AccidentStatementController {
         txtRegisteredTo.setText(String.valueOf(currentCustomer.getInsuranceNr()));
     }
 
-    public AccidentStatement getNewAccidentStatement() {
+    public AccidentStatement getNewAccidentStatement() throws BuilderInputException {
         return new AccidentStatementBuilder()
                 .setAccidentType(txtAccidentType.getText())
                 .setRegisteredTo(txtRegisteredTo.getText())
@@ -67,7 +68,7 @@ public class AccidentStatementController {
         txtAccidentDescription.setText(currentAccidentStatement.getAccidentDescription());
     }
 
-    public AccidentStatement getEditedAccidentStatement() {
+    public AccidentStatement getEditedAccidentStatement() throws BuilderInputException {
         return new AccidentStatementBuilder()
                 .setAccidentType(txtAccidentType.getText())
                 .setRegisteredTo(txtRegisteredTo.getText())
