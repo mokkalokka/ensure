@@ -30,6 +30,18 @@ public abstract class ResidenceInsurance extends Insurance {
         this.assetsInsuranceAmount = assetsInsuranceAmount;
     }
 
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public double getPropertyInsuranceAmount() {
+        return propertyInsuranceAmount;
+    }
+
+    public double getAssetsInsuranceAmount() {
+        return assetsInsuranceAmount;
+    }
+
     @Override
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
