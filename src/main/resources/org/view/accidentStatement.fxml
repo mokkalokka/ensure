@@ -52,7 +52,7 @@
                         </Label>
                      </left>
                      <right>
-                        <JFXTextField fx:id="txtAccidentNr" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
+                        <JFXTextField fx:id="txtAccidentNr" editable="false" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
                      </right>
                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -95,7 +95,7 @@
                      <left>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <center>
-                              <JFXButton style="-fx-background-color: #E5E5E5;" onAction="#btnSave" text="Lagre" BorderPane.alignment="CENTER">
+                              <JFXButton onAction="#btnSave" style="-fx-background-color: #E5E5E5;" text="Lagre" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -106,7 +106,7 @@
                      <right>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <center>
-                              <JFXButton style="-fx-background-color: #E5E5E5;" onAction="#btnClose" text="Lukk" BorderPane.alignment="CENTER">
+                              <JFXButton onAction="#btnClose" style="-fx-background-color: #E5E5E5;" text="Lukk" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
