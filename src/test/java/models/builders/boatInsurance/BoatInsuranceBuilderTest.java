@@ -7,9 +7,7 @@ import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class BoatInsuranceBuilderMedExceptionsTest {
+public class BoatInsuranceBuilderTest {
 
     @Test
     public void build() {
@@ -19,7 +17,7 @@ public class BoatInsuranceBuilderMedExceptionsTest {
 
         Boat boat1 = null;
         try {
-            boat1 = new BoatBuilderMedExceptions()
+            boat1 = new BoatBuilder()
                     .setRegistrationNr("NE2323")
                     .setBoatModel("S32hh")
                     .setBoatType("Snekke")
@@ -34,7 +32,7 @@ public class BoatInsuranceBuilderMedExceptionsTest {
         }
 
         try {
-            BoatInsurance boatInsurance = new BoatInsuranceBuilderMedExceptions()
+            BoatInsurance boatInsurance = new BoatInsuranceBuilder()
                     .setBoat(boat1)
                     .setAnnualPremium("132")
                     .setCoverageDescription("Helt greit")

@@ -1,7 +1,5 @@
 package models.builders;
 
-import models.builders.boatInsurance.BoatInsuranceBuilderMedExceptions;
-import models.builders.residenceInsurance.PrimaryResidenceInsuranceBuilderMedExceptions;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.builderExceptions.EmptyFieldException;
 import models.exceptions.builderExceptions.InvalidDateFormatException;
