@@ -13,6 +13,7 @@ public class BoatInsuranceTest {
     public void setUp(){
         Customer customer = new Customer("Michael", "Larsen","Omt 550");
 
+
         Boat boat1 = new BoatBuilder()
                 .setRegistrationNr("NE2323")
                 .setBoatModel("S32hh")

@@ -1,10 +1,13 @@
 package models.builders.travelInsurance;
 
+import models.builders.InsuranceBuilder;
+import models.builders.StringChecker;
+import models.exceptions.builderExceptions.*;
 import models.travelInsurance.TravelInsurance;
 
 import java.time.LocalDate;
 
-public class TravelInsuranceBuilder {
+public class TravelInsuranceBuilder extends InsuranceBuilder {
     private boolean isPremium;
     private double maxCoverage; // forsikringssum på norsk
 
@@ -15,55 +18,77 @@ public class TravelInsuranceBuilder {
     private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
     private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
     private int insuranceID;
+    private StringChecker stringChecker = new StringChecker();
 
-    public TravelInsuranceBuilder setInsuranceID(String insuranceID) {
-        this.insuranceID = Integer.parseInt(insuranceID);
+    public TravelInsuranceBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
+        super.setRegisteredTo(registeredTo);
         return this;
     }
 
-    public TravelInsuranceBuilder setInsuranceID(int insuranceID) {
-        this.insuranceID = insuranceID;
+    public TravelInsuranceBuilder setAnnualPremium(String annualPremium) throws BuilderInputException {
+        super.setAnnualPremium(annualPremium);
         return this;
     }
 
-    public TravelInsuranceBuilder setPremium(String isPremium) {
+    public TravelInsuranceBuilder setDateOfIssue(String dateOfIssue) throws BuilderInputException {
+        super.setDateOfIssue(dateOfIssue);
+        return this;
+    }
+
+    public TravelInsuranceBuilder setTotal(String total) throws BuilderInputException {
+        super.setTotal(total);
+        return this;
+    }
+
+    public TravelInsuranceBuilder setCoverageDescription(String coverageDescription) throws BuilderInputException {
+        super.setCoverageDescription(coverageDescription);
+        return this;
+    }
+
+    public TravelInsuranceBuilder setInsuranceID(int insuranceID) throws BuilderInputException {
+        super.setInsuranceID(insuranceID);
+        return this;
+    }
+
+    public TravelInsuranceBuilder setInsuranceID(String insuranceID) throws BuilderInputException {
+        super.setInsuranceID(insuranceID);
+        return this;
+    }
+
+
+    public TravelInsuranceBuilder setPremium(String isPremium) throws BuilderInputException {
+        String fieldName = "Premium";
+
+        if(stringChecker.isEmptyOrNull(isPremium)){
+            throw new EmptyFieldException(fieldName);
+        }
+        else if(!stringChecker.validBooleanString(isPremium)){
+            throw new InvalidBooleanStringFormatException();
+        }
+
         this.isPremium = Boolean.parseBoolean(isPremium);
         return this;
     }
 
-    public TravelInsuranceBuilder setPremium(boolean isPremium) {
+    public TravelInsuranceBuilder setPremium(boolean isPremium)  {
         this.isPremium = isPremium;
         return this;
     }
 
-    public TravelInsuranceBuilder setMaxCoverage(String maxCoverage) {
-        this.maxCoverage = Double.parseDouble(maxCoverage);
-        return this;
-    }
+    public TravelInsuranceBuilder setMaxCoverage(String maxCoverage) throws BuilderInputException {
+        String fieldName = "Forsikringssum";
 
-    public TravelInsuranceBuilder setRegisteredTo(String registeredTo) {
-        this.registeredTo = Integer.parseInt(registeredTo);
-        return this;
-    }
+        if(stringChecker.isEmptyOrNull(maxCoverage)){
+            throw new EmptyFieldException(fieldName);
+        }
+        try{
 
-    public TravelInsuranceBuilder setAnnualPremium(String annualPremium) {
-        this.annualPremium = Double.parseDouble(annualPremium);
-        return this;
-    }
+            this.maxCoverage = Double.parseDouble(maxCoverage);
+        }
+        catch (NumberFormatException e){
+            throw new NotANumberException(fieldName);
+        }
 
-    public TravelInsuranceBuilder setDateOfIssue(String dateOfIssue) {
-        //TODO: Kan endre date format i parse her
-        this.dateOfIssue = LocalDate.parse(dateOfIssue);
-        return this;
-    }
-
-    public TravelInsuranceBuilder setTotal(String total) {
-        this.total = Double.parseDouble(total);
-        return this;
-    }
-
-    public TravelInsuranceBuilder setCoverageDescription(String coverageDescription) {
-        this.coverageDescription = coverageDescription;
         return this;
     }
 

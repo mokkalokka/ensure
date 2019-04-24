@@ -27,7 +27,7 @@ public class ParseBoatInsurance {
                         .setOwner( new BoatOwner(firstName, lastName))
                         .setRegistrationNr(lineArray[7])
                         .setBoatType(lineArray[8])
-                        .setBoatType(lineArray[9])
+                        .setBoatModel(lineArray[9])
                         .setLengthInft(lineArray[10])
                         .setModelYear(lineArray[11])
                         .setEngineType(lineArray[12])
