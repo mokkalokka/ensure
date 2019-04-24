@@ -1,10 +1,7 @@
 package models.builders.residenceInsurance;
 
 import models.builders.StringChecker;
-import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.builderExceptions.EmptyFieldException;
-import models.exceptions.builderExceptions.InvalidYearException;
-import models.exceptions.builderExceptions.NotANumberException;
+import models.exceptions.builderExceptions.*;
 import models.insurance.residenceInsurance.Residence;
 
 import java.time.DateTimeException;
@@ -32,7 +29,7 @@ public class ResidenceBuilder {
             }
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
         catch (DateTimeException e){
             throw new InvalidYearException(fieldName);
@@ -74,9 +71,12 @@ public class ResidenceBuilder {
         }
         try{
             this.sqMeters = Integer.parseInt(sqMeters);
+            if(stringChecker.isNegative(sqMeters)){
+                throw new InvalidPositiveIntegerException(fieldName);
+            }
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
         return this;
     }

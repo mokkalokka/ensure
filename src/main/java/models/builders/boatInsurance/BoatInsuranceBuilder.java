@@ -47,13 +47,6 @@ public class BoatInsuranceBuilder extends InsuranceBuilder {
         return this;
     }
 
-
-
-
-    //-------------------------------------------- unike-------------
-
-
-
     public BoatInsuranceBuilder setBoat(Boat boat) {
         this.boat = boat;
         return this;

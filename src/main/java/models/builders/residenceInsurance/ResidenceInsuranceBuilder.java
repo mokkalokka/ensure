@@ -4,10 +4,8 @@ import models.builders.InsuranceBuilder;
 import models.builders.StringChecker;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.builderExceptions.EmptyFieldException;
-import models.exceptions.builderExceptions.NotANumberException;
+import models.exceptions.builderExceptions.InvalidPositiveIntegerException;
 import models.insurance.Insurance;
-import models.insurance.residenceInsurance.Residence;
-
 
 
 public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
@@ -28,7 +26,7 @@ public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
             this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
         }
         catch (NumberFormatException e){
-            throw new NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
@@ -45,7 +43,7 @@ public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
             this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
         }
         catch (NumberFormatException e){
-            throw new   NotANumberException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
