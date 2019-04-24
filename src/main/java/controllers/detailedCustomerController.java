@@ -290,6 +290,17 @@ public class detailedCustomerController {
         tblAccidentStatement.setItems(accidentStatementsObservableList);
     }
 
+    @FXML
+    private void btnNewTravelInsurance() {
+        try {
+            String pathToXml = "/org/view/boatInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO: Display error window.
+        }
+    }
+
 
     private void openCreateNewAccidentStatementWindow(String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
