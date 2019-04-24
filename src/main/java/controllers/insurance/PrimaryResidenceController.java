@@ -1,15 +1,14 @@
 package controllers.insurance;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 
 public class PrimaryResidenceController extends ResidenceInsuranceController {
 
     private PrimaryResidenceInsurance myInsurance;
-
 
     @Override
     public void load() {
@@ -18,6 +17,9 @@ public class PrimaryResidenceController extends ResidenceInsuranceController {
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
             // TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring ", e.getMessage());
+            errorDialog.show();
         }
         parentController.refreshTables();
     }
@@ -37,23 +39,6 @@ public class PrimaryResidenceController extends ResidenceInsuranceController {
     @Override
     public Insurance getEditedInsurance() {
         return null;
-    }
-
-    @Override
-    public void setInsurance(Insurance insurance) {
-        myInsurance = (PrimaryResidenceInsurance) insurance;
-    }
-
-    @Override
-    void displayResidenceFields() {
-        txtAddress.setText(myInsurance.getResidence().getAddress());
-        txtResidenceType.setText(myInsurance.getResidence().getResidenceType());
-        txtCondition.setText(myInsurance.getResidence().getCondition());
-        txtConstructionMaterial.setText(myInsurance.getResidence().getConstructionMaterial());
-        txtYearOfConstruction.setText(String.valueOf(myInsurance.getResidence().getYearOfConstruction()));
-        txtSqMeters.setText(String.valueOf(myInsurance.getResidence().getSqMeters()));
-        txtPropertyInsuranceAmount.setText(String.valueOf(myInsurance.getPropertyInsuranceAmount()));
-        txtAssetsInsuranceAmount.setText(String.valueOf(myInsurance.getAssetsInsuranceAmount()));
     }
 
     @Override
