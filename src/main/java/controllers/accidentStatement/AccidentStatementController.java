@@ -66,7 +66,8 @@ public class AccidentStatementController {
     }
 
     public void displayNewAccidentStatement() {
-        txtAccidentNr.setText(String.valueOf(currentAccidentStatement.getAccidentNr()));
+        //TODO denne ma vise forsikringsid ikke id til kunde
+        txtAccidentNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
     }
 
     public AccidentStatement getNewAccidentStatement() throws BuilderInputException {
