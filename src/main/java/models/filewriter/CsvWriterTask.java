@@ -4,10 +4,9 @@ import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.filewriter.classwriter.CustomerWriter;
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
