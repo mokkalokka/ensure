@@ -2,6 +2,7 @@ package models.customer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.accidentStatement.AccidentStatement;
 import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
@@ -79,8 +80,40 @@ public class CustomerList {
         throw (new NoSuchCustomerException());
     }
 
+    public static void addAccidentStatementToCustomer(AccidentStatement accidentStatement) throws NoSuchCustomerException {
+        for (Customer customer : getCustomerList()) {
+            if (customer.getInsuranceNr() == accidentStatement.getRegisteredTo()) {
+                customer.addAccidentStatement(accidentStatement);
+                return;
+            }
+        }
+        throw (new NoSuchCustomerException());
+    }
+
+    public static void overwriteAccidentStatementInCustomer(AccidentStatement newAccidentStatement) throws NoSuchCustomerException {
+        //Indeksen til skademeldingen som skal overskrives
+        int accidentStatementID = newAccidentStatement.getAccidentNr();
+
+        for (Customer customer : getCustomerList()) {
+            if (accidentStatementBelongsToCustomer(newAccidentStatement, customer)) {
+                for (int i = 0; i < customer.getListOfAccidentStatements().size(); i++) {
+                    AccidentStatement oldAccidnetStatement = customer.getListOfAccidentStatements().get(i);
+                    if (oldAccidnetStatement.getAccidentNr() == accidentStatementID) {
+                        customer.overwriteAccidentStatement(i, newAccidentStatement);
+                        return;
+                    }
+                }
+            }
+        }
+        throw (new NoSuchCustomerException());
+    }
+
     private static boolean insuranceBelongsToCustomer(Insurance insurance, Customer customer) {
         return insurance.getRegisteredTo() == customer.getInsuranceNr();
+    }
+
+    private static boolean accidentStatementBelongsToCustomer(AccidentStatement accidentStatement, Customer customer) {
+        return accidentStatement.getRegisteredTo() == customer.getInsuranceNr();
     }
 
 }
