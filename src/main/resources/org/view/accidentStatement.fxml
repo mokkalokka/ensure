@@ -38,7 +38,7 @@
                         </Label>
                      </left>
                      <center>
-                        <JFXTextField maxWidth="200.0" BorderPane.alignment="CENTER" />
+                        <JFXTextField fx:id="txtaccidentNr" maxWidth="200.0" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -50,9 +50,21 @@
                         </Label>
                      </left>
                      <center>
-                        <JFXDatePicker maxWidth="200.0" BorderPane.alignment="CENTER" />
+                        <JFXDatePicker fx:id="dateOfAccident" maxWidth="200.0" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
+                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                       <left>
+                           <Label text="Takseringsbeløp:" BorderPane.alignment="CENTER">
+                               <font>
+                                   <Font size="15.0" />
+                               </font>
+                           </Label>
+                       </left>
+                       <center>
+                           <JFXTextField fx:id="txtAppraisalAmount" maxWidth="200.0" BorderPane.alignment="CENTER" />
+                       </center>
+                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <left>
                         <Label text="Utbetalt erstatning" BorderPane.alignment="CENTER">
@@ -62,19 +74,7 @@
                         </Label>
                      </left>
                      <center>
-                        <JFXTextField maxWidth="200.0" BorderPane.alignment="CENTER" />
-                     </center>
-                  </BorderPane>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <left>
-                        <Label text="Takseringsbeløp:" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                     </left>
-                     <center>
-                        <JFXTextField maxWidth="200.0" BorderPane.alignment="CENTER" />
+                        <JFXTextField fx:id="txtDispersedCompensation" maxWidth="200.0" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
                </children>
@@ -97,7 +97,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <JFXTextArea maxWidth="500.0" prefHeight="450.0" prefWidth="500.0" />
+                        <JFXTextArea fx:id="txtAccidentDescription" maxWidth="500.0" prefHeight="450.0" prefWidth="500.0" />
                      </children>
                   </AnchorPane>
               </items>
