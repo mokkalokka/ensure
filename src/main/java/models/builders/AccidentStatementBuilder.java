@@ -1,6 +1,6 @@
 package models.builders;
 
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 
 import java.io.Serializable;
 import java.text.ParseException;
