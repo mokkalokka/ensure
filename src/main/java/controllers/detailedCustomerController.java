@@ -293,7 +293,7 @@ public class detailedCustomerController {
     @FXML
     private void btnNewTravelInsurance() {
         try {
-            String pathToXml = "/org/view/boatInsurance.fxml";
+            String pathToXml = "/org/view/travelInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
         } catch (IOException e) {
             e.printStackTrace();
