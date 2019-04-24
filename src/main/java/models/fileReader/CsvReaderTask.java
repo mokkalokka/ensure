@@ -2,6 +2,7 @@ package models.fileReader;
 
 import javafx.concurrent.Task;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
@@ -10,7 +11,6 @@ import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
     }
 
     @Override
-    public List<Customer> call() throws IOException, InvalidLineLengthException, InvalidCustomerException {
+    public List<Customer> call() throws BuilderInputException, IOException, InvalidLineLengthException, InvalidCustomerException {
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 
