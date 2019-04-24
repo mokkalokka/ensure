@@ -8,16 +8,32 @@ import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.Insurance;
 
-public class ResidenceInsuranceController implements InsuranceController {
+public abstract class ResidenceInsuranceController implements InsuranceController {
 
-    private Customer myCustomer;
-    private InsuranceState state;
+    Customer myCustomer;
+    InsuranceState state;
     // private ResidenceInsurance myResidenceInsurance;
 
     @FXML detailedCustomerController parentController;
+    @FXML EmbeddedFieldsController embeddedFieldsController;
 
     @FXML
-    private TextField txtCondition;
+    protected TextField txtAddress;
+    @FXML
+    protected TextField txtResidenceType;
+    @FXML
+    protected TextField txtCondition;
+    @FXML
+    protected TextField txtConstructionMaterial;
+    @FXML
+    protected TextField txtSqMeters;
+    @FXML
+    protected TextField txtPropertyInsuranceAmount;
+    @FXML
+    protected TextField txtAssetsInsuranceAmount;
+    @FXML
+    protected TextField txtYearOfConstruction;
+
 
 
     @FXML
@@ -44,33 +60,27 @@ public class ResidenceInsuranceController implements InsuranceController {
 
     @Override
     public Customer getCustomer() {
-        return null;
+        return myCustomer;
     }
 
     @Override
     public void setCustomer(Customer customer) {
+        myCustomer = customer;
+    }
 
+    @Override
+    public void setParent(detailedCustomerController parentController) {
+        this.parentController = parentController;
     }
 
     @Override
     public EmbeddedFieldsController getEmbeddedFieldsController() {
-        return null;
+        return embeddedFieldsController;
     }
 
-    @Override
-    public Insurance getNewInsurance() {
-        return null;
-    }
 
-    @Override
-    public Insurance getEditedInsurance() {
-        return null;
-    }
 
-    @Override
-    public void load() {
 
-    }
 
     @Override
     public void setState(InsuranceState state) {
@@ -78,18 +88,22 @@ public class ResidenceInsuranceController implements InsuranceController {
     }
 
     @Override
-    public void setInsurance(Insurance insurance) {
-
-    }
+    public abstract void load();
 
     @Override
-    public void loadInsurance() {
-
-    }
+    public abstract void displayExistingInsurance();
 
     @Override
-    public void setParent(detailedCustomerController parentController) {
-        this.parentController = parentController;
+    public abstract Insurance getNewInsurance();
 
-    }
+    @Override
+    public abstract Insurance getEditedInsurance();
+
+    @Override
+    public abstract void setInsurance(Insurance insurance);
+
+    abstract void displayResidenceFields();
+
+    @Override
+    public abstract void displayNewInsurance();
 }

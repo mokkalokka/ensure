@@ -11,9 +11,7 @@ public class SecondaryResidenceInsurance extends Insurance {
     private double propertyInsuranceAmount; // forsikringsbeløp for bygning
     private double assetsInsuranceAmount; // forsikringsbeløp for innbo
 
-    public SecondaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
-                                       Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount,
-                                       LocalDate dateOfIssue) {
+    public SecondaryResidenceInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Residence residence, double propertyInsuranceAmount, double assetsInsuranceAmount, LocalDate dateOfIssue) {
         super(registeredTo, annualPremium, total, coverageDescription,dateOfIssue );
         this.residence = residence;
         this.propertyInsuranceAmount = propertyInsuranceAmount;
@@ -32,5 +30,17 @@ public class SecondaryResidenceInsurance extends Insurance {
     @Override
     public String getInsuranceName() {
         return insuranceName;
+    }
+
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public double getPropertyInsuranceAmount() {
+        return propertyInsuranceAmount;
+    }
+
+    public double getAssetsInsuranceAmount() {
+        return assetsInsuranceAmount;
     }
 }

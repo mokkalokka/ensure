@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.insurance.ResidenceInsuranceController">
+<AnchorPane prefHeight="545.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.insurance.ResidenceInsuranceController">
     <children>
         <AnchorPane layoutX="21.0" layoutY="204.0" prefHeight="295.0" prefWidth="859.0">
             <children>
@@ -25,7 +25,6 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="160.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="167.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="168.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="160.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,7 +41,6 @@
                         <Label text="Standard" GridPane.rowIndex="2" />
                         <Label text="Størrelse (kvadratmeter)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Forsikringsbeløp bygning" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label text="Båtmodell" GridPane.columnIndex="4" />
                         <Label text="Forsikringsbeløp innbo" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <JFXTextField fx:id="txtAddress" prefHeight="27.0" prefWidth="114.0" GridPane.rowIndex="1">
                             <GridPane.margin>
@@ -70,11 +68,6 @@
                             </GridPane.margin>
                         </JFXTextField>
                         <JFXTextField fx:id="txtPropertyInsuranceAmount" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                            <GridPane.margin>
-                                <Insets right="20.0" />
-                            </GridPane.margin>
-                        </JFXTextField>
-                        <JFXTextField fx:id="txtBoatModel" GridPane.columnIndex="4" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets right="20.0" />
                             </GridPane.margin>

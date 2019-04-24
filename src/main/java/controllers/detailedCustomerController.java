@@ -19,6 +19,7 @@ import models.insurance.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
+import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import models.travelInsurance.TravelInsurance;
 
 import java.io.IOException;
@@ -335,6 +336,9 @@ public class detailedCustomerController {
         else if (insurance instanceof PrimaryResidenceInsurance) {
             System.out.println("Primary residence insurance clicked...");
             // TODO: implementer her.
+        }
+        else if (insurance instanceof SecondaryResidenceInsurance) {
+            System.out.println("Secondary residence insurance clicked..");
         }
         else {
             System.err.println("type of insurance not found!");
