@@ -21,6 +21,8 @@ public class TravelInsuranceController implements InsuranceController{
 
     @FXML
     private EmbeddedFieldsController embeddedFieldsController;
+    @FXML
+    private detailedCustomerController parentController;
 
     @FXML
     private TextField txtMaxCoverage;
@@ -70,6 +72,7 @@ public class TravelInsuranceController implements InsuranceController{
             e.printStackTrace();
             // TODO: display error window
         }
+        parentController.refreshTables();
     }
 
     @FXML
@@ -143,6 +146,15 @@ public class TravelInsuranceController implements InsuranceController{
     @Override
     public void setInsurance(Insurance insurance) {
         myInsurance = (TravelInsurance) insurance;
+        setSelectedRadioToggle();
+    }
+
+    private void setSelectedRadioToggle() {
+        if (myInsurance != null) {
+            radioPremium.setSelected(myInsurance.isPremium());
+        } else {
+            radioStandard.setSelected(true);
+        }
     }
 
     @Override
@@ -153,8 +165,8 @@ public class TravelInsuranceController implements InsuranceController{
     }
 
     @Override
-    public void setParent(detailedCustomerController parentController) {
-
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
     }
 
     @Override

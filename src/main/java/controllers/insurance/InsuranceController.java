@@ -24,7 +24,7 @@ public interface InsuranceController {
 
     void displayExistingInsurance();
 
-    void setParent(detailedCustomerController parentController);
-
     void displayNewInsurance();
+
+    void setParentController(detailedCustomerController parent);
 }

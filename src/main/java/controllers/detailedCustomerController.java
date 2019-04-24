@@ -314,7 +314,7 @@ public class detailedCustomerController {
 
         controller.setCustomer(currentCustomer);
         controller.setState(new NewInsurance());
-        controller.setParent(this);
+        controller.setParentController(this);
         controller.load();
 
         WindowHandler windowHandler = new WindowHandler();
@@ -355,7 +355,7 @@ public class detailedCustomerController {
 
         controller.setInsurance(insurance);
         controller.setState(new ExistingInsurance());
-        controller.setParent(this);
+        controller.setParentController(this);
         controller.load();
 
         WindowHandler windowHandler = new WindowHandler();
