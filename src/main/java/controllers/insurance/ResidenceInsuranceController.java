@@ -69,7 +69,7 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     }
 
     @Override
-    public void setParent(detailedCustomerController parentController) {
+    public void setParentController(detailedCustomerController parentController) {
         this.parentController = parentController;
     }
 
@@ -77,10 +77,6 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     public EmbeddedFieldsController getEmbeddedFieldsController() {
         return embeddedFieldsController;
     }
-
-
-
-
 
     @Override
     public void setState(InsuranceState state) {
