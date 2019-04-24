@@ -66,7 +66,7 @@ public class AccidentStatementController {
     }
 
     public void displayNewAccidentStatement() {
-        txtAccidentNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
+        txtAccidentNr.setText(String.valueOf(currentAccidentStatement.getAccidentNr()));
     }
 
     public AccidentStatement getNewAccidentStatement() throws BuilderInputException {
