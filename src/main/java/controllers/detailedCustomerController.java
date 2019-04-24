@@ -105,7 +105,6 @@ public class detailedCustomerController {
     @FXML
     private void btnNewAccidentStatement() {
         try {
-            System.out.println("test");
             String pathToXml = "/org/view/accidentStatement.fxml";
             openCreateNewAccidentStatementWindow(pathToXml, "Skademelding");
         } catch (IOException e) {
