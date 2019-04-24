@@ -53,4 +53,23 @@ public class AccidentStatement implements Serializable {
 
     public int getAccidentNr() { return accidentNr; }
 
+    public LocalDate getDateOfAccident() {
+        return dateOfAccident;
+    }
+
+    public double getAppraisalAmount() {
+        return appraisalAmount;
+    }
+
+    public double getDispersedCompensation() {
+        return dispersedCompensation;
+    }
+
+    public String getAccidentDescription() {
+        return accidentDescription;
+    }
+
+    public String getAccidentType() {
+        return accidentType;
+    }
 }
