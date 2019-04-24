@@ -21,6 +21,8 @@ import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +46,20 @@ public class toolbarController {
         boolean readingFromFile = true;
         FileChooser fileChooser = fileChooserWithExtensionFilters();
         fileChooser.setTitle("Åpne fil");
-        String path = fileChooser.showOpenDialog(null).getPath();
-        String fileExtension = findFileExtension(path);
-        Task task = executeFileReaderTask(path, fileExtension);
-        progressWindow(task, "Leser fra fil...");
-        waitForUpdates(task, readingFromFile);
+        File file = fileChooser.showOpenDialog(null);
+
+        if(file != null){
+            String path = file.getPath();
+            String fileExtension = findFileExtension(path);
+            Task task = executeFileReaderTask(path, fileExtension);
+            progressWindow(task, "Leser fra fil...");
+            waitForUpdates(task, readingFromFile);
+        }
+
+        else{
+            ErrorDialog errorDialog = new ErrorDialog("", "Ingen fil ble valgt");
+            errorDialog.show();
+        }
     }
 
     @FXML
@@ -56,13 +67,21 @@ public class toolbarController {
         Boolean readingFromFile = false;
         FileChooser fileChooser = fileChooserWithExtensionFilters();
         fileChooser.setTitle("Lagre som...");
+        File file = fileChooser.showSaveDialog(null);
 
-        String path = fileChooser.showSaveDialog(null).getPath();
-        String fileExtension = findFileExtension(path);
+        if(file != null){
+            String path = file.getPath();
+            String fileExtension = findFileExtension(path);
 
-        Task task = executeFileWriterTask(path, fileExtension);
-        progressWindow(task, "Skriver til fil...");
-        waitForUpdates(task, false);
+            Task task = executeFileWriterTask(path, fileExtension);
+            progressWindow(task, "Skriver til fil...");
+            waitForUpdates(task, readingFromFile);
+        }
+
+        else{
+            ErrorDialog errorDialog = new ErrorDialog("", "Ingen fil ble valgt");
+            errorDialog.show();
+        }
 
     }
 
@@ -120,7 +139,8 @@ public class toolbarController {
             });
 
             task.setOnFailed(event -> {
-                ErrorDialog errorDialog = new ErrorDialog("error", task.getException().getMessage());
+                progressStage.close();
+                ErrorDialog errorDialog = new ErrorDialog("Feil ved lesing av fil", task.getException().getMessage());
                 errorDialog.show();
             });
 
@@ -192,12 +212,8 @@ public class toolbarController {
     }
 
 
-/*    public toolbarController getController() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("toolbarController.fxml"));
-        return loader.getController();
-    }*/
 
-    public void progressWindow(Task task, String title){
+    private void progressWindow(Task task, String title){
         progressStage = new Stage();
         fxProgressBar = new ProgressBar();
         btnProgress = new JFXButton();
@@ -233,38 +249,3 @@ public class toolbarController {
 
 }
 
-
-
-
-
-/*
-    private void writeToCsv(String path) {
-        //CsvWriter csvWriter = new CsvWriter();
-        //csvWriter.writeCustomersData(customersToCsv, path);
-        Task task = null;
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        Boolean readingFromFile = false;
-
-
-        ArrayList<Customer> customersToCsv = new ArrayList<>(CustomerList.getCustomerList());
-
-        task = new CsvWriterTask(customersToCsv,path);
-        service.execute(task);
-        progressWindow(task,"Skriver til fil...");
-        waitForUpdates(task, readingFromFile);
-
-    }
-
-    private void writeToJobj(String path) {
-        SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
-
-        //Kopierer fra observableList til vanlig arraylist som er serializable
-        ArrayList<Customer> serializebleCustomers = new ArrayList<>(CustomerList.getCustomerList());
-
-        try {
-            serializedObjectWriter.writeObject(serializebleCustomers,path); // TODO: Fiks exceptions!
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
- */

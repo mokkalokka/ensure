@@ -5,14 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
+import models.insurance.residenceInsurance.ResidenceInsurance;
 
 public abstract class ResidenceInsuranceController implements InsuranceController {
 
     Customer myCustomer;
     InsuranceState state;
-    // private ResidenceInsurance myResidenceInsurance;
+    ResidenceInsurance myInsurance;
 
     @FXML detailedCustomerController parentController;
     @FXML EmbeddedFieldsController embeddedFieldsController;
@@ -35,7 +38,6 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     protected TextField txtYearOfConstruction;
 
 
-
     @FXML
     private void btnSave() {
         try {
@@ -43,6 +45,9 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
             // TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring ", e.getMessage());
+            errorDialog.show();
         }
         parentController.refreshTables();
     }
@@ -87,7 +92,10 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     public abstract void load();
 
     @Override
-    public abstract void displayExistingInsurance();
+    public void displayExistingInsurance() {
+        embeddedFieldsController.displayExistingInsurance(myInsurance);
+        displayResidenceFields();
+    }
 
     @Override
     public abstract Insurance getNewInsurance();
@@ -96,9 +104,20 @@ public abstract class ResidenceInsuranceController implements InsuranceControlle
     public abstract Insurance getEditedInsurance();
 
     @Override
-    public abstract void setInsurance(Insurance insurance);
+    public void setInsurance(Insurance insurance) {
+        myInsurance = (ResidenceInsurance) insurance;
+    }
 
-    abstract void displayResidenceFields();
+    public void displayResidenceFields() {
+        txtAddress.setText(myInsurance.getResidence().getAddress());
+        txtResidenceType.setText(myInsurance.getResidence().getResidenceType());
+        txtCondition.setText(myInsurance.getResidence().getCondition());
+        txtConstructionMaterial.setText(myInsurance.getResidence().getConstructionMaterial());
+        txtYearOfConstruction.setText(String.valueOf(myInsurance.getResidence().getYearOfConstruction()));
+        txtSqMeters.setText(String.valueOf(myInsurance.getResidence().getSqMeters()));
+        txtPropertyInsuranceAmount.setText(String.valueOf(myInsurance.getPropertyInsuranceAmount()));
+        txtAssetsInsuranceAmount.setText(String.valueOf(myInsurance.getAssetsInsuranceAmount()));
+    }
 
     @Override
     public abstract void displayNewInsurance();

@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
@@ -54,6 +56,9 @@ public class BoatInsuranceController implements InsuranceController {
         } catch (InvalidCustomerException e) {
             e.printStackTrace();
             // TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
+            errorDialog.show();
         }
         parentController.refreshTables();
     }
@@ -86,7 +91,7 @@ public class BoatInsuranceController implements InsuranceController {
         txtOwnerSurname.setText(myInsurance.getBoat().getOwner().getLastName());
     }
 
-    public Insurance getNewInsurance() {
+    public Insurance getNewInsurance() throws BuilderInputException {
         return new BoatInsuranceBuilder()
                 .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
                 .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
@@ -96,7 +101,7 @@ public class BoatInsuranceController implements InsuranceController {
                 .build();
     }
 
-    public Insurance getEditedInsurance() {
+    public Insurance getEditedInsurance() throws BuilderInputException {
         return new BoatInsuranceBuilder()
                 .setInsuranceID(myInsurance.getInsuranceID())
                 .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
@@ -107,7 +112,7 @@ public class BoatInsuranceController implements InsuranceController {
                 .build();
     }
 
-    private Boat getCurrentBoat() {
+    private Boat getCurrentBoat() throws BuilderInputException {
         return new BoatBuilder()
                 .setRegistrationNr(txtRegistrationNr.getText())
                 .setBoatModel(txtBoatModel.getText())
@@ -149,6 +154,7 @@ public class BoatInsuranceController implements InsuranceController {
     public void displayNewInsurance() {
         embeddedFieldsController.displayNewInsurance(myCustomer);
     }
+
     public void setParentController(detailedCustomerController parentController) {
         this.parentController = parentController;
     }

@@ -1,21 +1,23 @@
-package models.boatInsurance;
+package models.builders.boatInsurance;
 
-
-import models.builders.boatInsurance.BoatBuilder;
-import models.builders.boatInsurance.BoatInsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.insurance.boatInsurance.*;
+import models.insurance.boatInsurance.Boat;
+import models.insurance.boatInsurance.BoatInsurance;
+import models.insurance.boatInsurance.BoatOwner;
 import org.junit.Test;
 
-public class BoatInsuranceTest {
-    BoatInsurance boatInsurance;
+public class BoatInsuranceBuilderTest {
 
-    public void setUp(){
+    @Test
+    public void build() {
+
         Customer customer = new Customer("Michael", "Larsen","Omt 550");
-        try {
 
-            Boat boat1 = new BoatBuilder()
+
+        Boat boat1 = null;
+        try {
+            boat1 = new BoatBuilder()
                     .setRegistrationNr("NE2323")
                     .setBoatModel("S32hh")
                     .setBoatType("Snekke")
@@ -25,21 +27,22 @@ public class BoatInsuranceTest {
                     .setModelYear("1990")
                     .setOwner(new BoatOwner("Pål", "Hansen"))
                     .build();
+        } catch (BuilderInputException e) {
+            e.printStackTrace();
+        }
 
-            boatInsurance = new BoatInsuranceBuilder()
+        try {
+            BoatInsurance boatInsurance = new BoatInsuranceBuilder()
                     .setBoat(boat1)
-                    .setAnnualPremium("191313.33")
+                    .setAnnualPremium("132")
                     .setCoverageDescription("Helt greit")
                     .setRegisteredTo(String.valueOf(customer.getInsuranceNr()))
-                    .setTotal("3133")
+                    .setTotal("2423")
                     .build();
         } catch (BuilderInputException e) {
             e.printStackTrace();
         }
-    }
 
-    @Test
-    public void boatInsuranceValues() {
-        //TODO:Lag test
+
     }
 }

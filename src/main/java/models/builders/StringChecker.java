@@ -1,5 +1,7 @@
 package models.builders;
 
+import java.util.Calendar;
+
 public class StringChecker {
 
     public boolean containsNumbers(String string){
@@ -10,5 +12,24 @@ public class StringChecker {
         return (string == null || string.trim().isEmpty());
     }
 
+    public boolean validYear(int year){
+        Calendar now = Calendar.getInstance();
+
+        if(year > 1000 || now.get(Calendar.YEAR) > year) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean validBooleanString(String string){
+        if(string.toLowerCase().equals("true") || string.toLowerCase().equals("false")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 }
