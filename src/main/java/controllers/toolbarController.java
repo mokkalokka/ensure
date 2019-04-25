@@ -137,10 +137,11 @@ public class toolbarController {
             }
 
             task.setOnSucceeded(event -> {
+                if(readingFromFile){
+                    addCustomers((List<Customer>) task.getValue());
+                }
 
-                addCustomers((List<Customer>) task.getValue());
                 lblProgress.setText(succededTitle);
-
                 btnProgress.setText("Lukk");
                 btnProgress.setOnAction(e -> progressStage.close());
                 fxProgressBar.progressProperty().bind(task.progressProperty());

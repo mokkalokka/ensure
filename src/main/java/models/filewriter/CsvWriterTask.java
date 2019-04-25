@@ -69,6 +69,17 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
                 writer.println(String.join(";", insurance.getFieldValuesAsStrings()));
             }
 
+            //Skriver ut alle skademeldinger
+            for(int i = 0; i< listOfAllAccidentStatements.size(); i++){
+                AccidentStatement accidentStatement = listOfAllAccidentStatements.get(i);
+                if(i == 0){
+                    writer.println(accidentStatement.getInsuranceName());
+                    writer.println(String.join(";",accidentStatement.getFieldNamesAsStrings()));
+                }
+                    writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
+            }
+
+
             // TODO: skriv alle skademeldinger.
         } finally {
             if (writer != null) {
