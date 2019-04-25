@@ -10,5 +10,5 @@ import java.util.List;
 
 interface fileReaderTaskInterface {
 
-     List<Customer> call() throws BuilderInputException, IOException, InvalidLineLengthException, ClassNotFoundException, InvalidCustomerException;
+     List<Customer> call() throws Exception;
 }

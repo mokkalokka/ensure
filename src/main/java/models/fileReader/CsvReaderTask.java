@@ -27,7 +27,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
     }
 
     @Override
-    public List<Customer> call() throws BuilderInputException, IOException, InvalidLineLengthException, InvalidCustomerException {
+    public List<Customer> call() throws Exception{
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 
