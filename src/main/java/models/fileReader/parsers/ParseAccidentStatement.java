@@ -20,6 +20,3 @@ public class ParseAccidentStatement {
         return accidentStatement;
     }
 }
-
-
-// Registrert til	Dato for skade	Type skade	Beskrivelse av skade	Takseringsbeløp	Utbetalt erstatningsbeløp	Skadenummer
