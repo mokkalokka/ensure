@@ -43,7 +43,7 @@ public class AccidentStatementBuilder {
         }
 
         try {
-            this.registeredTo = Integer.parseInt(accidentNr);
+            this.accidentNr = Integer.parseInt(accidentNr);
         } catch (NumberFormatException e) {
             throw new InvalidPositiveIntegerException(fieldName);
         }
