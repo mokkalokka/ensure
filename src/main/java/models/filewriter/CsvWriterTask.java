@@ -3,6 +3,7 @@ package models.filewriter;
 import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.customer.CustomerList;
+import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
 import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
@@ -31,7 +32,10 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
     @Override public Void call() throws Exception {
         PrintWriter writer = null;
         double currentCustomerCount = 0;
-        //path.concat(".csv");
+
+        if(totalCustomers == 0){
+            throw new NoCustomersFoundException();
+        }
 
         try {
             CustomerWriter customerWriter = new CustomerWriter();

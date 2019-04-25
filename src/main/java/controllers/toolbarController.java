@@ -123,25 +123,35 @@ public class toolbarController {
 
     private void waitForUpdates(Task task, Boolean readingFromFile) {
         if (task != null){
+            boolean isCritical = true;
+            String succededTitle;
+            String failedTitle;
+
+            if(readingFromFile){
+                succededTitle = "Alle kunder er lastet inn";
+                failedTitle = "Feil ved lesing av fil";
+            }
+            else{
+                succededTitle = "Alle kunder er skrevet til fil";
+                failedTitle = "Feil ved skriving til fil";
+            }
 
             task.setOnSucceeded(event -> {
-                if(readingFromFile){
-                    addCustomers((List<Customer>) task.getValue());
-                    lblProgress.setText("Alle kunder er lastet inn");
-                }
-                else {
-                    lblProgress.setText("Alle kunder er skrevet til fil");
-                }
+
+                addCustomers((List<Customer>) task.getValue());
+                lblProgress.setText(succededTitle);
+
                 btnProgress.setText("Lukk");
                 btnProgress.setOnAction(e -> progressStage.close());
                 fxProgressBar.progressProperty().bind(task.progressProperty());
-
             });
 
             task.setOnFailed(event -> {
                 progressStage.close();
-                ErrorDialog errorDialog = new ErrorDialog("Feil ved lesing av fil", task.getException().getMessage());
+                ErrorDialog errorDialog = new ErrorDialog(failedTitle,
+                        task.getException().getMessage(), isCritical);
                 errorDialog.show();
+
             });
 
             task.setOnCancelled(event -> {

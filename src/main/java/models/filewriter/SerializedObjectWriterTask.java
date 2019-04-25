@@ -1,6 +1,8 @@
 package models.filewriter;
 
 import javafx.concurrent.Task;
+import models.customer.CustomerList;
+import models.exceptions.fileExceptions.NoCustomersFoundException;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,9 +20,11 @@ public class SerializedObjectWriterTask extends Task implements fileWriterTaskIn
 
     @Override
     public Void call() throws Exception {
-        String filepath = path + ".jobj"; // kanskje .jobj skal være direkte i input
+        if(CustomerList.getCustomerCount() == 0){
+            throw new NoCustomersFoundException();
+        }
 
-        FileOutputStream fos = new FileOutputStream(filepath);
+        FileOutputStream fos = new FileOutputStream(path);
         ObjectOutputStream out = new ObjectOutputStream(fos);
         out.writeObject(customersToFile);
         return null;
