@@ -12,6 +12,10 @@ TODO:
 
 - implementere InsuranceHandler.overWriteExistingInsurance();  dvs insuranceID på alle Insurance. // Jonathan
 
+- Legge til kontaktpersoner for skademeldinger 
+   - tableView
+   - Object contactPerson
+   
 
 - Resten av insurance views / controllers // Eskil
 
