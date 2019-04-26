@@ -22,6 +22,9 @@ public class WindowHandler {
         newStage.setTitle(stageTitle);
         newStage.setScene(new Scene(newFXMLDocument));
 
+        //legger til styles.css i det nye vinduet
+        newStage.getScene().getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
+
         //Setter eieren til det nye vinduet til å være det du kom fra
         newStage.initOwner(currentStage);
         //Låser det gamle vinduet til det nye lukkes

@@ -1,4 +1,18 @@
 .button {
     -fx-font-weight: bold;
     -fx-background-color: #E5E5E5;
+    -fx-border-color: rgb(200,200,200);
+    -fx-border-radius: 0.2em;
+    -jfx-rippler-fill: #0a0a0a;
+}
+
+.text-field{
+    -fx-background-color: #E5E5E5;
+}
+.text-area{
+    -fx-background-color: #E5E5E5;
+}
+
+.root {
+
 }
