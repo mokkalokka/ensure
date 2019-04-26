@@ -24,7 +24,7 @@ public class ResidenceBuilder {
         try{
             int yearOfConstructionInt = Integer.parseInt(yearOfConstruction);
             this.yearOfConstruction = Year.parse(yearOfConstruction);
-            if(stringChecker.validYear(yearOfConstructionInt)){
+            if(!stringChecker.validYear(yearOfConstructionInt)){
                 throw new InvalidYearException(fieldName);
             }
         }

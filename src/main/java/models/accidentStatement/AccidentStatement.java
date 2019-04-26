@@ -2,6 +2,8 @@ package models.accidentStatement;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -40,6 +42,34 @@ public class AccidentStatement implements Serializable {
         this.dispersedCompensation = dispersedCompensation;
     }
 
+
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(dateOfAccident),
+                String.valueOf(accidentType),
+                String.valueOf(accidentDescription),
+                String.valueOf(appraisalAmount),
+                String.valueOf(dispersedCompensation),
+                String.valueOf(accidentNr)
+        ));
+    }
+    public ArrayList<String> getFieldNamesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                "Registrert til",
+                "Dato for skade",
+                "Type skade",
+                "Beskrivelse av skade",
+                "Takseringsbeløp",
+                "Utbetalt erstatningsbeløp",
+                "Skadenummer"));
+    }
+
+
+    public String getInsuranceName(){
+        return "Skademeldinger";
+    }
+
     public int getRegisteredTo() {
         return registeredTo;
     }
@@ -50,6 +80,7 @@ public class AccidentStatement implements Serializable {
         }
         this.accidentNr = accidentNr;
     }
+
 
     public int getAccidentNr() { return accidentNr; }
 

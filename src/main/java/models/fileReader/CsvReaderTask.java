@@ -2,8 +2,6 @@ package models.fileReader;
 
 import javafx.concurrent.Task;
 import models.customer.Customer;
-import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
