@@ -8,23 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
-import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.travelInsurance.TravelInsurance;
 
-public class TravelInsuranceController implements InsuranceController{
-
-    private Customer myCustomer;
-    private InsuranceState state;
-    private TravelInsurance myInsurance;
-
-    @FXML
-    private EmbeddedFieldsController embeddedFieldsController;
-    @FXML
-    private detailedCustomerController parentController;
+public class TravelInsuranceController extends InsuranceController {
 
     @FXML
     private TextField txtMaxCoverage;
@@ -36,6 +24,12 @@ public class TravelInsuranceController implements InsuranceController{
     private JFXRadioButton radioStandard;
     @FXML
     private JFXRadioButton radioPremium;
+
+    @Override
+    public void load() {
+        super.load();
+        setSelectedRadioToggle();
+    }
 
     @FXML
     public void initialize() {
@@ -50,69 +44,18 @@ public class TravelInsuranceController implements InsuranceController{
         });
     }
 
+    @FXML
     private void setLblCoverageArea(String insuranceType) {
         if (insuranceType.equals("STANDARD")) {
             lblCoverageArea.setText("Standard reisemål for reising opptil 30 dager.");
         }
         else if (insuranceType.equals("PREMIUM")) {
-            lblCoverageArea.setText("Standard og høyrisiko reiesemål for reising i opptil 50 dager.");
+            lblCoverageArea.setText("Standard og høyrisiko reisemål for reising i opptil 50 dager.");
         }
-    }
-
-
-
-    @Override
-    public void load() {
-        state.setFields(this);
-    }
-
-    @FXML
-    private void btnSave() {
-        try {
-            state.saveInsurance(this);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            // TODO: display error window
-        } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil ved lagring", e.getMessage());
-            errorDialog.show();
-        }
-        parentController.refreshTables();
-    }
-
-    @FXML
-    private void btnClose() {
-        Stage currentStage = getCurrentStage();
-        currentStage.close();
-    }
-
-    @FXML
-    private Stage getCurrentStage() {
-        return (Stage) lblCoverageArea.getScene().getWindow();
-    }
-
-    @Override
-    public Customer getCustomer() {
-        return myCustomer;
-    }
-
-    @Override
-    public void setCustomer(Customer customer) {
-        myCustomer = customer;
-    }
-
-    @Override
-    public EmbeddedFieldsController getEmbeddedFieldsController() {
-        return embeddedFieldsController;
     }
 
     @Override
     public Insurance getNewInsurance() throws BuilderInputException {
-        boolean isPremium = radioGroup
-                .getSelectedToggle()
-                .getUserData()
-                .equals("PREMIUM");
-
         return new TravelInsuranceBuilder()
                 .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
                 .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
@@ -120,69 +63,42 @@ public class TravelInsuranceController implements InsuranceController{
                 .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
                 .setTotal(embeddedFieldsController.getTxtTotal().getText())
                 .setMaxCoverage(txtMaxCoverage.getText())
-                .setPremium(isPremium)
+                .setPremium(getSelectedRadioValue())
                 .build();
     }
 
     @Override
-    public Insurance getEditedInsurance() throws BuilderInputException {
-        boolean isPremium = radioGroup
-                .getSelectedToggle()
-                .getUserData()
-                .equals("PREMIUM");
-
-        return new TravelInsuranceBuilder()
-                .setInsuranceID(myInsurance.getInsuranceID())
-                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
-                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
-                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
-                .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
-                .setTotal(embeddedFieldsController.getTxtTotal().getText())
-                .setMaxCoverage(txtMaxCoverage.getText())
-                .setPremium(isPremium)
-                .build();
-    }
-
-    @Override
-    public void setState(InsuranceState state) {
-        this.state = state;
-    }
-
-    @Override
-    public void setInsurance(Insurance insurance) {
-        myInsurance = (TravelInsurance) insurance;
-        setSelectedRadioToggle();
+    void updateInsurance() throws BuilderInputException {
+        super.updateInsurance();
+        ((TravelInsurance) myInsurance).setMaxCoverage(Double.parseDouble(txtMaxCoverage.getText()));
+        ((TravelInsurance) myInsurance).setPremium(getSelectedRadioValue());
     }
 
     private void setSelectedRadioToggle() {
-        if (myInsurance != null) {
-            radioPremium.setSelected(myInsurance.isPremium());
+        TravelInsurance myTravelInsurance;
+
+        if ((myTravelInsurance = (TravelInsurance) myInsurance) != null) {
+            radioPremium.setSelected(myTravelInsurance.isPremium());
         } else {
             radioStandard.setSelected(true);
         }
     }
 
-    @Override
-    public void displayExistingInsurance() {
-        embeddedFieldsController.displayExistingInsurance(myInsurance);
-        displayTravelData();
-
+    private boolean getSelectedRadioValue() {
+        return radioGroup.getSelectedToggle()
+                .getUserData()
+                .equals("PREMIUM");
     }
 
     @Override
-    public void setParentController(detailedCustomerController parentController) {
-        this.parentController = parentController;
+    void setUniqueInsuranceFields() {
+        TravelInsurance myTravelInsurance = (TravelInsurance) myInsurance;
+        txtMaxCoverage.setText(String.valueOf(myTravelInsurance.getMaxCoverage()));
     }
 
-    @Override
-    public void displayNewInsurance() {
-        embeddedFieldsController.displayNewInsurance(myCustomer);
+    @FXML
+    Stage getCurrentStage() {
+        return (Stage) lblCoverageArea.getScene().getWindow();
     }
-
-    private void displayTravelData() {
-        txtMaxCoverage.setText(String.valueOf(myInsurance.getMaxCoverage()));
-    }
-
-
 
 }

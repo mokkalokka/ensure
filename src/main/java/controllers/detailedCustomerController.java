@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
+import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
@@ -301,6 +302,26 @@ public class detailedCustomerController {
         }
     }
 
+    @FXML
+    private void btnNewPrimaryResidenceInsurance() {
+        try {
+            String pathToXml = "/org/view/primaryResidenceInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, PrimaryResidenceInsurance.insuranceName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO: display error window.
+        }
+    }
+
+    @FXML
+    private void btnNewSecondaryResidenceInsurance() {
+        try {
+            String pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, SecondaryResidenceInsurance.insuranceName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO: display error window.
+        }
 
     private void openCreateNewAccidentStatementWindow(String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
@@ -316,7 +337,6 @@ public class detailedCustomerController {
         windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
     }
 
-
     private void openExistingAccidentStatementWindow(AccidentStatement accidentStatement, String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
         Parent root = loader.load();
@@ -329,6 +349,7 @@ public class detailedCustomerController {
 
         WindowHandler windowHandler = new WindowHandler();
         windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
+
     }
 
 
@@ -372,11 +393,12 @@ public class detailedCustomerController {
             openExistingInsuranceWindow(insurance, pathToXml, "Reiseforsikring");
         }
         else if (insurance instanceof PrimaryResidenceInsurance) {
-            System.out.println("Primary residence insurance clicked...");
-            // TODO: implementer her.
+            pathToXml = "/org/view/primaryResidenceInsurance.fxml";
+            openExistingInsuranceWindow(insurance, pathToXml, PrimaryResidenceInsurance.insuranceName);
         }
         else if (insurance instanceof SecondaryResidenceInsurance) {
-            System.out.println("Secondary residence insurance clicked..");
+            pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
+            openExistingInsuranceWindow(insurance, pathToXml, SecondaryResidenceInsurance.insuranceName);
         }
         else {
             System.err.println("type of insurance not found!");
@@ -386,12 +408,13 @@ public class detailedCustomerController {
     }
 
     @FXML
-    private void openExistingInsuranceWindow(Insurance insurance, String pathToXml, String stageTitle) throws IOException {
+    private void openExistingInsuranceWindow(Insurance existingInsurance, String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
         Parent root = loader.load();
         InsuranceController controller = loader.getController();
-
-        controller.setInsurance(insurance);
+        
+        controller.setCustomer(currentCustomer);
+        controller.setInsurance(existingInsurance);
         controller.setState(new ExistingInsurance());
         controller.setParentController(this);
         controller.load();

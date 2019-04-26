@@ -16,18 +16,7 @@ import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
 import controllers.detailedCustomerController;
 
-public class BoatInsuranceController implements InsuranceController {
-
-    private Customer myCustomer;
-    private InsuranceState state;
-    private BoatInsurance myInsurance;
-
-    @FXML
-    private detailedCustomerController parentController;
-    @FXML
-    private Parent embeddedFields;
-    @FXML
-    private EmbeddedFieldsController embeddedFieldsController;
+public class BoatInsuranceController extends InsuranceController {
 
     @FXML
     private TextField txtOwnerSurname;
@@ -49,46 +38,24 @@ public class BoatInsuranceController implements InsuranceController {
     private TextField txtEngineHP;
 
 
-    @FXML
-    private void btnSave() {
-        try {
-            state.saveInsurance(this);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            // TODO: display error window
-        } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
-            errorDialog.show();
-        }
-        parentController.refreshTables();
-    }
-
-    @FXML
-    private void btnClose() {
-        Stage currentStage = getCurrentStage();
-        currentStage.close();
-    }
-
-
-    public void load() {
-        state.setFields(this);
-    }
-
-    public void displayExistingInsurance() {
-        embeddedFieldsController.displayExistingInsurance(myInsurance);
+    @Override
+    void setUniqueInsuranceFields() {
         displayBoat();
     }
 
     private void displayBoat() {
-        txtRegistrationNr.setText(myInsurance.getBoat().getBoatModel());
-        txtBoatModel.setText(myInsurance.getBoat().getBoatModel());
-        txtBoatType.setText(myInsurance.getBoat().getBoatType());
-        txtEngineHP.setText(String.valueOf(myInsurance.getBoat().getEngineHP()));
-        txtEngineType.setText(myInsurance.getBoat().getEngineType());
-        txtLengthInFt.setText(String.valueOf(myInsurance.getBoat().getLengthInft()));
-        txtModelYear.setText(myInsurance.getBoat().getModelYear());
-        txtOwnerFirstName.setText(myInsurance.getBoat().getOwner().getFirstName());
-        txtOwnerSurname.setText(myInsurance.getBoat().getOwner().getLastName());
+        BoatInsurance myBoatInsurance = (BoatInsurance) myInsurance;
+        Boat myBoat = myBoatInsurance.getBoat();
+
+        txtRegistrationNr.setText(myBoat.getRegistrationNr());
+        txtBoatType.setText(myBoat.getBoatType());
+        txtBoatModel.setText(myBoat.getBoatModel());
+        txtEngineHP.setText(String.valueOf(myBoat.getEngineHP()));
+        txtEngineType.setText(myBoat.getEngineType());
+        txtLengthInFt.setText(String.valueOf(myBoat.getLengthInft()));
+        txtModelYear.setText(myBoat.getModelYear());
+        txtOwnerFirstName.setText(myBoat.getOwner().getFirstName());
+        txtOwnerSurname.setText(myBoat.getOwner().getLastName());
     }
 
     public Insurance getNewInsurance() throws BuilderInputException {
@@ -101,15 +68,9 @@ public class BoatInsuranceController implements InsuranceController {
                 .build();
     }
 
-    public Insurance getEditedInsurance() throws BuilderInputException {
-        return new BoatInsuranceBuilder()
-                .setInsuranceID(myInsurance.getInsuranceID())
-                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
-                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
-                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
-                .setTotal(embeddedFieldsController.getTxtTotal().getText())
-                .setBoat(getCurrentBoat())
-                .build();
+    void updateInsurance() throws BuilderInputException {
+        super.updateInsurance();
+        ((BoatInsurance) myInsurance).setBoat(getCurrentBoat());
     }
 
     private Boat getCurrentBoat() throws BuilderInputException {
@@ -125,38 +86,8 @@ public class BoatInsuranceController implements InsuranceController {
                 .build();
     }
 
-    public EmbeddedFieldsController getEmbeddedFieldsController() {
-        return embeddedFieldsController;
-    }
-
-    public void setState(InsuranceState state) {
-        this.state = state;
-    }
-
     @Override
-    public void setInsurance(Insurance insurance) {
-        myInsurance = (BoatInsurance) insurance;
-    }
-
-    public void setCustomer(Customer customer) {
-        myCustomer = customer;
-    }
-
-    public Customer getCustomer() {
-        return myCustomer;
-    }
-
-    private Stage getCurrentStage() {
+    Stage getCurrentStage() {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
-
-    @Override
-    public void displayNewInsurance() {
-        embeddedFieldsController.displayNewInsurance(myCustomer);
-    }
-
-    public void setParentController(detailedCustomerController parentController) {
-        this.parentController = parentController;
-    }
-
 }

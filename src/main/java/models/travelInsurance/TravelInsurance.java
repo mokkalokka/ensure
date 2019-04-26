@@ -8,14 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
+
     private final String insuranceName = "Reiseforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
-    /*
-    private enum CoverageType {
-            STANDARD, PREMIUM
-    }
-    */
     private boolean isPremium;
-    //private CoverageType coverageType; // TODO: -> enum Det her må nok være et annet datafelt. HashMap? tvunget til å velge 1?
     private double maxCoverage; // forsikringssum på norsk
 
     public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
@@ -60,13 +55,15 @@ public class TravelInsurance extends Insurance {
         return maxCoverage;
     }
 
-    /*
-    public CoverageType getCoverageType() {
-        return coverageType;
-    }
-    */
-
     public boolean isPremium() {
         return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+    }
+
+    public void setMaxCoverage(double maxCoverage) {
+        this.maxCoverage = maxCoverage;
     }
 }

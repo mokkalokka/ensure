@@ -70,4 +70,15 @@ public abstract class ResidenceInsurance extends Insurance {
         return fieldValues;
     }
 
+    public void setResidence(Residence residence) {
+        this.residence = residence;
+    }
+
+    public void setPropertyInsuranceAmount(double propertyInsuranceAmount) {
+        this.propertyInsuranceAmount = propertyInsuranceAmount;
+    }
+
+    public void setAssetsInsuranceAmount(double assetsInsuranceAmount) {
+        this.assetsInsuranceAmount = assetsInsuranceAmount;
+    }
 }
