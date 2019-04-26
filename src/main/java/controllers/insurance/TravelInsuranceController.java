@@ -1,6 +1,7 @@
 package controllers.insurance;
 
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 import controllers.detailedCustomerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,7 +16,7 @@ import models.travelInsurance.TravelInsurance;
 public class TravelInsuranceController extends InsuranceController {
 
     @FXML
-    private TextField txtMaxCoverage;
+    private JFXTextField txtMaxCoverage;
     @FXML
     private Label lblCoverageArea;
     @FXML

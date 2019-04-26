@@ -1,7 +1,7 @@
 package controllers.insurance;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.builders.residenceInsurance.ResidenceBuilder;
 import models.exceptions.builderExceptions.BuilderInputException;
@@ -12,21 +12,21 @@ import models.insurance.residenceInsurance.ResidenceInsurance;
 public abstract class ResidenceInsuranceController extends InsuranceController {
 
     @FXML
-    protected TextField txtAddress;
+    protected JFXTextField txtAddress;
     @FXML
-    protected TextField txtResidenceType;
+    protected JFXTextField txtResidenceType;
     @FXML
-    protected TextField txtCondition;
+    protected JFXTextField txtCondition;
     @FXML
-    protected TextField txtConstructionMaterial;
+    protected JFXTextField txtConstructionMaterial;
     @FXML
-    protected TextField txtSqMeters;
+    protected JFXTextField txtSqMeters;
     @FXML
-    protected TextField txtPropertyInsuranceAmount;
+    protected JFXTextField txtPropertyInsuranceAmount;
     @FXML
-    protected TextField txtAssetsInsuranceAmount;
+    protected JFXTextField txtAssetsInsuranceAmount;
     @FXML
-    protected TextField txtYearOfConstruction;
+    protected JFXTextField txtYearOfConstruction;
 
     Residence getResidence() throws BuilderInputException {
         return new ResidenceBuilder()

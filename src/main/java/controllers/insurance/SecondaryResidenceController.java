@@ -2,7 +2,6 @@ package controllers.insurance;
 
 import models.builders.residenceInsurance.SecondaryResidenceInsuranceBuilder;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.insurance.Insurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 
 public class SecondaryResidenceController extends ResidenceInsuranceController {

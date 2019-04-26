@@ -36,7 +36,6 @@ public class detailedCustomerController {
     ObservableList<Insurance> insuranceObservableList;
     ObservableList<AccidentStatement> accidentStatementsObservableList;
 
-
     //Insurance table
     @FXML
     private TableView<Insurance> tblInsurance;
@@ -306,7 +305,7 @@ public class detailedCustomerController {
     private void btnNewPrimaryResidenceInsurance() {
         try {
             String pathToXml = "/org/view/primaryResidenceInsurance.fxml";
-            openCreateNewInsuranceWindow(pathToXml, PrimaryResidenceInsurance.insuranceName);
+            openCreateNewInsuranceWindow(pathToXml, "Hus- og boligforsikring");
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: display error window.
@@ -317,7 +316,7 @@ public class detailedCustomerController {
     private void btnNewSecondaryResidenceInsurance() {
         try {
             String pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
-            openCreateNewInsuranceWindow(pathToXml, SecondaryResidenceInsurance.insuranceName);
+            openCreateNewInsuranceWindow(pathToXml, "Fritidsboligforsikring");
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: display error window.
@@ -395,11 +394,11 @@ public class detailedCustomerController {
         }
         else if (insurance instanceof PrimaryResidenceInsurance) {
             pathToXml = "/org/view/primaryResidenceInsurance.fxml";
-            openExistingInsuranceWindow(insurance, pathToXml, PrimaryResidenceInsurance.insuranceName);
+            openExistingInsuranceWindow(insurance, pathToXml, "Hus- og boligforsikring");
         }
         else if (insurance instanceof SecondaryResidenceInsurance) {
             pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
-            openExistingInsuranceWindow(insurance, pathToXml, SecondaryResidenceInsurance.insuranceName);
+            openExistingInsuranceWindow(insurance, pathToXml, "Fritidsboligforsikring");
         }
         else {
             System.err.println("type of insurance not found!");

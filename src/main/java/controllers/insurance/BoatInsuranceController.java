@@ -1,5 +1,6 @@
 package controllers.insurance;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
@@ -19,24 +20,23 @@ import controllers.detailedCustomerController;
 public class BoatInsuranceController extends InsuranceController {
 
     @FXML
-    private TextField txtOwnerSurname;
+    private JFXTextField txtOwnerSurname;
     @FXML
-    private TextField txtOwnerFirstName;
+    private JFXTextField txtOwnerFirstName;
     @FXML
-    private TextField txtRegistrationNr;
+    private JFXTextField txtRegistrationNr;
     @FXML
-    private TextField txtBoatType;
+    private JFXTextField txtBoatType;
     @FXML
-    private TextField txtLengthInFt;
+    private JFXTextField txtLengthInFt;
     @FXML
-    private TextField txtModelYear;
+    private JFXTextField txtModelYear;
     @FXML
-    private TextField txtEngineType;
+    private JFXTextField txtEngineType;
     @FXML
-    private TextField txtBoatModel;
+    private JFXTextField txtBoatModel;
     @FXML
-    private TextField txtEngineHP;
-
+    private JFXTextField txtEngineHP;
 
     @Override
     void setUniqueInsuranceFields() {
@@ -58,6 +58,7 @@ public class BoatInsuranceController extends InsuranceController {
         txtOwnerSurname.setText(myBoat.getOwner().getLastName());
     }
 
+    @Override
     public Insurance getNewInsurance() throws BuilderInputException {
         return new BoatInsuranceBuilder()
                 .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
@@ -68,6 +69,7 @@ public class BoatInsuranceController extends InsuranceController {
                 .build();
     }
 
+    @Override
     void updateInsurance() throws BuilderInputException {
         super.updateInsurance();
         ((BoatInsurance) myInsurance).setBoat(getCurrentBoat());
