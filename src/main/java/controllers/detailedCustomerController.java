@@ -322,6 +322,7 @@ public class detailedCustomerController {
             e.printStackTrace();
             //TODO: display error window.
         }
+    }
 
     private void openCreateNewAccidentStatementWindow(String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
