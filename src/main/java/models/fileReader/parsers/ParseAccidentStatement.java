@@ -1,8 +1,9 @@
 package models.fileReader.parsers;
 
 import models.builders.AccidentStatementBuilder;
+import models.accidentStatement.AccidentStatement;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.insurance.AccidentStatement;
+
 
 public class ParseAccidentStatement {
     public static AccidentStatement parseAccidentStatement(String[] lineArray) throws BuilderInputException {

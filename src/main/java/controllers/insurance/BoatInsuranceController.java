@@ -90,5 +90,4 @@ public class BoatInsuranceController extends InsuranceController {
     Stage getCurrentStage() {
         return (Stage) txtBoatModel.getScene().getWindow();
     }
-
 }

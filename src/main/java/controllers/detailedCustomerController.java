@@ -1,6 +1,9 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
+import controllers.accidentStatement.AccidentStatementController;
+import controllers.accidentStatement.ExinstingAccidentStatement;
+import controllers.accidentStatement.NewAccidentStatement;
 import controllers.insurance.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -12,11 +15,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -99,7 +103,16 @@ public class detailedCustomerController {
         currentStage.close();
     }
 
-
+    @FXML
+    private void btnNewAccidentStatement() {
+        try {
+            String pathToXml = "/org/view/accidentStatement.fxml";
+            openCreateNewAccidentStatementWindow(pathToXml, "Skademelding");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO
+        }
+    }
 
     @FXML
     private void btnSaveCustomer() {
@@ -134,7 +147,11 @@ public class detailedCustomerController {
     }
 
     private void openDetailedAccidentStatement(AccidentStatement clickedAccidentStatement) {
-
+        try {
+            openExistingAccidentStatementWindow(clickedAccidentStatement, "/org/view/accidentStatement.fxml", "Skademelding");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void removeAccidentStatement(AccidentStatement accidentStatement) {
@@ -274,11 +291,10 @@ public class detailedCustomerController {
         tblAccidentStatement.setItems(accidentStatementsObservableList);
     }
 
-
     @FXML
-    private void btnNewBoatInsurance() {
+    private void btnNewTravelInsurance() {
         try {
-            String pathToXml = "/org/view/boatInsurance.fxml";
+            String pathToXml = "/org/view/travelInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
         } catch (IOException e) {
             e.printStackTrace();
@@ -306,18 +322,48 @@ public class detailedCustomerController {
             e.printStackTrace();
             //TODO: display error window.
         }
+
+    private void openCreateNewAccidentStatementWindow(String pathToXml, String stageTitle) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
+        Parent root = loader.load();
+        AccidentStatementController controller = loader.getController();
+
+        controller.setCustomer(currentCustomer);
+        controller.setState(new NewAccidentStatement());
+        controller.setParentController(this);
+        controller.load();
+
+        WindowHandler windowHandler = new WindowHandler();
+        windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
     }
 
+    private void openExistingAccidentStatementWindow(AccidentStatement accidentStatement, String pathToXml, String stageTitle) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
+        Parent root = loader.load();
+        AccidentStatementController controller = loader.getController();
+
+        controller.setAccidentStatement(accidentStatement);
+        controller.setState(new ExinstingAccidentStatement());
+        controller.setParentController(this);
+        controller.load();
+
+        WindowHandler windowHandler = new WindowHandler();
+        windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
+
+    }
+
+
     @FXML
-    private void btnNewTravelInsurance() {
+    private void btnNewBoatInsurance() {
         try {
-            String pathToXml = "/org/view/travelInsurance.fxml";
-            openCreateNewInsuranceWindow(pathToXml, "Reiseforsikring");
+            String pathToXml = "/org/view/boatInsurance.fxml";
+            openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: Display error window.
         }
     }
+
 
     @FXML
     private void openCreateNewInsuranceWindow(String pathToXml, String stageTitle) throws IOException {

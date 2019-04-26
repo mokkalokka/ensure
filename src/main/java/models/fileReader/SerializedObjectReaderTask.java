@@ -4,6 +4,7 @@ import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.fileExceptions.WrongSerialVersionIDException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,14 +19,17 @@ public class SerializedObjectReaderTask extends Task implements fileReaderTaskIn
     }
 
     @Override
-    public List<Customer> call() throws IOException, ClassNotFoundException, InvalidCustomerException {
+    public List<Customer> call() throws Exception{
+        try{
         FileInputStream fin = new FileInputStream(path);
         ObjectInputStream oin = new ObjectInputStream(fin);
         List<Customer> loadedCustomers = (List<Customer>) oin.readObject();
 
-        // TODO: Lag custom exceptions for InvalidCustomerFormat som denne metoden skal kaste.
-
         return loadedCustomers;
+        }
+        catch (IOException e){
+            throw new WrongSerialVersionIDException();
+        }
     }
 
     @Override

@@ -1,7 +1,9 @@
 package models.builders;
 
+
+import models.accidentStatement.AccidentStatement;
 import models.exceptions.builderExceptions.*;
-import models.insurance.AccidentStatement;
+
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

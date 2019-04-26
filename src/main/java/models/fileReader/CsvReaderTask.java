@@ -7,7 +7,7 @@ import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
-import models.insurance.AccidentStatement;
+import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
@@ -27,7 +27,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
     }
 
     @Override
-    public List<Customer> call() throws BuilderInputException, IOException, InvalidLineLengthException, InvalidCustomerException {
+    public List<Customer> call() throws Exception{
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 

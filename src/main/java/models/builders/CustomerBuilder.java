@@ -4,11 +4,8 @@ import models.customer.Customer;
 import models.exceptions.customerExceptions.EmptyFieldsException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
-import models.insurance.AccidentStatement;
-import models.insurance.Insurance;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class CustomerBuilder {
 
