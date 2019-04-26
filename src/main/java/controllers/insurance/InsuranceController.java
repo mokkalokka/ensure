@@ -91,5 +91,4 @@ public abstract class InsuranceController {
 
     abstract Insurance getNewInsurance() throws BuilderInputException;
 
-    abstract Insurance getEditedInsurance() throws BuilderInputException;
 }

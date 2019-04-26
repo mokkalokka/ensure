@@ -73,17 +73,6 @@ public class BoatInsuranceController extends InsuranceController {
         ((BoatInsurance) myInsurance).setBoat(getCurrentBoat());
     }
 
-    public Insurance getEditedInsurance() throws BuilderInputException {
-        return new BoatInsuranceBuilder()
-                .setInsuranceID(myInsurance.getInsuranceID())
-                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
-                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
-                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
-                .setTotal(embeddedFieldsController.getTxtTotal().getText())
-                .setBoat(getCurrentBoat())
-                .build();
-    }
-
     private Boat getCurrentBoat() throws BuilderInputException {
         return new BoatBuilder()
                 .setRegistrationNr(txtRegistrationNr.getText())

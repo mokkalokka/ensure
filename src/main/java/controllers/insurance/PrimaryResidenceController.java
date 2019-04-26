@@ -31,18 +31,4 @@ public class PrimaryResidenceController extends ResidenceInsuranceController {
                 .setAssetsInsuranceAmount(txtAssetsInsuranceAmount.getText())
                 .build();
     }
-
-    @Override
-    public PrimaryResidenceInsurance getEditedInsurance() throws BuilderInputException {
-        return new PrimaryResidenceInsuranceBuilder()
-                .setInsuranceID(myInsurance.getInsuranceID())
-                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
-                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
-                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
-                .setTotal(embeddedFieldsController.getTxtTotal().getText())
-                .setResidence(super.getResidence())
-                .setPropertyInsuranceAmount(txtPropertyInsuranceAmount.getText())
-                .setAssetsInsuranceAmount(txtAssetsInsuranceAmount.getText())
-                .build();
-    }
 }

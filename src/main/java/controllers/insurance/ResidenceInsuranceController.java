@@ -68,8 +68,6 @@ public abstract class ResidenceInsuranceController extends InsuranceController {
         return (Stage) txtCondition.getScene().getWindow();
     }
 
-    abstract Insurance getEditedInsurance() throws BuilderInputException;
-
     abstract Insurance getNewInsurance() throws BuilderInputException;
 
 }

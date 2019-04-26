@@ -25,6 +25,12 @@ public class TravelInsuranceController extends InsuranceController {
     @FXML
     private JFXRadioButton radioPremium;
 
+    @Override
+    public void load() {
+        super.load();
+        setSelectedRadioToggle();
+    }
+
     @FXML
     public void initialize() {
         radioStandard.setUserData("STANDARD");
@@ -38,6 +44,7 @@ public class TravelInsuranceController extends InsuranceController {
         });
     }
 
+    @FXML
     private void setLblCoverageArea(String insuranceType) {
         if (insuranceType.equals("STANDARD")) {
             lblCoverageArea.setText("Standard reisemål for reising opptil 30 dager.");
@@ -65,26 +72,6 @@ public class TravelInsuranceController extends InsuranceController {
         super.updateInsurance();
         ((TravelInsurance) myInsurance).setMaxCoverage(Double.parseDouble(txtMaxCoverage.getText()));
         ((TravelInsurance) myInsurance).setPremium(getSelectedRadioValue());
-    }
-
-    @Override
-    public Insurance getEditedInsurance() throws BuilderInputException {
-        return new TravelInsuranceBuilder()
-                .setInsuranceID(myInsurance.getInsuranceID())
-                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
-                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
-                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
-                .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
-                .setTotal(embeddedFieldsController.getTxtTotal().getText())
-                .setMaxCoverage(txtMaxCoverage.getText())
-                .setPremium(getSelectedRadioValue())
-                .build();
-    }
-
-    @Override
-    public void setInsurance(Insurance insurance) {
-        super.setInsurance(insurance);
-        setSelectedRadioToggle();
     }
 
     private void setSelectedRadioToggle() {
