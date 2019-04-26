@@ -24,12 +24,12 @@ public class EmbeddedFieldsController {
 
 
 
-    public void displayNewInsurance(Customer ownerOfInsurance) {
+    void displayNewInsurance(Customer ownerOfInsurance) {
         txtRegisteredTo.setText(String.valueOf(ownerOfInsurance.getInsuranceNr()));
         txtDateOfIssue.setText(String.valueOf(LocalDate.now()));
     }
 
-    public void displayExistingInsurance(Insurance insurance) {
+    void displayExistingInsurance(Insurance insurance) {
         txtRegisteredTo.setText(String.valueOf(insurance.getRegisteredTo()));
         txtDateOfIssue.setText(String.valueOf(insurance.getDateOfIssue()));
         txtTotal.setText(String.valueOf(insurance.getTotal()));
@@ -37,23 +37,23 @@ public class EmbeddedFieldsController {
         txtAnnualPremium.setText(String.valueOf(insurance.getAnnualPremium()));
     }
 
-    public TextField getTxtRegisteredTo() {
+    TextField getTxtRegisteredTo() {
         return txtRegisteredTo;
     }
 
-    public TextField getTxtDateOfIssue() {
+    TextField getTxtDateOfIssue() {
         return txtDateOfIssue;
     }
 
-    public TextField getTxtTotal() {
+    TextField getTxtTotal() {
         return txtTotal;
     }
 
-    public TextField getTxtCoverageDescription() {
+    TextField getTxtCoverageDescription() {
         return txtCoverageDescription;
     }
 
-    public TextField getTxtAnnualPremium() {
+    TextField getTxtAnnualPremium() {
         return txtAnnualPremium;
     }
 }

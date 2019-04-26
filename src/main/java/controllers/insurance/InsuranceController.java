@@ -1,31 +1,95 @@
 package controllers.insurance;
 
 import controllers.detailedCustomerController;
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 
-public interface InsuranceController {
+public abstract class InsuranceController {
 
-    Customer getCustomer();
+    Insurance myInsurance;
+    Customer myCustomer;
+    InsuranceState state;
 
-    void setCustomer(Customer customer);
+    @FXML
+    EmbeddedFieldsController embeddedFieldsController;
+    @FXML
+    detailedCustomerController parentController;
 
-    EmbeddedFieldsController getEmbeddedFieldsController();
+    public void load() {
+        state.setFields(this);
+    }
 
-    Insurance getNewInsurance() throws BuilderInputException;
+    @FXML
+    void btnSave() {
+        try {
+            state.saveInsurance(this);
+        } catch (InvalidCustomerException e) {
+            e.printStackTrace();
+            //TODO: display error window
+        } catch (BuilderInputException e) {
+            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
+            errorDialog.show();
+        }
+        parentController.refreshTables();
+    }
 
-    Insurance getEditedInsurance() throws BuilderInputException;
+    @FXML
+    void btnClose() {
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
+    }
 
-    void load();
+    void displayExistingInsurance() {
+        setCommonInsuranceFields();
+        setUniqueInsuranceFields();
+    }
 
-    void setState(InsuranceState state);
+    void displayNewInsurance() {
+        embeddedFieldsController.displayNewInsurance(myCustomer);
+    }
 
-    void setInsurance(Insurance insurance);
+    // Setter feltene som er felles for alle forsikringer.
+    private void setCommonInsuranceFields() {
+        embeddedFieldsController.displayExistingInsurance(myInsurance);
+    }
 
-    void displayExistingInsurance();
+    // Setter feltene som er unike for de ulike forsikringstypene.
+    abstract void setUniqueInsuranceFields();
 
-    void displayNewInsurance();
+    public void setParentController(detailedCustomerController parentController) {
+        this.parentController = parentController;
+    }
 
-    void setParentController(detailedCustomerController parent);
+    Customer getCustomer() {
+        return myCustomer;
+    }
+
+    public void setCustomer(Customer customer) {
+        myCustomer = customer;
+    }
+
+    public void setState(InsuranceState state) {
+        this.state = state;
+    }
+
+    public void setInsurance(Insurance insurance) {
+        myInsurance = insurance;
+    }
+
+    void updateInsurance() throws BuilderInputException {
+        myInsurance.setAnnualPremium(Double.parseDouble(embeddedFieldsController.getTxtAnnualPremium().getText()));
+        myInsurance.setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText());
+        myInsurance.setTotal(Double.parseDouble(embeddedFieldsController.getTxtTotal().getText()));
+    }
+
+    abstract Stage getCurrentStage();
+
+    abstract Insurance getNewInsurance() throws BuilderInputException;
+
+    abstract Insurance getEditedInsurance() throws BuilderInputException;
 }

@@ -347,11 +347,11 @@ public class detailedCustomerController {
             openExistingInsuranceWindow(insurance, pathToXml, "Reiseforsikring");
         }
         else if (insurance instanceof PrimaryResidenceInsurance) {
-            pathToXml = "/org/view/residenceInsurance.fxml";
+            pathToXml = "/org/view/primaryResidenceInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, PrimaryResidenceInsurance.insuranceName);
         }
         else if (insurance instanceof SecondaryResidenceInsurance) {
-            pathToXml = "/org/view/residenceInsurance.fxml";
+            pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, SecondaryResidenceInsurance.insuranceName);
         }
         else {
@@ -362,12 +362,13 @@ public class detailedCustomerController {
     }
 
     @FXML
-    private void openExistingInsuranceWindow(Insurance insurance, String pathToXml, String stageTitle) throws IOException {
+    private void openExistingInsuranceWindow(Insurance existingInsurance, String pathToXml, String stageTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
         Parent root = loader.load();
         InsuranceController controller = loader.getController();
-
-        controller.setInsurance(insurance);
+        
+        controller.setCustomer(currentCustomer);
+        controller.setInsurance(existingInsurance);
         controller.setState(new ExistingInsurance());
         controller.setParentController(this);
         controller.load();
