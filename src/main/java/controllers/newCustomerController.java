@@ -8,31 +8,29 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.gui.ErrorDialog;
+import models.insurance.InsuranceCompany;
 
 public class newCustomerController {
 
-    /* Alle datafelt fra FXML vinduet */
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
+
     @FXML
     private JFXTextField txtFirstName;
-
     @FXML
     private JFXTextField txtLastName;
-
     @FXML
     private JFXTextField txtInvoiceAddress;
-
     @FXML
     private Label lblStatus;
 
     @FXML
     private void btnAddCustomer() {
         try {
-            CustomerList.addCustomer(getCurrentCustomer());
+            INS_COMP.addCustomer(getCurrentCustomer());
             updateStatus("Kunden er lagt til i listen");
             resetFieldColor();
         } catch (InvalidCustomerException e) {
@@ -71,7 +69,7 @@ public class newCustomerController {
 
     @FXML
     private void updateStatus(String message){
-        int customerCount = CustomerList.getCustomerCount();
+        int customerCount = INS_COMP.getCustomerCount();
         lblStatus.setText(message + "\n\nAntall brukere i systemet: " + customerCount);
     }
 

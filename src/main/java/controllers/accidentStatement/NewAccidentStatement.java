@@ -1,11 +1,14 @@
 package controllers.accidentStatement;
 
 import models.accidentStatement.AccidentStatement;
-import models.accidentStatement.AccidentStatementHandler;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.insurance.InsuranceCompany;
 
 public class NewAccidentStatement implements AccidentStatementState {
+
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
+
     @Override
     public void setFields(AccidentStatementController controller) {
         controller.displayNewAccidentStatement();
@@ -15,10 +18,9 @@ public class NewAccidentStatement implements AccidentStatementState {
     public void saveAccidentStatement(AccidentStatementController controller) throws InvalidCustomerException, BuilderInputException {
         AccidentStatement newAccidentStatement = controller.getNewAccidentStatement();
 
-        AccidentStatementHandler accidentStatementHandler = new AccidentStatementHandler();
-        accidentStatementHandler.addNewAccidentStatement(newAccidentStatement);
+        INS_COMP.addAccidentStatementToCustomer(newAccidentStatement);
 
         controller.setAccidentStatement(newAccidentStatement);
-        controller.setState(new ExinstingAccidentStatement());
+        controller.setState(new ExistingAccidentStatement());
     }
 }

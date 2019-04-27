@@ -3,6 +3,7 @@ package controllers.insurance;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.Insurance;
+import models.insurance.InsuranceCompany;
 import models.insurance.InsuranceHandler;
 
 public class NewInsurance implements InsuranceState {
@@ -16,8 +17,8 @@ public class NewInsurance implements InsuranceState {
     public void saveInsurance(InsuranceController controller) throws InvalidCustomerException, BuilderInputException {
         Insurance newInsurance = controller.getNewInsurance();
 
-        InsuranceHandler insuranceHandler = new InsuranceHandler();
-        insuranceHandler.addNewInsurance(newInsurance);
+        InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
+        INS_COMP.addInsuranceToCustomer(controller.getNewInsurance());
 
         controller.setInsurance(newInsurance);
         controller.setState(new ExistingInsurance());
