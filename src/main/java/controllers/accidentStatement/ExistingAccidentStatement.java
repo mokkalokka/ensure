@@ -1,9 +1,7 @@
 package controllers.accidentStatement;
 
-import models.accidentStatement.AccidentStatementHandler;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.insurance.InsuranceCompany;
 
 public class ExistingAccidentStatement implements AccidentStatementState {
 

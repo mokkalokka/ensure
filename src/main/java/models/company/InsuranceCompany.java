@@ -1,12 +1,12 @@
-package models.insurance;
+package models.company;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.accidentStatement.AccidentStatement;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.customerExceptions.DuplicateCustomerException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.insurance.Insurance;
 
 import java.util.List;
 

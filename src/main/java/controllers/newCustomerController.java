@@ -9,10 +9,8 @@ import javafx.stage.Stage;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.InvalidFirstNameException;
-import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.gui.ErrorDialog;
-import models.insurance.InsuranceCompany;
+import models.company.InsuranceCompany;
 
 public class newCustomerController {
 

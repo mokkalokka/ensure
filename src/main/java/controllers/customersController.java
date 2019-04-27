@@ -1,8 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
 import models.gui.WindowHandler;
-import models.insurance.InsuranceCompany;
+import models.company.InsuranceCompany;
 
 import java.io.IOException;
 

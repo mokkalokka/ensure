@@ -20,7 +20,7 @@ import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-import models.insurance.InsuranceCompany;
+import models.company.InsuranceCompany;
 
 import java.io.File;
 import java.io.IOException;
