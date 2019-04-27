@@ -1,3 +1,7 @@
+.root {
+
+}
+
 .button {
     -fx-font-weight: bold;
     -fx-background-color: #E5E5E5;
@@ -13,6 +17,16 @@
     -fx-background-color: #E5E5E5;
 }
 
-.root {
-
+/*.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #E5E5E5;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; !* 0 *!
 }
+
+.table-row-cell:even{
+    -fx-background-color: -fx-table-cell-border-color, rgb(220,219,220);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; !* 0 *!
+}*/
+
+
