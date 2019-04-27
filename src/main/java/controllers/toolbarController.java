@@ -1,7 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -14,9 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Threading.FileReaderTask;
 import models.customer.Customer;
 import models.customer.CustomerList;
-import models.fileReader.CsvReaderTask;
 import models.fileReader.SerializedObjectReaderTask;
 import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
@@ -109,16 +108,12 @@ public class toolbarController {
 
 
     private Task executeFileReaderTask(String path, String fileExtension) {
-        Task<List<Customer>> task = null;
+        //Task<List<Customer>> task = null;
         ExecutorService service = Executors.newSingleThreadExecutor();
 
-        if (fileExtension.equals("csv")) {
-            task = new CsvReaderTask(path);
-            service.execute(task);
-        } else if (fileExtension.equals("jobj")) {
-            task = new SerializedObjectReaderTask(path);
-            service.execute(task);
-        }
+        Task<List<Customer>> task = new FileReaderTask(path, fileExtension);
+        service.execute(task);
+
         return task;
     }
 
