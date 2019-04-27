@@ -1,6 +1,7 @@
 package models.filewriter;
 
 import javafx.concurrent.Task;
+import models.company.InsuranceCompany;
 import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class SerializedObjectWriterTask extends Task implements fileWriterTaskInterface{
+
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private final Object customersToFile;
     private final String path;
 
@@ -20,7 +23,7 @@ public class SerializedObjectWriterTask extends Task implements fileWriterTaskIn
 
     @Override
     public Void call() throws Exception {
-        if(CustomerList.getCustomerCount() == 0){
+        if(INS_COMP.getCustomerCount() == 0){
             throw new NoCustomersFoundException();
         }
 
