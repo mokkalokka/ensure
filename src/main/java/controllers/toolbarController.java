@@ -12,6 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.threading.FileReaderTask;
 import models.customer.Customer;
@@ -209,14 +210,17 @@ public class toolbarController {
 
 
 
+    //Denne metoden tegner ett vindu med progressbar programatisk
     private void progressWindow(Task task, String title){
+
+        //Instansierer det nye vinduet og elementene som skal være med
         progressStage = new Stage();
         fxProgressBar = new ProgressBar();
         btnProgress = new JFXButton();
         lblProgress = new Label();
         btnProgress.setText("Avbryt");
-        btnProgress.setStyle("-fx-background-color: #E5E5E5;");
 
+        //Legger til muligheten til å kanselere skriving/lesing av fil fra knappen
         btnProgress.setOnAction(event -> {
             task.cancel();
             progressStage.close();
@@ -232,9 +236,15 @@ public class toolbarController {
 
         Scene scene = new Scene(root, 200, 100);
 
+        //Legger til refereanse for css fila
+        scene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
+
+        //Setter eieren til det nye vinduet til å være det du kom fra
+        progressStage.initOwner(getCurrentStage());
+        //Låser det gamle vinduet til det nye lukkes
+        progressStage.initModality(Modality.WINDOW_MODAL);
 
         progressStage.setTitle(title);
-
         progressStage.setScene(scene);
         progressStage.show();
 
