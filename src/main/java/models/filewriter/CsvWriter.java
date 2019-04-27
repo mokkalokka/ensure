@@ -1,11 +1,10 @@
 package models.filewriter;
 
-import javafx.concurrent.Task;
+import models.accidentStatement.AccidentStatement;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
-import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 
 import java.io.PrintWriter;
@@ -13,27 +12,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CsvWriterTask extends Task implements fileWriterTaskInterface {
-
+public class CsvWriter extends FileWriterStrategy {
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
-    private final Double totalCustomers;
-    private final List<Customer> customerList;
-    private final String path;
 
-    public CsvWriterTask(List<Customer> customerList, String path) {
+    public CsvWriter(String path, List<Customer> customerList) {
+        super(path, customerList);
         listOfAllInsurances = new ArrayList<>();
         listOfAllAccidentStatements = new ArrayList<>();
-        this.customerList = customerList;
-        this.path = path;
-        this.totalCustomers = Double.valueOf(CustomerList.getCustomerCount());
     }
 
-    @Override public Void call() throws Exception {
+    @Override
+    public void writeFile() throws Exception {
         PrintWriter writer = null;
         double currentCustomerCount = 0;
 
-        if(totalCustomers == 0){
+        if(CustomerList.getCustomerCount() == 0){
             throw new NoCustomersFoundException();
         }
 
@@ -45,14 +39,11 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
             writer.println("Kunder");
             writer.println(customerWriter.generateHeader());
             for (Customer customer : customerList) {
-                currentCustomerCount += 1;
-                updateProgress(currentCustomerCount,totalCustomers);
                 writer.println(customerWriter.write(customer));
                 listOfAllInsurances.addAll(customer.getListOfInsurances());
                 listOfAllAccidentStatements.addAll(customer.getListOfAccidentStatements());
             }
 
-            // TODO: listOfAllInsurances må her være sortert etter klasse, dette må implementeres med en compareTo e.l.
             Collections.sort(listOfAllInsurances);
             for (int i = 0; i < listOfAllInsurances.size(); i++) {
                 Insurance insurance = listOfAllInsurances.get(i);
@@ -76,9 +67,8 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
                     writer.println(accidentStatement.getInsuranceName());
                     writer.println(String.join(";",accidentStatement.getFieldNamesAsStrings()));
                 }
-                    writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
+                writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
             }
-
 
             // TODO: skriv alle skademeldinger.
         } finally {
@@ -86,10 +76,12 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
                 writer.close();
             }
         }
-        return  null;
+
     }
-    
+
+
     private boolean currentInsuranceIsDifferentType(Insurance currentInsurance, Insurance previousInsurance) {
         return currentInsurance.getClass() != previousInsurance.getClass();
     }
+
 }

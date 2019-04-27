@@ -1,4 +1,4 @@
-package models.Threading;
+package models.threading;
 
 import javafx.concurrent.Task;
 import models.exceptions.fileExceptions.UnsuportedFileExtensionException;

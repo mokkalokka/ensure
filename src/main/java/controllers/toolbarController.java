@@ -13,14 +13,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.Threading.FileReaderTask;
+import models.threading.FileReaderTask;
 import models.customer.Customer;
 import models.customer.CustomerList;
-import models.fileReader.SerializedObjectReaderTask;
 import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
+import models.threading.FileWriterTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,29 +86,18 @@ public class toolbarController {
     }
 
     private Task executeFileWriterTask(String path, String fileExtension) {
-        Task task = null;
-        ExecutorService service = Executors.newSingleThreadExecutor();
 
         ArrayList<Customer> customersToFile = new ArrayList<>(CustomerList.getCustomerList());
+        ExecutorService service = Executors.newSingleThreadExecutor();
 
-        if(fileExtension.equals("jobj")){
-            //SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
-            //serializedObjectWriter.writeObject(customersToFile,path); // TODO: Fiks exceptions!
-            task = new SerializedObjectWriterTask(customersToFile, path);
-            service.execute(task);
-        }
+        Task task = new FileWriterTask(path,fileExtension,customersToFile);
+        service.execute(task);
 
-        else if (fileExtension.equals("csv")){
-            //writeToCsv(path);
-            task = new CsvWriterTask(customersToFile, path);
-            service.execute(task);
-        }
         return task;
     }
 
 
     private Task executeFileReaderTask(String path, String fileExtension) {
-        //Task<List<Customer>> task = null;
         ExecutorService service = Executors.newSingleThreadExecutor();
 
         Task<List<Customer>> task = new FileReaderTask(path, fileExtension);
@@ -242,6 +231,7 @@ public class toolbarController {
         fxProgressBar.progressProperty().bind(task.progressProperty());
 
         Scene scene = new Scene(root, 200, 100);
+
 
         progressStage.setTitle(title);
 
