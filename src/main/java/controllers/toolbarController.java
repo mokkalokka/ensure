@@ -194,7 +194,9 @@ public class toolbarController {
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
         } catch (IOException e) {
-            //TODO error vindu
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved innlasting av vindu",
+                    "Finner ikke filen til vinduet", true);
+            errorDialog.show();
         }
     }
 
