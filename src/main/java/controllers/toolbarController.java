@@ -16,15 +16,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.threading.FileReaderTask;
 import models.customer.Customer;
-import models.filewriter.CsvWriterTask;
-import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-
 import models.company.InsuranceCompany;
 import models.threading.FileWriterTask;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,10 +87,8 @@ public class toolbarController {
 
     private Task executeFileWriterTask(String path, String fileExtension) {
 
-
         ArrayList<Customer> customersToFile = new ArrayList<>(INS_COMP.getCustomerList());
         ExecutorService service = Executors.newSingleThreadExecutor();
-
 
         Task task = new FileWriterTask(path,fileExtension,customersToFile);
         service.execute(task);
