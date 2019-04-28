@@ -2,9 +2,11 @@ package controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import controllers.accidentStatement.AccidentStatementController;
-import controllers.accidentStatement.ExinstingAccidentStatement;
+import controllers.accidentStatement.ExistingAccidentStatement;
 import controllers.accidentStatement.NewAccidentStatement;
 import controllers.insurance.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,10 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
-import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
@@ -240,6 +240,13 @@ public class detailedCustomerController {
             return aRow;
         });
         tblInsurance.setItems(insuranceObservableList);
+
+        insuranceObservableList.addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                tblInsurance.refresh();
+            }
+        });
     }
 
     private void initializeAccidentStatementTable() {
@@ -343,7 +350,7 @@ public class detailedCustomerController {
         AccidentStatementController controller = loader.getController();
 
         controller.setAccidentStatement(accidentStatement);
-        controller.setState(new ExinstingAccidentStatement());
+        controller.setState(new ExistingAccidentStatement());
         controller.setParentController(this);
         controller.load();
 

@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 7374958920320110060L;
-    public static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000); // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
+    private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000); // TODO: finn en robust måte å hente indeks på, fiks dette i AccidentStatement.accidentNr også.
 
     private int insuranceNr;
     private String lastName;

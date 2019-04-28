@@ -14,6 +14,7 @@ import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 
 public class AccidentStatementController {
+
     private Customer currentCustomer;
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
@@ -21,26 +22,21 @@ public class AccidentStatementController {
 
     @FXML
     private TextField txtAccidentType;
-
     @FXML
     private TextField txtAccidentNr;
-
     @FXML
     private DatePicker dateOfAccident;
-
     @FXML
     private TextField txtAppraisalAmount;
-
     @FXML
     private TextField txtDispersedCompensation;
-
     @FXML
     private TextArea txtAccidentDescription;
 
     @FXML
     private void btnClose() {
-        Stage currentstage = getCurrentStage();
-        currentstage.close();
+        Stage currentStage = getCurrentStage();
+        currentStage.close();
     }
 
     @FXML
@@ -90,15 +86,15 @@ public class AccidentStatementController {
         txtAccidentDescription.setText(currentAccidentStatement.getAccidentDescription());
     }
 
-    public AccidentStatement getEditedAccidentStatement() throws BuilderInputException {
-        return new AccidentStatementBuilder()
-                .setAccidentType(txtAccidentType.getText())
-                .setRegisteredTo(txtAccidentNr.getText())
-                .setDateOfAccident(dateOfAccident.getValue().toString())
-                .setAppraisalAmount(txtAppraisalAmount.getText())
-                .setDispersedCompensation(txtDispersedCompensation.getText())
-                .setAccidentDescription(txtAccidentDescription.getText())
-                .build();
+    public void updateAccidentStatement() {
+        assert currentAccidentStatement != null;
+
+        // TODO: dette må vise error ved feil input.
+        currentAccidentStatement.setAccidentDescription(txtAccidentDescription.getText());
+        currentAccidentStatement.setAccidentType(txtAccidentType.getText());
+        currentAccidentStatement.setAppraisalAmount(Double.parseDouble(txtAppraisalAmount.getText()));
+        currentAccidentStatement.setDateOfAccident(dateOfAccident.getValue());
+        currentAccidentStatement.setDispersedCompensation(Double.parseDouble(txtDispersedCompensation.getText()));
     }
 
     public void setAccidentStatement(AccidentStatement accidentStatement) {

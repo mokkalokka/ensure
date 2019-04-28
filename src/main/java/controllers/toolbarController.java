@@ -16,12 +16,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.threading.FileReaderTask;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
+
+import models.company.InsuranceCompany;
 import models.threading.FileWriterTask;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +33,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class toolbarController {
+
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
 
     @FXML
     private AnchorPane anchorPane;
@@ -88,8 +92,10 @@ public class toolbarController {
 
     private Task executeFileWriterTask(String path, String fileExtension) {
 
-        ArrayList<Customer> customersToFile = new ArrayList<>(CustomerList.getCustomerList());
+
+        ArrayList<Customer> customersToFile = new ArrayList<>(INS_COMP.getCustomerList());
         ExecutorService service = Executors.newSingleThreadExecutor();
+
 
         Task task = new FileWriterTask(path,fileExtension,customersToFile);
         service.execute(task);
@@ -156,7 +162,7 @@ public class toolbarController {
             ErrorDialog errorDialog = new ErrorDialog("Error", "Feil ved lesing fra fil");
             errorDialog.show();
         } else {
-            CustomerList.initializeNewList(customerListFromFile);
+            INS_COMP.initNewCustomerList(customerListFromFile);
         }
     }
 
@@ -202,6 +208,7 @@ public class toolbarController {
 
     @FXML
     private void toolbarHelp(ActionEvent event){
+        // TODO
 
     }
 
@@ -253,7 +260,7 @@ public class toolbarController {
     }
 
     public void initialize(){
-
+        // TODO
     }
 
 }

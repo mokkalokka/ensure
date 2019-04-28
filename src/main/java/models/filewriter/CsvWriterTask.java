@@ -1,8 +1,8 @@
 package models.filewriter;
 
 import javafx.concurrent.Task;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
 import models.accidentStatement.AccidentStatement;
@@ -15,6 +15,7 @@ import java.util.List;
 
 public class CsvWriterTask extends Task implements fileWriterTaskInterface {
 
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
     private final Double totalCustomers;
@@ -26,7 +27,7 @@ public class CsvWriterTask extends Task implements fileWriterTaskInterface {
         listOfAllAccidentStatements = new ArrayList<>();
         this.customerList = customerList;
         this.path = path;
-        this.totalCustomers = Double.valueOf(CustomerList.getCustomerCount());
+        this.totalCustomers = Double.valueOf(INS_COMP.getCustomerCount());
     }
 
     @Override public Void call() throws Exception {

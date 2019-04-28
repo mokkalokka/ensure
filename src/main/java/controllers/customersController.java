@@ -16,41 +16,35 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.gui.WindowHandler;
+import models.company.InsuranceCompany;
 
 import java.io.IOException;
 
 import java.time.LocalDate;
 
 public class customersController {
-    //Alle fx elementene
+
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
+    private final ObservableList observableCustomerList = INS_COMP.getCustomerList();
+
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
     private JFXTextField txtSearch;
-
     @FXML
     private TableView<Customer> tblCustomer;
-
     @FXML
     private TableColumn<Customer, Integer> clmnInsuranceNr;
-
     @FXML
     private TableColumn<Customer, String> clmnSurname;
-
     @FXML
     private TableColumn<Customer, String> clmnFirstName;
-
     @FXML
     private TableColumn<Customer, LocalDate>  clmnCustomerSince;
-
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;
 
-    //Lokalt peker for lista
-    private ObservableList observableCustomerList = CustomerList.getCustomerList();
 
     @FXML
     private void btnRegister() {
@@ -82,7 +76,7 @@ public class customersController {
     }
 
     private void removeCustomer(Customer clickedCustomer) {
-        CustomerList.removeCustomer(clickedCustomer);
+        INS_COMP.removeCustomer(clickedCustomer);
         tblCustomer.refresh();
     }
 
@@ -132,6 +126,7 @@ public class customersController {
 
 
     public void initialize() {
+
         //Klikking paa kunder
 
         //Funksjon pa alle rader in tablet

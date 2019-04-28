@@ -103,4 +103,25 @@ public class AccidentStatement implements Serializable {
     public String getAccidentType() {
         return accidentType;
     }
+
+
+    public void setDateOfAccident(LocalDate dateOfAccident) {
+        this.dateOfAccident = dateOfAccident;
+    }
+
+    public void setAccidentType(String accidentType) {
+        this.accidentType = accidentType;
+    }
+
+    public void setAccidentDescription(String accidentDescription) {
+        this.accidentDescription = accidentDescription;
+    }
+
+    public void setAppraisalAmount(double appraisalAmount) {
+        this.appraisalAmount = appraisalAmount;
+    }
+
+    public void setDispersedCompensation(double dispersedCompensation) {
+        this.dispersedCompensation = dispersedCompensation;
+    }
 }
