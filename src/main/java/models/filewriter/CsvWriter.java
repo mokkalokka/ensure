@@ -1,6 +1,7 @@
 package models.filewriter;
 
 import models.accidentStatement.AccidentStatement;
+import models.accidentStatement.Witness;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
@@ -15,11 +16,13 @@ import java.util.List;
 public class CsvWriter extends FileWriterStrategy {
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
+    private final List<Witness> listOfAllWitnesses;
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
         listOfAllInsurances = new ArrayList<>();
         listOfAllAccidentStatements = new ArrayList<>();
+        listOfAllWitnesses = new ArrayList<>();
     }
 
     @Override
@@ -44,6 +47,10 @@ public class CsvWriter extends FileWriterStrategy {
                 listOfAllAccidentStatements.addAll(customer.getListOfAccidentStatements());
             }
 
+            for (AccidentStatement accidentStatement : listOfAllAccidentStatements){
+                listOfAllWitnesses.addAll(accidentStatement.getWitnessContactInfo());
+            }
+
             Collections.sort(listOfAllInsurances);
             for (int i = 0; i < listOfAllInsurances.size(); i++) {
                 Insurance insurance = listOfAllInsurances.get(i);
@@ -64,13 +71,22 @@ public class CsvWriter extends FileWriterStrategy {
             for(int i = 0; i< listOfAllAccidentStatements.size(); i++){
                 AccidentStatement accidentStatement = listOfAllAccidentStatements.get(i);
                 if(i == 0){
-                    writer.println(accidentStatement.getInsuranceName());
+                    writer.println("Skademeldinger");
                     writer.println(String.join(";",accidentStatement.getFieldNamesAsStrings()));
                 }
                 writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
             }
 
-            // TODO: skriv alle skademeldinger.
+            //Skriver ut alle vitner
+            for(int i = 0; i< listOfAllWitnesses.size(); i++){
+                Witness witness = listOfAllWitnesses.get(i);
+                if(i == 0){
+                    writer.println("Vitner");
+                    writer.println(String.join(";", witness.getFieldNamesAsStrings()));
+                }
+                writer.println(String.join(";", witness.getFieldValuesAsStrings()));
+            }
+
         } finally {
             if (writer != null) {
                 writer.close();

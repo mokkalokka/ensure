@@ -1,6 +1,10 @@
 package models.accidentStatement;
 
-public class Witness {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Witness implements Serializable {
     private int registeredTo;
     private String firstName;
     private String lastName;
@@ -25,6 +29,25 @@ public class Witness {
 
     public int getRegisteredTo() {
         return registeredTo;
+    }
+
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(forAccidentStatement),
+                String.valueOf(lastName),
+                String.valueOf(firstName),
+                String.valueOf(contactInformation)
+        ));
+    }
+    public ArrayList<String> getFieldNamesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                "Registrert til",
+                "Tilhører skadenummer",
+                "Etternavn",
+                "Fornavn",
+                "Kontaktinformasjon"
+        ));
     }
 
     public int getForAccidentStatement() {
