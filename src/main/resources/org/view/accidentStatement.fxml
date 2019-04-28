@@ -40,7 +40,7 @@
                            </Label>
                        </left>
                      <right>
-                           <JFXTextField fx:id="txtAccidentType" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
+                           <JFXTextField fx:id="txtAccidentType" maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </right>
                    </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -52,7 +52,7 @@
                         </Label>
                      </left>
                      <right>
-                        <JFXTextField fx:id="txtAccidentNr" editable="false" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
+                        <JFXTextField fx:id="txtAccidentNr" editable="false" maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </right>
                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -76,7 +76,7 @@
                            </Label>
                        </left>
                      <right>
-                           <JFXTextField fx:id="txtAppraisalAmount" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
+                           <JFXTextField fx:id="txtAppraisalAmount" maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </right>
                    </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
@@ -88,17 +88,15 @@
                         </Label>
                      </left>
                      <right>
-                        <JFXTextField fx:id="txtDispersedCompensation" maxWidth="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" BorderPane.alignment="CENTER" />
+                        <JFXTextField fx:id="txtDispersedCompensation" maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </right>
                   </BorderPane>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                      <left>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <center>
-                              <JFXButton onAction="#btnSave" style="-fx-background-color: #E5E5E5;" text="Lagre" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
+                              <JFXButton onAction="#btnSave" text="Lagre" BorderPane.alignment="CENTER">
+
                               </JFXButton>
                            </center>
                         </BorderPane>
@@ -106,10 +104,8 @@
                      <right>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <center>
-                              <JFXButton onAction="#btnClose" style="-fx-background-color: #E5E5E5;" text="Lukk" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
+                              <JFXButton onAction="#btnClose" text="Lukk" BorderPane.alignment="CENTER">
+
                               </JFXButton>
                            </center>
                         </BorderPane>
@@ -135,7 +131,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <JFXTextArea fx:id="txtAccidentDescription" maxWidth="500.0" prefHeight="450.0" prefWidth="374.0" style="-fx-background-color: #E5E5E5;" wrapText="true">
+                        <JFXTextArea fx:id="txtAccidentDescription" maxWidth="500.0" prefHeight="450.0" prefWidth="374.0" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></JFXTextArea>

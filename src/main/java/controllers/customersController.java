@@ -112,6 +112,10 @@ public class customersController {
             newStage.setTitle(title);
 
             Scene newScene = new Scene(root);
+
+            //legger til styles.css i det nye vinduet
+            newScene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
+
             newStage.setScene(newScene);
 
             newStage.initOwner(getCurrentStage());
