@@ -2,6 +2,7 @@ package models.filewriter;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
@@ -17,6 +18,7 @@ public class CsvWriter extends FileWriterStrategy {
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
     private final List<Witness> listOfAllWitnesses;
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
@@ -30,7 +32,7 @@ public class CsvWriter extends FileWriterStrategy {
         PrintWriter writer = null;
         double currentCustomerCount = 0;
 
-        if(CustomerList.getCustomerCount() == 0){
+        if(INS_COMP.getCustomerCount() == 0){
             throw new NoCustomersFoundException();
         }
 

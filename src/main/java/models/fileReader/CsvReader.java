@@ -2,6 +2,7 @@ package models.fileReader;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchAccidentStatementException;
@@ -21,7 +22,6 @@ import java.util.List;
 
 public class CsvReader extends FileReaderStrategy {
     private ArrayList<Customer> loadedCustomers = new ArrayList<>();
-
 
     public CsvReader(String path) {
         super(path);
