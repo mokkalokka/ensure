@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.customersController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.customersController">
    <children>
        <fx:include source="toolbar.fxml" />
       <AnchorPane layoutY="28.0" prefHeight="572.0" prefWidth="900.0">
          <children>
-            <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="219.0" promptText="Søk i kunder" style="-fx-background-color: #E5E5E5;" />
-            <TableView fx:id="tblCustomer" layoutY="54.0" prefHeight="518.0" prefWidth="900.0">
+            <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="219.0" promptText="Søk i kunder"  />
+            <TableView fx:id="tblCustomer" layoutY="54.0" prefHeight="518.0">
               <columns>
                 <TableColumn fx:id="clmnInsuranceNr" prefWidth="83.0" text="KundeNr" />
                 <TableColumn fx:id="clmnSurname" minWidth="2.6666259765625" prefWidth="184.0" text="Etternavn" />
@@ -21,7 +21,7 @@
                 <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaaddresse" />
               </columns>
             </TableView>
-            <JFXButton layoutX="752.0" layoutY="16.0" onAction="#btnRegister" ripplerFill="#0a0a0a" style="-fx-background-color: #E5E5E5;" text="Registrer ny kunde" />
+            <JFXButton layoutX="752.0" layoutY="16.0" onAction="#btnRegister"  text="Registrer ny kunde" />
          </children>
       </AnchorPane>
    </children>

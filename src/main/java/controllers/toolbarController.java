@@ -12,15 +12,18 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.threading.FileReaderTask;
 import models.customer.Customer;
-import models.fileReader.CsvReaderTask;
-import models.fileReader.SerializedObjectReaderTask;
 import models.filewriter.CsvWriterTask;
 import models.filewriter.SerializedObjectWriterTask;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
+
 import models.company.InsuranceCompany;
+import models.threading.FileWriterTask;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -88,38 +91,25 @@ public class toolbarController {
     }
 
     private Task executeFileWriterTask(String path, String fileExtension) {
-        Task task = null;
-        ExecutorService service = Executors.newSingleThreadExecutor();
+
 
         ArrayList<Customer> customersToFile = new ArrayList<>(INS_COMP.getCustomerList());
+        ExecutorService service = Executors.newSingleThreadExecutor();
 
-        if(fileExtension.equals("jobj")){
-            //SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter();
-            //serializedObjectWriter.writeObject(customersToFile,path); // TODO: Fiks exceptions!
-            task = new SerializedObjectWriterTask(customersToFile, path);
-            service.execute(task);
-        }
 
-        else if (fileExtension.equals("csv")){
-            //writeToCsv(path);
-            task = new CsvWriterTask(customersToFile, path);
-            service.execute(task);
-        }
+        Task task = new FileWriterTask(path,fileExtension,customersToFile);
+        service.execute(task);
+
         return task;
     }
 
 
     private Task executeFileReaderTask(String path, String fileExtension) {
-        Task<List<Customer>> task = null;
         ExecutorService service = Executors.newSingleThreadExecutor();
 
-        if (fileExtension.equals("csv")) {
-            task = new CsvReaderTask(path);
-            service.execute(task);
-        } else if (fileExtension.equals("jobj")) {
-            task = new SerializedObjectReaderTask(path);
-            service.execute(task);
-        }
+        Task<List<Customer>> task = new FileReaderTask(path, fileExtension);
+        service.execute(task);
+
         return task;
     }
 
@@ -210,7 +200,9 @@ public class toolbarController {
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
         } catch (IOException e) {
-            //TODO error vindu
+            ErrorDialog errorDialog = new ErrorDialog("Feil ved innlasting av vindu",
+                    "Finner ikke filen til vinduet", true);
+            errorDialog.show();
         }
     }
 
@@ -227,14 +219,17 @@ public class toolbarController {
 
 
 
+    //Denne metoden tegner ett vindu med progressbar programatisk
     private void progressWindow(Task task, String title){
+
+        //Instansierer det nye vinduet og elementene som skal være med
         progressStage = new Stage();
         fxProgressBar = new ProgressBar();
         btnProgress = new JFXButton();
         lblProgress = new Label();
         btnProgress.setText("Avbryt");
-        btnProgress.setStyle("-fx-background-color: #E5E5E5;");
 
+        //Legger til muligheten til å kanselere skriving/lesing av fil fra knappen
         btnProgress.setOnAction(event -> {
             task.cancel();
             progressStage.close();
@@ -250,8 +245,15 @@ public class toolbarController {
 
         Scene scene = new Scene(root, 200, 100);
 
-        progressStage.setTitle(title);
+        //Legger til refereanse for css fila
+        scene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
 
+        //Setter eieren til det nye vinduet til å være det du kom fra
+        progressStage.initOwner(getCurrentStage());
+        //Låser det gamle vinduet til det nye lukkes
+        progressStage.initModality(Modality.WINDOW_MODAL);
+
+        progressStage.setTitle(title);
         progressStage.setScene(scene);
         progressStage.show();
 
