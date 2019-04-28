@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AccidentStatement implements Serializable {
@@ -17,7 +16,7 @@ public class AccidentStatement implements Serializable {
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
-    private ArrayList<Witness> witnessContactInfo = new ArrayList<>(); // TODO: Finne noe smart her
+    private ArrayList<Witness> listOfWitnesses = new ArrayList<>(); // TODO: Finne noe smart her
 
     public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation) {
         this.accidentNr = NEXT_ACCIDENT_NR.getAndIncrement();
@@ -43,16 +42,21 @@ public class AccidentStatement implements Serializable {
     }
 
 
-    public void setWitnessContactInfo(ArrayList<Witness> witnessContactInfo) {
-        this.witnessContactInfo = witnessContactInfo;
+    public void setListOfWitnesses(ArrayList<Witness> listOfWitnesses) {
+        this.listOfWitnesses = listOfWitnesses;
+
+        //Legger til riktig accidentNr for hver av vitnene for å kunne lese/skrive csv
+        for(Witness witness : listOfWitnesses){
+            witness.setForAccidentStatement(this.accidentNr);
+        }
     }
 
     public void addWitnessContactInfo(Witness witness) {
-        this.witnessContactInfo.add(witness);
+        this.listOfWitnesses.add(witness);
     }
 
-    public ArrayList<Witness> getWitnessContactInfo() {
-        return witnessContactInfo;
+    public ArrayList<Witness> getListOfWitnesses() {
+        return listOfWitnesses;
     }
 
     public ArrayList<String> getFieldValuesAsStrings() {

@@ -48,7 +48,7 @@ public class CsvWriter extends FileWriterStrategy {
             }
 
             for (AccidentStatement accidentStatement : listOfAllAccidentStatements){
-                listOfAllWitnesses.addAll(accidentStatement.getWitnessContactInfo());
+                listOfAllWitnesses.addAll(accidentStatement.getListOfWitnesses());
             }
 
             Collections.sort(listOfAllInsurances);
