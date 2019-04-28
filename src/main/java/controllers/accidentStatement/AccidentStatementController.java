@@ -1,6 +1,10 @@
 package controllers.accidentStatement;
 
+import controllers.insurance.InsuranceController;
+import controllers.insurance.NewInsurance;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,6 +16,9 @@ import controllers.detailedCustomerController;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
+import models.gui.WindowHandler;
+
+import java.io.IOException;
 
 public class AccidentStatementController {
 
@@ -32,6 +39,7 @@ public class AccidentStatementController {
     private TextField txtDispersedCompensation;
     @FXML
     private TextArea txtAccidentDescription;
+
 
     @FXML
     private void btnClose() {

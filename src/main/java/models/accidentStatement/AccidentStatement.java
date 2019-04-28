@@ -15,7 +15,7 @@ public class AccidentStatement implements Serializable {
     private int accidentNr; // skal inkrementeres.
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
-    // private ArrayList<ContactInfo> witnessContactInfo; // TODO: Finne noe smart her
+    private ArrayList<Witness> witnessContactInfo; // TODO: Finne noe smart her
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
 
@@ -40,6 +40,11 @@ public class AccidentStatement implements Serializable {
         this.accidentDescription = accidentDescription;
         this.appraisalAmount = appraisalAmount;
         this.dispersedCompensation = dispersedCompensation;
+    }
+
+
+    public void setWitnessContactInfo(ArrayList<Witness> witnessContactInfo) {
+        this.witnessContactInfo = witnessContactInfo;
     }
 
 
