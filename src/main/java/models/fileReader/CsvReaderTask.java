@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CsvReaderTask extends Task implements fileReaderTaskInterface{
+public class CsvReaderTask extends Task implements fileReaderTaskInterface {
+
     private static ArrayList<Customer> loadedCustomers = new ArrayList<>();
     private final String path;
 
@@ -147,6 +148,7 @@ public class CsvReaderTask extends Task implements fileReaderTaskInterface{
         }
         throw (new NoSuchCustomerException());
     }
+
     private static void addAccidentStatementToLoadedCustomers(AccidentStatement accidentStatement) throws NoSuchCustomerException {
         for (Customer customer : loadedCustomers) {
             if (customer.getInsuranceNr() == accidentStatement.getRegisteredTo()) {
