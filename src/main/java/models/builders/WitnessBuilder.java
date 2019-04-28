@@ -1,29 +1,40 @@
 package models.builders;
 
 import models.accidentStatement.Witness;
-import models.exceptions.customerExceptions.EmptyFieldsException;
+import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.builderExceptions.EmptyFieldException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
 
 public class WitnessBuilder {
 
     private final StringChecker sc = new StringChecker();
-    private int registeredTo = 0;
+    private int registeredTo;
+    private int forAccidentNr = 0;
     private String lastName;
     private String firstName;
     private String contactInformation;
 
-    public WitnessBuilder setRegisteredTo(String registeredTo) throws EmptyFieldsException {
+    public WitnessBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
         if (sc.isEmptyOrNull(registeredTo)) {
-            throw new EmptyFieldsException();
+            throw new EmptyFieldException("Registrert til");
         }
         this.registeredTo = Integer.parseInt(registeredTo);
         return this;
     }
 
-    public WitnessBuilder setLastName(String lastName) throws InvalidLastNameException, EmptyFieldsException {
+    public WitnessBuilder setForAccidentNr(String forAccidentNr) throws BuilderInputException {
+        if (sc.isEmptyOrNull(forAccidentNr)) {
+            throw new EmptyFieldException("Hører til skadenummer");
+        }
+        this.forAccidentNr = Integer.parseInt(forAccidentNr);
+        return this;
+    }
+
+    public WitnessBuilder setLastName(String lastName) throws BuilderInputException, InvalidLastNameException {
+        String fieldName = "Etternavn";
         if (sc.isEmptyOrNull(lastName)) {
-            throw new EmptyFieldsException();
+            throw new EmptyFieldException(fieldName);
         }
         else if (sc.containsNumbers(lastName)) {
             throw new InvalidLastNameException();
@@ -32,9 +43,9 @@ public class WitnessBuilder {
         return this;
     }
 
-    public WitnessBuilder setFirstName(String firstName) throws InvalidFirstNameException, EmptyFieldsException {
+    public WitnessBuilder setFirstName(String firstName) throws BuilderInputException, InvalidFirstNameException {
         if (sc.isEmptyOrNull(firstName)) {
-            throw new EmptyFieldsException();
+            throw new EmptyFieldException("Fornavn");
         }
         else if (sc.containsNumbers(firstName)) {
             throw new InvalidFirstNameException();
@@ -43,23 +54,35 @@ public class WitnessBuilder {
         return this;
     }
 
-    public WitnessBuilder setContactInformation(String contactInformation) throws EmptyFieldsException {
+    public WitnessBuilder setContactInformation(String contactInformation) throws BuilderInputException {
         if (sc.isEmptyOrNull(contactInformation)) {
-            throw new EmptyFieldsException();
+            throw new EmptyFieldException("Kontaktinformasjon");
         }
         this.contactInformation = contactInformation;
         return this;
     }
 
 
+
     public Witness build() {
-        return new Witness(
-                registeredTo,
-                firstName,
-                lastName,
-                contactInformation
-        );
+        if (forAccidentNr == 0) {
+            return new Witness(
+                    registeredTo,
+                    firstName,
+                    lastName,
+                    contactInformation);
+        }
+        else{
+            return new Witness(
+                    registeredTo,
+                    firstName,
+                    lastName,
+                    contactInformation,
+                    forAccidentNr);
+        }
+
     }
-
-
 }
+
+
+

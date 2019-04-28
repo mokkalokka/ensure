@@ -138,6 +138,7 @@ public class toolbarController {
                         task.getException().getMessage(), isCritical);
                 errorDialog.show();
 
+
             });
 
             task.setOnCancelled(event -> {

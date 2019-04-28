@@ -15,9 +15,9 @@ public class AccidentStatement implements Serializable {
     private int accidentNr; // skal inkrementeres.
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
-    private ArrayList<Witness> witnessContactInfo; // TODO: Finne noe smart her
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
+    private ArrayList<Witness> witnessContactInfo = new ArrayList<>(); // TODO: Finne noe smart her
 
     public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation) {
         this.accidentNr = NEXT_ACCIDENT_NR.getAndIncrement();
@@ -47,6 +47,13 @@ public class AccidentStatement implements Serializable {
         this.witnessContactInfo = witnessContactInfo;
     }
 
+    public void addWitnessContactInfo(Witness witness) {
+        this.witnessContactInfo.add(witness);
+    }
+
+    public ArrayList<Witness> getWitnessContactInfo() {
+        return witnessContactInfo;
+    }
 
     public ArrayList<String> getFieldValuesAsStrings() {
         return new ArrayList<>(Arrays.asList(

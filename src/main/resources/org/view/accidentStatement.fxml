@@ -110,9 +110,6 @@
                            </center>
                         </BorderPane>
                      </right>
-                     <bottom>
-                        <JFXButton text="Register vitne" BorderPane.alignment="CENTER" />
-                     </bottom>
                   </BorderPane>
                </children>
             </GridPane>

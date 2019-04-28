@@ -13,6 +13,7 @@ import models.builders.CustomerBuilder;
 import models.builders.WitnessBuilder;
 import models.company.InsuranceCompany;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 
@@ -37,18 +38,18 @@ public class newWitnessController {
             WitnessHandler witnessHandler = new WitnessHandler();
             witnessHandler.addTemporaryWitness(getNewWitness());
 
-        } catch (InvalidCustomerException e) {
+        } catch (Exception e) {
             new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
     }
 
-    private Witness getNewWitness() throws InvalidCustomerException {
-        return new WitnessBuilder()
-                .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
-                .setFirstName(txtFirstName.getText())
-                .setLastName(txtLastName.getText())
-                .setContactInformation(txtContactInformation.getText())
-                .build();
+    private Witness getNewWitness() throws Exception{
+            return new WitnessBuilder()
+                    .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
+                    .setFirstName(txtFirstName.getText())
+                    .setLastName(txtLastName.getText())
+                    .setContactInformation(txtContactInformation.getText())
+                    .build();
     }
 
 
