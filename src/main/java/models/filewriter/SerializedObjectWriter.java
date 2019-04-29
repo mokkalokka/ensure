@@ -16,7 +16,7 @@ public class SerializedObjectWriter extends FileWriterStrategy {
 
     @Override
     public void writeFile() throws Exception {
-        if(CustomerList.getCustomerCount() == 0){
+        if(customerList.size() == 0){
             throw new NoCustomersFoundException();
         }
 

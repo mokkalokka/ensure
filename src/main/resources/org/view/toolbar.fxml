@@ -9,17 +9,12 @@
    <children>
       <MenuBar prefHeight="29.0" prefWidth="900.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Fil">
+          <Menu fx:id="menu" mnemonicParsing="false" text="Fil">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#toolbarOpenFile" text="Åpne" />
                   <MenuItem mnemonicParsing="false" onAction="#toolbarSaveAs" text="Lagre som ..." />
               <MenuItem mnemonicParsing="false" onAction="#toolbarNewCustomer" text="Registrer ny kunde" />
               <MenuItem mnemonicParsing="false" onAction="#toolbarClose" text="Lukk" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Hjelp">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Hjelp for ensure" />
             </items>
           </Menu>
         </menus>

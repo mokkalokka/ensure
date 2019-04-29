@@ -8,11 +8,11 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.threading.FileReaderTask;
 import models.customer.Customer;
@@ -30,9 +30,12 @@ import java.util.concurrent.Executors;
 public class toolbarController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
+    private customersController customersController;
 
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Menu menu;
 
     //Progress bar FXML komponenter
     @FXML
@@ -40,6 +43,8 @@ public class toolbarController {
     private JFXButton btnProgress;
     private Label lblProgress;
     private ProgressBar fxProgressBar;
+
+
 
     @FXML
     private void toolbarOpenFile() {
@@ -125,14 +130,17 @@ public class toolbarController {
                 if(readingFromFile){
                     addCustomers((List<Customer>) task.getValue());
                 }
-
+                setReadOnly(false);
                 lblProgress.setText(succededTitle);
                 btnProgress.setText("Lukk");
-                btnProgress.setOnAction(e -> progressStage.close());
+                btnProgress.setOnAction(e -> {
+                    progressStage.close();
+                });
                 fxProgressBar.progressProperty().bind(task.progressProperty());
             });
 
             task.setOnFailed(event -> {
+                setReadOnly(false);
                 progressStage.close();
                 ErrorDialog errorDialog = new ErrorDialog(failedTitle,
                         task.getException().getMessage(), isCritical);
@@ -142,6 +150,7 @@ public class toolbarController {
             });
 
             task.setOnCancelled(event -> {
+                setReadOnly(false);
                 ErrorDialog errorDialog = new ErrorDialog("Avbrutt","Abrutt av bruker");
                 errorDialog.show();
             });
@@ -244,13 +253,26 @@ public class toolbarController {
         //Setter eieren til det nye vinduet til å være det du kom fra
         progressStage.initOwner(getCurrentStage());
         //Låser det gamle vinduet til det nye lukkes
-        progressStage.initModality(Modality.WINDOW_MODAL);
+        //progressStage.initModality(Modality.WINDOW_MODAL);
 
         progressStage.setTitle(title);
         progressStage.setScene(scene);
         progressStage.show();
 
+        //Låser elementer
+        setReadOnly(true);
     }
+
+    public void setReadOnly(boolean isReadOnly){
+        customersController.setReadOnly(isReadOnly);
+        menu.setDisable(isReadOnly);
+    }
+
+    public void setCustomersController(controllers.customersController customersController) {
+        this.customersController = customersController;
+    }
+
+
 
     public void initialize(){
         // TODO
