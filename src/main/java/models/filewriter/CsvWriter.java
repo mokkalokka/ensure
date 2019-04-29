@@ -8,13 +8,13 @@ import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
 import models.insurance.Insurance;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CsvWriter extends FileWriterStrategy {
+    private static final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
     private final List<Witness> listOfAllWitnesses;
@@ -30,7 +30,6 @@ public class CsvWriter extends FileWriterStrategy {
     @Override
     public void writeFile() throws Exception {
         PrintWriter writer = null;
-        double currentCustomerCount = 0;
 
         if(INS_COMP.getCustomerCount() == 0){
             throw new NoCustomersFoundException();
