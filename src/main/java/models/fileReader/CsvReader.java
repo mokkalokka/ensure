@@ -1,7 +1,11 @@
 package models.fileReader;
 
 import models.accidentStatement.AccidentStatement;
+import models.accidentStatement.Witness;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
+import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.NoSuchAccidentStatementException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
@@ -17,8 +21,7 @@ import java.util.List;
 
 
 public class CsvReader extends FileReaderStrategy {
-    private static ArrayList<Customer> loadedCustomers = new ArrayList<>();
-
+    private ArrayList<Customer> loadedCustomers = new ArrayList<>();
 
     public CsvReader(String path) {
         super(path);
@@ -55,65 +58,71 @@ public class CsvReader extends FileReaderStrategy {
 
             switch (currentClass) {
                 case "Kunder":
-                    if(lineArray.length == 6){
+                    if (lineArray.length == 6) {
                         loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
-                    }
-                    else{
-                        throw new InvalidLineLengthException("kunde", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("kunde", (int) currentLine);
                     }
                     break;
 
                 case "Batforsikringer":
-                    if(lineArray.length == 14){
+                    if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
-                    }
-                    else{
-                        throw new InvalidLineLengthException("båtforsikring", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("båtforsikring", (int) currentLine);
                     }
                     break;
 
 
                 case PrimaryResidenceInsurance.insuranceName:
-                    if(lineArray.length == 14){
+                    if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
-                    }
-                    else{
-                        throw new InvalidLineLengthException("husforsikring", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("husforsikring", (int) currentLine);
                     }
 
                     break;
 
                 case SecondaryResidenceInsurance.insuranceName:
-                    if(lineArray.length == 14){
+                    if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
-                    }
-                    else{
-                        throw new InvalidLineLengthException("fritidsboligforsikring", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("fritidsboligforsikring", (int) currentLine);
                     }
 
                     break;
 
                 case "Reiseforsikringer":
-                    if(lineArray.length == 8) {
+                    if (lineArray.length == 8) {
                         addInsuranceToLoadedCustomers(
                                 ParseTravelInsurance.parseTravelInsurance(lineArray));
-                    }
-                    else{
-                        throw new InvalidLineLengthException("reiseforsikring", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("reiseforsikring", (int) currentLine);
                     }
                     break;
 
 
                 case "Skademeldinger":
-                    if(lineArray.length == 7)
+                    if (lineArray.length == 7) {
                         addAccidentStatementToLoadedCustomers(
                                 ParseAccidentStatement.parseAccidentStatement(lineArray));
-                    else{
-                        throw new InvalidLineLengthException("skademelding", (int)currentLine);
+                    } else {
+                        throw new InvalidLineLengthException("skademelding", (int) currentLine);
                     }
 
+                    break;
+
+                case "Vitner":
+                    if (lineArray.length == 5) {
+                        addWitnessToLoadedCustomers(
+                                ParseWitness.parseWitness(lineArray)
+                        );
+
+                    } else {
+                        throw new InvalidLineLengthException("vitner", (int) currentLine);
+                    }
                     break;
             }
 
@@ -121,17 +130,18 @@ public class CsvReader extends FileReaderStrategy {
         br.close();
         return loadedCustomers;
     }
+
     private Double getTotalLines(String path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
         Double totalLines = 0.0;
         while ((line = br.readLine()) != null) {
-            totalLines ++;
+            totalLines++;
         }
         return totalLines;
     }
 
-    private static void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
+    private void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
         for (Customer customer : loadedCustomers) {
             if (customer.getInsuranceNr() == insurance.getRegisteredTo()) {
                 customer.addInsurance(insurance);
@@ -140,7 +150,8 @@ public class CsvReader extends FileReaderStrategy {
         }
         throw (new NoSuchCustomerException());
     }
-    private static void addAccidentStatementToLoadedCustomers(AccidentStatement accidentStatement) throws NoSuchCustomerException {
+
+    private void addAccidentStatementToLoadedCustomers(AccidentStatement accidentStatement) throws NoSuchCustomerException {
         for (Customer customer : loadedCustomers) {
             if (customer.getInsuranceNr() == accidentStatement.getRegisteredTo()) {
                 customer.addAccidentStatement(accidentStatement);
@@ -150,6 +161,24 @@ public class CsvReader extends FileReaderStrategy {
         throw (new NoSuchCustomerException());
     }
 
+    private void addWitnessToLoadedCustomers(Witness witness) throws InvalidCustomerException {
+        //Finner riktig kunde
+        for (Customer customer : loadedCustomers) {
+            if (customer.getInsuranceNr() == witness.getRegisteredTo()) {
+
+                //Finner riktig Skademelding og legger til vitne
+                for (AccidentStatement accidentStatement : customer.getListOfAccidentStatements()) {
+                    if (accidentStatement.getAccidentNr() == witness.getForAccidentStatement()) {
+                        accidentStatement.addWitnessContactInfo(witness);
+                        return;
+                    }
+                }
+                throw new NoSuchAccidentStatementException();
+
+            }
+        }
+        throw new NoSuchCustomerException();
+
+    }
 
 }
-

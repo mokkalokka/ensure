@@ -1,10 +1,15 @@
 package controllers.accidentStatement;
 
+import controllers.insurance.InsuranceController;
+import controllers.insurance.NewInsurance;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.accidentStatement.Witness;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
@@ -12,6 +17,10 @@ import controllers.detailedCustomerController;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
+import models.gui.WindowHandler;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class AccidentStatementController {
 
@@ -19,6 +28,7 @@ public class AccidentStatementController {
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
     private detailedCustomerController parentController;
+    private ArrayList<Witness> listOfWitnesses;
 
     @FXML
     private TextField txtAccidentType;
@@ -32,6 +42,11 @@ public class AccidentStatementController {
     private TextField txtDispersedCompensation;
     @FXML
     private TextArea txtAccidentDescription;
+
+    @FXML
+    public void initialize() {
+        listOfWitnesses = new ArrayList<>();
+    }
 
     @FXML
     private void btnClose() {
@@ -67,7 +82,7 @@ public class AccidentStatementController {
     }
 
     public AccidentStatement getNewAccidentStatement() throws BuilderInputException {
-        return new AccidentStatementBuilder()
+        AccidentStatement newAccidentStatement = new AccidentStatementBuilder()
                 .setAccidentType(txtAccidentType.getText())
                 .setRegisteredTo(txtAccidentNr.getText())
                 .setDateOfAccident(dateOfAccident.getValue().toString())
@@ -75,6 +90,9 @@ public class AccidentStatementController {
                 .setDispersedCompensation(txtDispersedCompensation.getText())
                 .setAccidentDescription(txtAccidentDescription.getText())
                 .build();
+
+        newAccidentStatement.setListOfWitnesses(listOfWitnesses);
+        return newAccidentStatement;
     }
 
     public void displayExistingAccidentStatement() {
@@ -95,6 +113,7 @@ public class AccidentStatementController {
         currentAccidentStatement.setAppraisalAmount(Double.parseDouble(txtAppraisalAmount.getText()));
         currentAccidentStatement.setDateOfAccident(dateOfAccident.getValue());
         currentAccidentStatement.setDispersedCompensation(Double.parseDouble(txtDispersedCompensation.getText()));
+        currentAccidentStatement.setListOfWitnesses(listOfWitnesses);
     }
 
     public void setAccidentStatement(AccidentStatement accidentStatement) {
