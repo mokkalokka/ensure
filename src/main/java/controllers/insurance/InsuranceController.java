@@ -3,6 +3,7 @@ package controllers.insurance;
 import controllers.detailedCustomerController;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import models.builders.InsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -82,10 +83,14 @@ public abstract class InsuranceController {
     }
 
     void updateInsurance() throws BuilderInputException {
+        checkForValidInput();
         myInsurance.setAnnualPremium(Double.parseDouble(embeddedFieldsController.getTxtAnnualPremium().getText()));
         myInsurance.setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText());
         myInsurance.setTotal(Double.parseDouble(embeddedFieldsController.getTxtTotal().getText()));
     }
+
+    // Skal kaste exception hvis noen feltene ikke er gyldig input.
+    abstract void checkForValidInput() throws BuilderInputException;
 
     abstract Stage getCurrentStage();
 
