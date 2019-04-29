@@ -14,11 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class CsvWriter extends FileWriterStrategy {
-    private static final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private final List<Insurance> listOfAllInsurances;
     private final List<AccidentStatement> listOfAllAccidentStatements;
     private final List<Witness> listOfAllWitnesses;
-    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
@@ -31,7 +29,7 @@ public class CsvWriter extends FileWriterStrategy {
     public void writeFile() throws Exception {
         PrintWriter writer = null;
 
-        if(INS_COMP.getCustomerCount() == 0){
+        if(customerList.size() == 0){
             throw new NoCustomersFoundException();
         }
 
