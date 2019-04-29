@@ -1,5 +1,8 @@
 package models.accidentStatement;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,8 +45,11 @@ public class AccidentStatement implements Serializable {
     }
 
 
-    public void setListOfWitnesses(ArrayList<Witness> listOfWitnesses) {
-        this.listOfWitnesses = listOfWitnesses;
+    public void setListOfWitnesses(ObservableList<Witness> listOfWitnesses) {
+        //fra observablelist til arraylist lokalt
+        for (Witness witness : listOfWitnesses) {
+            listOfWitnesses.add(witness);
+        }
 
         //Legger til riktig accidentNr for hver av vitnene for å kunne lese/skrive csv
         for(Witness witness : listOfWitnesses){
@@ -56,8 +62,12 @@ public class AccidentStatement implements Serializable {
         this.listOfWitnesses.add(witness);
     }
 
-    public ArrayList<Witness> getListOfWitnesses() {
-        return listOfWitnesses;
+    public void removeWitness(Witness witnessToRemove) {
+        listOfWitnesses.remove(witnessToRemove);
+    }
+
+    public ObservableList<Witness> getListOfWitnesses() {
+        return FXCollections.observableArrayList(listOfWitnesses);
     }
 
     public ArrayList<String> getFieldValuesAsStrings() {
