@@ -21,6 +21,7 @@ public class newWitnessController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private Customer curentCustomer;
+    private Witness myWitness;
     private WitnessHandler witnessHandler;
 
     @FXML
@@ -78,6 +79,8 @@ public class newWitnessController {
 
         alert.showAndWait();
     }
+
+
 
     public void setCurentCustomer(Customer curentCustomer) {
         this.curentCustomer = curentCustomer;

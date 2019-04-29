@@ -52,6 +52,7 @@ public class AccidentStatement implements Serializable {
     }
 
     public void addWitnessContactInfo(Witness witness) {
+        witness.setForAccidentStatement(accidentNr);
         this.listOfWitnesses.add(witness);
     }
 

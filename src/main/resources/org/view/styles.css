@@ -17,6 +17,7 @@
     -fx-background-color: #E5E5E5;
 }
 
+
 /*.table-row-cell:odd{
     -fx-background-color: -fx-table-cell-border-color, #E5E5E5;
     -fx-background-insets: 0, 0 0 1 0;
