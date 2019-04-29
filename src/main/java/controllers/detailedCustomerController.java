@@ -187,6 +187,11 @@ public class detailedCustomerController {
     public void refreshTables() {
         tblInsurance.refresh();
         tblAccidentStatement.refresh();
+        //Resetter sortering
+        tblInsurance.getSortOrder().removeAll();
+        tblInsurance.getSortOrder().add(tblInsurance.getColumns().get(0));
+        tblAccidentStatement.getSortOrder().removeAll();
+        tblAccidentStatement.getSortOrder().add(tblAccidentStatement.getColumns().get(0));
     }
 
 
