@@ -75,6 +75,19 @@ public class TravelInsuranceController extends InsuranceController {
         ((TravelInsurance) myInsurance).setPremium(getSelectedRadioValue());
     }
 
+    @Override
+    void checkForValidInput() throws BuilderInputException {
+        // Kaster exception hvis noen feltene ikke er gyldig input.
+        new TravelInsuranceBuilder()
+                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
+                .setDateOfIssue(embeddedFieldsController.getTxtDateOfIssue().getText())
+                .setTotal(embeddedFieldsController.getTxtTotal().getText())
+                .setMaxCoverage(txtMaxCoverage.getText())
+                .setPremium(getSelectedRadioValue());
+    }
+
     private void setSelectedRadioToggle() {
         TravelInsurance myTravelInsurance;
 

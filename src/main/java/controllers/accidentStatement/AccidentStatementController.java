@@ -104,9 +104,9 @@ public class AccidentStatementController {
         txtAccidentDescription.setText(currentAccidentStatement.getAccidentDescription());
     }
 
-    public void updateAccidentStatement() {
+    public void updateAccidentStatement() throws BuilderInputException {
         assert currentAccidentStatement != null;
-
+        checkForValidInput();
         // TODO: dette må vise error ved feil input.
         currentAccidentStatement.setAccidentDescription(txtAccidentDescription.getText());
         currentAccidentStatement.setAccidentType(txtAccidentType.getText());
@@ -114,6 +114,17 @@ public class AccidentStatementController {
         currentAccidentStatement.setDateOfAccident(dateOfAccident.getValue());
         currentAccidentStatement.setDispersedCompensation(Double.parseDouble(txtDispersedCompensation.getText()));
         currentAccidentStatement.setListOfWitnesses(listOfWitnesses);
+    }
+
+    private void checkForValidInput() throws BuilderInputException {
+        // Kaster exception hvis noen feltene ikke er gyldig input.
+        new AccidentStatementBuilder()
+                .setAccidentType(txtAccidentType.getText())
+                .setRegisteredTo(txtAccidentNr.getText())
+                .setDateOfAccident(dateOfAccident.getValue().toString())
+                .setAppraisalAmount(txtAppraisalAmount.getText())
+                .setDispersedCompensation(txtDispersedCompensation.getText())
+                .setAccidentDescription(txtAccidentDescription.getText());
     }
 
     public void setAccidentStatement(AccidentStatement accidentStatement) {

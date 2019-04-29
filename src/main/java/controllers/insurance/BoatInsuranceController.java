@@ -75,6 +75,17 @@ public class BoatInsuranceController extends InsuranceController {
         ((BoatInsurance) myInsurance).setBoat(getCurrentBoat());
     }
 
+    @Override
+    void checkForValidInput() throws BuilderInputException {
+        // Kaster exception hvis noen feltene ikke er gyldig input.
+        new BoatInsuranceBuilder()
+                .setRegisteredTo(embeddedFieldsController.getTxtRegisteredTo().getText())
+                .setAnnualPremium(embeddedFieldsController.getTxtAnnualPremium().getText())
+                .setCoverageDescription(embeddedFieldsController.getTxtCoverageDescription().getText())
+                .setTotal(embeddedFieldsController.getTxtTotal().getText())
+                .setBoat(getCurrentBoat());
+    }
+
     private Boat getCurrentBoat() throws BuilderInputException {
         return new BoatBuilder()
                 .setRegistrationNr(txtRegistrationNr.getText())
