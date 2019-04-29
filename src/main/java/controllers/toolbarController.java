@@ -168,13 +168,12 @@ public class toolbarController {
 
     private FileChooser fileChooserWithExtensionFilters() {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter("Java Object (*.jobj)",
-                "*.jobj");
-        FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter("Comma-separated values (*.csv)",
-                "*.csv");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj), " +
+                "Comma-separated values (*.csv)",
+                "*.jobj", "*.csv");
 
-        fileChooser.getExtensionFilters().add(extFilterJobj);
-        fileChooser.getExtensionFilters().add(extFilterCsv);
+        fileChooser.getExtensionFilters().add(extFilter);
+
 
         return fileChooser;
     }
