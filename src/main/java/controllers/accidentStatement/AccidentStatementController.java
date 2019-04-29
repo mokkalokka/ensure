@@ -1,13 +1,18 @@
 package controllers.accidentStatement;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import controllers.insurance.InsuranceController;
 import controllers.insurance.NewInsurance;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.accidentStatement.Witness;
 import models.builders.AccidentStatementBuilder;
@@ -28,24 +33,69 @@ public class AccidentStatementController {
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
     private detailedCustomerController parentController;
-    private ArrayList<Witness> listOfWitnesses;
+    private ObservableList<Witness> observableWitnessList;
+
+
 
     @FXML
-    private TextField txtAccidentType;
+    private JFXTextField txtAccidentType;
     @FXML
-    private TextField txtAccidentNr;
+    private JFXTextField txtAccidentNr;
     @FXML
-    private DatePicker dateOfAccident;
+    private JFXDatePicker dateOfAccident;
     @FXML
-    private TextField txtAppraisalAmount;
+    private JFXTextField txtAppraisalAmount;
     @FXML
-    private TextField txtDispersedCompensation;
+    private JFXTextField txtDispersedCompensation;
     @FXML
-    private TextArea txtAccidentDescription;
+    private JFXTextArea txtAccidentDescription;
+
+    @FXML
+    private TableView<Witness> tblWitness;
+    @FXML
+    private TableColumn<Witness, String> clmnFirstName;
+    @FXML
+    private TableColumn<Witness, String> clmnSurname;
+    @FXML
+    private TableColumn<Witness, String> clmnContactInfo;
 
     @FXML
     public void initialize() {
-        listOfWitnesses = new ArrayList<>();
+
+        tblWitness.setRowFactory(tableView -> {
+
+            //Tom rad
+            TableRow<Witness> aRow = new TableRow<>();
+
+            ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Fjern vitne");
+
+            removeItem.setOnAction(e -> {
+                removeWitness(aRow.getItem());
+            });
+
+            rowMenu.getItems().add(removeItem);
+
+            return aRow;
+        });
+
+        clmnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        clmnSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        clmnContactInfo.setCellValueFactory(new PropertyValueFactory<>("contactInfo"));
+
+        tblWitness.setItems(observableWitnessList);
+    }
+
+
+
+    @FXML
+    private void btnNewWitness() {
+        try {
+            WindowHandler windowHandler = new WindowHandler();
+            windowHandler.openNewStageAndLockCurrent(getCurrentStage(), "/org/view/newWitness.fxml", "Nytt vitne");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -68,12 +118,21 @@ public class AccidentStatementController {
         parentController.refreshTables();
     }
 
+    private void setWitnesses() {
+        observableWitnessList = FXCollections.observableArrayList(currentAccidentStatement.getListOfWitnesses());
+    }
+
+    private void removeWitness(Witness witnessToRemove) {
+        currentAccidentStatement.removeWitness(witnessToRemove);
+    }
+
     public Customer getCustomer() {
         return currentCustomer;
     }
 
     public void setCustomer(Customer customer) {
         currentCustomer = customer;
+
     }
 
     public void displayNewAccidentStatement() {
@@ -91,8 +150,9 @@ public class AccidentStatementController {
                 .setAccidentDescription(txtAccidentDescription.getText())
                 .build();
 
-        newAccidentStatement.setListOfWitnesses(listOfWitnesses);
+        newAccidentStatement.setListOfWitnesses(observableWitnessList);
         return newAccidentStatement;
+
     }
 
     public void displayExistingAccidentStatement() {
@@ -113,11 +173,12 @@ public class AccidentStatementController {
         currentAccidentStatement.setAppraisalAmount(Double.parseDouble(txtAppraisalAmount.getText()));
         currentAccidentStatement.setDateOfAccident(dateOfAccident.getValue());
         currentAccidentStatement.setDispersedCompensation(Double.parseDouble(txtDispersedCompensation.getText()));
-        currentAccidentStatement.setListOfWitnesses(listOfWitnesses);
+        currentAccidentStatement.setListOfWitnesses(observableWitnessList);
     }
 
     public void setAccidentStatement(AccidentStatement accidentStatement) {
         currentAccidentStatement = accidentStatement;
+        setWitnesses();
     }
 
     public void setState(AccidentStatementState state) {
