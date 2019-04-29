@@ -13,6 +13,11 @@
 .text-field{
     -fx-background-color: #E5E5E5;
 }
+
+.text-input:readonly{
+    -fx-background-color: #cecece;
+}
+
 .text-area{
     -fx-background-color: #E5E5E5;
 }
