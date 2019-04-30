@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AccidentStatement implements Serializable {
@@ -21,7 +22,7 @@ public class AccidentStatement implements Serializable {
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
     private ArrayList<Witness> listOfWitnesses = new ArrayList<>(); // TODO: Finne noe smart her
 
-    public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation) {
+    public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation, List<Witness> witnessList) {
         this.accidentNr = NEXT_ACCIDENT_NR.getAndIncrement();
         this.registeredTo = registeredTo;
         this.dateOfAccident = dateOfAccident;
@@ -29,11 +30,12 @@ public class AccidentStatement implements Serializable {
         this.accidentDescription = accidentDescription;
         this.appraisalAmount = appraisalAmount;
         this.dispersedCompensation = dispersedCompensation;
+        setListOfWitnesses(witnessList);
     }
 
     public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType,
                              String accidentDescription, double appraisalAmount, double dispersedCompensation,
-                             int accidentNr) {
+                             int accidentNr, List<Witness> witnessList) {
 
         setAccidentNr(accidentNr);
         this.registeredTo = registeredTo;
@@ -42,18 +44,17 @@ public class AccidentStatement implements Serializable {
         this.accidentDescription = accidentDescription;
         this.appraisalAmount = appraisalAmount;
         this.dispersedCompensation = dispersedCompensation;
+        setListOfWitnesses(witnessList);
     }
 
 
-    public void setListOfWitnesses(ObservableList<Witness> listOfWitnesses) {
-        //fra observablelist til arraylist lokalt
-        for (Witness witness : listOfWitnesses) {
-            listOfWitnesses.add(witness);
-        }
+    public void setListOfWitnesses(List<Witness> listOfWitnesses) {
+        this.listOfWitnesses = new ArrayList<>();
 
         //Legger til riktig accidentNr for hver av vitnene for å kunne lese/skrive csv
         for(Witness witness : listOfWitnesses){
             witness.setForAccidentStatement(this.accidentNr);
+            this.listOfWitnesses.add(witness);
         }
     }
 
@@ -151,4 +152,5 @@ public class AccidentStatement implements Serializable {
     public void setDispersedCompensation(double dispersedCompensation) {
         this.dispersedCompensation = dispersedCompensation;
     }
+
 }

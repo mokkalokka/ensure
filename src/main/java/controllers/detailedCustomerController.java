@@ -355,6 +355,7 @@ public class detailedCustomerController {
         AccidentStatementController controller = loader.getController();
 
         controller.setAccidentStatement(accidentStatement);
+        controller.setCustomer(currentCustomer);
         controller.setState(new ExistingAccidentStatement());
         controller.setParentController(this);
         controller.load();

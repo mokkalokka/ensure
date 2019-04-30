@@ -8,6 +8,7 @@ public class ExistingAccidentStatement implements AccidentStatementState {
     @Override
     public void setFields(AccidentStatementController controller) {
         controller.displayExistingAccidentStatement();
+        controller.initializeTable();
     }
 
     @Override

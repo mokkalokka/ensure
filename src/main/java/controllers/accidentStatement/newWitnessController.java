@@ -15,6 +15,7 @@ import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.gui.ErrorDialog;
 
 public class newWitnessController {
@@ -23,6 +24,8 @@ public class newWitnessController {
     private Customer curentCustomer;
     private Witness myWitness;
     private WitnessHandler witnessHandler;
+    private AccidentStatementController parentController;
+    private AccidentStatement currentAccidentStatement;
 
     @FXML
     private JFXTextField txtFirstName;
@@ -36,15 +39,14 @@ public class newWitnessController {
     @FXML
     private void btnAddWitness() {
         try {
-            WitnessHandler witnessHandler = new WitnessHandler();
-            witnessHandler.addTemporaryWitness(getNewWitness());
+            parentController.addWitness(getNewWitness());
 
-        } catch (Exception e) {
+        } catch (BuilderInputException | InvalidCustomerException e) {
             new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
     }
 
-    private Witness getNewWitness() throws Exception{
+    private Witness getNewWitness() throws BuilderInputException, InvalidCustomerException {
             return new WitnessBuilder()
                     .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
                     .setFirstName(txtFirstName.getText())
@@ -81,6 +83,16 @@ public class newWitnessController {
     }
 
 
+    public void setParentController(AccidentStatementController parentController) {
+        this.parentController = parentController;
+        setCurrentAccidentStatement(parentController.getCurrentAccidentStatement());
+    }
+
+
+
+    private void setCurrentAccidentStatement(AccidentStatement accidentStatement) {
+        currentAccidentStatement = accidentStatement;
+    }
 
     public void setCurentCustomer(Customer curentCustomer) {
         this.curentCustomer = curentCustomer;
