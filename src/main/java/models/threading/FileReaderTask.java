@@ -16,6 +16,7 @@ public class FileReaderTask extends Task{
 
     @Override
     protected Object call() throws Exception {
+
         if (fileExtension.equals("csv")) {
             CsvReader csvReader = new CsvReader(path);
             return csvReader.readFile();
@@ -28,7 +29,6 @@ public class FileReaderTask extends Task{
         else{
             throw new UnsuportedFileExtensionException();
         }
-
     }
 
     @Override

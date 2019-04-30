@@ -24,13 +24,13 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 
-public class customersController {
+public class CustomersController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private final ObservableList observableCustomerList = INS_COMP.getCustomerList();
 
     @FXML
-    private toolbarController toolbarController;
+    private ToolbarController toolbarController;
 
     @FXML
     private AnchorPane anchorPane;
@@ -94,13 +94,13 @@ public class customersController {
             Parent root = loader.load();
 
             //Finner kontrolleren til fxml fila og passerer den dobbelklikkede kunden til kontrolleren
-            detailedCustomerController controller = loader.getController();
+            DetailedCustomerController controller = loader.getController();
             controller.pickCustomer(clickedCustomer);
 
             //Oppretter en ny stage
             Stage newStage = new Stage();
 
-            //Legger til en eventListener pa den nye stagen som kjorer onWinodwShow i detailedCustomerController nar vinduet vises
+            //Legger til en eventListener pa den nye stagen som kjorer onWinodwShow i DetailedCustomerController nar vinduet vises
             newStage.setOnShown(controller::onWindowShow);
 
             //Setter tittel
@@ -228,19 +228,21 @@ public class customersController {
 
     }
 
-    public void setReadOnly(boolean isReadOnly){
+    void setReadOnly(boolean isReadOnly){
         btnRegister.setDisable(isReadOnly);
 
         if(isReadOnly){
-            //Kanselerer muligheten til å dobbeltklikke og høyreklikke på radene
-            tblCustomer.setRowFactory(null);
+            //Kansellerer muligheten til å dobbeltklikke og høyreklikke på radene
+            removeListenersFromTable(tblCustomer);
         }
         else{
             //Initialiserer tilbake listeners på tableview. Slik at man kan høyreklikke og dobbeltklikke igjen
             initialize();
         }
-
     }
 
+    private void removeListenersFromTable(TableView tableView) {
+        tableView.setRowFactory(null);
+    }
 
 }

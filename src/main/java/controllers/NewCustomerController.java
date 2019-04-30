@@ -1,58 +1,58 @@
-package controllers.accidentStatement;
+package controllers;
 
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.accidentStatement.AccidentStatement;
-import models.accidentStatement.Witness;
-import models.accidentStatement.WitnessHandler;
 import models.builders.CustomerBuilder;
-import models.builders.WitnessBuilder;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
-import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
+import models.company.InsuranceCompany;
 
-public class newWitnessController {
+public class NewCustomerController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
-    private Customer curentCustomer;
-    private Witness myWitness;
-    private WitnessHandler witnessHandler;
 
     @FXML
     private JFXTextField txtFirstName;
     @FXML
     private JFXTextField txtLastName;
     @FXML
-    private JFXTextField txtContactInformation;
+    private JFXTextField txtInvoiceAddress;
     @FXML
     private Label lblStatus;
 
     @FXML
-    private void btnAddWitness() {
+    private void btnAddCustomer() {
         try {
-            WitnessHandler witnessHandler = new WitnessHandler();
-            witnessHandler.addTemporaryWitness(getNewWitness());
-
-        } catch (Exception e) {
+            INS_COMP.addCustomer(getCurrentCustomer());
+            updateStatus("Kunden er lagt til i listen");
+            resetFieldColor();
+        } catch (InvalidCustomerException e) {
             new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
     }
 
-    private Witness getNewWitness() throws Exception{
-            return new WitnessBuilder()
-                    .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
-                    .setFirstName(txtFirstName.getText())
-                    .setLastName(txtLastName.getText())
-                    .setContactInformation(txtContactInformation.getText())
-                    .build();
+    private Customer getCurrentCustomer() throws InvalidCustomerException {
+        return new CustomerBuilder()
+                .setFirstName(txtFirstName.getText())
+                .setLastName(txtLastName.getText())
+                .setInvoiceAddress(txtInvoiceAddress.getText())
+                .build();
     }
 
+    private void setTextFieldFocusAndColor(TextField field){
+        field.requestFocus();
+        field.setStyle("-jfx-focus-color:rgb(250,105,102)");
+    }
+
+    private void resetFieldColor(){
+        txtFirstName.setStyle("-jfx-focus-color:rgb(64,89,169)");
+        txtLastName.setStyle("-jfx-focus-color:rgb(64,89,169)");
+    }
 
     @FXML
     private void btnClose(){
@@ -73,21 +73,11 @@ public class newWitnessController {
 
     private void invalidInputAlert(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Feil formatering av vitne");
+        alert.setTitle("Feil formatering av kunde");
         alert.setHeaderText(null);
         alert.setContentText(message);
 
         alert.showAndWait();
-    }
-
-
-
-    public void setCurentCustomer(Customer curentCustomer) {
-        this.curentCustomer = curentCustomer;
-    }
-
-    public void setWitnessHandler(WitnessHandler witnessHandler) {
-        this.witnessHandler = witnessHandler;
     }
 
     public void initialize() {

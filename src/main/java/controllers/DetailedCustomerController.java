@@ -30,7 +30,7 @@ import models.travelInsurance.TravelInsurance;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class detailedCustomerController {
+public class DetailedCustomerController {
 
     private Customer currentCustomer;
     ObservableList<Insurance> insuranceObservableList;

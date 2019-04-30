@@ -1,16 +1,12 @@
 package controllers.accidentStatement;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import controllers.insurance.InsuranceController;
-import controllers.insurance.NewInsurance;
+import controllers.DetailedCustomerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -18,21 +14,19 @@ import models.accidentStatement.Witness;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
-import controllers.detailedCustomerController;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AccidentStatementController {
 
     private Customer currentCustomer;
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
-    private detailedCustomerController parentController;
+    private DetailedCustomerController parentController;
     private ObservableList<Witness> observableWitnessList;
 
 
@@ -196,7 +190,7 @@ public class AccidentStatementController {
         this.state = state;
     }
 
-    public void setParentController(detailedCustomerController parentController) {
+    public void setParentController(DetailedCustomerController parentController) {
         this.parentController = parentController;
     }
 

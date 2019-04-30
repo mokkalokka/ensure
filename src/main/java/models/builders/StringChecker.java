@@ -39,7 +39,6 @@ public class StringChecker {
         else{
             return false;
         }
-
     }
 
 }

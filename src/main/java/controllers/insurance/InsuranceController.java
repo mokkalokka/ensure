@@ -1,9 +1,8 @@
 package controllers.insurance;
 
-import controllers.detailedCustomerController;
+import controllers.DetailedCustomerController;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import models.builders.InsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -19,7 +18,7 @@ public abstract class InsuranceController {
     @FXML
     EmbeddedFieldsController embeddedFieldsController;
     @FXML
-    detailedCustomerController parentController;
+    DetailedCustomerController parentController;
 
     public void load() {
         state.setFields(this);
@@ -62,7 +61,7 @@ public abstract class InsuranceController {
     // Setter feltene som er unike for de ulike forsikringstypene.
     abstract void setUniqueInsuranceFields();
 
-    public void setParentController(detailedCustomerController parentController) {
+    public void setParentController(DetailedCustomerController parentController) {
         this.parentController = parentController;
     }
 
