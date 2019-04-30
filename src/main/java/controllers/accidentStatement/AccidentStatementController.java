@@ -100,9 +100,7 @@ public class AccidentStatementController {
     private void btnSave() {
         try {
             state.saveAccidentStatement(this);
-        } catch (InvalidCustomerException e) {
-            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
-        } catch (BuilderInputException e) {
+        } catch (InvalidCustomerException | BuilderInputException e) {
             new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();
@@ -125,7 +123,7 @@ public class AccidentStatementController {
 
     }
 
-    public void displayNewAccidentStatement() {
+    void displayNewAccidentStatement() {
         //TODO denne ma vise forsikringsid ikke id til kunde
         txtAccidentNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
     }
@@ -145,7 +143,7 @@ public class AccidentStatementController {
 
     }
 
-    public void displayExistingAccidentStatement() {
+    void displayExistingAccidentStatement() {
         txtAccidentType.setText(currentAccidentStatement.getAccidentType());
         txtAccidentNr.setText(String.valueOf(currentAccidentStatement.getAccidentNr()));
         dateOfAccident.setValue(currentAccidentStatement.getDateOfAccident());
@@ -154,7 +152,7 @@ public class AccidentStatementController {
         txtAccidentDescription.setText(currentAccidentStatement.getAccidentDescription());
     }
 
-    public void updateAccidentStatement() throws BuilderInputException {
+    void updateAccidentStatement() throws BuilderInputException {
         assert currentAccidentStatement != null;
         checkForValidInput();
         currentAccidentStatement.setAccidentDescription(txtAccidentDescription.getText());

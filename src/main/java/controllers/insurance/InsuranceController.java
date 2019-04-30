@@ -28,9 +28,7 @@ public abstract class InsuranceController {
     void btnSave() {
         try {
             state.saveInsurance(this);
-        } catch (InvalidCustomerException e) {
-            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
-        } catch (BuilderInputException e) {
+        } catch (InvalidCustomerException | BuilderInputException e) {
             new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();

@@ -160,7 +160,7 @@ public class DetailedCustomerController {
     }
 
 
-    public void pickCustomer(Customer aCustomer) {
+    void pickCustomer(Customer aCustomer) {
         //Lokal variabel for kunden som vises, og arrayene til kunden til observablelister
         currentCustomer = aCustomer;
         insuranceObservableList = FXCollections.observableList(currentCustomer.getListOfInsurances());
@@ -175,7 +175,7 @@ public class DetailedCustomerController {
         lblPendingCompensation.setText(String.valueOf(currentCustomer.getPendingCompensation()));
     }
 
-    public void onWindowShow(WindowEvent event) {
+    void onWindowShow(WindowEvent event) {
         initializeInsuranceTable();
         initializeAccidentStatementTable();
     }

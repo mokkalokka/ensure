@@ -4,10 +4,10 @@ import javafx.scene.control.Alert;
 
 public class ErrorDialog {
 
-    Alert alert;
+    private Alert alert;
     private String title;
     private String message;
-    boolean isCritical;
+    private boolean isCritical;
 
     public ErrorDialog(String title, String message) {
         this.title = title;
