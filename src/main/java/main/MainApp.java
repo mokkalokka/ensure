@@ -6,9 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.company.InsuranceCompany;
 
 
 public class MainApp extends Application {
+
+    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,7 +27,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle(INS_COMP.getName());
         stage.setScene(scene);
         stage.show();
     }
