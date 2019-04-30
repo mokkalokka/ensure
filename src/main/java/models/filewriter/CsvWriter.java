@@ -8,7 +8,11 @@ import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
 import models.insurance.Insurance;
+
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +39,10 @@ public class CsvWriter extends FileWriterStrategy {
 
         try {
             CustomerWriter customerWriter = new CustomerWriter();
-            writer = new PrintWriter(path, "UTF-8");
+            writer = new PrintWriter(path, StandardCharsets.ISO_8859_1);
+            
+            //Setter separator til semikolon
+            writer.println("sep=;");
 
             // Lag en header og skriv så rader for hver kunde
             writer.println("Kunder");
