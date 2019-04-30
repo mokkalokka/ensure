@@ -61,7 +61,6 @@ public class BoatBuilder {
         else{
             try {
                 this.lengthInft = Double.parseDouble(lengthInft);
-
                 if (stringChecker.isNegative(lengthInft)){
                     throw new InvalidPositiveDoubleException(fieldName);
                 }

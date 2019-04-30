@@ -4,9 +4,11 @@ import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
 import models.company.InsuranceCompany;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchAccidentStatementException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
+import models.exceptions.fileExceptions.FileHandlingExceptions;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.Insurance;
@@ -29,7 +31,8 @@ public class CsvReader extends FileReaderStrategy {
 
 
     @Override
-    public List<Customer> readFile() throws Exception {
+    public List<Customer> readFile() throws BuilderInputException, IOException, InvalidCustomerException,
+            FileHandlingExceptions {
         //Tømmer loaded customers
         loadedCustomers = new ArrayList<>();
 

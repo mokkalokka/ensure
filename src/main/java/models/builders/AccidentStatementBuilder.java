@@ -8,6 +8,7 @@ import models.exceptions.builderExceptions.*;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccidentStatementBuilder {
@@ -20,7 +21,7 @@ public class AccidentStatementBuilder {
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
     private int accidentNr = 0;
     private final StringChecker stringChecker = new StringChecker();
-    private List<Witness> listOfWitnesses;
+    private List<Witness> listOfWitnesses = new ArrayList<>();
 
     public AccidentStatementBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
         String fieldName = "Registrert til";
