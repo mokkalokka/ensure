@@ -105,10 +105,7 @@ public class CustomersController {
             newStage.setOnShown(controller::onWindowShow);
 
             //Setter tittel
-            String title = String.format("Viser kunde: %s %s %s",
-                    clickedCustomer.getInsuranceNr(),
-                    clickedCustomer.getFirstName(),
-                    clickedCustomer.getLastName());
+            String title = "Detlajert kunde visning";
 
             newStage.setTitle(title);
 
