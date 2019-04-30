@@ -46,6 +46,14 @@
                                 <Insets right="20.0" />
                             </GridPane.margin>
                         </JFXTextField>
+                        <JFXTextField fx:id="txtYearOfConstruction" prefHeight="27.0" prefWidth="114.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <GridPane.margin>
+                                <Insets right="20.0" />
+                            </GridPane.margin>
+                        </JFXTextField>
                         <JFXTextField fx:id="txtResidenceType" prefHeight="27.0" prefWidth="114.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets right="20.0" />
@@ -76,14 +84,7 @@
                                 <Insets right="20.0" />
                             </GridPane.margin>
                         </JFXTextField>
-                        <JFXTextField fx:id="txtYearOfConstruction" prefHeight="27.0" prefWidth="114.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                            <GridPane.margin>
-                                <Insets right="20.0" />
-                            </GridPane.margin>
-                        </JFXTextField>
+
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
@@ -98,8 +99,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <JFXButton onAction="#btnClose" text="Lukk Vindu" GridPane.columnIndex="1" />
                 <JFXButton onAction="#btnSave" text="Lagre" />
+                <JFXButton onAction="#btnClose" text="Lukk Vindu" GridPane.columnIndex="1" />
             </children>
         </GridPane>
     </children>

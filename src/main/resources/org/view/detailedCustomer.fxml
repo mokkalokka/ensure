@@ -69,10 +69,10 @@
                                         <Insets right="20.0" />
                                     </GridPane.margin>
                                 </JFXTextField>
+                        <JFXTextField fx:id="lblPendingCompensation" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                                 <JFXButton onAction="#btnSaveCustomer" text="Lagre" />
                                 <JFXButton onAction="#btnBack" text="Tilbake" GridPane.rowIndex="1" />
                         <Label prefHeight="17.0" prefWidth="131.0" text="Ubetalte erstatninger" GridPane.columnIndex="6" />
-                        <JFXTextField fx:id="lblPendingCompensation" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>
