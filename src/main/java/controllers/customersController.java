@@ -1,5 +1,6 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -29,6 +30,9 @@ public class customersController {
     private final ObservableList observableCustomerList = INS_COMP.getCustomerList();
 
     @FXML
+    private toolbarController toolbarController;
+
+    @FXML
     private AnchorPane anchorPane;
     @FXML
     private JFXTextField txtSearch;
@@ -44,6 +48,8 @@ public class customersController {
     private TableColumn<Customer, LocalDate>  clmnCustomerSince;
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;
+    @FXML
+    private JFXButton btnRegister;
 
 
     @FXML
@@ -126,6 +132,8 @@ public class customersController {
 
 
     public void initialize() {
+
+        toolbarController.setCustomersController(this);
 
         //Klikking paa kunder
 
@@ -219,4 +227,20 @@ public class customersController {
         tblCustomer.setItems(sortedData);
 
     }
+
+    public void setReadOnly(boolean isReadOnly){
+        btnRegister.setDisable(isReadOnly);
+
+        if(isReadOnly){
+            //Kanselerer muligheten til å dobbeltklikke og høyreklikke på radene
+            tblCustomer.setRowFactory(null);
+        }
+        else{
+            //Initialiserer tilbake listeners på tableview. Slik at man kan høyreklikke og dobbeltklikke igjen
+            initialize();
+        }
+
+    }
+
+
 }

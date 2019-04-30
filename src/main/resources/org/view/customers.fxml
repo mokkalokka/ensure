@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.customersController">
    <children>
-       <fx:include source="toolbar.fxml" />
+       <fx:include fx:id="toolbar" source="toolbar.fxml" />
       <AnchorPane layoutY="28.0" prefHeight="572.0" prefWidth="900.0">
          <children>
             <JFXTextField fx:id="txtSearch" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="219.0" promptText="Søk i kunder"  />
@@ -21,7 +21,7 @@
                 <TableColumn fx:id="clmnInvoiceAddress" prefWidth="252.0" text="Fakturaaddresse" />
               </columns>
             </TableView>
-            <JFXButton layoutX="752.0" layoutY="16.0" onAction="#btnRegister"  text="Registrer ny kunde" />
+            <JFXButton fx:id="btnRegister" layoutX="752.0" layoutY="16.0" onAction="#btnRegister"  text="Registrer ny kunde" />
          </children>
       </AnchorPane>
    </children>
