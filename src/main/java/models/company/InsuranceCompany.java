@@ -32,7 +32,6 @@ public class InsuranceCompany {
         customerList.add(newCustomer);
     }
 
-    //Kanskje feilhåndtering
     public void removeCustomer(Customer customerToRemove) {
         customerList.remove(customerToRemove);
     }
@@ -41,7 +40,6 @@ public class InsuranceCompany {
         return customerList.size();
     }
 
-    //for testing //TODO hele klassen burde vere en singleton
     public ObservableList<Customer> getCustomerList() {
         return customerList;
     }

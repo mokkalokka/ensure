@@ -40,6 +40,6 @@ public class BoatInsuranceTest {
 
     @Test
     public void boatInsuranceValues() {
-        //TODO:Lag test
+
     }
 }

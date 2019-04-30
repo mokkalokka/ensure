@@ -2,10 +2,8 @@ package controllers.insurance;
 
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
-import controllers.detailedCustomerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;

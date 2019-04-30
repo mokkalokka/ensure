@@ -14,7 +14,7 @@ public class AccidentStatement implements Serializable {
 
     private int registeredTo;
     private LocalDate dateOfAccident;
-    private int accidentNr; // skal inkrementeres.
+    private int accidentNr;
     private String accidentType; // type skade, kanskje annet datafelt
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden

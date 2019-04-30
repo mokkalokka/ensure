@@ -2,20 +2,14 @@ package controllers.insurance;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
-import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.gui.ErrorDialog;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
-import controllers.detailedCustomerController;
 
 public class BoatInsuranceController extends InsuranceController {
 

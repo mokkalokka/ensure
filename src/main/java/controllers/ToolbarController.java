@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class toolbarController {
+public class ToolbarController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
-    private customersController customersController;
+    private CustomersController customersController;
 
     @FXML
     private AnchorPane anchorPane;
@@ -263,12 +263,12 @@ public class toolbarController {
         setReadOnly(true);
     }
 
-    public void setReadOnly(boolean isReadOnly){
+    private void setReadOnly(boolean isReadOnly){
         customersController.setReadOnly(isReadOnly);
         menu.setDisable(isReadOnly);
     }
 
-    public void setCustomersController(controllers.customersController customersController) {
+    public void setCustomersController(CustomersController customersController) {
         this.customersController = customersController;
     }
 

@@ -4,15 +4,22 @@ import javafx.scene.control.Alert;
 
 public class ErrorDialog {
 
-    Alert alert;
+    private Alert alert;
     private String title;
     private String message;
-    boolean isCritical;
+    private boolean isCritical;
 
     public ErrorDialog(String title, String message) {
         this.title = title;
         this.message = message;
     }
+
+    public ErrorDialog(String title, boolean isCritical) {
+        this.title = title;
+        message = "En alvorlig feil skjedde! Hvis feilen gjentar seg, prøv å start programmet på nytt.";
+        this.isCritical = isCritical;
+    }
+
 
     public ErrorDialog(String title, String message, boolean isCritical) {
         this.title = title;

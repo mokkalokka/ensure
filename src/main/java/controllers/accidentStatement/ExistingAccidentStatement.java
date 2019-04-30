@@ -11,7 +11,7 @@ public class ExistingAccidentStatement implements AccidentStatementState {
     }
 
     @Override
-    public void saveAccidentStatement(AccidentStatementController controller) throws InvalidCustomerException, BuilderInputException {
+    public void saveAccidentStatement(AccidentStatementController controller) throws BuilderInputException {
         controller.updateAccidentStatement();
     }
 }

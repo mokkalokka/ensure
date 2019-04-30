@@ -17,7 +17,7 @@ import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 
-public class newWitnessController {
+public class NewWitnessController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private Customer curentCustomer;
@@ -79,8 +79,6 @@ public class newWitnessController {
 
         alert.showAndWait();
     }
-
-
 
     public void setCurentCustomer(Customer curentCustomer) {
         this.curentCustomer = curentCustomer;

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.accidentStatement.newWitnessController">
+<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="320" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.accidentStatement.NewWitnessController">
     <children>
       <Label layoutX="92.0" layoutY="30.0" text="Registrer nytt vitne">
          <font>

@@ -1,16 +1,12 @@
 package controllers.accidentStatement;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import controllers.insurance.InsuranceController;
-import controllers.insurance.NewInsurance;
+import controllers.DetailedCustomerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -18,24 +14,20 @@ import models.accidentStatement.Witness;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
 import models.accidentStatement.AccidentStatement;
-import controllers.detailedCustomerController;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AccidentStatementController {
 
     private Customer currentCustomer;
     private AccidentStatementState state;
     private AccidentStatement currentAccidentStatement;
-    private detailedCustomerController parentController;
+    private DetailedCustomerController parentController;
     private ObservableList<Witness> observableWitnessList;
-
-
 
     @FXML
     private JFXTextField txtAccidentType;
@@ -108,12 +100,8 @@ public class AccidentStatementController {
     private void btnSave() {
         try {
             state.saveAccidentStatement(this);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            //TODO error vindu
-        } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
-            errorDialog.show();
+        } catch (InvalidCustomerException | BuilderInputException e) {
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();
     }
@@ -135,7 +123,7 @@ public class AccidentStatementController {
 
     }
 
-    public void displayNewAccidentStatement() {
+    void displayNewAccidentStatement() {
         //TODO denne ma vise forsikringsid ikke id til kunde
         txtAccidentNr.setText(String.valueOf(currentCustomer.getInsuranceNr()));
     }
@@ -155,7 +143,7 @@ public class AccidentStatementController {
 
     }
 
-    public void displayExistingAccidentStatement() {
+    void displayExistingAccidentStatement() {
         txtAccidentType.setText(currentAccidentStatement.getAccidentType());
         txtAccidentNr.setText(String.valueOf(currentAccidentStatement.getAccidentNr()));
         dateOfAccident.setValue(currentAccidentStatement.getDateOfAccident());
@@ -164,10 +152,9 @@ public class AccidentStatementController {
         txtAccidentDescription.setText(currentAccidentStatement.getAccidentDescription());
     }
 
-    public void updateAccidentStatement() throws BuilderInputException {
+    void updateAccidentStatement() throws BuilderInputException {
         assert currentAccidentStatement != null;
         checkForValidInput();
-        // TODO: dette må vise error ved feil input.
         currentAccidentStatement.setAccidentDescription(txtAccidentDescription.getText());
         currentAccidentStatement.setAccidentType(txtAccidentType.getText());
         currentAccidentStatement.setAppraisalAmount(Double.parseDouble(txtAppraisalAmount.getText()));
@@ -196,7 +183,7 @@ public class AccidentStatementController {
         this.state = state;
     }
 
-    public void setParentController(detailedCustomerController parentController) {
+    public void setParentController(DetailedCustomerController parentController) {
         this.parentController = parentController;
     }
 

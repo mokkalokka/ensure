@@ -1,9 +1,8 @@
 package controllers.insurance;
 
-import controllers.detailedCustomerController;
+import controllers.DetailedCustomerController;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import models.builders.InsuranceBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -19,7 +18,7 @@ public abstract class InsuranceController {
     @FXML
     EmbeddedFieldsController embeddedFieldsController;
     @FXML
-    detailedCustomerController parentController;
+    DetailedCustomerController parentController;
 
     public void load() {
         state.setFields(this);
@@ -29,12 +28,8 @@ public abstract class InsuranceController {
     void btnSave() {
         try {
             state.saveInsurance(this);
-        } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            //TODO: display error window
-        } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
-            errorDialog.show();
+        } catch (InvalidCustomerException | BuilderInputException e) {
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();
     }
@@ -62,7 +57,7 @@ public abstract class InsuranceController {
     // Setter feltene som er unike for de ulike forsikringstypene.
     abstract void setUniqueInsuranceFields();
 
-    public void setParentController(detailedCustomerController parentController) {
+    public void setParentController(DetailedCustomerController parentController) {
         this.parentController = parentController;
     }
 

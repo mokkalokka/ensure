@@ -16,7 +16,7 @@ public class CustomerBuilder {
     private String firstName;
     private LocalDate customerSince;
     private String invoiceAddress;
-    private double pendingCompensation = 0.0; // TODO: finn en måte å strukturere data på.
+    private double pendingCompensation = 0.0;
 
     public CustomerBuilder setInsuranceNr(String insuranceNr) throws EmptyFieldsException {
         if (sc.isEmptyOrNull(insuranceNr)) {

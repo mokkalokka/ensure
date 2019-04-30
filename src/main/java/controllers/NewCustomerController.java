@@ -12,7 +12,7 @@ import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.company.InsuranceCompany;
 
-public class newCustomerController {
+public class NewCustomerController {
 
     private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
 
