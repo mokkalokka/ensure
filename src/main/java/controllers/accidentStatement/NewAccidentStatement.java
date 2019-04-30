@@ -11,7 +11,9 @@ public class NewAccidentStatement implements AccidentStatementState {
 
     @Override
     public void setFields(AccidentStatementController controller) {
+        controller.initNewWitnessList();
         controller.displayNewAccidentStatement();
+        controller.initializeTable();
     }
 
     @Override
