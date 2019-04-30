@@ -132,7 +132,7 @@ public class DetailedCustomerController {
         try {
             openInsuranceWindow(clickedInsurance);
         } catch (IOException e) {
-            e.printStackTrace();
+            new ErrorDialog("Feil ved åpning av vindu.", true).show();
         }
     }
 
