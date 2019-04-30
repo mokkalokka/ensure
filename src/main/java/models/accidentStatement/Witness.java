@@ -1,10 +1,12 @@
 package models.accidentStatement;
 
+import models.filewriter.classwriter.CSVWritable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Witness implements Serializable {
+public class Witness implements Serializable, CSVWritable {
     private int registeredTo;
     private String firstName;
     private String lastName;
@@ -48,6 +50,10 @@ public class Witness implements Serializable {
                 "Fornavn",
                 "Kontaktinformasjon"
         ));
+    }
+
+    public String getNameOfClass() {
+        return "Vitner";
     }
 
     public int getForAccidentStatement() {

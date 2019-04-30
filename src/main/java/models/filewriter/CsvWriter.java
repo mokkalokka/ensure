@@ -2,15 +2,13 @@ package models.filewriter;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
+import models.filewriter.classwriter.CSVWritable;
 import models.filewriter.classwriter.CustomerWriter;
 import models.insurance.Insurance;
 
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -18,81 +16,46 @@ import java.util.Collections;
 import java.util.List;
 
 public class CsvWriter extends FileWriterStrategy {
-    private final List<Insurance> listOfAllInsurances;
-    private final List<AccidentStatement> listOfAllAccidentStatements;
-    private final List<Witness> listOfAllWitnesses;
+
+    private final List<AccidentStatement> listOfAllAccidentStatements = new ArrayList<>();
+    private List<CSVWritable> listOfAllObjects = new ArrayList<>();
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
-        listOfAllInsurances = new ArrayList<>();
-        listOfAllAccidentStatements = new ArrayList<>();
-        listOfAllWitnesses = new ArrayList<>();
+        fillList(customerList);
+    }
+
+    private void fillList(List<Customer> customerList) {
+        customerList.forEach(customer -> {
+            listOfAllObjects.add(customer);
+            listOfAllObjects.addAll(customer.getListOfInsurances());
+            customer.getListOfAccidentStatements().forEach(accidentStatement -> {
+                listOfAllObjects.add(accidentStatement);
+                listOfAllObjects.addAll(accidentStatement.getListOfWitnesses());
+            });
+        });
+        // sorter kolleksjon her: Collections.sort(listOfAllObjects);
     }
 
     @Override
-    public void writeFile() throws Exception {
+    public void writeFile() throws IOException {
         PrintWriter writer = null;
 
-        if(customerList.size() == 0){
-            throw new NoCustomersFoundException();
-        }
-
         try {
-            CustomerWriter customerWriter = new CustomerWriter();
             writer = new PrintWriter(path, StandardCharsets.ISO_8859_1);
-            
-            //Setter separator til semikolon
-            writer.println("sep=;");
 
-            // Lag en header og skriv så rader for hver kunde
-            writer.println("Kunder");
-            writer.println(customerWriter.generateHeader());
-            for (Customer customer : customerList) {
-                writer.println(customerWriter.write(customer));
-                listOfAllInsurances.addAll(customer.getListOfInsurances());
-                listOfAllAccidentStatements.addAll(customer.getListOfAccidentStatements());
-            }
-
-            for (AccidentStatement accidentStatement : listOfAllAccidentStatements){
-                listOfAllWitnesses.addAll(accidentStatement.getListOfWitnesses());
-            }
-
-            Collections.sort(listOfAllInsurances);
-            for (int i = 0; i < listOfAllInsurances.size(); i++) {
-                Insurance insurance = listOfAllInsurances.get(i);
-
+            for (int i = 0; i < listOfAllObjects.size(); i++) {
+                CSVWritable writableObject = listOfAllObjects.get(i);
                 if (i == 0) {
-                    writer.println(insurance.getInsuranceName());
-                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
+                    writer.println(writableObject.getNameOfClass());
+                    writer.println(generateHeaderFromObject(writableObject));
                 }
-                else if (currentInsuranceIsDifferentType(insurance, listOfAllInsurances.get(i-1))) {
-                    writer.println(insurance.getInsuranceName());
-                    writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
+                else if (objectsDifferInClass(writableObject, listOfAllObjects.get(i-1))) {
+                    writer.print(writableObject.getNameOfClass());
+                    writer.println(generateHeaderFromObject(writableObject));
                 }
-
-                writer.println(String.join(";", insurance.getFieldValuesAsStrings()));
+                writer.println(writeObjectToCsvString(writableObject));
             }
-
-            //Skriver ut alle skademeldinger
-            for(int i = 0; i< listOfAllAccidentStatements.size(); i++){
-                AccidentStatement accidentStatement = listOfAllAccidentStatements.get(i);
-                if(i == 0){
-                    writer.println("Skademeldinger");
-                    writer.println(String.join(";",accidentStatement.getFieldNamesAsStrings()));
-                }
-                writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
-            }
-
-            //Skriver ut alle vitner
-            for(int i = 0; i< listOfAllWitnesses.size(); i++){
-                Witness witness = listOfAllWitnesses.get(i);
-                if(i == 0){
-                    writer.println("Vitner");
-                    writer.println(String.join(";", witness.getFieldNamesAsStrings()));
-                }
-                writer.println(String.join(";", witness.getFieldValuesAsStrings()));
-            }
-
         } finally {
             if (writer != null) {
                 writer.close();
@@ -101,9 +64,16 @@ public class CsvWriter extends FileWriterStrategy {
 
     }
 
+    private boolean objectsDifferInClass(CSVWritable obj1, CSVWritable obj2) {
+        return obj1.getClass() != obj2.getClass();
+    }
 
-    private boolean currentInsuranceIsDifferentType(Insurance currentInsurance, Insurance previousInsurance) {
-        return currentInsurance.getClass() != previousInsurance.getClass();
+    private String generateHeaderFromObject(CSVWritable object) {
+        return String.join(";", object.getFieldNamesAsStrings());
+    }
+
+    private String writeObjectToCsvString(CSVWritable csvWritableObject) {
+        return String.join(";", csvWritableObject.getFieldValuesAsStrings());
     }
 
 }

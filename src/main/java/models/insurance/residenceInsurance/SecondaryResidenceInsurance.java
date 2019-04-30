@@ -15,7 +15,7 @@ public class SecondaryResidenceInsurance extends ResidenceInsurance {
     }
 
     @Override
-    public String getInsuranceName() {
+    public String getNameOfClass() {
         return insuranceName;
     }
 }

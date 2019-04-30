@@ -53,7 +53,7 @@ public class BoatInsurance extends Insurance {
     }
 
     @Override
-    public String getInsuranceName() {
+    public String getNameOfClass() {
         return insuranceName;
     }
 

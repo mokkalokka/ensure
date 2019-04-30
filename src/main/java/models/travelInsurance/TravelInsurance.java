@@ -47,7 +47,7 @@ public class TravelInsurance extends Insurance {
     }
 
     @Override
-    public String getInsuranceName() {
+    public String getNameOfClass() {
         return insuranceName;
     }
 

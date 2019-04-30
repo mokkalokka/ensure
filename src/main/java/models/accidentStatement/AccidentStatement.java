@@ -2,6 +2,7 @@ package models.accidentStatement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.filewriter.classwriter.CSVWritable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AccidentStatement implements Serializable {
+public class AccidentStatement implements Serializable, CSVWritable {
     private static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
 
     private int registeredTo;
@@ -94,7 +95,7 @@ public class AccidentStatement implements Serializable {
     }
 
 
-    public String getInsuranceName(){
+    public String getNameOfClass(){
         return "Skademeldinger";
     }
 
@@ -108,7 +109,6 @@ public class AccidentStatement implements Serializable {
         }
         this.accidentNr = accidentNr;
     }
-
 
     public int getAccidentNr() { return accidentNr; }
 
