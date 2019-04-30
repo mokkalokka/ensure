@@ -49,7 +49,7 @@ public class ToolbarController {
     @FXML
     private void toolbarOpenFile() {
         boolean readingFromFile = true;
-        FileChooser fileChooser = fileChooserWithExtensionFilters();
+        FileChooser fileChooser = fileChooserWithExtensionFilters(readingFromFile);
         fileChooser.setTitle("Åpne fil");
         File file = fileChooser.showOpenDialog(null);
 
@@ -70,7 +70,7 @@ public class ToolbarController {
     @FXML
     private void toolbarSaveAs(){
         Boolean readingFromFile = false;
-        FileChooser fileChooser = fileChooserWithExtensionFilters();
+        FileChooser fileChooser = fileChooserWithExtensionFilters(readingFromFile);
         fileChooser.setTitle("Lagre som...");
         File file = fileChooser.showSaveDialog(null);
 
@@ -175,14 +175,28 @@ public class ToolbarController {
         return fileExtension;
     }
 
-    private FileChooser fileChooserWithExtensionFilters() {
+    private FileChooser fileChooserWithExtensionFilters(boolean readingFromFile) {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Java Object (*.jobj), " +
-                "Comma-separated values (*.csv)",
-                "*.jobj", "*.csv");
 
-        fileChooser.getExtensionFilters().add(extFilter);
+        if(readingFromFile) {
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                    "Java Object (*.jobj), " + "Comma-separated values (*.csv)",
+                    "*.jobj", "*.csv");
 
+            fileChooser.getExtensionFilters().add(extFilter);
+        }
+
+        else{
+            FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter(
+                    "Comma-separated values (*.csv)", "*.csv");
+            FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter(
+                    "Java Object (*.jobj)", "*.jobj");
+
+
+            fileChooser.getExtensionFilters().addAll(extFilterCsv,extFilterJobj);
+
+
+        }
 
         return fileChooser;
     }
