@@ -2,11 +2,13 @@ package models.builders;
 
 
 import models.accidentStatement.AccidentStatement;
+import models.accidentStatement.Witness;
 import models.exceptions.builderExceptions.*;
 
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AccidentStatementBuilder {
 
@@ -18,6 +20,7 @@ public class AccidentStatementBuilder {
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
     private int accidentNr = 0;
     private final StringChecker stringChecker = new StringChecker();
+    private List<Witness> listOfWitnesses;
 
     public AccidentStatementBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
         String fieldName = "Registrert til";
@@ -125,6 +128,11 @@ public class AccidentStatementBuilder {
         return this;
     }
 
+    public AccidentStatementBuilder setListOfWitnesses(List<Witness> witnessList) {
+        this.listOfWitnesses = witnessList;
+        return this;
+    }
+
     public AccidentStatement build(){
         //Dersom accidentNr ikke blir satt av en csv fil blir denne inkrementert
         if (accidentNr == 0){
@@ -134,7 +142,8 @@ public class AccidentStatementBuilder {
                     accidentType,
                     accidentDescription,
                     appraisalAmount,
-                    dispersedCompensation
+                    dispersedCompensation,
+                    listOfWitnesses
             );
         }
         return new AccidentStatement(
@@ -144,7 +153,10 @@ public class AccidentStatementBuilder {
                 accidentDescription,
                 appraisalAmount,
                 dispersedCompensation,
-                accidentNr
+                accidentNr,
+                listOfWitnesses
                 );
     }
+
+
 }

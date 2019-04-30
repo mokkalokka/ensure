@@ -2,14 +2,10 @@ package controllers.accidentStatement;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.accidentStatement.WitnessHandler;
-import models.builders.CustomerBuilder;
 import models.builders.WitnessBuilder;
 import models.company.InsuranceCompany;
 import models.customer.Customer;
@@ -19,10 +15,10 @@ import models.gui.ErrorDialog;
 
 public class NewWitnessController {
 
-    private final InsuranceCompany INS_COMP = InsuranceCompany.getInstance();
     private Customer curentCustomer;
     private Witness myWitness;
-    private WitnessHandler witnessHandler;
+    private AccidentStatementController parentController;
+    private AccidentStatement currentAccidentStatement;
 
     @FXML
     private JFXTextField txtFirstName;
@@ -36,15 +32,14 @@ public class NewWitnessController {
     @FXML
     private void btnAddWitness() {
         try {
-            WitnessHandler witnessHandler = new WitnessHandler();
-            witnessHandler.addTemporaryWitness(getNewWitness());
+            parentController.addWitness(getNewWitness());
 
-        } catch (Exception e) {
+        } catch (BuilderInputException | InvalidCustomerException e) {
             new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
     }
 
-    private Witness getNewWitness() throws Exception{
+    private Witness getNewWitness() throws BuilderInputException, InvalidCustomerException {
             return new WitnessBuilder()
                     .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
                     .setFirstName(txtFirstName.getText())
@@ -65,30 +60,17 @@ public class NewWitnessController {
         return (Stage) lblStatus.getScene().getWindow();
     }
 
-    @FXML
-    private void updateStatus(String message){
-        int customerCount = INS_COMP.getCustomerCount();
-        lblStatus.setText(message + "\n\nAntall brukere i systemet: " + customerCount);
+    public void setParentController(AccidentStatementController parentController) {
+        this.parentController = parentController;
+        setCurrentAccidentStatement(parentController.getCurrentAccidentStatement());
     }
 
-    private void invalidInputAlert(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Feil formatering av vitne");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        alert.showAndWait();
+    private void setCurrentAccidentStatement(AccidentStatement accidentStatement) {
+        currentAccidentStatement = accidentStatement;
     }
 
     public void setCurentCustomer(Customer curentCustomer) {
         this.curentCustomer = curentCustomer;
     }
 
-    public void setWitnessHandler(WitnessHandler witnessHandler) {
-        this.witnessHandler = witnessHandler;
-    }
-
-    public void initialize() {
-        // TODO
-    }
 }
