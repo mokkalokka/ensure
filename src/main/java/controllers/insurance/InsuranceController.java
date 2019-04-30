@@ -29,11 +29,9 @@ public abstract class InsuranceController {
         try {
             state.saveInsurance(this);
         } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            //TODO: display error window
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
-            errorDialog.show();
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();
     }

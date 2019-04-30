@@ -17,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.customer.Customer;
+import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.company.InsuranceCompany;
 
@@ -62,7 +63,7 @@ public class CustomersController {
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
         } catch(IOException e) {
-            //TODO error vindu
+            new ErrorDialog("Feil ved registrering av kunde",true).show();
         }
     }
 

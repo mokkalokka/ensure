@@ -80,8 +80,6 @@ public class NewWitnessController {
         alert.showAndWait();
     }
 
-
-
     public void setCurentCustomer(Customer curentCustomer) {
         this.curentCustomer = curentCustomer;
     }

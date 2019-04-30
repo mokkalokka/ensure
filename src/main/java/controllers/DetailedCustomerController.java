@@ -18,7 +18,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import models.builders.CustomerBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.customerExceptions.EmptyFieldsException;
+import models.exceptions.customerExceptions.InvalidCustomerException;
+import models.exceptions.customerExceptions.InvalidLastNameException;
+import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
@@ -33,64 +39,46 @@ import java.time.LocalDate;
 public class DetailedCustomerController {
 
     private Customer currentCustomer;
-    ObservableList<Insurance> insuranceObservableList;
-    ObservableList<AccidentStatement> accidentStatementsObservableList;
+    private ObservableList<Insurance> insuranceObservableList;
+    private ObservableList<AccidentStatement> accidentStatementsObservableList;
 
-    //Insurance table
     @FXML
     private TableView<Insurance> tblInsurance;
-
     @FXML
     private TableColumn<Insurance, String> clmnInsuranceType;
-
     @FXML
     private TableColumn<Insurance, LocalDate> clmnJoinDate;
-
     @FXML
     private TableColumn<Insurance, Double> clmnTotal;
-
     @FXML
     private TableColumn<Insurance, Double> clmnAnnualPremium;
-
     @FXML
     private TableColumn<Insurance, String> clmnCoverageDescription;
 
-    //AccidentStatements table
     @FXML
     private TableView<AccidentStatement> tblAccidentStatement;
-
     @FXML
     private TableColumn<AccidentStatement, Integer> clmnAccidentNr;
-
     @FXML
     private TableColumn<AccidentStatement, LocalDate> clmnDateOfAccident;
-
     @FXML
     private TableColumn<AccidentStatement, String> clmnAccidentType;
-
     @FXML
     private TableColumn<AccidentStatement, String> clmnAccidentDescription;
 
-    //FX elementene
 
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
     private JFXTextField lblInsuranceNr;
-
     @FXML
     private JFXTextField  lblSurname;
-
     @FXML
     private JFXTextField  lblFirstName;
-
     @FXML
     private JFXTextField  lblCustomerSince;
-
     @FXML
     private JFXTextField  lblInvoiceAddress;
-
     @FXML
     private JFXTextField lblPendingCompensation;
 
@@ -108,27 +96,35 @@ public class DetailedCustomerController {
             String pathToXml = "/org/view/accidentStatement.fxml";
             openCreateNewAccidentStatementWindow(pathToXml, "Skademelding");
         } catch (IOException e) {
-            e.printStackTrace();
-            //TODO
+            new ErrorDialog("Feil ved åpning av vindu", true).show();
         }
     }
 
     @FXML
     private void btnSaveCustomer() {
-        //TODO exceptions, sjekke om tom osv
-        //Oppdaterer kunden med redigert data
-        updateCustomer();
+        try {
+            updateCustomer();
+        } catch (InvalidCustomerException e) {
+            new ErrorDialog("Feil ved lagring.", e.getMessage()).show();
+        }
     }
 
-    private void updateCustomer() {
+    private void updateCustomer() throws InvalidCustomerException {
+        checkForValidInput();
         currentCustomer.setLastName(lblSurname.getText());
         currentCustomer.setFirstName(lblFirstName.getText());
         currentCustomer.setInvoiceAddress(lblInvoiceAddress.getText());
-        try {
-            currentCustomer.setPendingCompensation(Double.parseDouble(lblPendingCompensation.getText()));
-        } catch (NumberFormatException e) {
-            // TODO: display error window.
-        }
+        currentCustomer.setPendingCompensation(Double.parseDouble(lblPendingCompensation.getText()));
+
+    }
+
+    private void checkForValidInput() throws InvalidCustomerException {
+        // Kaster exception hvis noen av feltene ikke er valid input.
+        new CustomerBuilder()
+                .setLastName(lblSurname.getText())
+                .setFirstName(lblFirstName.getText())
+                .setInvoiceAddress(lblInvoiceAddress.getText())
+                .setPendingCompensation(lblPendingCompensation.getText());
     }
 
     @FXML
@@ -149,7 +145,7 @@ public class DetailedCustomerController {
         try {
             openExistingAccidentStatementWindow(clickedAccidentStatement, "/org/view/accidentStatement.fxml", "Skademelding");
         } catch (IOException e) {
-            e.printStackTrace();
+            new ErrorDialog("Feil ved åpning av vindu.", true).show();
         }
     }
 
@@ -308,8 +304,7 @@ public class DetailedCustomerController {
             String pathToXml = "/org/view/travelInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
         } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: Display error window.
+            new ErrorDialog("Feil ved åpning av vindu.", true).show();
         }
     }
 
@@ -319,8 +314,7 @@ public class DetailedCustomerController {
             String pathToXml = "/org/view/primaryResidenceInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Hus- og boligforsikring");
         } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: display error window.
+            new ErrorDialog("Feil ved åpning av vindu.", true).show();
         }
     }
 
@@ -330,8 +324,7 @@ public class DetailedCustomerController {
             String pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Fritidsboligforsikring");
         } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: display error window.
+            new ErrorDialog("Feil ved åpning av vindu.", true).show();
         }
     }
 
@@ -371,8 +364,7 @@ public class DetailedCustomerController {
             String pathToXml = "/org/view/boatInsurance.fxml";
             openCreateNewInsuranceWindow(pathToXml, "Båtforsikring");
         } catch (IOException e) {
-            e.printStackTrace();
-            //TODO: Display error window.
+            new ErrorDialog("Feil ved åpning av vindu", true).show();
         }
     }
 
@@ -413,8 +405,7 @@ public class DetailedCustomerController {
             openExistingInsuranceWindow(insurance, pathToXml, "Fritidsboligforsikring");
         }
         else {
-            System.err.println("type of insurance not found!");
-            // TODO: Display error window
+            new ErrorDialog("Feil ved lesing av forsikring", true).show();
         }
 
     }
@@ -434,9 +425,5 @@ public class DetailedCustomerController {
         WindowHandler windowHandler = new WindowHandler();
         windowHandler.openNewStageAndLockCurrent(getCurrentStage(), root, stageTitle);
     }
-
-
-
-
 
 }

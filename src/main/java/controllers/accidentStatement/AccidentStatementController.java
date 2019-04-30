@@ -29,8 +29,6 @@ public class AccidentStatementController {
     private DetailedCustomerController parentController;
     private ObservableList<Witness> observableWitnessList;
 
-
-
     @FXML
     private JFXTextField txtAccidentType;
     @FXML
@@ -103,11 +101,9 @@ public class AccidentStatementController {
         try {
             state.saveAccidentStatement(this);
         } catch (InvalidCustomerException e) {
-            e.printStackTrace();
-            //TODO error vindu
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         } catch (BuilderInputException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil i lagring", e.getMessage());
-            errorDialog.show();
+            new ErrorDialog("Feil ved lagring", e.getMessage()).show();
         }
         parentController.refreshTables();
     }
@@ -161,7 +157,6 @@ public class AccidentStatementController {
     public void updateAccidentStatement() throws BuilderInputException {
         assert currentAccidentStatement != null;
         checkForValidInput();
-        // TODO: dette må vise error ved feil input.
         currentAccidentStatement.setAccidentDescription(txtAccidentDescription.getText());
         currentAccidentStatement.setAccidentType(txtAccidentType.getText());
         currentAccidentStatement.setAppraisalAmount(Double.parseDouble(txtAppraisalAmount.getText()));

@@ -14,6 +14,13 @@ public class ErrorDialog {
         this.message = message;
     }
 
+    public ErrorDialog(String title, boolean isCritical) {
+        this.title = title;
+        message = "En alvorlig feil skjedde! Hvis feilen gjentar seg, prøv å start programmet på nytt.";
+        this.isCritical = isCritical;
+    }
+
+
     public ErrorDialog(String title, String message, boolean isCritical) {
         this.title = title;
         this.message = message;

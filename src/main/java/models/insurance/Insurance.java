@@ -15,18 +15,8 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
     private int registeredTo;
     private double annualPremium;
     private LocalDate dateOfIssue;
-    private double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
-    private String coverageDescription; // forsikringsbetingelser, ev. annet navn.
-
-    /*
-    public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription) {
-        this.registeredTo = registeredTo;
-        this.annualPremium = annualPremium;
-        this.total = total;
-        this.coverageDescription = coverageDescription;
-        dateOfIssue = LocalDate.now();
-    }
-    */
+    private double total;
+    private String coverageDescription; // forsikringsbetingelser
 
     public Insurance(int registeredTo, double annualPremium, double total, String coverageDescription, LocalDate dateOfIssue) {
         this.registeredTo = registeredTo;
