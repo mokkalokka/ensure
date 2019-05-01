@@ -75,5 +75,4 @@ public class CSVWriter extends FileWriterStrategy {
     private String writeObjectToCsvString(CSVWritable csvWritableObject) {
         return String.join(";", csvWritableObject.getFieldValuesAsStrings());
     }
-
 }
