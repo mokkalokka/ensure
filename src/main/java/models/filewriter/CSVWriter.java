@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class CsvWriter extends FileWriterStrategy {
+public class CSVWriter extends FileWriterStrategy {
 
     private List<CSVWritable> objToBeWritten = new ArrayList<>();
 
-    public CsvWriter(String path, List<Customer> customerList) {
+    public CSVWriter(String path, List<Customer> customerList) {
         super(path, customerList);
         addObjectsToBeWritten(customerList);
     }

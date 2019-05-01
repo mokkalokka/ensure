@@ -2,9 +2,7 @@ package models.fileReader.parsers;
 
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
-import models.customer.CustomerList;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;

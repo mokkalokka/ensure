@@ -2,7 +2,6 @@ package models.fileReader.parsers;
 
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 
 public class ParseCustomer {

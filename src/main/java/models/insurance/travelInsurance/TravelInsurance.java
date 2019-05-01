@@ -1,4 +1,4 @@
-package models.travelInsurance;
+package models.insurance.travelInsurance;
 
 import models.insurance.Insurance;
 

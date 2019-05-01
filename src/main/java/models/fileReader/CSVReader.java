@@ -12,7 +12,7 @@ import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
-import models.travelInsurance.TravelInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CsvReader extends FileReaderStrategy {
+public class CSVReader extends FileReaderStrategy {
     private ArrayList<Customer> loadedCustomers = new ArrayList<>();
 
-    public CsvReader(String path) {
+    public CSVReader(String path) {
         super(path);
     }
 

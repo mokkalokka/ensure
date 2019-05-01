@@ -1,11 +1,9 @@
 package models.fileReader.parsers;
 
 import models.builders.travelInsurance.TravelInsuranceBuilder;
-import models.customer.CustomerList;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
-import models.travelInsurance.TravelInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 
 public class ParseTravelInsurance {
     public static Insurance parseTravelInsurance(String[] lineArray) throws BuilderInputException {
