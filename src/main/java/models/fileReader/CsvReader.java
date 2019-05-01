@@ -93,7 +93,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case "Reiseforsikringer":
+                case "Reiseforsikring":
                     if (lineArray.length == 8) {
                         addInsuranceToLoadedCustomers(
                                 ParseTravelInsurance.parseTravelInsurance(lineArray));
