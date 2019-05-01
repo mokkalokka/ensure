@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import models.builders.travelInsurance.TravelInsuranceBuilder;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.Insurance;
-import models.travelInsurance.TravelInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 
 public class TravelInsuranceController extends InsuranceController {
 

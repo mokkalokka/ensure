@@ -12,6 +12,7 @@ import models.exceptions.fileExceptions.InvalidClassDescriptionException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.Insurance;
+import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import java.io.BufferedReader;
@@ -21,13 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CsvReader extends FileReaderStrategy {
+public class CSVReader extends FileReaderStrategy {
     //Midlertidig liste som returneres dersom lesingen fullføres
     private ArrayList<Customer> loadedCustomers = new ArrayList<>();
 
-    public CsvReader(String path) {
+    public CSVReader(String path) {
         super(path);
     }
+
 
     @Override
     public List<Customer> readFile() throws BuilderInputException, IOException, InvalidCustomerException,
@@ -36,6 +38,8 @@ public class CsvReader extends FileReaderStrategy {
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
         String currentClass = "Kunder";
+        String skipLine;
+        double currentLine = 0;
 
         //Hopper over linja som beskriver delimiter
         String skipLine = br.readLine();
@@ -44,6 +48,7 @@ public class CsvReader extends FileReaderStrategy {
 
         //Mens filen fortsatt har flere linjer
         while ((line = br.readLine()) != null) {
+
             currentLine += 1;
 
             //Liste med strenger fra den nåværende linja, splittet av semikolon ;
@@ -62,11 +67,12 @@ public class CsvReader extends FileReaderStrategy {
                 line = br.readLine();
                 lineArray = line.split(";");
                 currentLine += 2;
+
             }
 
             //Her sorteres hva som skal parses ut i fra current class
             switch (currentClass) {
-                case "Kunder":
+                case Customer.nameOfClass:
                     //Dersom det er 6 strenger i lista, parse kunden
                     if (lineArray.length == 6) {
                         loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
@@ -77,7 +83,7 @@ public class CsvReader extends FileReaderStrategy {
                     }
                     break;
 
-                case "Batforsikringer":
+                case BoatInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
                     } else {
@@ -86,7 +92,7 @@ public class CsvReader extends FileReaderStrategy {
                     break;
 
 
-                case PrimaryResidenceInsurance.insuranceName:
+                case PrimaryResidenceInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
@@ -96,7 +102,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case SecondaryResidenceInsurance.insuranceName:
+                case SecondaryResidenceInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
@@ -106,7 +112,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case "Reiseforsikringer":
+                case TravelInsurance.nameOfClass:
                     if (lineArray.length == 8) {
                         addInsuranceToLoadedCustomers(
                                 ParseTravelInsurance.parseTravelInsurance(lineArray));
@@ -116,7 +122,7 @@ public class CsvReader extends FileReaderStrategy {
                     break;
 
 
-                case "Skademeldinger":
+                case AccidentStatement.nameOfClass:
                     if (lineArray.length == 7) {
                         addAccidentStatementToLoadedCustomers(
                                 ParseAccidentStatement.parseAccidentStatement(lineArray));
@@ -126,7 +132,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case "Vitner":
+                case Witness.nameOfClass:
                     if (lineArray.length == 5) {
                         addWitnessToLoadedCustomers(
                                 ParseWitness.parseWitness(lineArray));
@@ -135,11 +141,6 @@ public class CsvReader extends FileReaderStrategy {
                         throw new InvalidLineLengthException("vitner", (int) currentLine);
                     }
                     break;
-
-                default:
-                    //Kaster exception dersom currentClass ikke er riktig
-                    //currentLine - 2 fordi det er to linjer siden kassenavn ble beskrevet
-                    throw new InvalidClassDescriptionException(currentClass, (int)currentLine - 2);
             }
 
         }

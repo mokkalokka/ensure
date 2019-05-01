@@ -1,18 +1,22 @@
 package models.customer;
 
 import models.accidentStatement.AccidentStatement;
+import models.filewriter.CSVWritable;
 import models.insurance.Insurance;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Customer implements Serializable {
+public class Customer implements Serializable, CSVWritable {
 
     private static final long serialVersionUID = 7374958920320110060L;
     private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000);
+    public static final String nameOfClass = "Kunder";
 
     private int insuranceNr;
     private String lastName;
@@ -90,6 +94,41 @@ public class Customer implements Serializable {
 
     public String searchData() {
         return (insuranceNr + firstName + lastName + invoiceAddress + customerSince).toLowerCase();
+    }
+
+    //---------- CSVWritable metoder -----------
+
+    @Override
+    public String getNameOfClass() {
+        return nameOfClass;
+    }
+
+    @Override
+    public List<String> getFieldNamesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                "Forsikringsnummer",
+                "Etternavn",
+                "Fornavn",
+                "Kunde siden",
+                "Fakturaadresse",
+                "Ubetalte erstatninger"));
+    }
+
+    @Override
+    public List<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(insuranceNr),
+                lastName,
+                firstName,
+                String.valueOf(customerSince),
+                invoiceAddress,
+                String.valueOf(pendingCompensation)
+        ));
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 0;
     }
 
     //---------- Getters & setters -----------

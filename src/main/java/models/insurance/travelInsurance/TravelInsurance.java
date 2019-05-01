@@ -1,6 +1,5 @@
-package models.travelInsurance;
+package models.insurance.travelInsurance;
 
-import models.customer.Customer;
 import models.insurance.Insurance;
 
 import java.time.LocalDate;
@@ -9,7 +8,8 @@ import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
 
-    private final String insuranceName = "Reiseforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
+    public static final String nameOfClass = "Reiseforsikring"; //For CSV writer (Skille mellom classer ved lesing)
+
     private boolean isPremium;
     private double maxCoverage; // forsikringssum på norsk
 
@@ -29,28 +29,6 @@ public class TravelInsurance extends Insurance {
         this.maxCoverage = maxCoverage;
     }
 
-    public ArrayList<String> getFieldNamesAsStrings() {
-        ArrayList<String> fieldNames = new ArrayList<>(
-                Arrays.asList("Premiumforsikring", "Forsikringssum"));
-        fieldNames.addAll(0, super.getFieldNamesAsStrings());
-        return fieldNames;
-    }
-
-    public ArrayList<String> getFieldValuesAsStrings() {
-        ArrayList<String> fieldValues = new ArrayList<>(
-                Arrays.asList(
-                        String.valueOf(isPremium),
-                        String.valueOf(maxCoverage)
-                ));
-        fieldValues.addAll(0, super.getFieldValuesAsStrings());
-        return fieldValues;
-    }
-
-    @Override
-    public String getInsuranceName() {
-        return insuranceName;
-    }
-
     public double getMaxCoverage() {
         return maxCoverage;
     }
@@ -65,5 +43,36 @@ public class TravelInsurance extends Insurance {
 
     public void setMaxCoverage(double maxCoverage) {
         this.maxCoverage = maxCoverage;
+    }
+
+    //---------- CSVWritable metoder -----------
+
+    @Override
+    public ArrayList<String> getFieldNamesAsStrings() {
+        ArrayList<String> fieldNames = new ArrayList<>(
+                Arrays.asList("Premiumforsikring", "Forsikringssum"));
+        fieldNames.addAll(0, super.getFieldNamesAsStrings());
+        return fieldNames;
+    }
+
+    @Override
+    public ArrayList<String> getFieldValuesAsStrings() {
+        ArrayList<String> fieldValues = new ArrayList<>(
+                Arrays.asList(
+                        String.valueOf(isPremium),
+                        String.valueOf(maxCoverage)
+                ));
+        fieldValues.addAll(0, super.getFieldValuesAsStrings());
+        return fieldValues;
+    }
+
+    @Override
+    public String getNameOfClass() {
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 4;
     }
 }

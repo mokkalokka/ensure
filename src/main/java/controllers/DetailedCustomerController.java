@@ -20,10 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
-import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.EmptyFieldsException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
-import models.exceptions.customerExceptions.InvalidLastNameException;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.accidentStatement.AccidentStatement;
@@ -31,7 +28,7 @@ import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
-import models.travelInsurance.TravelInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -193,7 +190,7 @@ public class DetailedCustomerController {
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
-        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("insuranceName"));
+        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("nameOfClass"));
         clmnJoinDate.setCellValueFactory(new PropertyValueFactory<>("dateOfIssue"));
         clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         clmnAnnualPremium.setCellValueFactory(new PropertyValueFactory<>("annualPremium"));

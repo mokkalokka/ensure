@@ -2,7 +2,7 @@ package models.threading;
 
 import javafx.concurrent.Task;
 import models.exceptions.fileExceptions.UnsuportedFileExtensionException;
-import models.fileReader.CsvReader;
+import models.fileReader.CSVReader;
 import models.fileReader.SerializedObjectReader;
 
 public class FileReaderTask extends Task{
@@ -18,7 +18,7 @@ public class FileReaderTask extends Task{
     protected Object call() throws Exception {
 
         if (fileExtension.equals("csv")) {
-            CsvReader csvReader = new CsvReader(path);
+            CSVReader csvReader = new CSVReader(path);
             //Returnerer en ArrayList med kunder fra fil
             return csvReader.readFile();
 

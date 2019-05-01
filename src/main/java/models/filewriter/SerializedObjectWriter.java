@@ -1,7 +1,6 @@
 package models.filewriter;
 
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 
 import java.io.FileOutputStream;
