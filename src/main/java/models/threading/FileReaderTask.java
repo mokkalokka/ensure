@@ -19,13 +19,17 @@ public class FileReaderTask extends Task{
 
         if (fileExtension.equals("csv")) {
             CsvReader csvReader = new CsvReader(path);
+            //Returnerer en ArrayList med kunder fra fil
             return csvReader.readFile();
 
         }
         else if(fileExtension.equals("jobj")){
             SerializedObjectReader serializedObjectReader = new SerializedObjectReader(path);
+            //Returnerer en ArrayList med kunder fra fil
             return serializedObjectReader.readFile();
         }
+
+        //Dersom filtypen ikke er csv eller jobj kastes exception
         else{
             throw new UnsuportedFileExtensionException();
         }

@@ -31,6 +31,8 @@ public class FileWriterTask extends Task{
             SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter(path, customerList);
             serializedObjectWriter.writeFile();
         }
+
+        //Dersom filtypen ikke er csv eller jobj kastes exception
         else{
             throw new UnsuportedFileExtensionException();
         }

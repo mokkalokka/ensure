@@ -124,8 +124,7 @@ public class CsvReader extends FileReaderStrategy {
                 case "Vitner":
                     if (lineArray.length == 5) {
                         addWitnessToLoadedCustomers(
-                                ParseWitness.parseWitness(lineArray)
-                        );
+                                ParseWitness.parseWitness(lineArray));
 
                     } else {
                         throw new InvalidLineLengthException("vitner", (int) currentLine);
