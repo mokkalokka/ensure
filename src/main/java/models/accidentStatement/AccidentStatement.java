@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AccidentStatement implements Serializable, CSVWritable {
 
     private static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
-    private static final String nameOfClass = "Skademeldinger";
+    public static final String nameOfClass = "Skademeldinger";
 
     private int registeredTo;
     private LocalDate dateOfAccident;

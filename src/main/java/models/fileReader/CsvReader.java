@@ -9,8 +9,10 @@ import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.Insurance;
+import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
+import models.travelInsurance.TravelInsurance;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -56,7 +58,7 @@ public class CsvReader extends FileReaderStrategy {
             }
 
             switch (currentClass) {
-                case "Kunder":
+                case Customer.nameOfClass:
                     if (lineArray.length == 6) {
                         loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
                     } else {
@@ -64,7 +66,7 @@ public class CsvReader extends FileReaderStrategy {
                     }
                     break;
 
-                case "Batforsikringer":
+                case BoatInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
                     } else {
@@ -93,7 +95,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case "Reiseforsikring":
+                case TravelInsurance.nameOfClass:
                     if (lineArray.length == 8) {
                         addInsuranceToLoadedCustomers(
                                 ParseTravelInsurance.parseTravelInsurance(lineArray));
@@ -103,7 +105,7 @@ public class CsvReader extends FileReaderStrategy {
                     break;
 
 
-                case "Skademeldinger":
+                case AccidentStatement.nameOfClass:
                     if (lineArray.length == 7) {
                         addAccidentStatementToLoadedCustomers(
                                 ParseAccidentStatement.parseAccidentStatement(lineArray));
@@ -113,7 +115,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case "Vitner":
+                case Witness.nameOfClass:
                     if (lineArray.length == 5) {
                         addWitnessToLoadedCustomers(
                                 ParseWitness.parseWitness(lineArray)

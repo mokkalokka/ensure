@@ -16,7 +16,7 @@ public class Customer implements Serializable, CSVWritable {
 
     private static final long serialVersionUID = 7374958920320110060L;
     private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000);
-    private final String nameOfClass = "Kunder";
+    public static final String nameOfClass = "Kunder";
 
     private int insuranceNr;
     private String lastName;

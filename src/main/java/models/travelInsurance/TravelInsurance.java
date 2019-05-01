@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
 
-    private final String nameOfClass = "Reiseforsikring"; //For CSV writer (Skille mellom classer ved lesing)
+    public static final String nameOfClass = "Reiseforsikring"; //For CSV writer (Skille mellom classer ved lesing)
+
     private boolean isPremium;
     private double maxCoverage; // forsikringssum på norsk
 

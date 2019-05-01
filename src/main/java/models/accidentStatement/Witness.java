@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Witness implements Serializable, CSVWritable {
 
-    private final String nameOfClass = "Vitner";
+    public static final String nameOfClass = "Vitner";
 
     private int registeredTo;
     private String firstName;

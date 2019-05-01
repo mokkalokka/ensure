@@ -8,7 +8,8 @@ import java.util.Arrays;
 
 public class BoatInsurance extends Insurance {
 
-    private final String nameOfClass = "Batforsikring"; //For CSV writer (Skille mellom classer ved lesing)
+    public static final String nameOfClass = "Batforsikring"; //For CSV writer (Skille mellom classer ved lesing)
+
     private Boat boat;
 
     public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat,
