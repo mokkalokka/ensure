@@ -27,8 +27,6 @@ public class Customer implements Serializable, CSVWritable {
     private ArrayList<AccidentStatement> listOfAccidentStatements; // skademelding
     private double pendingCompensation;
 
-    //TODO: Denne burde fjernes til fordel for den andre konstruktøren
-
     public Customer(String firstName, String lastName, String invoiceAddress) {
         this.insuranceNr = NEXT_INSURANCE_NR.getAndIncrement();
         this.firstName = firstName;
