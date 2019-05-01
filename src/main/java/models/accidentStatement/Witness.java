@@ -32,9 +32,7 @@ public class Witness implements Serializable, CSVWritable {
         this.forAccidentStatement = forAccidentStatement;
     }
 
-    public int getRegisteredTo() {
-        return registeredTo;
-    }
+    //---------- CSVWritable metoder -----------
 
     public ArrayList<String> getFieldValuesAsStrings() {
         return new ArrayList<>(Arrays.asList(
@@ -63,6 +61,12 @@ public class Witness implements Serializable, CSVWritable {
     @Override
     public int getWriteIndex() {
         return 6;
+    }
+
+    //---------- Getters & setters -----------
+
+    public int getRegisteredTo() {
+        return registeredTo;
     }
 
     public int getForAccidentStatement() {

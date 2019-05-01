@@ -74,38 +74,6 @@ public class AccidentStatement implements Serializable, CSVWritable {
         return FXCollections.observableArrayList(listOfWitnesses);
     }
 
-    public ArrayList<String> getFieldValuesAsStrings() {
-        return new ArrayList<>(Arrays.asList(
-                String.valueOf(registeredTo),
-                String.valueOf(dateOfAccident),
-                String.valueOf(accidentType),
-                String.valueOf(accidentDescription),
-                String.valueOf(appraisalAmount),
-                String.valueOf(dispersedCompensation),
-                String.valueOf(accidentNr)
-        ));
-    }
-    public ArrayList<String> getFieldNamesAsStrings() {
-        return new ArrayList<>(Arrays.asList(
-                "Registrert til",
-                "Dato for skade",
-                "Type skade",
-                "Beskrivelse av skade",
-                "Takseringsbeløp",
-                "Utbetalt erstatningsbeløp",
-                "Skadenummer"));
-    }
-
-    @Override
-    public String getNameOfClass(){
-        return nameOfClass;
-    }
-
-    @Override
-    public int getWriteIndex() {
-        return 5;
-    }
-
     public int getRegisteredTo() {
         return registeredTo;
     }
@@ -160,4 +128,40 @@ public class AccidentStatement implements Serializable, CSVWritable {
         this.dispersedCompensation = dispersedCompensation;
     }
 
+    //---------- CSVWritable metoder -----------
+
+    @Override
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(dateOfAccident),
+                String.valueOf(accidentType),
+                String.valueOf(accidentDescription),
+                String.valueOf(appraisalAmount),
+                String.valueOf(dispersedCompensation),
+                String.valueOf(accidentNr)
+        ));
+    }
+
+    @Override
+    public ArrayList<String> getFieldNamesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                "Registrert til",
+                "Dato for skade",
+                "Type skade",
+                "Beskrivelse av skade",
+                "Takseringsbeløp",
+                "Utbetalt erstatningsbeløp",
+                "Skadenummer"));
+    }
+
+    @Override
+    public String getNameOfClass(){
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 5;
+    }
 }

@@ -1,6 +1,7 @@
 package models.filewriter;
 
 import models.customer.Customer;
+import models.exceptions.fileExceptions.NoCustomersFoundException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,8 +34,12 @@ public class CsvWriter extends FileWriterStrategy {
     }
 
     @Override
-    public void writeFile() throws IOException {
+    public void writeFile() throws IOException, NoCustomersFoundException {
         PrintWriter writer = null;
+
+        if(objToBeWritten.size() == 0) {
+            throw new NoCustomersFoundException();
+        }
 
         try {
             writer = new PrintWriter(path, StandardCharsets.ISO_8859_1);
@@ -57,7 +62,6 @@ public class CsvWriter extends FileWriterStrategy {
                 writer.close();
             }
         }
-
     }
 
     private boolean objectsDifferInClass(CSVWritable obj1, CSVWritable obj2) {

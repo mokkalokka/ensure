@@ -28,6 +28,25 @@ public class TravelInsurance extends Insurance {
         this.maxCoverage = maxCoverage;
     }
 
+    public double getMaxCoverage() {
+        return maxCoverage;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+    }
+
+    public void setMaxCoverage(double maxCoverage) {
+        this.maxCoverage = maxCoverage;
+    }
+
+    //---------- CSVWritable metoder -----------
+
+    @Override
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
                 Arrays.asList("Premiumforsikring", "Forsikringssum"));
@@ -35,6 +54,7 @@ public class TravelInsurance extends Insurance {
         return fieldNames;
     }
 
+    @Override
     public ArrayList<String> getFieldValuesAsStrings() {
         ArrayList<String> fieldValues = new ArrayList<>(
                 Arrays.asList(
@@ -53,21 +73,5 @@ public class TravelInsurance extends Insurance {
     @Override
     public int getWriteIndex() {
         return 4;
-    }
-
-    public double getMaxCoverage() {
-        return maxCoverage;
-    }
-
-    public boolean isPremium() {
-        return isPremium;
-    }
-
-    public void setPremium(boolean premium) {
-        isPremium = premium;
-    }
-
-    public void setMaxCoverage(double maxCoverage) {
-        this.maxCoverage = maxCoverage;
     }
 }

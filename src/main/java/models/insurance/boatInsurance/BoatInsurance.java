@@ -1,6 +1,5 @@
 package models.insurance.boatInsurance;
 
-import models.customer.Customer;
 import models.insurance.Insurance;
 
 import java.time.LocalDate;
@@ -11,8 +10,6 @@ public class BoatInsurance extends Insurance {
 
     private final String nameOfClass = "Batforsikring"; //For CSV writer (Skille mellom classer ved lesing)
     private Boat boat;
-
-
 
     public BoatInsurance(int registeredTo, double annualPremium, double total, String coverageDescription, Boat boat,
                          LocalDate dateOfIssue) {
@@ -26,6 +23,17 @@ public class BoatInsurance extends Insurance {
         super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue, insuranceID);
         this.boat = boat;
     }
+
+    public Boat getBoat() {
+        return boat;
+    }
+
+    public void setBoat(Boat boat) {
+        this.boat = boat;
+    }
+
+
+    //---------- CSVWritable metoder -----------
 
     @Override
     public ArrayList<String> getFieldNamesAsStrings() {
@@ -63,11 +71,4 @@ public class BoatInsurance extends Insurance {
         return 1;
     }
 
-    public Boat getBoat() {
-        return boat;
-    }
-
-    public void setBoat(Boat boat) {
-        this.boat = boat;
-    }
 }

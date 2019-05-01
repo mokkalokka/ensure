@@ -96,6 +96,8 @@ public class Customer implements Serializable, CSVWritable {
         return (insuranceNr + firstName + lastName + invoiceAddress + customerSince).toLowerCase();
     }
 
+    //---------- CSVWritable metoder -----------
+
     @Override
     public String getNameOfClass() {
         return nameOfClass;

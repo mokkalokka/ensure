@@ -14,6 +14,8 @@ public class PrimaryResidenceInsurance extends ResidenceInsurance {
         super(registeredTo, annualPremium, total, coverageDescription, residence, propertyInsuranceAmount, assetsInsuranceAmount, dateOfIssue, insuranceID);
     }
 
+    //---------- CSVWritable metoder -----------
+
     public String getNameOfClass() {
         return nameOfClass;
     }
