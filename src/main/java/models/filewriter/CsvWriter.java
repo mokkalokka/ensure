@@ -16,10 +16,10 @@ public class CsvWriter extends FileWriterStrategy {
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
-        addObjToBeWritten(customerList);
+        addObjectsToBeWritten(customerList);
     }
 
-    private void addObjToBeWritten(List<Customer> customerList) {
+    private void addObjectsToBeWritten(List<Customer> customerList) {
         customerList.forEach(customer -> {
             objToBeWritten.add(customer);
             objToBeWritten.addAll(customer.getListOfInsurances());
