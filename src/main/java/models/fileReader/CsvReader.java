@@ -9,6 +9,7 @@ import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchAccidentStatementException;
 import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.exceptions.fileExceptions.FileHandlingExceptions;
+import models.exceptions.fileExceptions.InvalidClassDescriptionException;
 import models.exceptions.fileExceptions.InvalidLineLengthException;
 import models.fileReader.parsers.*;
 import models.insurance.Insurance;
@@ -23,24 +24,25 @@ import java.util.List;
 
 
 public class CsvReader extends FileReaderStrategy {
+    //Midlertidig liste som returneres dersom lesingen fullføres
     private ArrayList<Customer> loadedCustomers = new ArrayList<>();
 
     public CsvReader(String path) {
         super(path);
     }
 
-
     @Override
     public List<Customer> readFile() throws BuilderInputException, IOException, InvalidCustomerException,
             FileHandlingExceptions {
-        //Tømmer loaded customers
-        loadedCustomers = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new FileReader(path));
-        String line; // = br.readLine();
+        String line;
+
         String currentClass = "Kunder";
-        String skipLine;
-        double currentLine = 0;
+
+        //Hopper over linja som beskriver delimiter
+        String skipLine = br.readLine();
+        double currentLine = 1;
 
 
         while ((line = br.readLine()) != null) {
@@ -50,6 +52,8 @@ public class CsvReader extends FileReaderStrategy {
 
             //Hvis lengden på linjen er 1, vil det si at denne linjen starter en ny klassse
             if (lineArray.length == 1) {
+
+                //Setter currentClass for å identifisere hvilken klasse man parser
                 currentClass = lineArray[0];
 
                 skipLine = br.readLine(); // Hopper over klassebeskrivelsen
@@ -127,21 +131,15 @@ public class CsvReader extends FileReaderStrategy {
                         throw new InvalidLineLengthException("vitner", (int) currentLine);
                     }
                     break;
+
+                default:
+                    //Kaster exception dersom currentClass ikke er riktig
+                    throw new InvalidClassDescriptionException(currentClass, (int)currentLine - 2);
             }
 
         }
         br.close();
         return loadedCustomers;
-    }
-
-    private Double getTotalLines(String path) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        String line;
-        Double totalLines = 0.0;
-        while ((line = br.readLine()) != null) {
-            totalLines++;
-        }
-        return totalLines;
     }
 
     private void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
