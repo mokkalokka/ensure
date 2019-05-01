@@ -2,7 +2,6 @@ package models.fileReader;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -15,7 +14,6 @@ import models.fileReader.parsers.*;
 import models.insurance.Insurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,37 +35,44 @@ public class CsvReader extends FileReaderStrategy {
 
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
-
         String currentClass = "Kunder";
 
         //Hopper over linja som beskriver delimiter
         String skipLine = br.readLine();
+        //currentLine brukes til å identifisere hvilke linje det har oppstått en feil
         double currentLine = 1;
 
-
+        //Mens filen fortsatt har flere linjer
         while ((line = br.readLine()) != null) {
-
             currentLine += 1;
+
+            //Liste med strenger fra den nåværende linja, splittet av semikolon ;
             String[] lineArray = line.split(";");
 
-            //Hvis lengden på linjen er 1, vil det si at denne linjen starter en ny klassse
+            //Hvis lengden på lista er 1, vil det si at denne linjen starter en ny klassse
             if (lineArray.length == 1) {
 
                 //Setter currentClass for å identifisere hvilken klasse man parser
                 currentClass = lineArray[0];
 
-                skipLine = br.readLine(); // Hopper over klassebeskrivelsen
+                // Hopper over klassebeskrivelsen
+                skipLine = br.readLine();
+
+                //Leser neste linje som deretter skal parses
                 line = br.readLine();
                 lineArray = line.split(";");
                 currentLine += 2;
-
             }
 
+            //Her sorteres hva som skal parses ut i fra current class
             switch (currentClass) {
                 case "Kunder":
+                    //Dersom det er 6 strenger i lista, parse kunden
                     if (lineArray.length == 6) {
                         loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
                     } else {
+                        //Dersom det er feil antall strenger, kast exception og legg ved nåværende klasse
+                        //og linje for å vise dette i feilmeldingen
                         throw new InvalidLineLengthException("kunde", (int) currentLine);
                     }
                     break;
@@ -133,6 +138,7 @@ public class CsvReader extends FileReaderStrategy {
 
                 default:
                     //Kaster exception dersom currentClass ikke er riktig
+                    //currentLine - 2 fordi det er to linjer siden kassenavn ble beskrevet
                     throw new InvalidClassDescriptionException(currentClass, (int)currentLine - 2);
             }
 

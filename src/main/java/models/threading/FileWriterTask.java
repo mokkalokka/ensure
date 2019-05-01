@@ -5,7 +5,6 @@ import models.customer.Customer;
 import models.exceptions.fileExceptions.UnsuportedFileExtensionException;
 import models.filewriter.CsvWriter;
 import models.filewriter.SerializedObjectWriter;
-
 import java.util.List;
 
 public class FileWriterTask extends Task{
