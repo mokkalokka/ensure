@@ -52,7 +52,7 @@ public class CsvWriter extends FileWriterStrategy {
                     writer.println(generateHeaderFromObject(writableObject));
                 }
                 else if (objectsDifferInClass(writableObject, objToBeWritten.get(i-1))) {
-                    writer.print(writableObject.getNameOfClass());
+                    writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }
                 writer.println(writeObjectToCsvString(writableObject));
