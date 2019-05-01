@@ -16,7 +16,6 @@ public class FileReaderTask extends Task{
 
     @Override
     protected Object call() throws Exception {
-        Thread.sleep(10_000);
 
         if (fileExtension.equals("csv")) {
             CsvReader csvReader = new CsvReader(path);
