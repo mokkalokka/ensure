@@ -1,6 +1,5 @@
 package models.travelInsurance;
 
-import models.customer.Customer;
 import models.insurance.Insurance;
 
 import java.time.LocalDate;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 
 public class TravelInsurance extends Insurance {
 
-    private final String insuranceName = "Reiseforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
+    private final String nameOfClass = "Reiseforsikring"; //For CSV writer (Skille mellom classer ved lesing)
     private boolean isPremium;
     private double maxCoverage; // forsikringssum på norsk
 
@@ -48,7 +47,12 @@ public class TravelInsurance extends Insurance {
 
     @Override
     public String getNameOfClass() {
-        return insuranceName;
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 4;
     }
 
     public double getMaxCoverage() {

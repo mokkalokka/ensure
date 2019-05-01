@@ -1,4 +1,4 @@
-package models.filewriter.classwriter;
+package models.filewriter;
 
 import java.util.List;
 
@@ -11,4 +11,6 @@ public interface CSVWritable {
     List<String> getFieldNamesAsStrings();
 
     List<String> getFieldValuesAsStrings();
+
+    int getWriteIndex();
 }

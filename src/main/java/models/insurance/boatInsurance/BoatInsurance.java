@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BoatInsurance extends Insurance {
-    private final String insuranceName = "Batforsikringer"; //For CSV writer (Skille mellom classer ved lesing)
+
+    private final String nameOfClass = "Batforsikring"; //For CSV writer (Skille mellom classer ved lesing)
     private Boat boat;
 
 
@@ -54,7 +55,12 @@ public class BoatInsurance extends Insurance {
 
     @Override
     public String getNameOfClass() {
-        return insuranceName;
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 1;
     }
 
     public Boat getBoat() {

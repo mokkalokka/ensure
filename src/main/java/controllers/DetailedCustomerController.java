@@ -193,7 +193,7 @@ public class DetailedCustomerController {
 
     private void initializeInsuranceTable() {
         //Valuefactory paa alle kollonner som bruker get metodene til customer
-        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("insuranceName"));
+        clmnInsuranceType.setCellValueFactory(new PropertyValueFactory<>("nameOfClass"));
         clmnJoinDate.setCellValueFactory(new PropertyValueFactory<>("dateOfIssue"));
         clmnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         clmnAnnualPremium.setCellValueFactory(new PropertyValueFactory<>("annualPremium"));

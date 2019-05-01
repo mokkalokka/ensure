@@ -1,7 +1,7 @@
 package models.customer;
 
 import models.accidentStatement.AccidentStatement;
-import models.filewriter.classwriter.CSVWritable;
+import models.filewriter.CSVWritable;
 import models.insurance.Insurance;
 
 import java.io.Serializable;
@@ -16,6 +16,7 @@ public class Customer implements Serializable, CSVWritable {
 
     private static final long serialVersionUID = 7374958920320110060L;
     private static final AtomicInteger NEXT_INSURANCE_NR = new AtomicInteger(10000);
+    private final String nameOfClass = "Kunder";
 
     private int insuranceNr;
     private String lastName;
@@ -97,7 +98,7 @@ public class Customer implements Serializable, CSVWritable {
 
     @Override
     public String getNameOfClass() {
-        return "Kunder";
+        return nameOfClass;
     }
 
     @Override
@@ -121,6 +122,11 @@ public class Customer implements Serializable, CSVWritable {
                 invoiceAddress,
                 String.valueOf(pendingCompensation)
         ));
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 0;
     }
 
     //---------- Getters & setters -----------

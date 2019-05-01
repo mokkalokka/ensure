@@ -1,7 +1,7 @@
 package models.insurance;
 
 
-import models.filewriter.classwriter.CSVWritable;
+import models.filewriter.CSVWritable;
 
 import java.io.Serializable;
 import java.time.LocalDate;

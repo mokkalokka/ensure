@@ -1,40 +1,35 @@
 package models.filewriter;
 
-import models.accidentStatement.AccidentStatement;
-import models.accidentStatement.Witness;
 import models.customer.Customer;
-import models.exceptions.fileExceptions.NoCustomersFoundException;
-import models.filewriter.classwriter.CSVWritable;
-import models.filewriter.classwriter.CustomerWriter;
-import models.insurance.Insurance;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CsvWriter extends FileWriterStrategy {
 
-    private final List<AccidentStatement> listOfAllAccidentStatements = new ArrayList<>();
-    private List<CSVWritable> listOfAllObjects = new ArrayList<>();
+    private List<CSVWritable> objToBeWritten = new ArrayList<>();
 
     public CsvWriter(String path, List<Customer> customerList) {
         super(path, customerList);
-        fillList(customerList);
+        addObjToBeWritten(customerList);
     }
 
-    private void fillList(List<Customer> customerList) {
+    private void addObjToBeWritten(List<Customer> customerList) {
         customerList.forEach(customer -> {
-            listOfAllObjects.add(customer);
-            listOfAllObjects.addAll(customer.getListOfInsurances());
+            objToBeWritten.add(customer);
+            objToBeWritten.addAll(customer.getListOfInsurances());
+
             customer.getListOfAccidentStatements().forEach(accidentStatement -> {
-                listOfAllObjects.add(accidentStatement);
-                listOfAllObjects.addAll(accidentStatement.getListOfWitnesses());
+                objToBeWritten.add(accidentStatement);
+                objToBeWritten.addAll(accidentStatement.getListOfWitnesses());
             });
         });
-        // sorter kolleksjon her: Collections.sort(listOfAllObjects);
+
+        objToBeWritten.sort(Comparator.comparingInt(CSVWritable::getWriteIndex));
     }
 
     @Override
@@ -43,14 +38,15 @@ public class CsvWriter extends FileWriterStrategy {
 
         try {
             writer = new PrintWriter(path, StandardCharsets.ISO_8859_1);
+            writer.println("sep=;");
 
-            for (int i = 0; i < listOfAllObjects.size(); i++) {
-                CSVWritable writableObject = listOfAllObjects.get(i);
+            for (int i = 0; i < objToBeWritten.size(); i++) {
+                CSVWritable writableObject = objToBeWritten.get(i);
                 if (i == 0) {
                     writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }
-                else if (objectsDifferInClass(writableObject, listOfAllObjects.get(i-1))) {
+                else if (objectsDifferInClass(writableObject, objToBeWritten.get(i-1))) {
                     writer.print(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }

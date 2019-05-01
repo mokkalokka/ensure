@@ -1,12 +1,15 @@
 package models.accidentStatement;
 
-import models.filewriter.classwriter.CSVWritable;
+import models.filewriter.CSVWritable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Witness implements Serializable, CSVWritable {
+
+    private final String nameOfClass = "Vitner";
+
     private int registeredTo;
     private String firstName;
     private String lastName;
@@ -52,8 +55,14 @@ public class Witness implements Serializable, CSVWritable {
         ));
     }
 
+    @Override
     public String getNameOfClass() {
-        return "Vitner";
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 6;
     }
 
     public int getForAccidentStatement() {

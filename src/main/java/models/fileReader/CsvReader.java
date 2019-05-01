@@ -2,7 +2,6 @@ package models.fileReader;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchAccidentStatementException;
@@ -74,7 +73,7 @@ public class CsvReader extends FileReaderStrategy {
                     break;
 
 
-                case PrimaryResidenceInsurance.insuranceName:
+                case PrimaryResidenceInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
@@ -84,7 +83,7 @@ public class CsvReader extends FileReaderStrategy {
 
                     break;
 
-                case SecondaryResidenceInsurance.insuranceName:
+                case SecondaryResidenceInsurance.nameOfClass:
                     if (lineArray.length == 14) {
                         addInsuranceToLoadedCustomers(
                                 ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
