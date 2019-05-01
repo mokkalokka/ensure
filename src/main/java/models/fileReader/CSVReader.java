@@ -15,6 +15,7 @@ import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,11 +39,10 @@ public class CSVReader extends FileReaderStrategy {
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
         String currentClass = "Kunder";
-        String skipLine;
-        double currentLine = 0;
 
         //Hopper over linja som beskriver delimiter
         String skipLine = br.readLine();
+
         //currentLine brukes til å identifisere hvilke linje det har oppstått en feil
         double currentLine = 1;
 
@@ -141,6 +141,10 @@ public class CSVReader extends FileReaderStrategy {
                         throw new InvalidLineLengthException("vitner", (int) currentLine);
                     }
                     break;
+                default:
+                    //Kaster exception dersom currentClass ikke er riktig
+                    throw new InvalidClassDescriptionException(currentClass, (int)currentLine - 2);
+
             }
 
         }
