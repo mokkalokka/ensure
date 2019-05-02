@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXTextField;
 import controllers.accidentStatement.AccidentStatementController;
 import controllers.accidentStatement.ExistingAccidentStatement;
 import controllers.accidentStatement.NewAccidentStatement;
-import controllers.insurance.*;
+import controllers.insurance.ExistingInsurance;
+import controllers.insurance.InsuranceController;
+import controllers.insurance.NewInsurance;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -18,13 +20,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import models.accidentStatement.AccidentStatement;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-import models.accidentStatement.AccidentStatement;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
@@ -70,13 +72,13 @@ public class DetailedCustomerController {
     @FXML
     private JFXTextField lblInsuranceNr;
     @FXML
-    private JFXTextField  lblSurname;
+    private JFXTextField lblSurname;
     @FXML
-    private JFXTextField  lblFirstName;
+    private JFXTextField lblFirstName;
     @FXML
-    private JFXTextField  lblCustomerSince;
+    private JFXTextField lblCustomerSince;
     @FXML
-    private JFXTextField  lblInvoiceAddress;
+    private JFXTextField lblInvoiceAddress;
     @FXML
     private JFXTextField lblPendingCompensation;
 
@@ -153,7 +155,7 @@ public class DetailedCustomerController {
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
-    private Stage getCurrentStage(){
+    private Stage getCurrentStage() {
         return (Stage) lblSurname.getScene().getWindow();
     }
 
@@ -224,14 +226,13 @@ public class DetailedCustomerController {
             aRow.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null));
-
+                            .otherwise((ContextMenu) null));
 
 
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
-                if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
+                if ((!aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
                     openDetailedInsurance(aRow.getItem());
                 }
@@ -281,12 +282,12 @@ public class DetailedCustomerController {
             aRow.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null));
+                            .otherwise((ContextMenu) null));
 
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
-                if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
+                if ((!aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
                     openDetailedAccidentStatement(aRow.getItem());
                 }
@@ -390,20 +391,16 @@ public class DetailedCustomerController {
         if (insurance instanceof BoatInsurance) {
             pathToXml = "/org/view/boatInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, "Båtforsikring");
-        }
-        else if (insurance instanceof TravelInsurance) {
+        } else if (insurance instanceof TravelInsurance) {
             pathToXml = "/org/view/travelInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, "Reiseforsikring");
-        }
-        else if (insurance instanceof PrimaryResidenceInsurance) {
+        } else if (insurance instanceof PrimaryResidenceInsurance) {
             pathToXml = "/org/view/primaryResidenceInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, "Hus- og boligforsikring");
-        }
-        else if (insurance instanceof SecondaryResidenceInsurance) {
+        } else if (insurance instanceof SecondaryResidenceInsurance) {
             pathToXml = "/org/view/secondaryResidenceInsurance.fxml";
             openExistingInsuranceWindow(insurance, pathToXml, "Fritidsboligforsikring");
-        }
-        else {
+        } else {
             new ErrorDialog("Feil ved lesing av forsikring", true).show();
         }
 
@@ -414,7 +411,7 @@ public class DetailedCustomerController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(pathToXml));
         Parent root = loader.load();
         InsuranceController controller = loader.getController();
-        
+
         controller.setCustomer(currentCustomer);
         controller.setInsurance(existingInsurance);
         controller.setState(new ExistingInsurance());

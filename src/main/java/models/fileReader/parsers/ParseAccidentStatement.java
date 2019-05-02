@@ -1,7 +1,7 @@
 package models.fileReader.parsers;
 
-import models.builders.AccidentStatementBuilder;
 import models.accidentStatement.AccidentStatement;
+import models.builders.AccidentStatementBuilder;
 import models.exceptions.builderExceptions.BuilderInputException;
 
 

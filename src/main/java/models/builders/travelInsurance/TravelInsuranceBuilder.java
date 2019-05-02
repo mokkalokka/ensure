@@ -2,7 +2,10 @@ package models.builders.travelInsurance;
 
 import models.builders.InsuranceBuilder;
 import models.builders.StringChecker;
-import models.exceptions.builderExceptions.*;
+import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.builderExceptions.EmptyFieldException;
+import models.exceptions.builderExceptions.InvalidBooleanStringFormatException;
+import models.exceptions.builderExceptions.InvalidPositiveDoubleException;
 import models.insurance.travelInsurance.TravelInsurance;
 
 import java.time.LocalDate;
@@ -51,10 +54,9 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
     public TravelInsuranceBuilder setPremium(String isPremium) throws BuilderInputException {
         String fieldName = "Premium";
 
-        if(stringChecker.isEmptyOrNull(isPremium)){
+        if (stringChecker.isEmptyOrNull(isPremium)) {
             throw new EmptyFieldException(fieldName);
-        }
-        else if(!stringChecker.validBooleanString(isPremium)){
+        } else if (!stringChecker.validBooleanString(isPremium)) {
             throw new InvalidBooleanStringFormatException();
         }
 
@@ -62,7 +64,7 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
         return this;
     }
 
-    public TravelInsuranceBuilder setPremium(boolean isPremium)  {
+    public TravelInsuranceBuilder setPremium(boolean isPremium) {
         this.isPremium = isPremium;
         return this;
     }
@@ -70,27 +72,26 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
     public TravelInsuranceBuilder setMaxCoverage(String maxCoverage) throws BuilderInputException {
         String fieldName = "Forsikringssum";
 
-        if(stringChecker.isEmptyOrNull(maxCoverage)){
+        if (stringChecker.isEmptyOrNull(maxCoverage)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
+        try {
             this.maxCoverage = Double.parseDouble(maxCoverage);
-            if(stringChecker.isNegative(maxCoverage)){
-                throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
+            if (stringChecker.isNegative(maxCoverage)) {
+                throw new InvalidPositiveDoubleException(fieldName + ": " + maxCoverage + ",");
             }
-        }
-        catch (NumberFormatException e){
-            throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveDoubleException(fieldName + ": " + maxCoverage + ",");
         }
 
         return this;
     }
 
-    public TravelInsurance build(){
+    public TravelInsurance build() {
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        if(insuranceID == 0){
+        if (insuranceID == 0) {
             return new TravelInsurance(
                     registeredTo,
                     annualPremium,
@@ -99,8 +100,7 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
                     maxCoverage,
                     isPremium,
                     dateOfIssue);
-        }
-        else{
+        } else {
             return new TravelInsurance(
                     registeredTo,
                     annualPremium,

@@ -25,10 +25,10 @@ public class WitnessBuilder {
         try {
             this.registeredTo = Integer.parseInt(registeredTo);
             if (sc.isNegative(registeredTo)) {
-                throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
+                throw new InvalidPositiveIntegerException(fieldName + ": " + registeredTo + ",");
             }
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
+            throw new InvalidPositiveIntegerException(fieldName + ": " + registeredTo + ",");
         }
         return this;
     }
@@ -41,10 +41,10 @@ public class WitnessBuilder {
         try {
             this.forAccidentNr = Integer.parseInt(forAccidentNr);
             if (sc.isNegative(forAccidentNr)) {
-                throw new InvalidPositiveIntegerException(fieldName + ": "+ forAccidentNr + ",");
+                throw new InvalidPositiveIntegerException(fieldName + ": " + forAccidentNr + ",");
             }
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ forAccidentNr + ",");
+            throw new InvalidPositiveIntegerException(fieldName + ": " + forAccidentNr + ",");
         }
         return this;
     }
@@ -53,8 +53,7 @@ public class WitnessBuilder {
         String fieldName = "Etternavn";
         if (sc.isEmptyOrNull(lastName)) {
             throw new EmptyFieldException(fieldName);
-        }
-        else if (sc.containsNumbers(lastName)) {
+        } else if (sc.containsNumbers(lastName)) {
             throw new InvalidLastNameException();
         }
         this.lastName = lastName;
@@ -64,8 +63,7 @@ public class WitnessBuilder {
     public WitnessBuilder setFirstName(String firstName) throws BuilderInputException, InvalidFirstNameException {
         if (sc.isEmptyOrNull(firstName)) {
             throw new EmptyFieldException("Fornavn");
-        }
-        else if (sc.containsNumbers(firstName)) {
+        } else if (sc.containsNumbers(firstName)) {
             throw new InvalidFirstNameException();
         }
         this.firstName = firstName;
@@ -81,7 +79,6 @@ public class WitnessBuilder {
     }
 
 
-
     public Witness build() {
         if (forAccidentNr == 0) {
             return new Witness(
@@ -89,8 +86,7 @@ public class WitnessBuilder {
                     firstName,
                     lastName,
                     contactInformation);
-        }
-        else{
+        } else {
             return new Witness(
                     registeredTo,
                     firstName,

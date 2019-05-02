@@ -16,6 +16,7 @@ import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
 import models.insurance.travelInsurance.TravelInsurance;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -143,7 +144,7 @@ public class CSVReader extends FileReaderStrategy {
                     break;
                 default:
                     //Kaster exception dersom currentClass ikke er riktig
-                    throw new InvalidClassDescriptionException(currentClass, (int)currentLine - 2);
+                    throw new InvalidClassDescriptionException(currentClass, (int) currentLine - 2);
 
             }
 

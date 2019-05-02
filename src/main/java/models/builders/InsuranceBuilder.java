@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 public abstract class InsuranceBuilder {
     protected int registeredTo;
     protected double annualPremium;
-    protected double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
+    protected double total;
     protected String coverageDescription; // forsikringsbetingelser, ev. annet navn.
     protected LocalDate dateOfIssue = null;
     protected int insuranceID;
@@ -27,7 +27,7 @@ public abstract class InsuranceBuilder {
         try {
             this.registeredTo = Integer.parseInt(registeredTo);
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
+            throw new InvalidPositiveIntegerException(fieldName + ": " + registeredTo + ",");
         }
 
         return this;
@@ -43,11 +43,11 @@ public abstract class InsuranceBuilder {
 
         try {
             this.annualPremium = Double.parseDouble(annualPremium);
-            if(stringChecker.isNegative(annualPremium)){
-                throw new InvalidPositiveDoubleException(fieldName + ": "+ annualPremium + ",");
+            if (stringChecker.isNegative(annualPremium)) {
+                throw new InvalidPositiveDoubleException(fieldName + ": " + annualPremium + ",");
             }
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveDoubleException(fieldName + ": "+ annualPremium + ",");
+            throw new InvalidPositiveDoubleException(fieldName + ": " + annualPremium + ",");
         }
         return this;
     }
@@ -61,7 +61,7 @@ public abstract class InsuranceBuilder {
         try {
             this.dateOfIssue = LocalDate.parse(dateOfIssue);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException(fieldName + ": "+ dateOfIssue + ",");
+            throw new InvalidDateFormatException(fieldName + ": " + dateOfIssue + ",");
         }
         return this;
     }
@@ -76,11 +76,11 @@ public abstract class InsuranceBuilder {
 
         try {
             this.total = Double.parseDouble(total);
-            if(stringChecker.isNegative(total)){
-                throw new InvalidPositiveDoubleException(fieldName + ": "+ total + ",");
+            if (stringChecker.isNegative(total)) {
+                throw new InvalidPositiveDoubleException(fieldName + ": " + total + ",");
             }
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveDoubleException(fieldName + ": "+ total + ",");
+            throw new InvalidPositiveDoubleException(fieldName + ": " + total + ",");
         }
 
         return this;
@@ -114,7 +114,7 @@ public abstract class InsuranceBuilder {
         try {
             this.insuranceID = Integer.parseInt(insuranceID);
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ insuranceID + ",");
+            throw new InvalidPositiveIntegerException(fieldName + ": " + insuranceID + ",");
         }
         return this;
     }

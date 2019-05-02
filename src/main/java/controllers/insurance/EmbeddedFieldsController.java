@@ -2,7 +2,6 @@ package controllers.insurance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import models.customer.Customer;
 import models.insurance.Insurance;
 
@@ -21,7 +20,6 @@ public class EmbeddedFieldsController {
     private TextField txtCoverageDescription;
     @FXML
     private TextField txtAnnualPremium;
-
 
 
     void displayNewInsurance(Customer ownerOfInsurance) {

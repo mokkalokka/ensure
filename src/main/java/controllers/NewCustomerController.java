@@ -1,15 +1,15 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import com.jfoenix.controls.JFXTextField;
 import javafx.stage.Stage;
 import models.builders.CustomerBuilder;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
-import models.company.InsuranceCompany;
 
 public class NewCustomerController {
 
@@ -43,23 +43,23 @@ public class NewCustomerController {
     }
 
     @FXML
-    private void btnClose(){
+    private void btnClose() {
         Stage currentStage = getCurrentStage();
         currentStage.close();
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
-    private Stage getCurrentStage(){
+    private Stage getCurrentStage() {
         return (Stage) lblStatus.getScene().getWindow();
     }
 
     @FXML
-    private void updateStatus(String message){
+    private void updateStatus(String message) {
         int customerCount = INS_COMP.getCustomerCount();
         lblStatus.setText(message + "\n\nAntall brukere i systemet: " + customerCount);
     }
 
-    private void invalidInputAlert(String message){
+    private void invalidInputAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Feil formatering av kunde");
         alert.setHeaderText(null);

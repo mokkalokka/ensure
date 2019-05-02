@@ -23,7 +23,7 @@ public class AccidentStatement implements Serializable, CSVWritable {
     private String accidentDescription;
     private double appraisalAmount; // Takseringsbeøp av skaden
     private double dispersedCompensation; // utbetalt erstatning (kan være mindre enn appraisalAmount)
-    private ArrayList<Witness> listOfWitnesses = new ArrayList<>(); // TODO: Finne noe smart her
+    private ArrayList<Witness> listOfWitnesses = new ArrayList<>();
 
     public AccidentStatement(int registeredTo, LocalDate dateOfAccident, String accidentType, String accidentDescription, double appraisalAmount, double dispersedCompensation, List<Witness> witnessList) {
         this.accidentNr = NEXT_ACCIDENT_NR.getAndIncrement();
@@ -55,7 +55,7 @@ public class AccidentStatement implements Serializable, CSVWritable {
         this.listOfWitnesses = new ArrayList<>();
 
         //Legger til riktig accidentNr for hver av vitnene for å kunne lese/skrive csv
-        for(Witness witness : listOfWitnesses){
+        for (Witness witness : listOfWitnesses) {
             witness.setForAccidentStatement(this.accidentNr);
             this.listOfWitnesses.add(witness);
         }
@@ -85,7 +85,9 @@ public class AccidentStatement implements Serializable, CSVWritable {
         this.accidentNr = accidentNr;
     }
 
-    public int getAccidentNr() { return accidentNr; }
+    public int getAccidentNr() {
+        return accidentNr;
+    }
 
     public LocalDate getDateOfAccident() {
         return dateOfAccident;
@@ -156,7 +158,7 @@ public class AccidentStatement implements Serializable, CSVWritable {
     }
 
     @Override
-    public String getNameOfClass(){
+    public String getNameOfClass() {
         return nameOfClass;
     }
 

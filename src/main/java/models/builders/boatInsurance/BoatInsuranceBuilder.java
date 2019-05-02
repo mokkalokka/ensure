@@ -4,6 +4,7 @@ import models.builders.InsuranceBuilder;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.boatInsurance.Boat;
 import models.insurance.boatInsurance.BoatInsurance;
+
 import java.time.LocalDate;
 
 
@@ -53,7 +54,6 @@ public class BoatInsuranceBuilder extends InsuranceBuilder {
     }
 
 
-
     public BoatInsurance build() {
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
@@ -67,8 +67,7 @@ public class BoatInsuranceBuilder extends InsuranceBuilder {
                     boat,
                     super.dateOfIssue
             );
-        }
-        else {
+        } else {
             return new BoatInsurance(
                     super.registeredTo,
                     super.annualPremium,
