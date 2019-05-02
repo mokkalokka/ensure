@@ -62,11 +62,11 @@ public class BoatBuilder {
             try {
                 this.lengthInft = Double.parseDouble(lengthInft);
                 if (stringChecker.isNegative(lengthInft)){
-                    throw new InvalidPositiveDoubleException(fieldName);
+                    throw new InvalidPositiveDoubleException(fieldName + ": "+ lengthInft + ",");
                 }
             }
             catch (NumberFormatException e){
-                throw new InvalidPositiveDoubleException(fieldName);
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ lengthInft + ",");
             }
         }
         return this;
@@ -83,11 +83,11 @@ public class BoatBuilder {
         try{
             modelYearInt = Integer.parseInt(modelYear);
             if(!stringChecker.validYear(modelYearInt)){
-                throw new InvalidYearException(fieldName);
+                throw new InvalidYearException(fieldName + ": "+ modelYear + ",");
             }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidYearException(fieldName + ": "+ modelYear + ",");
         }
         this.modelYear = modelYear;
         return this;
@@ -110,12 +110,12 @@ public class BoatBuilder {
         try{
             this.engineHP = Integer.parseInt(engineHP);
             if(stringChecker.isNegative(engineHP)){
-                throw new InvalidPositiveIntegerException(fieldName);
+                throw new InvalidPositiveIntegerException(fieldName + ": "+ engineHP + ",");
             }
 
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ engineHP + ",");
         }
         return this;
     }

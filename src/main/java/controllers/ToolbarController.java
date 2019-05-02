@@ -3,7 +3,6 @@ package controllers;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,18 +13,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.threading.FileReaderTask;
+import models.fileHandler.FileHandler;
 import models.customer.Customer;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
 import models.company.InsuranceCompany;
-import models.threading.FileWriterTask;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ToolbarController {
 
@@ -37,78 +32,113 @@ public class ToolbarController {
     @FXML
     private Menu menu;
 
-    //Progress bar FXML komponenter
+    //ProgressWindow FXML komponenter som blir tegnet av newProgressWindow()
     @FXML
     private Stage progressStage;
     private JFXButton btnProgress;
     private Label lblProgress;
     private ProgressBar fxProgressBar;
 
-
-
     @FXML
     private void toolbarOpenFile() {
+        FileHandler fileHandler = new FileHandler();
+
         boolean readingFromFile = true;
-        FileChooser fileChooser = fileChooserWithExtensionFilters(readingFromFile);
+        //Henter en ny filvelger som har filter i henhold til at man leser fra fil
+        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFilters(readingFromFile);
         fileChooser.setTitle("Åpne fil");
+        //Definerer filen som skal leses via en filvalg vindu
         File file = fileChooser.showOpenDialog(null);
 
+        //Dersom man har valgt en fil
         if(file != null){
             String path = file.getPath();
-            String fileExtension = findFileExtension(path);
-            Task task = executeFileReaderTask(path, fileExtension);
-            progressWindow(task, "Leser fra fil...");
+            String fileExtension = fileHandler.findFileExtension(path);
+            //Starter en ny tråd for lesing av fil og sender ved filtypen
+            Task task = fileHandler.executeFileReaderTask(path, fileExtension);
+            newProgressWindow(task, "Leser fra fil...");
+            //Låser gui elementer
+            setReadOnly(true);
             waitForUpdates(task, readingFromFile);
         }
 
+        //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
         else{
-            ErrorDialog errorDialog = new ErrorDialog("", "Ingen fil ble valgt");
-            errorDialog.show();
+            new ErrorDialog("", "Ingen fil ble valgt")
+            .show();
         }
     }
 
     @FXML
     private void toolbarSaveAs(){
+        FileHandler fileHandler = new FileHandler();
+
         Boolean readingFromFile = false;
-        FileChooser fileChooser = fileChooserWithExtensionFilters(readingFromFile);
+        //Henter en ny filvelger som har filter i henhold til at man lagrer til fil
+        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFilters(readingFromFile);
         fileChooser.setTitle("Lagre som...");
+        //Definerer filen som skal leses via en filvalg vindu
         File file = fileChooser.showSaveDialog(null);
 
+        //Dersom man har valgt en fil
         if(file != null){
             String path = file.getPath();
-            String fileExtension = findFileExtension(path);
-
-            Task task = executeFileWriterTask(path, fileExtension);
-            progressWindow(task, "Skriver til fil...");
+            String fileExtension = fileHandler.findFileExtension(path);
+            //Starter en ny tråd for skriving av fil og sender ved filtypen
+            Task task = fileHandler.executeFileWriterTask(path, fileExtension);
+            newProgressWindow(task, "Skriver til fil...");
+            //Låser gui elementer
+            setReadOnly(true);
             waitForUpdates(task, readingFromFile);
         }
 
+        //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
         else{
-            ErrorDialog errorDialog = new ErrorDialog("", "Ingen fil ble valgt");
-            errorDialog.show();
+            new ErrorDialog("", "Ingen fil ble valgt")
+            .show();
         }
-
     }
 
-    private Task executeFileWriterTask(String path, String fileExtension) {
+    //Denne metoden tegner ett vindu med progressbar programatisk
+    private void newProgressWindow(Task task, String title){
 
-        ArrayList<Customer> customersToFile = new ArrayList<>(INS_COMP.getCustomerList());
-        ExecutorService service = Executors.newSingleThreadExecutor();
+        //Instansierer det nye vinduet og elementene som skal være med
+        progressStage = new Stage();
+        fxProgressBar = new ProgressBar();
+        btnProgress = new JFXButton();
+        lblProgress = new Label();
+        btnProgress.setText("Avbryt");
 
-        Task task = new FileWriterTask(path,fileExtension,customersToFile);
-        service.execute(task);
+        //Legger til muligheten til å kanselere skriving/lesing av fil fra knappen
+        btnProgress.setOnAction(event -> {
+            task.cancel();
+            progressStage.close();
+        });
 
-        return task;
-    }
+        FlowPane root = new FlowPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        root.setVgap(20);
+        root.getChildren().addAll(fxProgressBar, btnProgress, lblProgress);
 
+        //Binder progressbaren til task sin progresjon
+        //Denne vil i prakssis kun vise om den jobber eller er ferdig
+        fxProgressBar.progressProperty().bind(task.progressProperty());
 
-    private Task executeFileReaderTask(String path, String fileExtension) {
-        ExecutorService service = Executors.newSingleThreadExecutor();
+        //Definerer størrelsen til det nye vinduet
+        Scene scene = new Scene(root, 200, 100);
 
-        Task<List<Customer>> task = new FileReaderTask(path, fileExtension);
-        service.execute(task);
+        //Legger til refereanse for css fila
+        scene.getStylesheets().add(getClass().getResource("/org/view/styles.css")
+                .toExternalForm());
 
-        return task;
+        //Setter tittel som er avhengig av om man skriver eller leser
+        progressStage.setTitle(title);
+
+        //Legger til scene i den nye stagen og viser denne til skjerm
+        progressStage.setScene(scene);
+        progressStage.show();
+
     }
 
     private void waitForUpdates(Task task, Boolean readingFromFile) {
@@ -126,88 +156,60 @@ public class ToolbarController {
                 failedTitle = "Feil ved skriving til fil";
             }
 
+            //Når task for lesing/skriving er fullført
             task.setOnSucceeded(event -> {
+                //Dersom man har lest fra fil, legg disse kundene til i lista til forsikringsselskapet
                 if(readingFromFile){
                     addCustomers((List<Customer>) task.getValue());
                 }
+                //Låser opp alle gui funksjoner
                 setReadOnly(false);
+
+                //Oppdaterer informasjonen på progressWindow
                 lblProgress.setText(succededTitle);
                 btnProgress.setText("Lukk");
-                btnProgress.setOnAction(e -> {
-                    progressStage.close();
-                });
-                fxProgressBar.progressProperty().bind(task.progressProperty());
+
+                //Setter knappen i progressWindow til å lukke vinduet onAction
+                btnProgress.setOnAction(e -> progressStage.close());
             });
 
+            //Dersom task blir slutter ved en feil:
             task.setOnFailed(event -> {
+                // Låser opp gui funksjoner
                 setReadOnly(false);
                 progressStage.close();
-                ErrorDialog errorDialog = new ErrorDialog(failedTitle,
-                        task.getException().getMessage(), isCritical);
-                errorDialog.show();
 
-
+                //Viser feilen som kommer fra task.getException() til skjerm ved ErrorDialog
+                new ErrorDialog(failedTitle,
+                        task.getException().getMessage(), isCritical)
+                .show();
             });
 
+            //Dersom task blir avbrutt av bruker
             task.setOnCancelled(event -> {
+                // Låser opp gui funksjoner
                 setReadOnly(false);
-                ErrorDialog errorDialog = new ErrorDialog("Avbrutt","Abrutt av bruker");
-                errorDialog.show();
+
+                new ErrorDialog("Avbrutt","Abrutt av bruker")
+                .show();
             });
-
         }
-
-
     }
 
+    //Legger til kundene fra fil inn i forsikringsselskapets liste dersom ingen feil har oppstått
     private void addCustomers( List<Customer> customerListFromFile) {
+        //Dersom lista er tom vis error
         if (customerListFromFile == null) {
-            ErrorDialog errorDialog = new ErrorDialog("Error", "Feil ved lesing fra fil");
-            errorDialog.show();
-        } else {
+            new ErrorDialog("Error", "Feil ved lesing fra fil")
+            .show();
+        }
+        //Ellers, overskriv kundelista med den nye lista fra fil
+        else {
             INS_COMP.initNewCustomerList(customerListFromFile);
         }
     }
 
-    private String findFileExtension(String path) {
-        String[] filePathArray = path.split("\\.");
-        String fileExtension = filePathArray[filePathArray.length - 1];
-        return fileExtension;
-    }
-
-    private FileChooser fileChooserWithExtensionFilters(boolean readingFromFile) {
-        FileChooser fileChooser = new FileChooser();
-
-        if(readingFromFile) {
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                    "Java Object (*.jobj), " + "Comma-separated values (*.csv)",
-                    "*.jobj", "*.csv");
-
-            fileChooser.getExtensionFilters().add(extFilter);
-        }
-
-        else{
-            FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter(
-                    "Comma-separated values (*.csv)", "*.csv");
-            FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter(
-                    "Java Object (*.jobj)", "*.jobj");
-
-
-            fileChooser.getExtensionFilters().addAll(extFilterCsv,extFilterJobj);
-
-
-        }
-
-        return fileChooser;
-    }
-
-
-    @FXML
-    private void toolbarClose(){
-        Platform.exit();
-    }
-
-
+    //Åpner vinduet for å legge til en ny kunde
     @FXML
     private void toolbarNewCustomer(){
         String pathToFXML = "/org/view/newCustomer.fxml";
@@ -222,74 +224,25 @@ public class ToolbarController {
         }
     }
 
-    @FXML
-    private void toolbarHelp(ActionEvent event){
-        // TODO
-
-    }
-
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
     private Stage getCurrentStage(){
         return (Stage) anchorPane.getScene().getWindow();
     }
 
-
-
-    //Denne metoden tegner ett vindu med progressbar programatisk
-    private void progressWindow(Task task, String title){
-
-        //Instansierer det nye vinduet og elementene som skal være med
-        progressStage = new Stage();
-        fxProgressBar = new ProgressBar();
-        btnProgress = new JFXButton();
-        lblProgress = new Label();
-        btnProgress.setText("Avbryt");
-
-        //Legger til muligheten til å kanselere skriving/lesing av fil fra knappen
-        btnProgress.setOnAction(event -> {
-            task.cancel();
-            progressStage.close();
-        });
-
-
-        FlowPane root = new FlowPane();
-        root.setPadding(new Insets(10));
-        root.setHgap(10);
-        root.setVgap(20);
-        root.getChildren().addAll(fxProgressBar, btnProgress, lblProgress);
-        fxProgressBar.progressProperty().bind(task.progressProperty());
-
-        Scene scene = new Scene(root, 200, 100);
-
-        //Legger til refereanse for css fila
-        scene.getStylesheets().add(getClass().getResource("/org/view/styles.css").toExternalForm());
-
-        //Setter eieren til det nye vinduet til å være det du kom fra
-        progressStage.initOwner(getCurrentStage());
-        //Låser det gamle vinduet til det nye lukkes
-        //progressStage.initModality(Modality.WINDOW_MODAL);
-
-        progressStage.setTitle(title);
-        progressStage.setScene(scene);
-        progressStage.show();
-
-        //Låser elementer
-        setReadOnly(true);
+    @FXML
+    private void toolbarClose(){
+        Platform.exit();
     }
 
-    private void setReadOnly(boolean isReadOnly){
-        customersController.setReadOnly(isReadOnly);
-        menu.setDisable(isReadOnly);
-    }
-
+    //Får tilgang til customersController for å kunne låse elementer ved lesing/skriving
     public void setCustomersController(CustomersController customersController) {
         this.customersController = customersController;
     }
 
-
-
-    public void initialize(){
-        // TODO
+    // En metode som låser/låser opp gui elementer når man leser inn / skriver til fil
+    private void setReadOnly(boolean isReadOnly){
+        customersController.setReadOnly(isReadOnly);
+        menu.setDisable(isReadOnly);
     }
 
 }

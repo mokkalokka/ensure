@@ -1,11 +1,16 @@
 package models.builders;
 
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
+import models.exceptions.builderExceptions.InvalidDateFormatException;
+import models.exceptions.builderExceptions.InvalidPositiveDoubleException;
+import models.exceptions.builderExceptions.InvalidPositiveIntegerException;
 import models.exceptions.customerExceptions.EmptyFieldsException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class CustomerBuilder {
 
@@ -18,11 +23,17 @@ public class CustomerBuilder {
     private String invoiceAddress;
     private double pendingCompensation = 0.0;
 
-    public CustomerBuilder setInsuranceNr(String insuranceNr) throws EmptyFieldsException {
+    public CustomerBuilder setInsuranceNr(String insuranceNr) throws BuilderInputException, EmptyFieldsException {
+        String fieldName = "Forsikringsnummer";
+
         if (sc.isEmptyOrNull(insuranceNr)) {
             throw new EmptyFieldsException();
         }
-        this.insuranceNr = Integer.parseInt(insuranceNr);
+        try {
+            this.insuranceNr = Integer.parseInt(insuranceNr);
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ insuranceNr + ",");
+        }
         return this;
     }
 
@@ -48,11 +59,17 @@ public class CustomerBuilder {
         return this;
     }
 
-    public CustomerBuilder setCustomerSince(String customerSince) throws EmptyFieldsException {
+    public CustomerBuilder setCustomerSince(String customerSince) throws BuilderInputException, EmptyFieldsException {
+        String fieldName = "Kunde siden";
+
         if (sc.isEmptyOrNull(customerSince)) {
             throw new EmptyFieldsException();
         }
-        this.customerSince = LocalDate.parse(customerSince);
+        try {
+            this.customerSince = LocalDate.parse(customerSince);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException(fieldName + ": "+ customerSince + ",");
+        }
         return this;
     }
 
@@ -64,11 +81,20 @@ public class CustomerBuilder {
         return this;
     }
 
-    public CustomerBuilder setPendingCompensation(String pendingCompensation) throws EmptyFieldsException {
+    public CustomerBuilder setPendingCompensation(String pendingCompensation) throws BuilderInputException, EmptyFieldsException {
+        String fieldName = "Ubetalte erstatninger";
+
         if (sc.isEmptyOrNull(pendingCompensation)) {
             throw new EmptyFieldsException();
         }
-        this.pendingCompensation = Double.parseDouble(pendingCompensation);
+        try {
+            this.pendingCompensation = Double.parseDouble(pendingCompensation);
+            if (sc.isNegative(pendingCompensation)) {
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ pendingCompensation + ",");
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveDoubleException(fieldName + ": "+ pendingCompensation + ",");
+        }
         return this;
     }
 

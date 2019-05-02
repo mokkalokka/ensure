@@ -36,12 +36,6 @@
             <artifactId>jfoenix</artifactId>
             <version>9.0.8</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>4.5</version>
-        </dependency>
     </dependencies>
 
     <build>

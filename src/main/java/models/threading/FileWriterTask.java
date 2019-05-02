@@ -3,9 +3,8 @@ package models.threading;
 import javafx.concurrent.Task;
 import models.customer.Customer;
 import models.exceptions.fileExceptions.UnsuportedFileExtensionException;
-import models.filewriter.CsvWriter;
+import models.filewriter.CSVWriter;
 import models.filewriter.SerializedObjectWriter;
-
 import java.util.List;
 
 public class FileWriterTask extends Task{
@@ -23,7 +22,7 @@ public class FileWriterTask extends Task{
     @Override
     protected Void call() throws Exception {
         if (fileExtension.equals("csv")) {
-            CsvWriter csvWriter = new CsvWriter(path,customerList);
+            CSVWriter csvWriter = new CSVWriter(path,customerList);
             csvWriter.writeFile();
 
         }
@@ -31,6 +30,8 @@ public class FileWriterTask extends Task{
             SerializedObjectWriter serializedObjectWriter = new SerializedObjectWriter(path, customerList);
             serializedObjectWriter.writeFile();
         }
+
+        //Dersom filtypen ikke er csv eller jobj kastes exception
         else{
             throw new UnsuportedFileExtensionException();
         }

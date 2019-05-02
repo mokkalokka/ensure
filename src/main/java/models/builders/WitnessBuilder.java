@@ -3,6 +3,7 @@ package models.builders;
 import models.accidentStatement.Witness;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.builderExceptions.EmptyFieldException;
+import models.exceptions.builderExceptions.InvalidPositiveIntegerException;
 import models.exceptions.customerExceptions.InvalidFirstNameException;
 import models.exceptions.customerExceptions.InvalidLastNameException;
 
@@ -16,18 +17,35 @@ public class WitnessBuilder {
     private String contactInformation;
 
     public WitnessBuilder setRegisteredTo(String registeredTo) throws BuilderInputException {
+        String fieldName = "Registrert til";
+
         if (sc.isEmptyOrNull(registeredTo)) {
             throw new EmptyFieldException("Registrert til");
         }
-        this.registeredTo = Integer.parseInt(registeredTo);
+        try {
+            this.registeredTo = Integer.parseInt(registeredTo);
+            if (sc.isNegative(registeredTo)) {
+                throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
+        }
         return this;
     }
 
     public WitnessBuilder setForAccidentNr(String forAccidentNr) throws BuilderInputException {
+        String fieldName = "Tilhører skadenummer";
         if (sc.isEmptyOrNull(forAccidentNr)) {
-            throw new EmptyFieldException("Hører til skadenummer");
+            throw new EmptyFieldException(fieldName);
         }
-        this.forAccidentNr = Integer.parseInt(forAccidentNr);
+        try {
+            this.forAccidentNr = Integer.parseInt(forAccidentNr);
+            if (sc.isNegative(forAccidentNr)) {
+                throw new InvalidPositiveIntegerException(fieldName + ": "+ forAccidentNr + ",");
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ forAccidentNr + ",");
+        }
         return this;
     }
 

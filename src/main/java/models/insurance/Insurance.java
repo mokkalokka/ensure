@@ -1,13 +1,15 @@
 package models.insurance;
 
 
+import models.filewriter.CSVWritable;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Insurance implements Serializable, Comparable<Insurance>{
+public abstract class Insurance implements Serializable, Comparable<Insurance>, CSVWritable {
 
     private static final AtomicInteger NEXT_INSURANCE_ID = new AtomicInteger(200000);
 
@@ -63,8 +65,6 @@ public abstract class Insurance implements Serializable, Comparable<Insurance>{
                 String.valueOf(insuranceID)
         ));
     }
-
-    public abstract String getInsuranceName();
 
     @Override
     public int compareTo(Insurance t) {

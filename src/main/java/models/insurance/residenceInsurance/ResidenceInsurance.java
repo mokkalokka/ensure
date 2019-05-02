@@ -42,6 +42,20 @@ public abstract class ResidenceInsurance extends Insurance {
         return assetsInsuranceAmount;
     }
 
+    public void setResidence(Residence residence) {
+        this.residence = residence;
+    }
+
+    public void setPropertyInsuranceAmount(double propertyInsuranceAmount) {
+        this.propertyInsuranceAmount = propertyInsuranceAmount;
+    }
+
+    public void setAssetsInsuranceAmount(double assetsInsuranceAmount) {
+        this.assetsInsuranceAmount = assetsInsuranceAmount;
+    }
+
+    //---------- CSVWritable metoder -----------
+
     @Override
     public ArrayList<String> getFieldNamesAsStrings() {
         ArrayList<String> fieldNames = new ArrayList<>(
@@ -70,15 +84,4 @@ public abstract class ResidenceInsurance extends Insurance {
         return fieldValues;
     }
 
-    public void setResidence(Residence residence) {
-        this.residence = residence;
-    }
-
-    public void setPropertyInsuranceAmount(double propertyInsuranceAmount) {
-        this.propertyInsuranceAmount = propertyInsuranceAmount;
-    }
-
-    public void setAssetsInsuranceAmount(double assetsInsuranceAmount) {
-        this.assetsInsuranceAmount = assetsInsuranceAmount;
-    }
 }

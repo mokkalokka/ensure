@@ -1,10 +1,15 @@
 package models.accidentStatement;
 
+import models.filewriter.CSVWritable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Witness implements Serializable {
+public class Witness implements Serializable, CSVWritable {
+
+    public static final String nameOfClass = "Vitner";
+
     private int registeredTo;
     private String firstName;
     private String lastName;
@@ -27,9 +32,7 @@ public class Witness implements Serializable {
         this.forAccidentStatement = forAccidentStatement;
     }
 
-    public int getRegisteredTo() {
-        return registeredTo;
-    }
+    //---------- CSVWritable metoder -----------
 
     public ArrayList<String> getFieldValuesAsStrings() {
         return new ArrayList<>(Arrays.asList(
@@ -48,6 +51,22 @@ public class Witness implements Serializable {
                 "Fornavn",
                 "Kontaktinformasjon"
         ));
+    }
+
+    @Override
+    public String getNameOfClass() {
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 6;
+    }
+
+    //---------- Getters & setters -----------
+
+    public int getRegisteredTo() {
+        return registeredTo;
     }
 
     public int getForAccidentStatement() {

@@ -24,9 +24,12 @@ public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
 
         try{
             this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
+            if (stringChecker.isNegative(propertyInsuranceAmount)) {
+                throw new InvalidPositiveIntegerException(fieldName + ": "+ propertyInsuranceAmount + ",");
+            }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ propertyInsuranceAmount + ",");
         }
 
         return this;
@@ -41,17 +44,13 @@ public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
 
         try{
             this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
+            if (stringChecker.isNegative(assetsInsuranceAmount)) {
+                throw new InvalidPositiveIntegerException(fieldName + ": "+ assetsInsuranceAmount + ",");
+            }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ assetsInsuranceAmount + ",");
         }
-
         return this;
-    }
-
-
-    @Override
-    public Insurance build() {
-        return null;
     }
 }

@@ -3,7 +3,7 @@ package models.builders.travelInsurance;
 import models.builders.InsuranceBuilder;
 import models.builders.StringChecker;
 import models.exceptions.builderExceptions.*;
-import models.travelInsurance.TravelInsurance;
+import models.insurance.travelInsurance.TravelInsurance;
 
 import java.time.LocalDate;
 
@@ -76,11 +76,11 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
         try{
             this.maxCoverage = Double.parseDouble(maxCoverage);
             if(stringChecker.isNegative(maxCoverage)){
-                throw new InvalidPositiveDoubleException(fieldName);
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
             }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveDoubleException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
         }
 
         return this;

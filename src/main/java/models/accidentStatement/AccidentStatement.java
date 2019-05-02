@@ -2,6 +2,7 @@ package models.accidentStatement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.filewriter.CSVWritable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,8 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AccidentStatement implements Serializable {
+public class AccidentStatement implements Serializable, CSVWritable {
+
     private static final AtomicInteger NEXT_ACCIDENT_NR = new AtomicInteger(100);
+    public static final String nameOfClass = "Skademeldinger";
 
     private int registeredTo;
     private LocalDate dateOfAccident;
@@ -71,33 +74,6 @@ public class AccidentStatement implements Serializable {
         return FXCollections.observableArrayList(listOfWitnesses);
     }
 
-    public ArrayList<String> getFieldValuesAsStrings() {
-        return new ArrayList<>(Arrays.asList(
-                String.valueOf(registeredTo),
-                String.valueOf(dateOfAccident),
-                String.valueOf(accidentType),
-                String.valueOf(accidentDescription),
-                String.valueOf(appraisalAmount),
-                String.valueOf(dispersedCompensation),
-                String.valueOf(accidentNr)
-        ));
-    }
-    public ArrayList<String> getFieldNamesAsStrings() {
-        return new ArrayList<>(Arrays.asList(
-                "Registrert til",
-                "Dato for skade",
-                "Type skade",
-                "Beskrivelse av skade",
-                "Takseringsbeløp",
-                "Utbetalt erstatningsbeløp",
-                "Skadenummer"));
-    }
-
-
-    public String getInsuranceName(){
-        return "Skademeldinger";
-    }
-
     public int getRegisteredTo() {
         return registeredTo;
     }
@@ -108,7 +84,6 @@ public class AccidentStatement implements Serializable {
         }
         this.accidentNr = accidentNr;
     }
-
 
     public int getAccidentNr() { return accidentNr; }
 
@@ -153,4 +128,40 @@ public class AccidentStatement implements Serializable {
         this.dispersedCompensation = dispersedCompensation;
     }
 
+    //---------- CSVWritable metoder -----------
+
+    @Override
+    public ArrayList<String> getFieldValuesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                String.valueOf(registeredTo),
+                String.valueOf(dateOfAccident),
+                String.valueOf(accidentType),
+                String.valueOf(accidentDescription),
+                String.valueOf(appraisalAmount),
+                String.valueOf(dispersedCompensation),
+                String.valueOf(accidentNr)
+        ));
+    }
+
+    @Override
+    public ArrayList<String> getFieldNamesAsStrings() {
+        return new ArrayList<>(Arrays.asList(
+                "Registrert til",
+                "Dato for skade",
+                "Type skade",
+                "Beskrivelse av skade",
+                "Takseringsbeløp",
+                "Utbetalt erstatningsbeløp",
+                "Skadenummer"));
+    }
+
+    @Override
+    public String getNameOfClass(){
+        return nameOfClass;
+    }
+
+    @Override
+    public int getWriteIndex() {
+        return 5;
+    }
 }
