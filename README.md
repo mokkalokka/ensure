@@ -1,4 +1,4 @@
-Program for forsikringsselskap for å holde rede på kunder, forsikrigner, skademeldinger etc.
+Program for forsikringsselskap for å holde rede på kunder, forsikringer, skademeldinger etc.
 
 Testfiler kan finnes som 50kKunder.csv og .jobj.
 
