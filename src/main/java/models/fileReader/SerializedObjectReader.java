@@ -16,14 +16,13 @@ public class SerializedObjectReader extends FileReaderStrategy {
 
     @Override
     public List<Customer> readFile() throws Exception {
-        try{
+        try {
             FileInputStream fin = new FileInputStream(path);
             ObjectInputStream oin = new ObjectInputStream(fin);
             List<Customer> loadedCustomers = (List<Customer>) oin.readObject();
 
             return loadedCustomers;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new WrongSerialVersionIDException();
         }
     }

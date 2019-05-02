@@ -1,7 +1,7 @@
 package main;
 
-import javafx.application.Application;
 import controllers.CustomersController;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +19,7 @@ public class MainApp extends Application {
         Parent root = (Parent) loader.load();
 
         //Henter kontrolleren
-        CustomersController controller = (CustomersController)loader.getController();
+        CustomersController controller = (CustomersController) loader.getController();
 
         //onWindowShow blir kjort i controlleren etter initialize blir kjort og vinduet har blitt lastet inn
         stage.setOnShown(controller::onWindowShow);

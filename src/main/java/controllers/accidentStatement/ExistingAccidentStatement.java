@@ -1,7 +1,6 @@
 package controllers.accidentStatement;
 
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.InvalidCustomerException;
 
 public class ExistingAccidentStatement implements AccidentStatementState {
 

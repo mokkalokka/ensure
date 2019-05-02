@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Insurance implements Serializable, Comparable<Insurance>{
+public abstract class Insurance implements Serializable, Comparable<Insurance> {
 
     private static final AtomicInteger NEXT_INSURANCE_ID = new AtomicInteger(200000);
 

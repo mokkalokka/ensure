@@ -1,6 +1,5 @@
 package models.travelInsurance;
 
-import models.customer.Customer;
 import models.insurance.Insurance;
 
 import java.time.LocalDate;
@@ -14,7 +13,7 @@ public class TravelInsurance extends Insurance {
     private double maxCoverage; // forsikringssum på norsk
 
     public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
-                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue ) {
+                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue) {
         super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue);
         //this.coverageType = CoverageType.STANDARD;
         this.isPremium = isPremium;
@@ -22,7 +21,7 @@ public class TravelInsurance extends Insurance {
     }
 
     public TravelInsurance(int registeredTo, double annualPremium, double total, String coverageDescription,
-                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue, int insuranceID ) {
+                           double maxCoverage, boolean isPremium, LocalDate dateOfIssue, int insuranceID) {
         super(registeredTo, annualPremium, total, coverageDescription, dateOfIssue, insuranceID);
         //this.coverageType = CoverageType.STANDARD;
         this.isPremium = isPremium;

@@ -1,9 +1,7 @@
 package models.fileReader.parsers;
 
 import models.builders.travelInsurance.TravelInsuranceBuilder;
-import models.customer.CustomerList;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.travelInsurance.TravelInsurance;
 

@@ -40,6 +40,7 @@ public class Witness implements Serializable {
                 String.valueOf(contactInformation)
         ));
     }
+
     public ArrayList<String> getFieldNamesAsStrings() {
         return new ArrayList<>(Arrays.asList(
                 "Registrert til",

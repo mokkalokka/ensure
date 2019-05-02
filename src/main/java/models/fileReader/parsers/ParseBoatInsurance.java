@@ -2,9 +2,7 @@ package models.fileReader.parsers;
 
 import models.builders.boatInsurance.BoatBuilder;
 import models.builders.boatInsurance.BoatInsuranceBuilder;
-import models.customer.CustomerList;
 import models.exceptions.builderExceptions.BuilderInputException;
-import models.exceptions.customerExceptions.NoSuchCustomerException;
 import models.insurance.Insurance;
 import models.insurance.boatInsurance.BoatInsurance;
 import models.insurance.boatInsurance.BoatOwner;
@@ -24,8 +22,8 @@ public class ParseBoatInsurance {
                 .setTotal(lineArray[3])
                 .setCoverageDescription(lineArray[4])
                 .setInsuranceID(lineArray[5])
-                .setBoat( new BoatBuilder()
-                        .setOwner( new BoatOwner(firstName, lastName))
+                .setBoat(new BoatBuilder()
+                        .setOwner(new BoatOwner(firstName, lastName))
                         .setRegistrationNr(lineArray[7])
                         .setBoatType(lineArray[8])
                         .setBoatModel(lineArray[9])

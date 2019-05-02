@@ -5,7 +5,7 @@ import models.exceptions.fileExceptions.UnsuportedFileExtensionException;
 import models.fileReader.CsvReader;
 import models.fileReader.SerializedObjectReader;
 
-public class FileReaderTask extends Task{
+public class FileReaderTask extends Task {
     private final String path;
     private final String fileExtension;
 
@@ -21,12 +21,10 @@ public class FileReaderTask extends Task{
             CsvReader csvReader = new CsvReader(path);
             return csvReader.readFile();
 
-        }
-        else if(fileExtension.equals("jobj")){
+        } else if (fileExtension.equals("jobj")) {
             SerializedObjectReader serializedObjectReader = new SerializedObjectReader(path);
             return serializedObjectReader.readFile();
-        }
-        else{
+        } else {
             throw new UnsuportedFileExtensionException();
         }
     }
@@ -34,6 +32,6 @@ public class FileReaderTask extends Task{
     @Override
     protected void succeeded() {
         //Progressbar skal være 100% når oppgaven er ferdig
-        updateProgress(100,100);
+        updateProgress(100, 100);
     }
 }
