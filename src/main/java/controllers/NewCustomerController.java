@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXTextField;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
@@ -30,7 +29,6 @@ public class NewCustomerController {
         try {
             INS_COMP.addCustomer(getCurrentCustomer());
             updateStatus("Kunden er lagt til i listen");
-            resetFieldColor();
         } catch (InvalidCustomerException e) {
             new ErrorDialog("Feil i inndata", e.getMessage()).show();
         }
@@ -42,16 +40,6 @@ public class NewCustomerController {
                 .setLastName(txtLastName.getText())
                 .setInvoiceAddress(txtInvoiceAddress.getText())
                 .build();
-    }
-
-    private void setTextFieldFocusAndColor(TextField field){
-        field.requestFocus();
-        field.setStyle("-jfx-focus-color:rgb(250,105,102)");
-    }
-
-    private void resetFieldColor(){
-        txtFirstName.setStyle("-jfx-focus-color:rgb(64,89,169)");
-        txtLastName.setStyle("-jfx-focus-color:rgb(64,89,169)");
     }
 
     @FXML
@@ -76,11 +64,7 @@ public class NewCustomerController {
         alert.setTitle("Feil formatering av kunde");
         alert.setHeaderText(null);
         alert.setContentText(message);
-
         alert.showAndWait();
     }
 
-    public void initialize() {
-        // TODO
-    }
 }
