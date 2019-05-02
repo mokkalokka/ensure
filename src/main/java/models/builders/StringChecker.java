@@ -15,7 +15,7 @@ public class StringChecker {
     public boolean validYear(int year){
         Calendar now = Calendar.getInstance();
 
-        if(year > 1500 && now.get(Calendar.YEAR) > year) {
+        if(year > 1500 && now.get(Calendar.YEAR) >= year) {
             return true;
         }
         else {
