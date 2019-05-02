@@ -47,6 +47,8 @@ public class InsuranceCompany {
     public void initNewCustomerList(List<Customer> listOfCustomers) {
         customerList.clear();
         customerList.addAll(listOfCustomers);
+        Customer.updateNextInsuranceNr(
+                customerList.get(customerList.size() -1 ).getInsuranceNr());
     }
 
     private boolean duplicateCustomer(Customer source) {

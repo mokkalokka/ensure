@@ -94,6 +94,12 @@ public class Customer implements Serializable, CSVWritable {
         return (insuranceNr + firstName + lastName + invoiceAddress + customerSince).toLowerCase();
     }
 
+    //Oppdatering av siste forsikringsnummer ved lesing av jobj
+    public static void updateNextInsuranceNr(int currentMaxInsuranceNr){
+        NEXT_INSURANCE_NR.lazySet(currentMaxInsuranceNr + 1);
+
+    }
+
     //---------- CSVWritable metoder -----------
 
     @Override
