@@ -4,7 +4,7 @@ import models.customer.Customer;
 
 public class CustomerWriter implements WriteClassToCsv<Customer> {
     private final String[] CUSTOMER_HEADER =
-            {"Forsikringsnummer","Etternavn","Fornavn","Kunde siden","Fakturaadresse", "Ubetalte erstatninger"};
+            {"Forsikringsnummer", "Etternavn", "Fornavn", "Kunde siden", "Fakturaadresse", "Ubetalte erstatninger"};
 
     @Override
     public String generateHeader() {

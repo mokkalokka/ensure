@@ -1,9 +1,9 @@
 package controllers.insurance;
 
+import models.company.InsuranceCompany;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.insurance.Insurance;
-import models.company.InsuranceCompany;
 
 public class NewInsurance implements InsuranceState {
 

@@ -5,7 +5,6 @@ import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
 import models.exceptions.builderExceptions.*;
 
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
@@ -60,11 +59,10 @@ public class AccidentStatementBuilder {
         if (stringChecker.isEmptyOrNull(dateOfAccident)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
-        this.dateOfAccident = LocalDate.parse(dateOfAccident);
+        try {
+            this.dateOfAccident = LocalDate.parse(dateOfAccident);
 
-        }
-        catch (DateTimeException e){
+        } catch (DateTimeException e) {
             throw new InvalidDateFormatException(fieldName);
         }
         return this;
@@ -96,14 +94,13 @@ public class AccidentStatementBuilder {
         if (stringChecker.isEmptyOrNull(appraisalAmount)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
-        this.appraisalAmount = Double.parseDouble(appraisalAmount);
-            if(stringChecker.isNegative(appraisalAmount)){
+        try {
+            this.appraisalAmount = Double.parseDouble(appraisalAmount);
+            if (stringChecker.isNegative(appraisalAmount)) {
                 throw new InvalidPositiveDoubleException(fieldName);
             }
 
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidPositiveDoubleException(fieldName);
         }
         return this;
@@ -115,14 +112,13 @@ public class AccidentStatementBuilder {
         if (stringChecker.isEmptyOrNull(dispersedCompensation)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
-        this.dispersedCompensation = Double.parseDouble(dispersedCompensation);
-            if(stringChecker.isNegative(dispersedCompensation)){
+        try {
+            this.dispersedCompensation = Double.parseDouble(dispersedCompensation);
+            if (stringChecker.isNegative(dispersedCompensation)) {
                 throw new InvalidPositiveDoubleException(fieldName);
             }
 
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidPositiveDoubleException(fieldName);
         }
         return this;
@@ -133,9 +129,9 @@ public class AccidentStatementBuilder {
         return this;
     }
 
-    public AccidentStatement build(){
+    public AccidentStatement build() {
         //Dersom accidentNr ikke blir satt av en csv fil blir denne inkrementert
-        if (accidentNr == 0){
+        if (accidentNr == 0) {
             return new AccidentStatement(
                     registeredTo,
                     dateOfAccident,
@@ -155,7 +151,7 @@ public class AccidentStatementBuilder {
                 dispersedCompensation,
                 accidentNr,
                 listOfWitnesses
-                );
+        );
     }
 
 

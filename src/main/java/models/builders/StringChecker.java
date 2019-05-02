@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class StringChecker {
 
-    public boolean containsNumbers(String string){
+    public boolean containsNumbers(String string) {
         return string.matches(".*\\d.*");
     }
 
@@ -12,31 +12,28 @@ public class StringChecker {
         return (string == null || string.trim().isEmpty());
     }
 
-    public boolean validYear(int year){
+    public boolean validYear(int year) {
         Calendar now = Calendar.getInstance();
 
-        if(year > 1500 && now.get(Calendar.YEAR) > year) {
+        if (year > 1500 && now.get(Calendar.YEAR) > year) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    public boolean validBooleanString(String string){
-        if(string.toLowerCase().equals("true") || string.toLowerCase().equals("false")){
+    public boolean validBooleanString(String string) {
+        if (string.toLowerCase().equals("true") || string.toLowerCase().equals("false")) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public boolean isNegative(String string){
-        if(Double.parseDouble(string) < 0){
+    public boolean isNegative(String string) {
+        if (Double.parseDouble(string) < 0) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

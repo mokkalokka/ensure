@@ -2,7 +2,6 @@ package models.fileReader;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.exceptions.customerExceptions.NoSuchAccidentStatementException;

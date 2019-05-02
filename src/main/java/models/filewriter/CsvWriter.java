@@ -2,12 +2,11 @@ package models.filewriter;
 
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 import models.filewriter.classwriter.CustomerWriter;
 import models.insurance.Insurance;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +28,7 @@ public class CsvWriter extends FileWriterStrategy {
     public void writeFile() throws Exception {
         PrintWriter writer = null;
 
-        if(customerList.size() == 0){
+        if (customerList.size() == 0) {
             throw new NoCustomersFoundException();
         }
 
@@ -46,7 +45,7 @@ public class CsvWriter extends FileWriterStrategy {
                 listOfAllAccidentStatements.addAll(customer.getListOfAccidentStatements());
             }
 
-            for (AccidentStatement accidentStatement : listOfAllAccidentStatements){
+            for (AccidentStatement accidentStatement : listOfAllAccidentStatements) {
                 listOfAllWitnesses.addAll(accidentStatement.getListOfWitnesses());
             }
 
@@ -57,8 +56,7 @@ public class CsvWriter extends FileWriterStrategy {
                 if (i == 0) {
                     writer.println(insurance.getInsuranceName());
                     writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
-                }
-                else if (currentInsuranceIsDifferentType(insurance, listOfAllInsurances.get(i-1))) {
+                } else if (currentInsuranceIsDifferentType(insurance, listOfAllInsurances.get(i - 1))) {
                     writer.println(insurance.getInsuranceName());
                     writer.println(String.join(";", insurance.getFieldNamesAsStrings()));
                 }
@@ -67,19 +65,19 @@ public class CsvWriter extends FileWriterStrategy {
             }
 
             //Skriver ut alle skademeldinger
-            for(int i = 0; i< listOfAllAccidentStatements.size(); i++){
+            for (int i = 0; i < listOfAllAccidentStatements.size(); i++) {
                 AccidentStatement accidentStatement = listOfAllAccidentStatements.get(i);
-                if(i == 0){
+                if (i == 0) {
                     writer.println("Skademeldinger");
-                    writer.println(String.join(";",accidentStatement.getFieldNamesAsStrings()));
+                    writer.println(String.join(";", accidentStatement.getFieldNamesAsStrings()));
                 }
                 writer.println(String.join(";", accidentStatement.getFieldValuesAsStrings()));
             }
 
             //Skriver ut alle vitner
-            for(int i = 0; i< listOfAllWitnesses.size(); i++){
+            for (int i = 0; i < listOfAllWitnesses.size(); i++) {
                 Witness witness = listOfAllWitnesses.get(i);
-                if(i == 0){
+                if (i == 0) {
                     writer.println("Vitner");
                     writer.println(String.join(";", witness.getFieldNamesAsStrings()));
                 }

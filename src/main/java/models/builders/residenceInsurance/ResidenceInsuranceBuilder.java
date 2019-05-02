@@ -15,34 +15,32 @@ public abstract class ResidenceInsuranceBuilder extends InsuranceBuilder {
     private final StringChecker stringChecker = new StringChecker();
 
 
-    public ResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount)throws BuilderInputException {
+    public ResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) throws BuilderInputException {
         String fieldName = "Forsikringsbeløp bygning";
 
-        if(stringChecker.isEmptyOrNull(propertyInsuranceAmount)){
+        if (stringChecker.isEmptyOrNull(propertyInsuranceAmount)) {
             throw new EmptyFieldException(fieldName);
         }
 
-        try{
+        try {
             this.propertyInsuranceAmount = Double.parseDouble(propertyInsuranceAmount);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidPositiveIntegerException(fieldName);
         }
 
         return this;
     }
 
-    public ResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount)throws BuilderInputException {
+    public ResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) throws BuilderInputException {
         String fieldName = "Forsikringsbeløp innbo";
 
-        if(stringChecker.isEmptyOrNull(assetsInsuranceAmount)){
+        if (stringChecker.isEmptyOrNull(assetsInsuranceAmount)) {
             throw new EmptyFieldException(fieldName);
         }
 
-        try{
+        try {
             this.assetsInsuranceAmount = Double.parseDouble(assetsInsuranceAmount);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new InvalidPositiveIntegerException(fieldName);
         }
 

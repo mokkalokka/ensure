@@ -9,8 +9,8 @@ import java.time.format.DateTimeParseException;
 public abstract class InsuranceBuilder {
     protected int registeredTo;
     protected double annualPremium;
-    protected double total; // TODO: forsikringsbeløp, kanskje annet navn + hva er det forno?
-    protected String coverageDescription; // forsikringsbetingelser, ev. annet navn.
+    protected double total; // forsikringsbeløp
+    protected String coverageDescription; // forsikringsbetingelser
     protected LocalDate dateOfIssue = null;
     protected int insuranceID;
 
@@ -43,7 +43,7 @@ public abstract class InsuranceBuilder {
 
         try {
             this.annualPremium = Double.parseDouble(annualPremium);
-            if(stringChecker.isNegative(annualPremium)){
+            if (stringChecker.isNegative(annualPremium)) {
                 throw new InvalidPositiveDoubleException(fieldName);
             }
         } catch (NumberFormatException e) {
@@ -76,7 +76,7 @@ public abstract class InsuranceBuilder {
 
         try {
             this.total = Double.parseDouble(total);
-            if(stringChecker.isNegative(total)){
+            if (stringChecker.isNegative(total)) {
                 throw new InvalidPositiveDoubleException(fieldName);
             }
         } catch (NumberFormatException e) {

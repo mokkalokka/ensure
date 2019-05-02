@@ -52,7 +52,7 @@ public class AccidentStatement implements Serializable {
         this.listOfWitnesses = new ArrayList<>();
 
         //Legger til riktig accidentNr for hver av vitnene for å kunne lese/skrive csv
-        for(Witness witness : listOfWitnesses){
+        for (Witness witness : listOfWitnesses) {
             witness.setForAccidentStatement(this.accidentNr);
             this.listOfWitnesses.add(witness);
         }
@@ -82,6 +82,7 @@ public class AccidentStatement implements Serializable {
                 String.valueOf(accidentNr)
         ));
     }
+
     public ArrayList<String> getFieldNamesAsStrings() {
         return new ArrayList<>(Arrays.asList(
                 "Registrert til",
@@ -94,7 +95,7 @@ public class AccidentStatement implements Serializable {
     }
 
 
-    public String getInsuranceName(){
+    public String getInsuranceName() {
         return "Skademeldinger";
     }
 
@@ -110,7 +111,9 @@ public class AccidentStatement implements Serializable {
     }
 
 
-    public int getAccidentNr() { return accidentNr; }
+    public int getAccidentNr() {
+        return accidentNr;
+    }
 
     public LocalDate getDateOfAccident() {
         return dateOfAccident;

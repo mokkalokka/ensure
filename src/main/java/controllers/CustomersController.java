@@ -16,13 +16,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-import models.company.InsuranceCompany;
 
 import java.io.IOException;
-
 import java.time.LocalDate;
 
 public class CustomersController {
@@ -46,7 +45,7 @@ public class CustomersController {
     @FXML
     private TableColumn<Customer, String> clmnFirstName;
     @FXML
-    private TableColumn<Customer, LocalDate>  clmnCustomerSince;
+    private TableColumn<Customer, LocalDate> clmnCustomerSince;
     @FXML
     private TableColumn<Customer, String> clmnInvoiceAddress;
     @FXML
@@ -62,13 +61,13 @@ public class CustomersController {
         //Åpner vinduet i en ny popup og låser dette vinduet
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
-        } catch(IOException e) {
-            new ErrorDialog("Feil ved registrering av kunde",true).show();
+        } catch (IOException e) {
+            new ErrorDialog("Feil ved registrering av kunde", true).show();
         }
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
-    private Stage getCurrentStage(){
+    private Stage getCurrentStage() {
         return (Stage) anchorPane.getScene().getWindow();
     }
 
@@ -88,7 +87,6 @@ public class CustomersController {
     }
 
     private void openDetailedCustomer(Customer clickedCustomer) {
-        //TODO denne kan ikke forlopig implemnteres med windowhandler metoder
         try {
             //Last inn ny fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/view/detailedCustomer.fxml"));
@@ -166,19 +164,18 @@ public class CustomersController {
             aRow.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null));
+                            .otherwise((ContextMenu) null));
 
             //rad far listener paa museklikk
             aRow.setOnMouseClicked(mouseEvent -> {
                 //Hivs raden har innhold og klikket var et dobbeltklikk
-                if ((! aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
+                if ((!aRow.isEmpty() && mouseEvent.getClickCount() == 2)) {
                     //Kall pa dobleCliked med Customerobkjetet til raden
                     openDetailedCustomer(aRow.getItem());
                 }
             });
             return aRow;
         });
-
 
 
         //Soek i kunder
@@ -229,14 +226,13 @@ public class CustomersController {
 
     }
 
-    void setReadOnly(boolean isReadOnly){
+    void setReadOnly(boolean isReadOnly) {
         btnRegister.setDisable(isReadOnly);
 
-        if(isReadOnly){
+        if (isReadOnly) {
             //Kansellerer muligheten til å dobbeltklikke og høyreklikke på radene
             removeListenersFromTable(tblCustomer);
-        }
-        else{
+        } else {
             //Initialiserer tilbake listeners på tableview. Slik at man kan høyreklikke og dobbeltklikke igjen
             initialize();
         }

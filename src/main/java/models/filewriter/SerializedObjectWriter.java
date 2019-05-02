@@ -1,7 +1,6 @@
 package models.filewriter;
 
 import models.customer.Customer;
-import models.customer.CustomerList;
 import models.exceptions.fileExceptions.NoCustomersFoundException;
 
 import java.io.FileOutputStream;
@@ -16,7 +15,7 @@ public class SerializedObjectWriter extends FileWriterStrategy {
 
     @Override
     public void writeFile() throws Exception {
-        if(customerList.size() == 0){
+        if (customerList.size() == 0) {
             throw new NoCustomersFoundException();
         }
 

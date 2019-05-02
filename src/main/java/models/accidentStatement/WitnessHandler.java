@@ -3,7 +3,7 @@ package models.accidentStatement;
 import java.util.ArrayList;
 
 public class WitnessHandler {
-    private  ArrayList<Witness> temporaryListOfWitnesses = new ArrayList<>();
+    private ArrayList<Witness> temporaryListOfWitnesses = new ArrayList<>();
 
     public ArrayList<Witness> getTemporaryListOfWitnesses() {
         return temporaryListOfWitnesses;

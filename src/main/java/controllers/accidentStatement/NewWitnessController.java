@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
 import models.builders.WitnessBuilder;
-import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
@@ -40,23 +39,23 @@ public class NewWitnessController {
     }
 
     private Witness getNewWitness() throws BuilderInputException, InvalidCustomerException {
-            return new WitnessBuilder()
-                    .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
-                    .setFirstName(txtFirstName.getText())
-                    .setLastName(txtLastName.getText())
-                    .setContactInformation(txtContactInformation.getText())
-                    .build();
+        return new WitnessBuilder()
+                .setRegisteredTo(String.valueOf(curentCustomer.getInsuranceNr()))
+                .setFirstName(txtFirstName.getText())
+                .setLastName(txtLastName.getText())
+                .setContactInformation(txtContactInformation.getText())
+                .build();
     }
 
 
     @FXML
-    private void btnClose(){
+    private void btnClose() {
         Stage currentStage = getCurrentStage();
         currentStage.close();
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne lukke dette vinduet
-    private Stage getCurrentStage(){
+    private Stage getCurrentStage() {
         return (Stage) lblStatus.getScene().getWindow();
     }
 

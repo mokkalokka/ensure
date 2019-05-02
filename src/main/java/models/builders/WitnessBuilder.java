@@ -35,8 +35,7 @@ public class WitnessBuilder {
         String fieldName = "Etternavn";
         if (sc.isEmptyOrNull(lastName)) {
             throw new EmptyFieldException(fieldName);
-        }
-        else if (sc.containsNumbers(lastName)) {
+        } else if (sc.containsNumbers(lastName)) {
             throw new InvalidLastNameException();
         }
         this.lastName = lastName;
@@ -46,8 +45,7 @@ public class WitnessBuilder {
     public WitnessBuilder setFirstName(String firstName) throws BuilderInputException, InvalidFirstNameException {
         if (sc.isEmptyOrNull(firstName)) {
             throw new EmptyFieldException("Fornavn");
-        }
-        else if (sc.containsNumbers(firstName)) {
+        } else if (sc.containsNumbers(firstName)) {
             throw new InvalidFirstNameException();
         }
         this.firstName = firstName;
@@ -63,7 +61,6 @@ public class WitnessBuilder {
     }
 
 
-
     public Witness build() {
         if (forAccidentNr == 0) {
             return new Witness(
@@ -71,8 +68,7 @@ public class WitnessBuilder {
                     firstName,
                     lastName,
                     contactInformation);
-        }
-        else{
+        } else {
             return new Witness(
                     registeredTo,
                     firstName,
