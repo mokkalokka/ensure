@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="anchorPane" prefHeight="24.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ToolbarController">
-   <children>
-      <MenuBar prefHeight="29.0" prefWidth="900.0">
-        <menus>
-          <Menu fx:id="menu" mnemonicParsing="false" text="Fil">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#toolbarOpenFile" text="Åpne" />
-                  <MenuItem mnemonicParsing="false" onAction="#toolbarSaveAs" text="Lagre som ..." />
-              <MenuItem mnemonicParsing="false" onAction="#toolbarNewCustomer" text="Registrer ny kunde" />
-              <MenuItem mnemonicParsing="false" onAction="#toolbarClose" text="Lukk" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </children>
+<AnchorPane fx:id="anchorPane" prefHeight="24.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ToolbarController">
+    <children>
+        <MenuBar prefHeight="29.0" prefWidth="900.0">
+            <menus>
+                <Menu fx:id="menu" mnemonicParsing="false" text="Fil">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#toolbarOpenFile" text="Åpne"/>
+                        <MenuItem mnemonicParsing="false" onAction="#toolbarSaveAs" text="Lagre som ..."/>
+                        <MenuItem mnemonicParsing="false" onAction="#toolbarNewCustomer" text="Registrer ny kunde"/>
+                        <MenuItem mnemonicParsing="false" onAction="#toolbarClose" text="Lukk"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
 </AnchorPane>

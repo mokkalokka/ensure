@@ -43,6 +43,7 @@ public class Witness implements Serializable, CSVWritable {
                 String.valueOf(contactInformation)
         ));
     }
+
     public ArrayList<String> getFieldNamesAsStrings() {
         return new ArrayList<>(Arrays.asList(
                 "Registrert til",

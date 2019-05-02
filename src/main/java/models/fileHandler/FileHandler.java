@@ -6,6 +6,7 @@ import models.company.InsuranceCompany;
 import models.customer.Customer;
 import models.threading.FileReaderTask;
 import models.threading.FileWriterTask;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +27,7 @@ public class FileHandler {
         FileChooser fileChooser = new FileChooser();
 
         //Dersom man skal lese fra fil legges det til ett samlet filter for jobj og csv
-        if(readingFromFile) {
+        if (readingFromFile) {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                     "Java Object (*.jobj), " + "Comma-separated values (*.csv)",
                     "*.jobj", "*.csv");
@@ -36,12 +37,12 @@ public class FileHandler {
 
         //Dersom man skriver til fil legges det til to separate filter for csv og jobj
         //slik at brukeren kan velge filformat i listen istede for å skrive filtype manuelt
-        else{
+        else {
             FileChooser.ExtensionFilter extFilterCsv = new FileChooser.ExtensionFilter(
                     "Comma-separated values (*.csv)", "*.csv");
             FileChooser.ExtensionFilter extFilterJobj = new FileChooser.ExtensionFilter(
                     "Java Object (*.jobj)", "*.jobj");
-            fileChooser.getExtensionFilters().addAll(extFilterCsv,extFilterJobj);
+            fileChooser.getExtensionFilters().addAll(extFilterCsv, extFilterJobj);
         }
 
         return fileChooser;
@@ -55,7 +56,7 @@ public class FileHandler {
         ExecutorService service = Executors.newSingleThreadExecutor();
 
         //Oppretter en ny task
-        Task task = new FileWriterTask(path,fileExtension,customersToFile);
+        Task task = new FileWriterTask(path, fileExtension, customersToFile);
 
         //Starter task
         service.execute(task);

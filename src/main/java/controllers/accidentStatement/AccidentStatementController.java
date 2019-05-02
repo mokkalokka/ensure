@@ -13,10 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import models.accidentStatement.AccidentStatement;
 import models.accidentStatement.Witness;
 import models.builders.AccidentStatementBuilder;
 import models.customer.Customer;
-import models.accidentStatement.AccidentStatement;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
@@ -76,7 +76,7 @@ public class AccidentStatementController {
             aRow.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(aRow.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null));
+                            .otherwise((ContextMenu) null));
 
             return aRow;
         });

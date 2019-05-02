@@ -37,7 +37,7 @@ public class CSVWriter extends FileWriterStrategy {
     public void writeFile() throws IOException, NoCustomersFoundException {
         PrintWriter writer = null;
 
-        if(objectsToBeWritten.size() == 0) {
+        if (objectsToBeWritten.size() == 0) {
             throw new NoCustomersFoundException();
         }
 
@@ -50,8 +50,7 @@ public class CSVWriter extends FileWriterStrategy {
                 if (i == 0) {
                     writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
-                }
-                else if (objectsDifferInClass(writableObject, objectsToBeWritten.get(i-1))) {
+                } else if (objectsDifferInClass(writableObject, objectsToBeWritten.get(i - 1))) {
                     writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }

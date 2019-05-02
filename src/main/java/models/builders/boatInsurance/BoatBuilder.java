@@ -19,7 +19,7 @@ public class BoatBuilder {
     StringChecker stringChecker = new StringChecker();
 
     public BoatBuilder setRegistrationNr(String registrationNr) throws BuilderInputException {
-        if(stringChecker.isEmptyOrNull(registrationNr)){
+        if (stringChecker.isEmptyOrNull(registrationNr)) {
             throw new EmptyFieldException("RegistreringsNr");
         }
 
@@ -29,7 +29,7 @@ public class BoatBuilder {
     }
 
     public BoatBuilder setBoatType(String boatType) throws BuilderInputException {
-        if(stringChecker.isEmptyOrNull(boatType)){
+        if (stringChecker.isEmptyOrNull(boatType)) {
             throw new EmptyFieldException("Båttype");
         }
 
@@ -39,7 +39,7 @@ public class BoatBuilder {
     }
 
     public BoatBuilder setBoatModel(String boatModel) throws BuilderInputException {
-        if(stringChecker.isEmptyOrNull(boatModel)){
+        if (stringChecker.isEmptyOrNull(boatModel)) {
             throw new EmptyFieldException("Båtmodell");
         }
 
@@ -55,18 +55,16 @@ public class BoatBuilder {
 
     public BoatBuilder setLengthInft(String lengthInft) throws BuilderInputException {
         String fieldName = "Lengde i fot";
-        if(stringChecker.isEmptyOrNull(lengthInft)){
+        if (stringChecker.isEmptyOrNull(lengthInft)) {
             throw new EmptyFieldException(fieldName);
-        }
-        else{
+        } else {
             try {
                 this.lengthInft = Double.parseDouble(lengthInft);
-                if (stringChecker.isNegative(lengthInft)){
-                    throw new InvalidPositiveDoubleException(fieldName + ": "+ lengthInft + ",");
+                if (stringChecker.isNegative(lengthInft)) {
+                    throw new InvalidPositiveDoubleException(fieldName + ": " + lengthInft + ",");
                 }
-            }
-            catch (NumberFormatException e){
-                throw new InvalidPositiveDoubleException(fieldName + ": "+ lengthInft + ",");
+            } catch (NumberFormatException e) {
+                throw new InvalidPositiveDoubleException(fieldName + ": " + lengthInft + ",");
             }
         }
         return this;
@@ -77,24 +75,23 @@ public class BoatBuilder {
         int modelYearInt;
         String fieldName = "Årsmodell";
 
-        if(stringChecker.isEmptyOrNull(modelYear)){
+        if (stringChecker.isEmptyOrNull(modelYear)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
+        try {
             modelYearInt = Integer.parseInt(modelYear);
-            if(!stringChecker.validYear(modelYearInt)){
-                throw new InvalidYearException(fieldName + ": "+ modelYear + ",");
+            if (!stringChecker.validYear(modelYearInt)) {
+                throw new InvalidYearException(fieldName + ": " + modelYear + ",");
             }
-        }
-        catch (NumberFormatException e){
-            throw new InvalidYearException(fieldName + ": "+ modelYear + ",");
+        } catch (NumberFormatException e) {
+            throw new InvalidYearException(fieldName + ": " + modelYear + ",");
         }
         this.modelYear = modelYear;
         return this;
     }
 
     public BoatBuilder setEngineType(String engineType) throws BuilderInputException {
-        if(stringChecker.isEmptyOrNull(engineType)){
+        if (stringChecker.isEmptyOrNull(engineType)) {
             throw new EmptyFieldException("Motortype");
         }
         this.engineType = engineType;
@@ -104,23 +101,22 @@ public class BoatBuilder {
     public BoatBuilder setEngineHP(String engineHP) throws BuilderInputException {
         String fieldName = "Motorstyrke (HP)";
 
-        if(stringChecker.isEmptyOrNull(engineHP)){
+        if (stringChecker.isEmptyOrNull(engineHP)) {
             throw new EmptyFieldException(fieldName);
         }
-        try{
+        try {
             this.engineHP = Integer.parseInt(engineHP);
-            if(stringChecker.isNegative(engineHP)){
-                throw new InvalidPositiveIntegerException(fieldName + ": "+ engineHP + ",");
+            if (stringChecker.isNegative(engineHP)) {
+                throw new InvalidPositiveIntegerException(fieldName + ": " + engineHP + ",");
             }
 
-        }
-        catch (NumberFormatException e){
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ engineHP + ",");
+        } catch (NumberFormatException e) {
+            throw new InvalidPositiveIntegerException(fieldName + ": " + engineHP + ",");
         }
         return this;
     }
 
-    public Boat build(){
+    public Boat build() {
         return new Boat(
                 registrationNr,
                 boatType,

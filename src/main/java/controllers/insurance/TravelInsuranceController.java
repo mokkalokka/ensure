@@ -47,8 +47,7 @@ public class TravelInsuranceController extends InsuranceController {
     private void setLblCoverageArea(String insuranceType) {
         if (insuranceType.equals("STANDARD")) {
             lblCoverageArea.setText("Standard reisemål for reising opptil 30 dager.");
-        }
-        else if (insuranceType.equals("PREMIUM")) {
+        } else if (insuranceType.equals("PREMIUM")) {
             lblCoverageArea.setText("Standard og høyrisiko reisemål for reising i opptil 50 dager.");
         }
     }

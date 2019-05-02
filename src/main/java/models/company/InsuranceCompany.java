@@ -36,7 +36,7 @@ public class InsuranceCompany {
         customerList.remove(customerToRemove);
     }
 
-    public int getCustomerCount(){
+    public int getCustomerCount() {
         return customerList.size();
     }
 
@@ -49,10 +49,10 @@ public class InsuranceCompany {
         customerList.addAll(listOfCustomers);
     }
 
-    private boolean duplicateCustomer(Customer source){
-        for (Customer customer : customerList){
-            if(customer.getFirstName().equals(source.getFirstName()) && customer.getLastName().equals(source.getLastName()) &&
-                    customer.getInvoiceAddress().equals(source.getInvoiceAddress())){
+    private boolean duplicateCustomer(Customer source) {
+        for (Customer customer : customerList) {
+            if (customer.getFirstName().equals(source.getFirstName()) && customer.getLastName().equals(source.getLastName()) &&
+                    customer.getInvoiceAddress().equals(source.getInvoiceAddress())) {
                 return true;
             }
         }

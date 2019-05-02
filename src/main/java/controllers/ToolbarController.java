@@ -13,11 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.fileHandler.FileHandler;
+import models.company.InsuranceCompany;
 import models.customer.Customer;
+import models.fileHandler.FileHandler;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
-import models.company.InsuranceCompany;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +52,7 @@ public class ToolbarController {
         File file = fileChooser.showOpenDialog(null);
 
         //Dersom man har valgt en fil
-        if(file != null){
+        if (file != null) {
             String path = file.getPath();
             String fileExtension = fileHandler.findFileExtension(path);
             //Starter en ny tråd for lesing av fil og sender ved filtypen
@@ -63,14 +64,14 @@ public class ToolbarController {
         }
 
         //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
-        else{
+        else {
             new ErrorDialog("", "Ingen fil ble valgt")
-            .show();
+                    .show();
         }
     }
 
     @FXML
-    private void toolbarSaveAs(){
+    private void toolbarSaveAs() {
         FileHandler fileHandler = new FileHandler();
 
         Boolean readingFromFile = false;
@@ -81,7 +82,7 @@ public class ToolbarController {
         File file = fileChooser.showSaveDialog(null);
 
         //Dersom man har valgt en fil
-        if(file != null){
+        if (file != null) {
             String path = file.getPath();
             String fileExtension = fileHandler.findFileExtension(path);
             //Starter en ny tråd for skriving av fil og sender ved filtypen
@@ -93,14 +94,14 @@ public class ToolbarController {
         }
 
         //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
-        else{
+        else {
             new ErrorDialog("", "Ingen fil ble valgt")
-            .show();
+                    .show();
         }
     }
 
     //Denne metoden tegner ett vindu med progressbar programatisk
-    private void newProgressWindow(Task task, String title){
+    private void newProgressWindow(Task task, String title) {
 
         //Instansierer det nye vinduet og elementene som skal være med
         progressStage = new Stage();
@@ -142,16 +143,15 @@ public class ToolbarController {
     }
 
     private void waitForUpdates(Task task, Boolean readingFromFile) {
-        if (task != null){
+        if (task != null) {
             boolean isCritical = true;
             String succededTitle;
             String failedTitle;
 
-            if(readingFromFile){
+            if (readingFromFile) {
                 succededTitle = "Alle kunder er lastet inn";
                 failedTitle = "Feil ved lesing av fil";
-            }
-            else{
+            } else {
                 succededTitle = "Alle kunder er skrevet til fil";
                 failedTitle = "Feil ved skriving til fil";
             }
@@ -159,7 +159,7 @@ public class ToolbarController {
             //Når task for lesing/skriving er fullført
             task.setOnSucceeded(event -> {
                 //Dersom man har lest fra fil, legg disse kundene til i lista til forsikringsselskapet
-                if(readingFromFile){
+                if (readingFromFile) {
                     addCustomers((List<Customer>) task.getValue());
                 }
                 //Låser opp alle gui funksjoner
@@ -182,7 +182,7 @@ public class ToolbarController {
                 //Viser feilen som kommer fra task.getException() til skjerm ved ErrorDialog
                 new ErrorDialog(failedTitle,
                         task.getException().getMessage(), isCritical)
-                .show();
+                        .show();
             });
 
             //Dersom task blir avbrutt av bruker
@@ -190,18 +190,18 @@ public class ToolbarController {
                 // Låser opp gui funksjoner
                 setReadOnly(false);
 
-                new ErrorDialog("Avbrutt","Abrutt av bruker")
-                .show();
+                new ErrorDialog("Avbrutt", "Abrutt av bruker")
+                        .show();
             });
         }
     }
 
     //Legger til kundene fra fil inn i forsikringsselskapets liste dersom ingen feil har oppstått
-    private void addCustomers( List<Customer> customerListFromFile) {
+    private void addCustomers(List<Customer> customerListFromFile) {
         //Dersom lista er tom vis error
         if (customerListFromFile == null) {
             new ErrorDialog("Error", "Feil ved lesing fra fil")
-            .show();
+                    .show();
         }
         //Ellers, overskriv kundelista med den nye lista fra fil
         else {
@@ -211,7 +211,7 @@ public class ToolbarController {
 
     //Åpner vinduet for å legge til en ny kunde
     @FXML
-    private void toolbarNewCustomer(){
+    private void toolbarNewCustomer() {
         String pathToFXML = "/org/view/newCustomer.fxml";
         String stageTitle = "Registrer ny kunde";
         WindowHandler windowHandler = new WindowHandler();
@@ -225,12 +225,12 @@ public class ToolbarController {
     }
 
     //Finner nåværende stage ved hjelp av en fx:id for å kunne sette parent ved åpning av popup
-    private Stage getCurrentStage(){
+    private Stage getCurrentStage() {
         return (Stage) anchorPane.getScene().getWindow();
     }
 
     @FXML
-    private void toolbarClose(){
+    private void toolbarClose() {
         Platform.exit();
     }
 
@@ -240,7 +240,7 @@ public class ToolbarController {
     }
 
     // En metode som låser/låser opp gui elementer når man leser inn / skriver til fil
-    private void setReadOnly(boolean isReadOnly){
+    private void setReadOnly(boolean isReadOnly) {
         customersController.setReadOnly(isReadOnly);
         menu.setDisable(isReadOnly);
     }

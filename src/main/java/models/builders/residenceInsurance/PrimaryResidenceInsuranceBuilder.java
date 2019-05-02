@@ -3,6 +3,7 @@ package models.builders.residenceInsurance;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.residenceInsurance.PrimaryResidenceInsurance;
 import models.insurance.residenceInsurance.Residence;
+
 import java.time.LocalDate;
 
 
@@ -45,12 +46,12 @@ public class PrimaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilder 
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount)throws BuilderInputException  {
+    public PrimaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) throws BuilderInputException {
         super.setPropertyInsuranceAmount(propertyInsuranceAmount);
         return this;
     }
 
-    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount)throws BuilderInputException {
+    public PrimaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) throws BuilderInputException {
         super.setAssetsInsuranceAmount(assetsInsuranceAmount);
         return this;
     }
@@ -60,11 +61,11 @@ public class PrimaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilder 
         return this;
     }
 
-    public PrimaryResidenceInsurance build(){
+    public PrimaryResidenceInsurance build() {
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        if(insuranceID == 0){
+        if (insuranceID == 0) {
             return new PrimaryResidenceInsurance(
                     registeredTo,
                     annualPremium,
@@ -74,8 +75,7 @@ public class PrimaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilder 
                     propertyInsuranceAmount,
                     assetsInsuranceAmount,
                     dateOfIssue);
-        }
-        else{
+        } else {
             return new PrimaryResidenceInsurance(
                     registeredTo,
                     annualPremium,

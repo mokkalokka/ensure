@@ -32,7 +32,7 @@ public class CustomerBuilder {
         try {
             this.insuranceNr = Integer.parseInt(insuranceNr);
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName + ": "+ insuranceNr + ",");
+            throw new InvalidPositiveIntegerException(fieldName + ": " + insuranceNr + ",");
         }
         return this;
     }
@@ -40,8 +40,7 @@ public class CustomerBuilder {
     public CustomerBuilder setLastName(String lastName) throws InvalidLastNameException, EmptyFieldsException {
         if (sc.isEmptyOrNull(lastName)) {
             throw new EmptyFieldsException();
-        }
-        else if (sc.containsNumbers(lastName)) {
+        } else if (sc.containsNumbers(lastName)) {
             throw new InvalidLastNameException();
         }
         this.lastName = lastName;
@@ -51,8 +50,7 @@ public class CustomerBuilder {
     public CustomerBuilder setFirstName(String firstName) throws InvalidFirstNameException, EmptyFieldsException {
         if (sc.isEmptyOrNull(firstName)) {
             throw new EmptyFieldsException();
-        }
-        else if (sc.containsNumbers(firstName)) {
+        } else if (sc.containsNumbers(firstName)) {
             throw new InvalidFirstNameException();
         }
         this.firstName = firstName;
@@ -68,7 +66,7 @@ public class CustomerBuilder {
         try {
             this.customerSince = LocalDate.parse(customerSince);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException(fieldName + ": "+ customerSince + ",");
+            throw new InvalidDateFormatException(fieldName + ": " + customerSince + ",");
         }
         return this;
     }
@@ -90,10 +88,10 @@ public class CustomerBuilder {
         try {
             this.pendingCompensation = Double.parseDouble(pendingCompensation);
             if (sc.isNegative(pendingCompensation)) {
-                throw new InvalidPositiveDoubleException(fieldName + ": "+ pendingCompensation + ",");
+                throw new InvalidPositiveDoubleException(fieldName + ": " + pendingCompensation + ",");
             }
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveDoubleException(fieldName + ": "+ pendingCompensation + ",");
+            throw new InvalidPositiveDoubleException(fieldName + ": " + pendingCompensation + ",");
         }
         return this;
     }

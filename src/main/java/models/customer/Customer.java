@@ -67,7 +67,7 @@ public class Customer implements Serializable, CSVWritable {
         listOfInsurances.add(insurance);
     }
 
-    public void removeInsurance(Insurance insurance)  {
+    public void removeInsurance(Insurance insurance) {
         listOfInsurances.remove(insurance);
     }
 

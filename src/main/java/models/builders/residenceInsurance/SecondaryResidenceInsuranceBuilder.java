@@ -3,6 +3,7 @@ package models.builders.residenceInsurance;
 import models.exceptions.builderExceptions.BuilderInputException;
 import models.insurance.residenceInsurance.Residence;
 import models.insurance.residenceInsurance.SecondaryResidenceInsurance;
+
 import java.time.LocalDate;
 
 public class SecondaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilder {
@@ -43,12 +44,12 @@ public class SecondaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilde
         return this;
     }
 
-    public SecondaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount)throws BuilderInputException  {
+    public SecondaryResidenceInsuranceBuilder setPropertyInsuranceAmount(String propertyInsuranceAmount) throws BuilderInputException {
         super.setPropertyInsuranceAmount(propertyInsuranceAmount);
         return this;
     }
 
-    public SecondaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount)throws BuilderInputException {
+    public SecondaryResidenceInsuranceBuilder setAssetsInsuranceAmount(String assetsInsuranceAmount) throws BuilderInputException {
         super.setAssetsInsuranceAmount(assetsInsuranceAmount);
         return this;
     }
@@ -59,11 +60,11 @@ public class SecondaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilde
     }
 
 
-    public SecondaryResidenceInsurance build(){
+    public SecondaryResidenceInsurance build() {
         if (dateOfIssue == null) {
             dateOfIssue = LocalDate.now();
         }
-        if(insuranceID == 0){
+        if (insuranceID == 0) {
             return new SecondaryResidenceInsurance(
                     registeredTo,
                     annualPremium,
@@ -73,8 +74,7 @@ public class SecondaryResidenceInsuranceBuilder extends ResidenceInsuranceBuilde
                     propertyInsuranceAmount,
                     assetsInsuranceAmount,
                     dateOfIssue);
-        }
-        else{
+        } else {
             return new SecondaryResidenceInsurance(
                     registeredTo,
                     annualPremium,
