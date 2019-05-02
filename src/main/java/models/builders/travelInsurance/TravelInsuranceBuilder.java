@@ -76,11 +76,11 @@ public class TravelInsuranceBuilder extends InsuranceBuilder {
         try{
             this.maxCoverage = Double.parseDouble(maxCoverage);
             if(stringChecker.isNegative(maxCoverage)){
-                throw new InvalidPositiveDoubleException(fieldName);
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
             }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveDoubleException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName + ": "+ maxCoverage + ",");
         }
 
         return this;

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 import models.gui.ErrorDialog;
 import models.gui.WindowHandler;
@@ -101,12 +102,12 @@ public class DetailedCustomerController {
     private void btnSaveCustomer() {
         try {
             updateCustomer();
-        } catch (InvalidCustomerException e) {
+        } catch (InvalidCustomerException | BuilderInputException e) {
             new ErrorDialog("Feil ved lagring.", e.getMessage()).show();
         }
     }
 
-    private void updateCustomer() throws InvalidCustomerException {
+    private void updateCustomer() throws InvalidCustomerException, BuilderInputException {
         checkForValidInput();
         currentCustomer.setLastName(lblSurname.getText());
         currentCustomer.setFirstName(lblFirstName.getText());
@@ -115,7 +116,7 @@ public class DetailedCustomerController {
 
     }
 
-    private void checkForValidInput() throws InvalidCustomerException {
+    private void checkForValidInput() throws InvalidCustomerException, BuilderInputException {
         // Kaster exception hvis noen av feltene ikke er valid input.
         new CustomerBuilder()
                 .setLastName(lblSurname.getText())

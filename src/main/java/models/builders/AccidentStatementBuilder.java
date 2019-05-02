@@ -33,7 +33,7 @@ public class AccidentStatementBuilder {
         try {
             this.registeredTo = Integer.parseInt(registeredTo);
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ registeredTo + ",");
         }
 
         return this;
@@ -49,7 +49,7 @@ public class AccidentStatementBuilder {
         try {
             this.accidentNr = Integer.parseInt(accidentNr);
         } catch (NumberFormatException e) {
-            throw new InvalidPositiveIntegerException(fieldName);
+            throw new InvalidPositiveIntegerException(fieldName + ": "+ accidentNr + ",");
         }
 
         return this;
@@ -62,11 +62,10 @@ public class AccidentStatementBuilder {
             throw new EmptyFieldException(fieldName);
         }
         try{
-        this.dateOfAccident = LocalDate.parse(dateOfAccident);
-
+            this.dateOfAccident = LocalDate.parse(dateOfAccident);
         }
         catch (DateTimeException e){
-            throw new InvalidDateFormatException(fieldName);
+            throw new InvalidDateFormatException(fieldName + ": "+ dateOfAccident + ",");
         }
         return this;
     }
@@ -100,12 +99,12 @@ public class AccidentStatementBuilder {
         try{
         this.appraisalAmount = Double.parseDouble(appraisalAmount);
             if(stringChecker.isNegative(appraisalAmount)){
-                throw new InvalidPositiveDoubleException(fieldName);
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ appraisalAmount + ",");
             }
 
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveDoubleException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName + ": "+ appraisalAmount + ",");
         }
         return this;
     }
@@ -117,14 +116,14 @@ public class AccidentStatementBuilder {
             throw new EmptyFieldException(fieldName);
         }
         try{
-        this.dispersedCompensation = Double.parseDouble(dispersedCompensation);
-            if(stringChecker.isNegative(dispersedCompensation)){
-                throw new InvalidPositiveDoubleException(fieldName);
-            }
+            this.dispersedCompensation = Double.parseDouble(dispersedCompensation);
 
+            if(stringChecker.isNegative(dispersedCompensation)){
+                throw new InvalidPositiveDoubleException(fieldName + ": "+ dispersedCompensation + ",");
+            }
         }
         catch (NumberFormatException e){
-            throw new InvalidPositiveDoubleException(fieldName);
+            throw new InvalidPositiveDoubleException(fieldName + ": "+ dispersedCompensation + ",");
         }
         return this;
     }

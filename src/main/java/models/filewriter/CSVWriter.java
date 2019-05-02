@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CSVWriter extends FileWriterStrategy {
 
-    private List<CSVWritable> objToBeWritten = new ArrayList<>();
+    private List<CSVWritable> objectsToBeWritten = new ArrayList<>();
 
     public CSVWriter(String path, List<Customer> customerList) {
         super(path, customerList);
@@ -21,37 +21,37 @@ public class CSVWriter extends FileWriterStrategy {
 
     private void addObjectsToBeWritten(List<Customer> customerList) {
         customerList.forEach(customer -> {
-            objToBeWritten.add(customer);
-            objToBeWritten.addAll(customer.getListOfInsurances());
+            objectsToBeWritten.add(customer);
+            objectsToBeWritten.addAll(customer.getListOfInsurances());
 
             customer.getListOfAccidentStatements().forEach(accidentStatement -> {
-                objToBeWritten.add(accidentStatement);
-                objToBeWritten.addAll(accidentStatement.getListOfWitnesses());
+                objectsToBeWritten.add(accidentStatement);
+                objectsToBeWritten.addAll(accidentStatement.getListOfWitnesses());
             });
         });
 
-        objToBeWritten.sort(Comparator.comparingInt(CSVWritable::getWriteIndex));
+        objectsToBeWritten.sort(Comparator.comparingInt(CSVWritable::getWriteIndex));
     }
 
     @Override
     public void writeFile() throws IOException, NoCustomersFoundException {
         PrintWriter writer = null;
 
-        if(objToBeWritten.size() == 0) {
+        if(objectsToBeWritten.size() == 0) {
             throw new NoCustomersFoundException();
         }
 
         try {
-            writer = new PrintWriter(path, StandardCharsets.ISO_8859_1);
+            writer = new PrintWriter(path, StandardCharsets.UTF_8);
             writer.println("sep=;");
 
-            for (int i = 0; i < objToBeWritten.size(); i++) {
-                CSVWritable writableObject = objToBeWritten.get(i);
+            for (int i = 0; i < objectsToBeWritten.size(); i++) {
+                CSVWritable writableObject = objectsToBeWritten.get(i);
                 if (i == 0) {
                     writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }
-                else if (objectsDifferInClass(writableObject, objToBeWritten.get(i-1))) {
+                else if (objectsDifferInClass(writableObject, objectsToBeWritten.get(i-1))) {
                     writer.println(writableObject.getNameOfClass());
                     writer.println(generateHeaderFromObject(writableObject));
                 }

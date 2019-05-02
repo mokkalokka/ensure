@@ -2,11 +2,12 @@ package models.fileReader.parsers;
 
 import models.builders.CustomerBuilder;
 import models.customer.Customer;
+import models.exceptions.builderExceptions.BuilderInputException;
 import models.exceptions.customerExceptions.InvalidCustomerException;
 
 public class ParseCustomer {
 
-    public static Customer parseCustomer(String[] lineArray) throws InvalidCustomerException {
+    public static Customer parseCustomer(String[] lineArray) throws BuilderInputException, InvalidCustomerException {
         Customer parsedCustomer = new CustomerBuilder()
                 .setInsuranceNr(lineArray[0])
                 .setLastName(lineArray[1])
