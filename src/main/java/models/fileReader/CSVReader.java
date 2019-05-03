@@ -27,6 +27,7 @@ import java.util.List;
 public class CSVReader extends FileReaderStrategy {
     //Midlertidig liste som returneres dersom lesingen fullføres
     private ArrayList<Customer> loadedCustomers = new ArrayList<>();
+    private int currentLine;
 
     public CSVReader(String path) {
         super(path);
@@ -39,10 +40,12 @@ public class CSVReader extends FileReaderStrategy {
 
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
-        String currentClass = "Kunder";
+
+        //CSV filen starter alltid med kunder
+        String currentClassNameFromFile = "Kunder";
 
         //Hopper over linja som beskriver delimiter
-        String skipLine = br.readLine();
+        br.readLine();
 
         //currentLine brukes til å identifisere hvilke linje det har oppstått en feil
         double currentLine = 1;
@@ -55,14 +58,14 @@ public class CSVReader extends FileReaderStrategy {
             //Liste med strenger fra den nåværende linja, splittet av semikolon ;
             String[] lineArray = line.split(";");
 
-            //Hvis lengden på lista er 1, vil det si at denne linjen starter en ny klassse
+            //Hvis lengden på lista er 1, vil det si at denne linjen starter en ny klasse
             if (lineArray.length == 1) {
 
                 //Setter currentClass for å identifisere hvilken klasse man parser
-                currentClass = lineArray[0];
+                currentClassNameFromFile = lineArray[0];
 
                 // Hopper over klassebeskrivelsen
-                skipLine = br.readLine();
+                br.readLine();
 
                 //Leser neste linje som deretter skal parses
                 line = br.readLine();
@@ -70,87 +73,91 @@ public class CSVReader extends FileReaderStrategy {
                 currentLine += 2;
 
             }
-
-            //Her sorteres hva som skal parses ut i fra current class
-            switch (currentClass) {
-                case Customer.nameOfClass:
-                    //Dersom det er 6 strenger i lista, parse kunden
-                    if (lineArray.length == 6) {
-                        loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
-                    } else {
-                        //Dersom det er feil antall strenger, kast exception og legg ved nåværende klasse
-                        //og linje for å vise dette i feilmeldingen
-                        throw new InvalidLineLengthException("kunde", (int) currentLine);
-                    }
-                    break;
-
-                case BoatInsurance.nameOfClass:
-                    if (lineArray.length == 14) {
-                        addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
-                    } else {
-                        throw new InvalidLineLengthException("båtforsikring", (int) currentLine);
-                    }
-                    break;
-
-
-                case PrimaryResidenceInsurance.nameOfClass:
-                    if (lineArray.length == 14) {
-                        addInsuranceToLoadedCustomers(
-                                ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
-                    } else {
-                        throw new InvalidLineLengthException("husforsikring", (int) currentLine);
-                    }
-
-                    break;
-
-                case SecondaryResidenceInsurance.nameOfClass:
-                    if (lineArray.length == 14) {
-                        addInsuranceToLoadedCustomers(
-                                ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
-                    } else {
-                        throw new InvalidLineLengthException("fritidsboligforsikring", (int) currentLine);
-                    }
-
-                    break;
-
-                case TravelInsurance.nameOfClass:
-                    if (lineArray.length == 8) {
-                        addInsuranceToLoadedCustomers(
-                                ParseTravelInsurance.parseTravelInsurance(lineArray));
-                    } else {
-                        throw new InvalidLineLengthException("reiseforsikring", (int) currentLine);
-                    }
-                    break;
-
-
-                case AccidentStatement.nameOfClass:
-                    if (lineArray.length == 7) {
-                        addAccidentStatementToLoadedCustomers(
-                                ParseAccidentStatement.parseAccidentStatement(lineArray));
-                    } else {
-                        throw new InvalidLineLengthException("skademelding", (int) currentLine);
-                    }
-
-                    break;
-
-                case Witness.nameOfClass:
-                    if (lineArray.length == 5) {
-                        addWitnessToLoadedCustomers(
-                                ParseWitness.parseWitness(lineArray));
-
-                    } else {
-                        throw new InvalidLineLengthException("vitner", (int) currentLine);
-                    }
-                    break;
-                default:
-                    //Kaster exception dersom currentClass ikke er riktig
-                    throw new InvalidClassDescriptionException(currentClass, (int) currentLine - 2);
-
-            }
-
+            identifyAndParseClass(lineArray, currentClassNameFromFile);
         }
         br.close();
+        //Returnerer listen med kunder dersom ingen feil har oppstått
         return loadedCustomers;
+    }
+
+    private void identifyAndParseClass(String[] lineArray, String currentClassNameFromFile) throws InvalidCustomerException,
+            BuilderInputException, FileHandlingExceptions{
+        //Her sorteres hva som skal parses ut i fra current class
+        switch (currentClassNameFromFile) {
+            case Customer.nameOfClass:
+                //Dersom det er 6 strenger i lista, parse kunden
+                if (lineArray.length == 6) {
+                    loadedCustomers.add(ParseCustomer.parseCustomer(lineArray));
+                } else {
+                    //Dersom det er feil antall strenger, kast exception og legg ved nåværende klasse
+                    //og linje for å vise dette i feilmeldingen
+                    throw new InvalidLineLengthException("kunde", currentLine);
+                }
+                break;
+
+            case BoatInsurance.nameOfClass:
+                if (lineArray.length == 14) {
+                    addInsuranceToLoadedCustomers(ParseBoatInsurance.parseBoatInsurance(lineArray));
+                } else {
+                    throw new InvalidLineLengthException("båtforsikring", currentLine);
+                }
+                break;
+
+
+            case PrimaryResidenceInsurance.nameOfClass:
+                if (lineArray.length == 14) {
+                    addInsuranceToLoadedCustomers(
+                            ParsePrimaryResidenceInsurance.parsePrimaryResidenceInsurance(lineArray));
+                } else {
+                    throw new InvalidLineLengthException("husforsikring", currentLine);
+                }
+
+                break;
+
+            case SecondaryResidenceInsurance.nameOfClass:
+                if (lineArray.length == 14) {
+                    addInsuranceToLoadedCustomers(
+                            ParseSecondaryResidenceInsurance.parseSecondaryResidenceInsurance(lineArray));
+                } else {
+                    throw new InvalidLineLengthException("fritidsboligforsikring", currentLine);
+                }
+
+                break;
+
+            case TravelInsurance.nameOfClass:
+                if (lineArray.length == 8) {
+                    addInsuranceToLoadedCustomers(
+                            ParseTravelInsurance.parseTravelInsurance(lineArray));
+                } else {
+                    throw new InvalidLineLengthException("reiseforsikring", currentLine);
+                }
+                break;
+
+
+            case AccidentStatement.nameOfClass:
+                if (lineArray.length == 7) {
+                    addAccidentStatementToLoadedCustomers(
+                            ParseAccidentStatement.parseAccidentStatement(lineArray));
+                } else {
+                    throw new InvalidLineLengthException("skademelding", currentLine);
+                }
+
+                break;
+
+            case Witness.nameOfClass:
+                if (lineArray.length == 5) {
+                    addWitnessToLoadedCustomers(
+                            ParseWitness.parseWitness(lineArray));
+
+                } else {
+                    throw new InvalidLineLengthException("vitner", currentLine);
+                }
+                break;
+            default:
+                //Kaster exception dersom currentClass ikke er riktig
+                throw new InvalidClassDescriptionException(currentClassNameFromFile, currentLine - 2);
+
+        }
     }
 
     private void addInsuranceToLoadedCustomers(Insurance insurance) throws NoSuchCustomerException {
