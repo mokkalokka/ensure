@@ -46,7 +46,7 @@ public class ToolbarController {
 
         boolean readingFromFile = true;
         //Henter en ny filvelger som har filter i henhold til at man leser fra fil
-        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFilters(readingFromFile);
+        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFiltersForReading();
         fileChooser.setTitle("Åpne fil");
         //Definerer filen som skal leses via en filvalg vindu
         File file = fileChooser.showOpenDialog(null);
@@ -60,7 +60,7 @@ public class ToolbarController {
             newProgressWindow(task, "Leser fra fil...");
             //Låser gui elementer
             setReadOnly(true);
-            waitForUpdates(task, readingFromFile);
+            waitForUpdatesFromTask(task, readingFromFile);
         }
 
         //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
@@ -76,7 +76,7 @@ public class ToolbarController {
 
         Boolean readingFromFile = false;
         //Henter en ny filvelger som har filter i henhold til at man lagrer til fil
-        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFilters(readingFromFile);
+        FileChooser fileChooser = fileHandler.fileChooserWithExtensionFiltersForWriting();
         fileChooser.setTitle("Lagre som...");
         //Definerer filen som skal leses via en filvalg vindu
         File file = fileChooser.showSaveDialog(null);
@@ -90,7 +90,7 @@ public class ToolbarController {
             newProgressWindow(task, "Skriver til fil...");
             //Låser gui elementer
             setReadOnly(true);
-            waitForUpdates(task, readingFromFile);
+            waitForUpdatesFromTask(task, readingFromFile);
         }
 
         //Dersom fileChooser vinduet blir lukket uten å velge en fil vis feilmeldingen
@@ -142,19 +142,11 @@ public class ToolbarController {
 
     }
 
-    private void waitForUpdates(Task task, Boolean readingFromFile) {
+    private void waitForUpdatesFromTask(Task task, Boolean readingFromFile) {
         if (task != null) {
             boolean isCritical = true;
-            String succededTitle;
-            String failedTitle;
-
-            if (readingFromFile) {
-                succededTitle = "Alle kunder er lastet inn";
-                failedTitle = "Feil ved lesing av fil";
-            } else {
-                succededTitle = "Alle kunder er skrevet til fil";
-                failedTitle = "Feil ved skriving til fil";
-            }
+            String succededTitle = getSuccededTitle(readingFromFile);
+            String failedTitle = getFailedTitle(readingFromFile);
 
             //Når task for lesing/skriving er fullført
             task.setOnSucceeded(event -> {
@@ -196,6 +188,24 @@ public class ToolbarController {
         }
     }
 
+    private String getSuccededTitle(boolean readingFromFile){
+        if (readingFromFile) {
+            return "Alle kunder er lastet inn";
+
+        } else {
+            return "Alle kunder er skrevet til fil";
+        }
+    }
+
+    private String getFailedTitle(boolean readingFromFile){
+        if (readingFromFile) {
+            return "Feil ved lesing av fil";
+
+        } else {
+            return "Feil ved skriving til fil";
+        }
+    }
+
     //Legger til kundene fra fil inn i forsikringsselskapets liste dersom ingen feil har oppstått
     private void addCustomers(List<Customer> customerListFromFile) {
         //Dersom lista er tom vis error
@@ -218,9 +228,9 @@ public class ToolbarController {
         try {
             windowHandler.openNewStageAndLockCurrent(getCurrentStage(), pathToFXML, stageTitle);
         } catch (IOException e) {
-            ErrorDialog errorDialog = new ErrorDialog("Feil ved innlasting av vindu",
-                    "Finner ikke filen til vinduet", true);
-            errorDialog.show();
+            new ErrorDialog("Feil ved innlasting av vindu",
+                    "Finner ikke filen til vinduet", true)
+                    .show();
         }
     }
 
